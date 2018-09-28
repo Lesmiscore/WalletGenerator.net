@@ -338,9 +338,9 @@ Walletgenerator.net use the same security measures as the original project. All-
             Donation are always welcome, but you can also help us translate the website. It's really easy. Just add "?i18nextract=LANGUAGECODE" in the end of the url (for instance http://walletgenerator.net/?i18nextract=es for Spanish). You will see at the end of the page a pre-filled javascript array ready to be translated. Translate or correct it, and send it to us the way you prefer. Even partial translation are helpful !
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226; MONA only: private keys imported to Electrum-mona seemingly works but it's broken !</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226; private keys imported to Electrum (and its derivation) seemingly works but it's broken !</a></h3>
           <p class="faqAnswer" id="faqQuestion12">
-              This occurs if you're using private key starting with "6". (in WIF format) Electrum-mona recognizes ALL private keys as it is compressed, so importing uncompressed ones breaks the wallet. Use "Wallet Details" tab to convert your private keys.
+              This occurs if you're using private key is uncompressed. (in WIF format) Electrum recognizes ALL private keys as it is compressed, so importing uncompressed ones breaks the wallet. Use "Wallet Details" tab to convert your private keys.
           </p>
 
         </div>
