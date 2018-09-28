@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- stable
+before_script:
+- npm i
+- npm i -g grunt
+- grunt
+- mkdir public
+- mv index.html public
+deploy:
+  local_dir: public
+  provider: pages
+  skip-cleanup: true
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+branch: master
