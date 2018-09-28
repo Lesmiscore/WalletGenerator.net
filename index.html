@@ -9308,6 +9308,23 @@ function QRCodeScanner(width, height, container, success, error) {
 }
 
   </script>
+  <script type="text/javascript">
+function printMany() {
+    var i = 10;
+
+    function exec() {
+        ninja.wallets.paperwallet.build(document.getElementById('paperpassphrase').value);
+        setTimeout(function () {
+            window.print();
+            if (--i > 0) {
+                exec();
+            }
+        }, 100);
+    }
+
+    exec();
+}
+  </script>
   <style type="text/css">
 .more { background: url("./images/plus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
 .less { background: url("./images/minus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
@@ -9890,7 +9907,10 @@ Walletgenerator.net use the same security measures as the original project. All-
             <input placeholder="Enter your own WIF private key" id="suppliedPrivateKey" name="suppliedPrivateKey" spellcheck="false" />&nbsp;
             <input type="button" id="papergenerate" value="Apply &raquo;" onClick="ninja.wallets.paperwallet.testAndApplyVanityKey();" />
 
-            <span class="print"><input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" /></span>
+            <span class="print">
+              <input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" />
+              <input type="button" name="printmany" value="Print Many" id="singleprint" onclick="printMany();" />
+            </span>
           </div>
 
         </div>

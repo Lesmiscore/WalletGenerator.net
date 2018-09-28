@@ -113,6 +113,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <script type="text/javascript">
 //jsqrcode.js
   </script>
+  <script type="text/javascript">
+//misc.js
+  </script>
   <style type="text/css">
 /*main.css*/
   </style>
@@ -350,7 +353,10 @@ Walletgenerator.net use the same security measures as the original project. All-
             <input placeholder="Enter your own WIF private key" id="suppliedPrivateKey" name="suppliedPrivateKey" spellcheck="false" />&nbsp;
             <input type="button" id="papergenerate" value="Apply &raquo;" onClick="ninja.wallets.paperwallet.testAndApplyVanityKey();" />
 
-            <span class="print"><input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" /></span>
+            <span class="print">
+              <input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" />
+              <input type="button" name="printmany" value="Print Many" id="singleprint" onclick="printMany();" />
+            </span>
           </div>
 
         </div>

@@ -39,6 +39,7 @@ module.exports = function (grunt) {
           {token: "//qrcode.js", file: "./src/qrcode.js"},
           {token: "//securerandom.js", file: "./src/securerandom.js"},
           {token: "//janin.currency.js", file: "./src/janin.currency.js"},
+          {token: "//misc.js", file: "./src/misc.js"},
           {token: "/\\*main.css\\*/", file: "./src/main.css"}
         ]
       },
