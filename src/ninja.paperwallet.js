@@ -87,6 +87,7 @@ ninja.wallets.paperwallet = {
 		}
 		else {
 			var key = new Bitcoin.ECKey(false);
+			key.setCompressed(true);
 			var bitcoinAddress = key.getBitcoinAddress();
 			var privateKeyWif = key.getBitcoinWalletImportFormat();
 
