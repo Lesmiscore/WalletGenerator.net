@@ -6,7 +6,7 @@ before_script:
 - npm i -g grunt
 - grunt
 - mkdir public
-- mv index.html public
+- mv logos images wallets index.html public
 deploy:
   local_dir: public
   provider: pages
