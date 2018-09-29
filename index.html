@@ -10427,9 +10427,7 @@ Walletgenerator.net use the same security measures as the original project. All-
 
 	window.Doge = Doge;
 
-}(window));
-  </script>
-  <script type="text/javascript">
+}(window));;
 var janin = {};
 
 janin.currency = {
@@ -10725,9 +10723,7 @@ janin.currencies = [
     janin.currency.createCurrency ("Testnet PIVX",        0x8b, 0xef, "9",    "c"    , null),
     janin.currency.createCurrency ("Testnet WACoins",     0x51, 0xd1, "8",    "[XY]" , null)
                    ];
-
-  </script>
-  <script type="text/javascript">
+;
 var ninja = { wallets: {} };
 
 ninja.privateKey = {
@@ -11077,9 +11073,7 @@ ninja.publicKey = {
 		var pubHexUncompressed = ninja.publicKey.getHexFromByteArray(pubByteArray);
 		return pubHexUncompressed;
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 	ninja.seeder = {
 		init: (function () {
 			document.getElementById("generatekeyinput").value = "";
@@ -11353,9 +11347,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
 ninja.toggleFaqQuestion = function (elementId) {
 	var answerDiv = document.getElementById(elementId);
 	answerDiv.style.display = answerDiv.style.display == "block" ? "none" : "block";
-};
-  </script>
-  <script type="text/javascript">
+};;
 ninja.translator = {
 	currentCulture: "en",
 
@@ -12313,9 +12305,7 @@ ninja.translator = {
 },
 	}
 };
-
-  </script>
-  <script type="text/javascript">
+;
 ninja.wallets.singlewallet = {
 	open: function () {
 		if (document.getElementById("btcaddress").innerHTML == "") {
@@ -12355,9 +12345,7 @@ ninja.wallets.singlewallet = {
 			document.getElementById("qrcode_private").innerHTML = "";
 		}
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 ninja.wallets.paperwallet = {
 	open: function () {
 		document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div
@@ -12525,9 +12513,7 @@ ninja.wallets.paperwallet = {
 			document.getElementById("paperkeyarea").style.fontSize = "95%";
 		}
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 ninja.wallets.bulkwallet = {
 	open: function () {
 		document.getElementById("bulkarea").style.display = "block";
@@ -12600,9 +12586,7 @@ ninja.wallets.bulkwallet = {
 			document.getElementById("bulke" + faqNum).setAttribute("class", "less");
 		}
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 ninja.wallets.brainwallet = {
 	open: function () {
 		document.getElementById("brainarea").style.display = "block";
@@ -12666,9 +12650,7 @@ ninja.wallets.brainwallet = {
 			document.getElementById("brainlabelconfirm").style.visibility = "visible";
 		}
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 ninja.wallets.detailwallet = {
 	qrscanner: {
 		scanner: null,
@@ -12854,9 +12836,7 @@ ninja.wallets.detailwallet = {
 		document.getElementById("detailbip38commands").style.display = "none";
 		document.getElementById("detailbip38").style.display = "none";
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 ninja.wallets.donate = {
     open: function () {
         document.getElementById("donatearea").style.display = "block";
@@ -12874,9 +12854,7 @@ ninja.wallets.donate = {
         document.getElementById("donateqrcode").style.display = "block";
         document.getElementById("donateqrcode").style.top = (e.offsetTop+15) + 'px';
     }
-};
-  </script>
-  <script type="text/javascript">
+};;
 (function (ninja) {
 	var ut = ninja.unitTests = {
 		runSynchronousTests: function () {
@@ -13470,9 +13448,7 @@ ninja.wallets.donate = {
 			}
 		}
 	};
-})(ninja);
-  </script>
-  <script type="text/javascript">
+})(ninja);;
 // change language
 if (ninja.getQueryString()["culture"] != undefined) {
 	ninja.translator.translate(ninja.getQueryString()["culture"]);
