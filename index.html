@@ -110,9 +110,7 @@ if (!Array.prototype.map) {
 		// 9. return A  
 		return A;
 	};
-}
-  </script>
-  <script type="text/javascript">
+};
 /*!
 * Crypto-JS v2.5.4	Crypto.js
 * http://code.google.com/p/crypto-js/
@@ -261,9 +259,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 		};
 
 	})();
-}
-  </script>
-  <script type="text/javascript">
+};
 /*!
 * Crypto-JS v2.5.4	SHA256.js
 * http://code.google.com/p/crypto-js/
@@ -398,9 +394,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	SHA256._digestsize = 32;
 
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*!
 * Crypto-JS v2.5.4	PBKDF2.js
 * http://code.google.com/p/crypto-js/
@@ -454,9 +448,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	};
 
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*!
 * Crypto-JS v2.5.4	HMAC.js
 * http://code.google.com/p/crypto-js/
@@ -499,9 +491,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	};
 
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*!
 * Crypto-JS v2.5.4	AES.js
 * http://code.google.com/p/crypto-js/
@@ -908,9 +898,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 
 	};
 
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*!
 * Crypto-JS 2.5.4 BlockModes.js
 * contribution from Simon Greatrix
@@ -1320,9 +1308,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	};
 	CTR_prototype._doDecrypt = CTR_prototype._doEncrypt;
 
-})(Crypto);
-  </script>
-  <script type="text/javascript">
+})(Crypto);;
 /*!
 * Crypto-JS v2.0.0  RIPEMD-160
 * http://code.google.com/p/crypto-js/
@@ -1486,9 +1472,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	function bit_rol(num, cnt) {
 		return (num << cnt) | (num >>> (32 - cnt));
 	}
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*!
 * Random number generator with ArcFour PRNG
 * 
@@ -1675,9 +1659,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 			sr.seedInt8(entropyBytes[i]);
 		}
 	}
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 //https://raw.github.com/bitcoinjs/bitcoinjs-lib/faa10f0f6a1fff0b9a99fffb9bc30cee33b17212/src/ecdsa.js
 /*!
 * Basic Javascript Elliptic Curve implementation
@@ -2346,9 +2328,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 		if (ec.secNamedCurves[name] == undefined) return null;
 		return ec.secNamedCurves[name]();
 	}
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*!
 * Basic JavaScript BN library - subset useful for RSA encryption. v1.3
 * 
@@ -3619,9 +3599,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 	// r = x^2 mod m; x != r
 	Barrett.prototype.sqrTo = function (x, r) { x.squareTo(r); this.reduce(r); };
 
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 //---------------------------------------------------------------------
 // QRCode for JavaScript
 //
@@ -4655,9 +4633,7 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 			this.length++;
 		}
 	};
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*
 Copyright (c) 2011 Stefan Thomas
 
@@ -4673,9 +4649,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	var Bitcoin = exports;
 })(
 	'object' === typeof module ? module.exports : (window.Bitcoin = {})
-);
-  </script>
-  <script type="text/javascript">
+);;
 //https://raw.github.com/bitcoinjs/bitcoinjs-lib/c952aaeb3ee472e3776655b8ea07299ebed702c7/src/base58.js
 (function (Bitcoin) {
 	Bitcoin.Base58 = {
@@ -4747,9 +4721,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	var B58 = Bitcoin.Base58;
 })(
 	'undefined' != typeof Bitcoin ? Bitcoin : module.exports
-);
-  </script>
-  <script type="text/javascript">
+);;
 //https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/address.js
 Bitcoin.Address = function (bytes) {
 	if ("string" == typeof bytes) {
@@ -4800,9 +4772,7 @@ Bitcoin.Address.decodeString = function (string) {
 	}
 
 	return hash;
-};
-  </script>
-  <script type="text/javascript">
+};;
 //https://raw.github.com/bitcoinjs/bitcoinjs-lib/e90780d3d3b8fc0d027d2bcb38b80479902f223e/src/ecdsa.js
 Bitcoin.ECDSA = (function () {
 	var ecparams = EllipticCurve.getSECCurveByName("secp256k1");
@@ -5085,9 +5055,7 @@ Bitcoin.ECDSA = (function () {
 	};
 
 	return ECDSA;
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 //https://raw.github.com/pointbiz/bitcoinjs-lib/9b2f94a028a7bc9bed94e0722563e9ff1d8e8db8/src/eckey.js
 Bitcoin.ECKey = (function () {
 	var ECDSA = Bitcoin.ECDSA;
@@ -5353,9 +5321,7 @@ Bitcoin.ECKey = (function () {
 	};
 
 	return ECKey;
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 //https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/util.js
 // Bitcoin utility functions
 Bitcoin.Util = {
@@ -5460,9 +5426,7 @@ Bitcoin.Util = {
 	dsha256: function (data) {
 		return Crypto.SHA256(Crypto.SHA256(data, { asBytes: true }), { asBytes: true });
 	}
-};
-  </script>
-  <script type="text/javascript">
+};;
 /*
 * Copyright (c) 2010-2011 Intalio Pte, All Rights Reserved
 * 
@@ -5757,9 +5721,7 @@ Bitcoin.Util = {
 			}
 		} // scryptCore
 	}; // window.Crypto_scrypt
-})();
-  </script>
-  <script type="text/javascript">
+})();;
 /*
   Ported to JavaScript by Lazar Laszlo 2011 
   
@@ -9306,9 +9268,7 @@ function QRCodeScanner(width, height, container, success, error) {
 	}
 	this.stop = stop;
 }
-
-  </script>
-  <script type="text/javascript">
+;
 function printMany() {
     var i = 10;
 
