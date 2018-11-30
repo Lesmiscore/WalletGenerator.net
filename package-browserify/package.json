@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "browserify": "browserify",
-    "bitcoinjs-lib": "browserify bitcoinjs-lib.js -o ../src/bitcoinjs-lib.new.js"
+    "start": "browserify exports.js -o ../src/exported.js"
   },
   "keywords": [],
   "author": "",
