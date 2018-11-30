@@ -15,6 +15,10 @@
   "keywords": [
     "bitcoin address wallet generator"
   ],
+  "scripts": {
+    "init": "npm i;cd package-browserify/;npm i",
+    "start": "cd package-browserify/;npm start;cd ../;grunt"
+  },
   "author": "MichaelMure",
   "license": "MIT",
   "readmeFilename": "README.md",

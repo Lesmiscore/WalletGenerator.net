@@ -17,9 +17,11 @@ ninja.wallets.singlewallet = {
 	// generate bitcoin address and private key and update information in the HTML
 	generateNewAddressAndKey: function () {
 		try {
-			var key = new Bitcoin.ECKey(false);
-			var bitcoinAddress = key.getBitcoinAddress();
-			var privateKeyWif = key.getBitcoinWalletImportFormat();
+			var key = bitcoin.ECKey.makeRandom({
+				network: janin.selectedCurrency
+			});
+			var bitcoinAddress = key.getAddress();
+			var privateKeyWif = key.toWIF();
 			document.getElementById("btcaddress").innerHTML = bitcoinAddress;
 			document.getElementById("btcprivwif").innerHTML = privateKeyWif;
 			var keyValuePair = {
@@ -27,8 +29,7 @@ ninja.wallets.singlewallet = {
 				"qrcode_private": privateKeyWif
 			};
 			ninja.qrCode.showQrCode(keyValuePair, 4);
-		}
-		catch (e) {
+		} catch (e) {
 			// browser does not have sufficient JavaScript support to generate a bitcoin address
 			alert(e);
 			document.getElementById("btcaddress").innerHTML = "error";

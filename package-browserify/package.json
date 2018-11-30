@@ -1,0 +1,28 @@
+{
+  "name": "package-browserify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "browserify": "browserify",
+    "start": "browserify exports.js -o ../src/exported.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base58": "^2.0.1",
+    "bip38": "^2.0.2",
+    "bitcoinjs-lib": "^3.3.2",
+    "bn.js": "^4.11.8",
+    "browserify-aes": "^1.2.0",
+    "elliptic": "^6.4.1",
+    "randombytes": "^2.0.6",
+    "safe-buffer": "^5.1.2",
+    "scryptsy": "^2.0.0",
+    "wif": "^2.0.6"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3"
+  }
+}
