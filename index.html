@@ -35695,6 +35695,10 @@ function printMany() {
 
     exec();
 }
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^=!:${}()|[\]\/\\]/g, Buffer.from("5c2426", 'hex').toString('utf8'));
+}
   </script>
   <style type="text/css">
 .more { background: url("./images/plus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
@@ -37157,12 +37161,37 @@ ninja.privateKey = {
 		var testValue = function (buffer) {
 			if (buffer.length != 32)
 				return false;
-			var n = elliptic.curves.secp256k1.curve.n;
+			var n = bigi.fromByteArrayUnsigned(elliptic.curves.secp256k1.curve.n.toArray());
 			var scalar = bigi.fromByteArrayUnsigned(buffer);
 			return n.compareTo(scalar) > 0;
 		}
 		// TODO: support mini key
 		return testValue(Buffer.from(key, 'hex')) || testValue(Buffer.from(key, 'base64'));
+	},
+	decodePrivateKey: function (key) {
+		if (!ninja.privateKey.isPrivateKey(key)) {
+			return null;
+		}
+		// WIF/CWIF
+		try {
+			return bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
+		} catch (error) {}
+		// Base64/Hex
+		function tryBy(enc) {
+			try {
+				var buf = Buffer.from(key, enc);
+				if (new RegExp("^" + escapeRegExp(key) + "$", 'i').test(buf.toString(enc))) {
+					return new bitcoin.ECPair(bigi.fromByteArrayUnsigned(buf), null, {
+						network: janin.selectedCurrency,
+						compressed: true
+					});
+				}
+			} catch (error) {}
+		}
+		var hex = tryBy("hex");
+		if (hex) return hex;
+		var base64 = tryBy("base64");
+		if (base64) return base64;
 	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
@@ -39066,11 +39095,8 @@ ninja.wallets.detailwallet = {
 				}
 			});
 		} else {
-			var btcKey;
-			try {
-				btcKey = bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
-			} catch (error) {}
-			if (!btcKey || !btcKey.d) {
+			var btcKey = ninja.privateKey.decodePrivateKey(key);
+			if (!btcKey) {
 				// enforce a minimum passphrase length
 				if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 					// Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
@@ -39087,8 +39113,9 @@ ninja.wallets.detailwallet = {
 					alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 					ninja.wallets.detailwallet.clear();
 				}
+			} else {
+				ninja.wallets.detailwallet.populateKeyDetails(btcKey);
 			}
-			ninja.wallets.detailwallet.populateKeyDetails(btcKey);
 		}
 	},
 
