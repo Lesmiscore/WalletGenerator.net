@@ -84,7 +84,7 @@ ninja.wallets.paperwallet = {
 				ninja.wallets.paperwallet.showArtisticWallet(idPostFix, address, encryptedKey);
 			});
 		} else {
-			var key = bitcoin.ECKey.makeRandom({
+			var key = bitcoin.ECPair.makeRandom({
 				network: janin.selectedCurrency,
 				compressed: true
 			});
@@ -104,7 +104,7 @@ ninja.wallets.paperwallet = {
 		if (!ninja.privateKey.isPrivateKey(suppliedKey)) {
 			alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 		} else {
-			var computedPublicAddress = bitcoin.ECKey.fromWIF(suppliedKey, janin.selectedCurrency).getAddress();
+			var computedPublicAddress = bitcoin.ECPair.fromWIF(suppliedKey, janin.selectedCurrency).getAddress();
 			if (ninja.wallets.paperwallet.encrypt) {
 				document.getElementById("busyblock").className = "busy";
 				ninja.privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey,

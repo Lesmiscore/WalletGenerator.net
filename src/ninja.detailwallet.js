@@ -98,7 +98,7 @@ ninja.wallets.detailwallet = {
 					alert(btcKeyOrError.message);
 					ninja.wallets.detailwallet.clear();
 				} else {
-					ninja.wallets.detailwallet.populateKeyDetails(new bitcoin.ECKey(btcKeyOrError));
+					ninja.wallets.detailwallet.populateKeyDetails(new bitcoin.ECPair(btcKeyOrError));
 				}
 			});
 		} else {
@@ -113,7 +113,7 @@ ninja.wallets.detailwallet = {
 					var usePassphrase = confirm(ninja.translator.get("detailconfirmsha256"));
 					if (usePassphrase) {
 						var bytes = bitcoin.crypto.sha256(key);
-						btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
+						btcKey = new bitcoin.ECPair(bigi.fromBuffer(bytes), null, {
 							network: janin.selectedCurrency
 						});
 					} else {

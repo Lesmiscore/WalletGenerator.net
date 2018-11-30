@@ -17,7 +17,7 @@ ninja.wallets.singlewallet = {
 	// generate bitcoin address and private key and update information in the HTML
 	generateNewAddressAndKey: function () {
 		try {
-			var key = bitcoin.ECKey.makeRandom({
+			var key = bitcoin.ECPair.makeRandom({
 				network: janin.selectedCurrency
 			});
 			var bitcoinAddress = key.getAddress();

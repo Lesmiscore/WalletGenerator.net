@@ -15,13 +15,12 @@
 
 		isDone: function () {
 			// randomBytes uses crypto.getRandomValues for random
-			return true;
-			//return ninja.seeder.seedCount >= ninja.seeder.seedLimit;
+			return ninja.seeder.seedCount >= ninja.seeder.seedLimit;
 		},
 
 		// seed function exists to wait for mouse movement to add more entropy before generating an address
 		seed: function (evt) {
-			if (!evt) var evt = window.event;
+			evt = evt || window.event;
 			var timeStamp = new Date().getTime();
 			// seeding is over now we generate and display the address
 			if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {

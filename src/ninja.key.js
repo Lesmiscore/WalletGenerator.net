@@ -21,11 +21,11 @@ ninja.privateKey = {
 	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
-		var ecKey1 = bitcoin.ECKey.fromWIF(privKey1, janin.selectedCurrency);
-		var ecKey2 = bitcoin.ECKey.fromWIF(privKey2, janin.selectedCurrency);
+		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);
+		var ecKey2 = bitcoin.ECPair.fromWIF(privKey2, janin.selectedCurrency);
 		// if both keys are the same return null
 		if (ecKey1.d.eq(ecKey2.d)) return null;
-		var combinedPrivateKey = new bitcoin.ECKey(ecKey1.d.add(ecKey2.d).mod(n), null, {
+		var combinedPrivateKey = new bitcoin.ECPair(ecKey1.d.add(ecKey2.d).mod(n), null, {
 			network: janin.selectedCurrency,
 			compressed: ecKey1.compressed && ecKey2.compressed
 		});
@@ -33,11 +33,11 @@ ninja.privateKey = {
 	},
 	getECKeyFromMultiplying: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
-		var ecKey1 = bitcoin.ECKey.fromWIF(privKey1, janin.selectedCurrency);
-		var ecKey2 = bitcoin.ECKey.fromWIF(privKey2, janin.selectedCurrency);
+		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);
+		var ecKey2 = bitcoin.ECPair.fromWIF(privKey2, janin.selectedCurrency);
 		// if both keys are the same return null
 		if (ecKey1.d.eq(ecKey2.d)) return null;
-		var combinedPrivateKey = new bitcoin.ECKey(ecKey1.d.mul(ecKey2.d).mod(n), null, {
+		var combinedPrivateKey = new bitcoin.ECPair(ecKey1.d.mul(ecKey2.d).mod(n), null, {
 			network: janin.selectedCurrency,
 			compressed: ecKey1.compressed && ecKey2.compressed
 		});

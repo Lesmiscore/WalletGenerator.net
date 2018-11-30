@@ -23,7 +23,7 @@ ninja.wallets.brainwallet = {
 			// enforce a minimum passphrase length
 			if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 				var bytes = bitcoin.crypto.sha256(key);
-				var btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
+				var btcKey = new bitcoin.ECPair(bigi.fromBuffer(bytes), null, {
 					network: janin.selectedCurrency
 				});
 				var bitcoinAddress = btcKey.getAddress();

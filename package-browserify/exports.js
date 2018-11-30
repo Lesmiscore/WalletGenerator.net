@@ -1,3 +1,4 @@
+// export packages we need
 const toExport = {
     bitcoin: require('bitcoinjs-lib'),
     bigi: require('bigi'),
@@ -11,8 +12,6 @@ const toExport = {
     aes: require('browserify-aes'),
     Buffer: require('safe-buffer').Buffer
 };
-// handle typos; replace later
-toExport.bitcoin.ECKey = toExport.bitcoin.ECPair;
 try {
     Object.assign(window, toExport);
 } catch (e) {
