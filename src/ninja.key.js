@@ -12,12 +12,37 @@ ninja.privateKey = {
 		var testValue = function (buffer) {
 			if (buffer.length != 32)
 				return false;
-			var n = elliptic.curves.secp256k1.curve.n;
+			var n = bigi.fromByteArrayUnsigned(elliptic.curves.secp256k1.curve.n.toArray());
 			var scalar = bigi.fromByteArrayUnsigned(buffer);
 			return n.compareTo(scalar) > 0;
 		}
 		// TODO: support mini key
 		return testValue(Buffer.from(key, 'hex')) || testValue(Buffer.from(key, 'base64'));
+	},
+	decodePrivateKey: function (key) {
+		if (!ninja.privateKey.isPrivateKey(key)) {
+			return null;
+		}
+		// WIF/CWIF
+		try {
+			return bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
+		} catch (error) {}
+		// Base64/Hex
+		function tryBy(enc) {
+			try {
+				var buf = Buffer.from(key, enc);
+				if (new RegExp("^" + escapeRegExp(key) + "$", 'i').test(buf.toString(enc))) {
+					return new bitcoin.ECPair(bigi.fromByteArrayUnsigned(buf), null, {
+						network: janin.selectedCurrency,
+						compressed: true
+					});
+				}
+			} catch (error) {}
+		}
+		var hex = tryBy("hex");
+		if (hex) return hex;
+		var base64 = tryBy("base64");
+		if (base64) return base64;
 	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;

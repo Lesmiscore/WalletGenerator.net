@@ -56,6 +56,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <script type="text/javascript">
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (global){
+// export packages we need
 const toExport = {
     bitcoin: require('bitcoinjs-lib'),
     bigi: require('bigi'),
@@ -69,8 +70,6 @@ const toExport = {
     aes: require('browserify-aes'),
     Buffer: require('safe-buffer').Buffer
 };
-// handle typos; replace later
-toExport.bitcoin.ECKey = toExport.bitcoin.ECPair;
 try {
     Object.assign(window, toExport);
 } catch (e) {
@@ -35690,6 +35689,10 @@ function printMany() {
 
     exec();
 }
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^=!:${}()|[\]\/\\]/g, Buffer.from("5c2426", 'hex').toString('utf8'));
+}
   </script>
   <style type="text/css">
 .more { background: url("./images/plus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
@@ -37152,20 +37155,45 @@ ninja.privateKey = {
 		var testValue = function (buffer) {
 			if (buffer.length != 32)
 				return false;
-			var n = elliptic.curves.secp256k1.curve.n;
+			var n = bigi.fromByteArrayUnsigned(elliptic.curves.secp256k1.curve.n.toArray());
 			var scalar = bigi.fromByteArrayUnsigned(buffer);
 			return n.compareTo(scalar) > 0;
 		}
 		// TODO: support mini key
 		return testValue(Buffer.from(key, 'hex')) || testValue(Buffer.from(key, 'base64'));
 	},
+	decodePrivateKey: function (key) {
+		if (!ninja.privateKey.isPrivateKey(key)) {
+			return null;
+		}
+		// WIF/CWIF
+		try {
+			return bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
+		} catch (error) {}
+		// Base64/Hex
+		function tryBy(enc) {
+			try {
+				var buf = Buffer.from(key, enc);
+				if (new RegExp("^" + escapeRegExp(key) + "$", 'i').test(buf.toString(enc))) {
+					return new bitcoin.ECPair(bigi.fromByteArrayUnsigned(buf), null, {
+						network: janin.selectedCurrency,
+						compressed: true
+					});
+				}
+			} catch (error) {}
+		}
+		var hex = tryBy("hex");
+		if (hex) return hex;
+		var base64 = tryBy("base64");
+		if (base64) return base64;
+	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
-		var ecKey1 = bitcoin.ECKey.fromWIF(privKey1, janin.selectedCurrency);
-		var ecKey2 = bitcoin.ECKey.fromWIF(privKey2, janin.selectedCurrency);
+		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);
+		var ecKey2 = bitcoin.ECPair.fromWIF(privKey2, janin.selectedCurrency);
 		// if both keys are the same return null
 		if (ecKey1.d.eq(ecKey2.d)) return null;
-		var combinedPrivateKey = new bitcoin.ECKey(ecKey1.d.add(ecKey2.d).mod(n), null, {
+		var combinedPrivateKey = new bitcoin.ECPair(ecKey1.d.add(ecKey2.d).mod(n), null, {
 			network: janin.selectedCurrency,
 			compressed: ecKey1.compressed && ecKey2.compressed
 		});
@@ -37173,11 +37201,11 @@ ninja.privateKey = {
 	},
 	getECKeyFromMultiplying: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
-		var ecKey1 = bitcoin.ECKey.fromWIF(privKey1, janin.selectedCurrency);
-		var ecKey2 = bitcoin.ECKey.fromWIF(privKey2, janin.selectedCurrency);
+		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);
+		var ecKey2 = bitcoin.ECPair.fromWIF(privKey2, janin.selectedCurrency);
 		// if both keys are the same return null
 		if (ecKey1.d.eq(ecKey2.d)) return null;
-		var combinedPrivateKey = new bitcoin.ECKey(ecKey1.d.mul(ecKey2.d).mod(n), null, {
+		var combinedPrivateKey = new bitcoin.ECPair(ecKey1.d.mul(ecKey2.d).mod(n), null, {
 			network: janin.selectedCurrency,
 			compressed: ecKey1.compressed && ecKey2.compressed
 		});
@@ -37378,13 +37406,12 @@ ninja.publicKey = {
 
 		isDone: function () {
 			// randomBytes uses crypto.getRandomValues for random
-			return true;
-			//return ninja.seeder.seedCount >= ninja.seeder.seedLimit;
+			return ninja.seeder.seedCount >= ninja.seeder.seedLimit;
 		},
 
 		// seed function exists to wait for mouse movement to add more entropy before generating an address
 		seed: function (evt) {
-			if (!evt) var evt = window.event;
+			evt = evt || window.event;
 			var timeStamp = new Date().getTime();
 			// seeding is over now we generate and display the address
 			if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
@@ -38632,7 +38659,7 @@ ninja.wallets.singlewallet = {
 	// generate bitcoin address and private key and update information in the HTML
 	generateNewAddressAndKey: function () {
 		try {
-			var key = bitcoin.ECKey.makeRandom({
+			var key = bitcoin.ECPair.makeRandom({
 				network: janin.selectedCurrency
 			});
 			var bitcoinAddress = key.getAddress();
@@ -38740,7 +38767,7 @@ ninja.wallets.paperwallet = {
 				ninja.wallets.paperwallet.showArtisticWallet(idPostFix, address, encryptedKey);
 			});
 		} else {
-			var key = bitcoin.ECKey.makeRandom({
+			var key = bitcoin.ECPair.makeRandom({
 				network: janin.selectedCurrency,
 				compressed: true
 			});
@@ -38760,7 +38787,7 @@ ninja.wallets.paperwallet = {
 		if (!ninja.privateKey.isPrivateKey(suppliedKey)) {
 			alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 		} else {
-			var computedPublicAddress = bitcoin.ECKey.fromWIF(suppliedKey, janin.selectedCurrency).getAddress();
+			var computedPublicAddress = bitcoin.ECPair.fromWIF(suppliedKey, janin.selectedCurrency).getAddress();
 			if (ninja.wallets.paperwallet.encrypt) {
 				document.getElementById("busyblock").className = "busy";
 				ninja.privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey,
@@ -38863,7 +38890,7 @@ ninja.wallets.bulkwallet = {
 		var bulkWallet = ninja.wallets.bulkwallet;
 		if (bulkWallet.csvRowsRemaining > 0) {
 			bulkWallet.csvRowsRemaining--;
-			var key = bitcoin.ECKey.makeRandom({
+			var key = bitcoin.ECPair.makeRandom({
 				network: janin.selectedCurrency,
 				compressed: bulkWallet.compressedAddrs
 			});
@@ -38920,7 +38947,7 @@ ninja.wallets.brainwallet = {
 			// enforce a minimum passphrase length
 			if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 				var bytes = bitcoin.crypto.sha256(key);
-				var btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
+				var btcKey = new bitcoin.ECPair(bigi.fromBuffer(bytes), null, {
 					network: janin.selectedCurrency
 				});
 				var bitcoinAddress = btcKey.getAddress();
@@ -39058,22 +39085,19 @@ ninja.wallets.detailwallet = {
 					alert(btcKeyOrError.message);
 					ninja.wallets.detailwallet.clear();
 				} else {
-					ninja.wallets.detailwallet.populateKeyDetails(new bitcoin.ECKey(btcKeyOrError));
+					ninja.wallets.detailwallet.populateKeyDetails(new bitcoin.ECPair(btcKeyOrError));
 				}
 			});
 		} else {
-			var btcKey;
-			try {
-				btcKey = bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
-			} catch (error) {}
-			if (!btcKey || !btcKey.d) {
+			var btcKey = ninja.privateKey.decodePrivateKey(key);
+			if (!btcKey) {
 				// enforce a minimum passphrase length
 				if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 					// Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
 					var usePassphrase = confirm(ninja.translator.get("detailconfirmsha256"));
 					if (usePassphrase) {
 						var bytes = bitcoin.crypto.sha256(key);
-						btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
+						btcKey = new bitcoin.ECPair(bigi.fromBuffer(bytes), null, {
 							network: janin.selectedCurrency
 						});
 					} else {
@@ -39083,8 +39107,9 @@ ninja.wallets.detailwallet = {
 					alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 					ninja.wallets.detailwallet.clear();
 				}
+			} else {
+				ninja.wallets.detailwallet.populateKeyDetails(btcKey);
 			}
-			ninja.wallets.detailwallet.populateKeyDetails(btcKey);
 		}
 	},
 

@@ -13,3 +13,7 @@ function printMany() {
 
     exec();
 }
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^=!:${}()|[\]\/\\]/g, Buffer.from("5c2426", 'hex').toString('utf8'));
+}

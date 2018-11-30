@@ -102,11 +102,8 @@ ninja.wallets.detailwallet = {
 				}
 			});
 		} else {
-			var btcKey;
-			try {
-				btcKey = bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
-			} catch (error) {}
-			if (!btcKey || !btcKey.d) {
+			var btcKey = ninja.privateKey.decodePrivateKey(key);
+			if (!btcKey) {
 				// enforce a minimum passphrase length
 				if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 					// Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
@@ -123,8 +120,9 @@ ninja.wallets.detailwallet = {
 					alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 					ninja.wallets.detailwallet.clear();
 				}
+			} else {
+				ninja.wallets.detailwallet.populateKeyDetails(btcKey);
 			}
-			ninja.wallets.detailwallet.populateKeyDetails(btcKey);
 		}
 	},
 
