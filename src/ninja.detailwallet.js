@@ -102,17 +102,8 @@ ninja.wallets.detailwallet = {
 				}
 			});
 		} else {
-			if (Bitcoin.ECKey.isMiniFormat(key)) {
-				// show Private Key Mini Format
-				document.getElementById("detailprivmini").innerHTML = key;
-				document.getElementById("detailmini").style.display = "block";
-			} else if (Bitcoin.ECKey.isBase6Format(key)) {
-				// show Private Key Base6 Format
-				document.getElementById("detailprivb6").innerHTML = key;
-				document.getElementById("detailb6").style.display = "block";
-			}
-			var btcKey = new Bitcoin.ECKey(key);
-			if (btcKey.priv == null) {
+			var btcKey = bitcoin.ECKey.fromWIF(key, janin.selectedCurrency);
+			if (btcKey.d == null) {
 				// enforce a minimum passphrase length
 				if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 					// Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key

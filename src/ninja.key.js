@@ -54,7 +54,7 @@ ninja.privateKey = {
 			var decryptedKey = bip38.decrypt(base58Encrypted, passphrase, function (status) {
 				console.log(status.percent);
 			});
-			callback(wif.encode(janin.selectedCurrency.wif, decryptedKey.privateKey, decryptedKey.compressed));
+			callback(decryptedKey.privateKey);
 		} catch (e) {
 			callback(new Error(ninja.translator.get("detailalertnotvalidprivatekey")));
 		}
