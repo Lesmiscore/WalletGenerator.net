@@ -6,12 +6,9 @@ module.exports = function (grunt) {
         input: "./src/index.html",
         output: "./index.html",
         tokens: [
-          {token: "//array.map.js", file: "./src/array.map.js"},
-          {token: "//biginteger.js", file: "./src/biginteger.js"},
           {token: "//exported.js", file: "./src/exported.js"},
           {token: "//jsqrcode.js", file: "./src/jsqrcode.js"},
           {token: "//doge.js", file: "./src/doge.js"},
-          {token: "//ellipticcurve.js", file: "./src/ellipticcurve.js"},
           {token: "//ninja.key.js", file: "./src/ninja.key.js"},
           {token: "//ninja.misc.js", file: "./src/ninja.misc.js"},
           {token: "//ninja.onload.js", file: "./src/ninja.onload.js"},
@@ -24,7 +21,6 @@ module.exports = function (grunt) {
           {token: "//ninja.detailwallet.js", file: "./src/ninja.detailwallet.js"},
           {token: "//ninja.donatetab.js", file: "./src/ninja.donatetab.js"},
           {token: "//qrcode.js", file: "./src/qrcode.js"},
-          {token: "//securerandom.js", file: "./src/securerandom.js"},
           {token: "//janin.currency.js", file: "./src/janin.currency.js"},
           {token: "//misc.js", file: "./src/misc.js"},
           {token: "/\\*main.css\\*/", file: "./src/main.css"}
