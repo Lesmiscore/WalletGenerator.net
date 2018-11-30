@@ -8,8 +8,11 @@ const toExport = {
     scrypt: require('scryptsy'),
     base58: require('base58'),
     bnjs: require('bn.js'),
-    aes: require('browserify-aes')
+    aes: require('browserify-aes'),
+    Buffer: require('safe-buffer').Buffer
 };
+// handle typos; replace later
+toExport.bitcoin.ECKey = toExport.bitcoin.ECPair;
 try {
     Object.assign(window, toExport);
 } catch (e) {

@@ -10,15 +10,18 @@ const toExport = {
     scrypt: require('scryptsy'),
     base58: require('base58'),
     bnjs: require('bn.js'),
-    aes: require('browserify-aes')
+    aes: require('browserify-aes'),
+    Buffer: require('safe-buffer').Buffer
 };
+// handle typos; replace later
+toExport.bitcoin.ECKey = toExport.bitcoin.ECPair;
 try {
     Object.assign(window, toExport);
 } catch (e) {
     Object.assign(global, toExport);
 }
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"base58":21,"bigi":26,"bip38":28,"bitcoinjs-lib":40,"bn.js":69,"browserify-aes":74,"elliptic":128,"randombytes":188,"scryptsy":206,"wif":225}],2:[function(require,module,exports){
+},{"base58":21,"bigi":26,"bip38":28,"bitcoinjs-lib":40,"bn.js":69,"browserify-aes":74,"elliptic":128,"randombytes":188,"safe-buffer":205,"scryptsy":206,"wif":225}],2:[function(require,module,exports){
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');

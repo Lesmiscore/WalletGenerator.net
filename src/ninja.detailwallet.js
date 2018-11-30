@@ -102,15 +102,18 @@ ninja.wallets.detailwallet = {
 				}
 			});
 		} else {
-			var btcKey = bitcoin.ECKey.fromWIF(key, janin.selectedCurrency);
-			if (btcKey.d == null) {
+			var btcKey;
+			try {
+				btcKey = bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
+			} catch (error) {}
+			if (!btcKey || !btcKey.d) {
 				// enforce a minimum passphrase length
 				if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
 					// Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
 					var usePassphrase = confirm(ninja.translator.get("detailconfirmsha256"));
 					if (usePassphrase) {
 						var bytes = bitcoin.crypto.sha256(key);
-						var btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
+						btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
 							network: janin.selectedCurrency
 						});
 					} else {
@@ -126,29 +129,29 @@ ninja.wallets.detailwallet = {
 	},
 
 	populateKeyDetails: function (btcKey) {
-		if (btcKey.priv != null) {
-			btcKey.compressed = false;
-			document.getElementById("detailprivhex").innerHTML = btcKey.toString().toUpperCase();
-			document.getElementById("detailprivb64").innerHTML = btcKey.toString("base64");
-			var bitcoinAddress = btcKey.getAddress();
-			var wif = btcKey.toWIF();
-			document.getElementById("detailpubkey").innerHTML = btcKey.getPubKeyHex();
-			document.getElementById("detailaddress").innerHTML = bitcoinAddress;
-			document.getElementById("detailprivwif").innerHTML = wif;
-			btcKey.compressed = true;
-			var bitcoinAddressComp = btcKey.getAddress();
-			var wifComp = btcKey.toWIF();
-			document.getElementById("detailpubkeycomp").innerHTML = btcKey.getPubKeyHex();
-			document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
-			document.getElementById("detailprivwifcomp").innerHTML = wifComp;
-
-			ninja.qrCode.showQrCode({
-				"detailqrcodepublic": bitcoinAddress,
-				"detailqrcodepubliccomp": bitcoinAddressComp,
-				"detailqrcodeprivate": wif,
-				"detailqrcodeprivatecomp": wifComp
-			}, 4);
+		if (btcKey.d) {
+			document.getElementById("detailprivhex").innerHTML = btcKey.d.toBuffer().toString("hex").toUpperCase();
+			document.getElementById("detailprivb64").innerHTML = btcKey.d.toBuffer().toString("base64");
 		}
+		btcKey.compressed = false;
+		var bitcoinAddress = btcKey.getAddress();
+		var wif = btcKey.toWIF();
+		document.getElementById("detailpubkey").innerHTML = btcKey.Q.getEncoded(false).toString("hex").toUpperCase();
+		document.getElementById("detailaddress").innerHTML = bitcoinAddress;
+		document.getElementById("detailprivwif").innerHTML = wif;
+		btcKey.compressed = true;
+		var bitcoinAddressComp = btcKey.getAddress();
+		var wifComp = btcKey.toWIF();
+		document.getElementById("detailpubkeycomp").innerHTML = btcKey.Q.getEncoded(true).toString("hex").toUpperCase();
+		document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
+		document.getElementById("detailprivwifcomp").innerHTML = wifComp;
+
+		ninja.qrCode.showQrCode({
+			"detailqrcodepublic": bitcoinAddress,
+			"detailqrcodepubliccomp": bitcoinAddressComp,
+			"detailqrcodeprivate": wif,
+			"detailqrcodeprivatecomp": wifComp
+		}, 4);
 	},
 
 	clear: function () {

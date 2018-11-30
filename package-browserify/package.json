@@ -18,6 +18,7 @@
     "browserify-aes": "^1.2.0",
     "elliptic": "^6.4.1",
     "randombytes": "^2.0.6",
+    "safe-buffer": "^5.1.2",
     "scryptsy": "^2.0.0",
     "wif": "^2.0.6"
   },
