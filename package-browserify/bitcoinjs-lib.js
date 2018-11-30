@@ -1,6 +1,10 @@
 // this sets "bitcoinjs-lib" as "bitcoin" variable.
+const toExport = {
+    bitcoin: require('bitcoinjs-lib'),
+    bigi: require('bigi')
+};
 try {
-    window.bitcoin = require('bitcoinjs-lib');
+    Object.assign(window, toExport);
 } catch (e) {
-    global.bitcoin = require('bitcoinjs-lib');
+    Object.assign(global, toExport);
 }
