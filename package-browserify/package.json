@@ -1,0 +1,19 @@
+{
+  "name": "package-browserify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "browserify": "browserify",
+    "bitcoinjs-lib": "browserify bitcoinjs-lib.js -o ../src/bitcoinjs-lib.new.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bitcoinjs-lib": "^3.3.2"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3"
+  }
+}
