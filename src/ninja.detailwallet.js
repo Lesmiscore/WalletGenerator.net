@@ -2,7 +2,7 @@ ninja.wallets.detailwallet = {
 	qrscanner: {
 		scanner: null,
 
-		start: function() {
+		start: function () {
 			document.getElementById('paperqrscanner').className = 'show';
 			ninja.wallets.detailwallet.qrscanner.showError(null);
 			var supported = ninja.wallets.detailwallet.qrscanner.scanner.isSupported();
@@ -13,12 +13,12 @@ ninja.wallets.detailwallet = {
 			}
 		},
 
-		stop: function() {
+		stop: function () {
 			ninja.wallets.detailwallet.qrscanner.scanner.stop();
 			document.getElementById('paperqrscanner').className = '';
 		},
 
-		showError: function(error) {
+		showError: function (error) {
 			if (error) {
 				if (error == 'PERMISSION_DENIED' || error == 'PermissionDeniedError') {
 					document.getElementById('paperqrerror').innerHTML = '';
@@ -38,13 +38,13 @@ ninja.wallets.detailwallet = {
 		document.getElementById("detailarea").style.display = "block";
 		document.getElementById("detailprivkey").focus();
 		if (!ninja.wallets.detailwallet.qrscanner.scanner) {
-			ninja.wallets.detailwallet.qrscanner.scanner = new QRCodeScanner(320, 240, 'paperqroutput', 
-				function(data) {
+			ninja.wallets.detailwallet.qrscanner.scanner = new QRCodeScanner(320, 240, 'paperqroutput',
+				function (data) {
 					document.getElementById('detailprivkey').value = data;
 					document.getElementById('paperqrscanner').className = '';
 					ninja.wallets.detailwallet.viewDetails();
 				},
-				function(error) {
+				function (error) {
 					ninja.wallets.detailwallet.qrscanner.showError(error);
 				});
 		}
@@ -98,17 +98,15 @@ ninja.wallets.detailwallet = {
 					alert(btcKeyOrError.message);
 					ninja.wallets.detailwallet.clear();
 				} else {
-					ninja.wallets.detailwallet.populateKeyDetails(new Bitcoin.ECKey(btcKeyOrError));
+					ninja.wallets.detailwallet.populateKeyDetails(new bitcoin.ECKey(btcKeyOrError));
 				}
 			});
-		}
-		else {
+		} else {
 			if (Bitcoin.ECKey.isMiniFormat(key)) {
 				// show Private Key Mini Format
 				document.getElementById("detailprivmini").innerHTML = key;
 				document.getElementById("detailmini").style.display = "block";
-			}
-			else if (Bitcoin.ECKey.isBase6Format(key)) {
+			} else if (Bitcoin.ECKey.isBase6Format(key)) {
 				// show Private Key Base6 Format
 				document.getElementById("detailprivb6").innerHTML = key;
 				document.getElementById("detailb6").style.display = "block";
@@ -120,14 +118,14 @@ ninja.wallets.detailwallet = {
 					// Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
 					var usePassphrase = confirm(ninja.translator.get("detailconfirmsha256"));
 					if (usePassphrase) {
-						var bytes = Crypto.SHA256(key, { asBytes: true });
-						var btcKey = new Bitcoin.ECKey(bytes);
-					}
-					else {
+						var bytes = bitcoin.crypto.sha256(key);
+						var btcKey = new bitcoin.ECKey(bigi.fromBuffer(bytes), null, {
+							network: janin.selectedCurrency
+						});
+					} else {
 						ninja.wallets.detailwallet.clear();
 					}
-				}
-				else {
+				} else {
 					alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 					ninja.wallets.detailwallet.clear();
 				}
@@ -138,17 +136,17 @@ ninja.wallets.detailwallet = {
 
 	populateKeyDetails: function (btcKey) {
 		if (btcKey.priv != null) {
-			btcKey.setCompressed(false);
+			btcKey.compressed = false;
 			document.getElementById("detailprivhex").innerHTML = btcKey.toString().toUpperCase();
 			document.getElementById("detailprivb64").innerHTML = btcKey.toString("base64");
-			var bitcoinAddress = btcKey.getBitcoinAddress();
-			var wif = btcKey.getBitcoinWalletImportFormat();
+			var bitcoinAddress = btcKey.getAddress();
+			var wif = btcKey.toWIF();
 			document.getElementById("detailpubkey").innerHTML = btcKey.getPubKeyHex();
 			document.getElementById("detailaddress").innerHTML = bitcoinAddress;
 			document.getElementById("detailprivwif").innerHTML = wif;
-			btcKey.setCompressed(true);
-			var bitcoinAddressComp = btcKey.getBitcoinAddress();
-			var wifComp = btcKey.getBitcoinWalletImportFormat();
+			btcKey.compressed = true;
+			var bitcoinAddressComp = btcKey.getAddress();
+			var wifComp = btcKey.toWIF();
 			document.getElementById("detailpubkeycomp").innerHTML = btcKey.getPubKeyHex();
 			document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 			document.getElementById("detailprivwifcomp").innerHTML = wifComp;

@@ -1,7 +1,14 @@
-// this sets "bitcoinjs-lib" as "bitcoin" variable.
 const toExport = {
     bitcoin: require('bitcoinjs-lib'),
-    bigi: require('bigi')
+    bigi: require('bigi'),
+    bip38: require('bip38'),
+    wif: require('wif'),
+    elliptic: require('elliptic'),
+    randombytes: require('randombytes'),
+    scrypt: require('scryptsy'),
+    base58: require('base58'),
+    bnjs: require('bn.js'),
+    aes: require('browserify-aes')
 };
 try {
     Object.assign(window, toExport);
