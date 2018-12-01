@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "browserify": "browserify",
-    "start": "browserify exports.js -o ../src/exported.js"
+    "start": "browserify exports.js -o exported.js;google-closure-compiler --js=exported.js --js_output_file=../src/exported.js;rm exported.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "wif": "^2.0.6"
   },
   "devDependencies": {
-    "browserify": "^16.2.3"
+    "browserify": "^16.2.3",
+    "google-closure-compiler": "^20181125.0.1"
   }
 }
