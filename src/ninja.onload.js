@@ -23,10 +23,11 @@ if(ninja.getQueryString()["currency"] == null) {
 var select = document.getElementById("currency");
 var options = "";
 for(i = 0; i < janin.currencies.length; i++) {
+    var curr=janin.currencies[i];
     options += "<option value='"+i+"'";
-	if(janin.currencies[i].name == janin.currency.name())
+	if(curr.name == janin.currency.name())
 		options += " selected='selected'";
-	options += ">"+janin.currencies[i].name+"</option>";
+	options += ">"+curr.name+"</option>";
 }
 select.innerHTML = options;
 // populate supported currency list
@@ -34,12 +35,13 @@ var supportedcurrencies = document.getElementById("supportedcurrencies");
 var currencieslist = "";
 j = 0;
 for(i = 0; i < janin.currencies.length; i++) {
-	if(janin.currencies[i].donate == null)
+    var curr=janin.currencies[i];
+	if(curr.donate == null)
 		continue;
-    currencieslist += "<a href='?currency="+janin.currencies[i].name;
+    currencieslist += "<a href='?currency="+curr.name;
     if (ninja.getQueryString()["culture"] != undefined)
         currencieslist += "&culture=" + ninja.getQueryString()["culture"];
-	currencieslist += "'>"+janin.currencies[i].name+"</a> ";
+	currencieslist += "'>"+curr.name+"</a> ";
     j++;
 }
 supportedcurrencies.innerHTML = currencieslist;

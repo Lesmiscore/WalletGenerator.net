@@ -24,6 +24,7 @@ ninja.wallets.paperwallet = {
 	pageBreakAtDefault: 1,
 	pageBreakAtArtisticDefault: 1,
 	pageBreakAt: null,
+	publicMode: 0, // compressed
 
 	build: function (passphrase) {
 		var numWallets = 1;
@@ -88,8 +89,12 @@ ninja.wallets.paperwallet = {
 				network: janin.selectedCurrency,
 				compressed: true
 			});
-			var bitcoinAddress = key.getAddress();
-			var privateKeyWif = key.toWIF();
+			var bitcoinAddress = ninja.privateKey.getAddressWith(
+				key, ninja.wallets.paperwallet.publicMode
+			);
+			var privateKeyWif = ninja.privateKey.getWIFWith(
+				key, ninja.wallets.paperwallet.publicMode
+			);
 
 			ninja.wallets.paperwallet.showArtisticWallet(idPostFix, bitcoinAddress, privateKeyWif);
 		}
@@ -104,7 +109,13 @@ ninja.wallets.paperwallet = {
 		if (!ninja.privateKey.isPrivateKey(suppliedKey)) {
 			alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 		} else {
-			var computedPublicAddress = bitcoin.ECPair.fromWIF(suppliedKey, janin.selectedCurrency).getAddress();
+			var parsedKey = ninja.privateKey.decodePrivateKey(suppliedKey);
+			var computedPublicAddress = ninja.privateKey.getAddressWith(
+				parsedKey, ninja.wallets.paperwallet.publicMode
+			);
+			suppliedKey = ninja.privateKey.getWIFWith(
+				parsedKey, ninja.wallets.paperwallet.publicMode
+			);
 			if (ninja.wallets.paperwallet.encrypt) {
 				document.getElementById("busyblock").className = "busy";
 				ninja.privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey,

@@ -6092,7 +6092,12 @@ Walletgenerator.net use the same security measures as the original project. All-
           <div id="papercommands" class="row">
             <span><label id="paperlabelencrypt" for="paperencrypt" class="i18n">BIP38 Encrypt?</label> <input type="checkbox" id="paperencrypt" onchange="ninja.wallets.paperwallet.toggleEncrypt(this);" /></span>
             <span><label id="paperlabelBIPpassphrase" for="paperpassphrase" class="i18n">Passphrase:</label> <input type="text" id="paperpassphrase" /></span>
-
+            <select id="addresstype" onchange="ninja.wallets.paperwallet.publicMode=this.selectedIndex;">
+              <option selected value="0">Compressed</option>
+              <option value="1">Uncompressed</option>
+              <option value="2" id="selectsegwit">SegWit</option>
+              <option value="3" id="selectsegwitp2sh">SegWit (P2SH-wrapped)</option>
+            </select>
             <br/>
             <input type="button" id="papergenerate" value="Randomly generate" onclick="ninja.wallets.paperwallet.build(document.getElementById('paperpassphrase').value);" />
             <span>OR</span>
@@ -6215,7 +6220,7 @@ Walletgenerator.net use the same security measures as the original project. All-
             </div>
           </div>
           <br /><br />
-          <div class="pubqrsw">
+          <div id="pubqrsw" class="pubqrsw">
             <div class="item">
               <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit Address</span>
               <div id="detailqrcodesegwit" class="qrcode_public"></div>
@@ -6748,6 +6753,18 @@ janin.currency = {
         document.getElementById("bulktextarea").value = "";
         document.getElementById("suppliedPrivateKey").value = "";
 
+        // Hide SegWit fields for non-segwit coins
+        var swids = ["pubqrsw", "selectsegwit", "selectsegwitp2sh"];
+        for (let id in swids) {
+            var elem = document.getElementById(swids[id]);
+            if (!elem) continue;
+            if (janin.selectedCurrency.bech32) {
+                elem.style.display = "block";
+            } else {
+                elem.style.display = "none";
+            }
+        }
+
         // easter egg doge ;)
         if (janin.currency.name() == "Dogecoin") {
             janin.doge = new Doge(['wow', 'so paper wallet', 'such random', 'very pretty', 'much design', 'awesome', 'much crypto', 'such coin', 'wow!!', 'to da moon']);
@@ -7033,6 +7050,51 @@ ninja.privateKey = {
 				network: janin.selectedCurrency,
 				compressed: true
 			});
+		}
+	},
+	getAddressWith(btcKey, mode) {
+		var compressed = btcKey.compressed;
+		try {
+			switch (mode) {
+				case 0: // compressed
+					btcKey.compressed = true;
+					return btcKey.getAddress();
+				case 1: // uncompressed
+					btcKey.compressed = false;
+					return btcKey.getAddress();
+				case 2: // segwit
+					if (btcKey.network.bech32) {
+						var pubKeyCompressed = btcKey.Q.getEncoded(true);
+						var redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+						return bitcoin.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
+					}
+				case 3: // segwit (p2sh)
+					if (btcKey.network.bech32) {
+						var pubKeyCompressed = btcKey.Q.getEncoded(true);
+						var redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+						var scriptPubKey = bitcoin.crypto.hash160(redeemScript);
+						return bitcoin.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
+					}
+			}
+			return ninja.privateKey.getAddressWith(btcKey, 0);
+		} finally {
+			btcKey.compressed = compressed;
+		}
+	},
+	getWIFWith(btcKey, mode) {
+		var compressed = btcKey.compressed;
+		try {
+			switch (mode) {
+				case 1: // uncompressed
+					btcKey.compressed = false;
+					break;
+				default: // other
+					btcKey.compressed = true;
+					break;
+			}
+			return btcKey.toWIF();
+		} finally {
+			btcKey.compressed = compressed;
 		}
 	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
@@ -8555,6 +8617,7 @@ ninja.wallets.paperwallet = {
 	pageBreakAtDefault: 1,
 	pageBreakAtArtisticDefault: 1,
 	pageBreakAt: null,
+	publicMode: 0, // compressed
 
 	build: function (passphrase) {
 		var numWallets = 1;
@@ -8619,8 +8682,12 @@ ninja.wallets.paperwallet = {
 				network: janin.selectedCurrency,
 				compressed: true
 			});
-			var bitcoinAddress = key.getAddress();
-			var privateKeyWif = key.toWIF();
+			var bitcoinAddress = ninja.privateKey.getAddressWith(
+				key, ninja.wallets.paperwallet.publicMode
+			);
+			var privateKeyWif = ninja.privateKey.getWIFWith(
+				key, ninja.wallets.paperwallet.publicMode
+			);
 
 			ninja.wallets.paperwallet.showArtisticWallet(idPostFix, bitcoinAddress, privateKeyWif);
 		}
@@ -8635,7 +8702,13 @@ ninja.wallets.paperwallet = {
 		if (!ninja.privateKey.isPrivateKey(suppliedKey)) {
 			alert(ninja.translator.get("detailalertnotvalidprivatekey"));
 		} else {
-			var computedPublicAddress = bitcoin.ECPair.fromWIF(suppliedKey, janin.selectedCurrency).getAddress();
+			var parsedKey = ninja.privateKey.decodePrivateKey(suppliedKey);
+			var computedPublicAddress = ninja.privateKey.getAddressWith(
+				parsedKey, ninja.wallets.paperwallet.publicMode
+			);
+			suppliedKey = ninja.privateKey.getWIFWith(
+				parsedKey, ninja.wallets.paperwallet.publicMode
+			);
 			if (ninja.wallets.paperwallet.encrypt) {
 				document.getElementById("busyblock").className = "busy";
 				ninja.privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey,
@@ -8988,7 +9061,6 @@ ninja.wallets.detailwallet = {
 			var bitcoinAddressSegWitP2SH = bitcoin.address.toBase58Check(scriptPubKey, janin.selectedCurrency.scriptHash);
 			document.getElementById("detailaddresssegwit").innerHTML = bitcoinAddressSegWit;
 			document.getElementById("detailaddresssegwitp2sh").innerHTML = bitcoinAddressSegWitP2SH;
-			console.log(bitcoinAddressSegWit, bitcoinAddressSegWitP2SH);
 			ninja.qrCode.showQrCode({
 				"detailqrcodesegwit": bitcoinAddressSegWit,
 				"detailqrcodesegwitp2sh": bitcoinAddressSegWitP2SH
@@ -9666,10 +9738,11 @@ if(ninja.getQueryString()["currency"] == null) {
 var select = document.getElementById("currency");
 var options = "";
 for(i = 0; i < janin.currencies.length; i++) {
+    var curr=janin.currencies[i];
     options += "<option value='"+i+"'";
-	if(janin.currencies[i].name == janin.currency.name())
+	if(curr.name == janin.currency.name())
 		options += " selected='selected'";
-	options += ">"+janin.currencies[i].name+"</option>";
+	options += ">"+curr.name+"</option>";
 }
 select.innerHTML = options;
 // populate supported currency list
@@ -9677,12 +9750,13 @@ var supportedcurrencies = document.getElementById("supportedcurrencies");
 var currencieslist = "";
 j = 0;
 for(i = 0; i < janin.currencies.length; i++) {
-	if(janin.currencies[i].donate == null)
+    var curr=janin.currencies[i];
+	if(curr.donate == null)
 		continue;
-    currencieslist += "<a href='?currency="+janin.currencies[i].name;
+    currencieslist += "<a href='?currency="+curr.name;
     if (ninja.getQueryString()["culture"] != undefined)
         currencieslist += "&culture=" + ninja.getQueryString()["culture"];
-	currencieslist += "'>"+janin.currencies[i].name+"</a> ";
+	currencieslist += "'>"+curr.name+"</a> ";
     j++;
 }
 supportedcurrencies.innerHTML = currencieslist;

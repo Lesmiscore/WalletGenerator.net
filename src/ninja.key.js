@@ -62,6 +62,51 @@ ninja.privateKey = {
 			});
 		}
 	},
+	getAddressWith(btcKey, mode) {
+		var compressed = btcKey.compressed;
+		try {
+			switch (mode) {
+				case 0: // compressed
+					btcKey.compressed = true;
+					return btcKey.getAddress();
+				case 1: // uncompressed
+					btcKey.compressed = false;
+					return btcKey.getAddress();
+				case 2: // segwit
+					if (btcKey.network.bech32) {
+						var pubKeyCompressed = btcKey.Q.getEncoded(true);
+						var redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+						return bitcoin.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
+					}
+				case 3: // segwit (p2sh)
+					if (btcKey.network.bech32) {
+						var pubKeyCompressed = btcKey.Q.getEncoded(true);
+						var redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+						var scriptPubKey = bitcoin.crypto.hash160(redeemScript);
+						return bitcoin.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
+					}
+			}
+			return ninja.privateKey.getAddressWith(btcKey, 0);
+		} finally {
+			btcKey.compressed = compressed;
+		}
+	},
+	getWIFWith(btcKey, mode) {
+		var compressed = btcKey.compressed;
+		try {
+			switch (mode) {
+				case 1: // uncompressed
+					btcKey.compressed = false;
+					break;
+				default: // other
+					btcKey.compressed = true;
+					break;
+			}
+			return btcKey.toWIF();
+		} finally {
+			btcKey.compressed = compressed;
+		}
+	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
 		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);

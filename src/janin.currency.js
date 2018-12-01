@@ -79,10 +79,15 @@ janin.currency = {
         document.getElementById("suppliedPrivateKey").value = "";
 
         // Hide SegWit fields for non-segwit coins
-        if (janin.selectedCurrency.bech32) {
-            document.getElementById("pubqrsw").style.display = "block";
-        } else {
-            document.getElementById("pubqrsw").style.display = "none";
+        var swids = ["pubqrsw", "selectsegwit", "selectsegwitp2sh"];
+        for (let id in swids) {
+            var elem = document.getElementById(swids[id]);
+            if (!elem) continue;
+            if (janin.selectedCurrency.bech32) {
+                elem.style.display = "block";
+            } else {
+                elem.style.display = "none";
+            }
         }
 
         // easter egg doge ;)
