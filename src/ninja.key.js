@@ -46,8 +46,7 @@ ninja.privateKey = {
 			try {
 				var buf = Buffer.from(key, enc);
 				if (new RegExp("^" + escapeRegExp(key) + "$", 'i').test(buf.toString(enc))) {
-					return new bitcoin.ECPair(bigi.fromByteArrayUnsigned(buf), null, {
-						network: janin.selectedCurrency,
+					return ninja.ecpair.create(bigi.fromByteArrayUnsigned(buf), null, {
 						compressed: true
 					});
 				}
@@ -59,8 +58,7 @@ ninja.privateKey = {
 		if (base64) return base64;
 		if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
 			var sha256 = bitcoin.crypto.sha256(key);
-			return new bitcoin.ECPair(bigi.fromByteArrayUnsigned(sha256), null, {
-				network: janin.selectedCurrency,
+			return ninja.ecpair.create(bigi.fromByteArrayUnsigned(sha256), null, {
 				compressed: true
 			});
 		}
@@ -124,24 +122,22 @@ ninja.privateKey = {
 	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
-		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);
-		var ecKey2 = bitcoin.ECPair.fromWIF(privKey2, janin.selectedCurrency);
+		var ecKey1 = ninja.privateKey.decodePrivateKey(privKey1);
+		var ecKey2 = ninja.privateKey.decodePrivateKey(privKey2);
 		// if both keys are the same return null
 		if (ecKey1.d.eq(ecKey2.d)) return null;
-		var combinedPrivateKey = new bitcoin.ECPair(ecKey1.d.add(ecKey2.d).mod(n), null, {
-			network: janin.selectedCurrency,
+		var combinedPrivateKey = ninja.ecpair.create(ecKey1.d.add(ecKey2.d).mod(n), null, {
 			compressed: ecKey1.compressed && ecKey2.compressed
 		});
 		return combinedPrivateKey;
 	},
 	getECKeyFromMultiplying: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
-		var ecKey1 = bitcoin.ECPair.fromWIF(privKey1, janin.selectedCurrency);
-		var ecKey2 = bitcoin.ECPair.fromWIF(privKey2, janin.selectedCurrency);
+		var ecKey1 = ninja.privateKey.decodePrivateKey(privKey1);
+		var ecKey2 = ninja.privateKey.decodePrivateKey(privKey2);
 		// if both keys are the same return null
 		if (ecKey1.d.eq(ecKey2.d)) return null;
-		var combinedPrivateKey = new bitcoin.ECPair(ecKey1.d.mul(ecKey2.d).mod(n), null, {
-			network: janin.selectedCurrency,
+		var combinedPrivateKey = ninja.ecpair.create(ecKey1.d.mul(ecKey2.d).mod(n), null, {
 			compressed: ecKey1.compressed && ecKey2.compressed
 		});
 		return combinedPrivateKey;
