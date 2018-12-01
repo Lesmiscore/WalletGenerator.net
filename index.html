@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="description" content="Universal Open Source Client-Side Paper Wallet Generator for BitCoins and other cryptocurrencies. Create your own paper wallet in a few easy steps : Generate, Print and Fold !">
@@ -48,13 +49,13 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-  GitHub Repository: https://github.com/MichaelMure/WalletGenerator.net
+  GitHub Repository: https://github.com/nao20010128nao/WalletGenerator.net
   -->
 
   <title>WalletGenerator.net - Universal Paper wallet generator for Bitcoin and other cryptocurrencies</title>
 
   <script type="text/javascript">
-/*
+    /*
  The buffer module from node.js, for the browser.
 
  @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
@@ -906,7 +907,7 @@ function(a){var b;if(!(b=a in c)){a:if(k.indexOf)b=k.indexOf(a);else{for(b=0;b<k
 1))}});k.isContext=function(a){return a instanceof f};k.createScript=function(a){return k.Script(a)};k.createContext=h.createContext=function(a){var b=new f;"object"===typeof a&&m(g(a),function(c){b[c]=a[c]});return b}},{}],225:[function(c,n,k){(function(f){function g(a,c){if(void 0!==c&&a[0]!==c)throw Error("Invalid network version");if(33===a.length)return{version:a[0],privateKey:a.slice(1,33),compressed:!1};if(34!==a.length)throw Error("Invalid WIF length");if(1!==a[33])throw Error("Invalid compression flag");
 return{version:a[0],privateKey:a.slice(1,33),compressed:!0}}function k(a,c,e){var b=new f(e?34:33);b.writeUInt8(a,0);c.copy(b,1);e&&(b[33]=1);return b}var l=c("bs58check");n.exports={decode:function(a,c){return g(l.decode(a),c)},decodeRaw:g,encode:function(a,c,e){return"number"===typeof a?l.encode(k(a,c,e)):l.encode(k(a.version,a.privateKey,a.compressed))},encodeRaw:k}}).call(this,c("buffer").Buffer)},{bs58check:101,buffer:104}]},{},[1]);
 ;
-//---------------------------------------------------------------------
+    //---------------------------------------------------------------------
 // QRCode for JavaScript
 //
 // Copyright (c) 2009 Kazuhiko Arase
@@ -1940,7 +1941,7 @@ return{version:a[0],privateKey:a.slice(1,33),compressed:!0}}function k(a,c,e){va
 		}
 	};
 })();;
-/*
+    /*
   Ported to JavaScript by Lazar Laszlo 2011 
   
   lazarsoft@gmail.com, www.lazarsoft.info
@@ -5487,7 +5488,7 @@ function QRCodeScanner(width, height, container, success, error) {
 	this.stop = stop;
 }
 ;
-function printMany() {
+    function printMany() {
     var i = 10;
 
     function exec() {
@@ -5508,7 +5509,7 @@ function escapeRegExp(string) {
 }
   </script>
   <style type="text/css">
-.more { background: url("./images/plus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
+    .more { background: url("./images/plus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
 .less { background: url("./images/minus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
 a { position: relative; z-index: 20; text-decoration: none; color: #d58424; }
 .right { text-align: right; }
@@ -5861,6 +5862,7 @@ h1 { margin: 0px; height: 91px; }
   </style>
 </head>
 <!-- onclick="SecureRandom.seedTime();" -->
+
 <body onmousemove="ninja.seeder.seed(event);">
   <div id="busyblock"></div>
   <div id="main">
@@ -5909,8 +5911,10 @@ h1 { margin: 0px; height: 91px; }
 
         <div id="initBanner">
           <span id="generatelabelbitcoinaddress" class="i18n">Generating new Address...</span><br />
-          <span id="generatelabelmovemouse" class="i18n">MOVE your mouse around to add some extra randomness... </span><span id="mousemovelimit"></span><br />
-          <span id="generatelabelkeypress" class="i18n">OR type some random characters into this textbox</span> <input type="text" id="generatekeyinput" onkeypress="ninja.seeder.seedKeyPress(event);" /><br />
+          <span id="generatelabelmovemouse" class="i18n">MOVE your mouse around to add some extra randomness... </span><span
+            id="mousemovelimit"></span><br />
+          <span id="generatelabelkeypress" class="i18n">OR type some random characters into this textbox</span> <input
+            type="text" id="generatekeyinput" onkeypress="ninja.seeder.seedKeyPress(event);" /><br />
           <div id="seedpooldisplay"></div>
 
           <div id="rightArea">
@@ -5919,8 +5923,10 @@ h1 { margin: 0px; height: 91px; }
             </div>
 
             <div id="seedSkipper">
-              <a href="#" class="nicerButton 100pxwidth" onClick="ninja.seeder.seedCount = ninja.seeder.seedLimit; ninja.seeder.seed();">Skip &raquo;</a>
-              <p id="skipMessage" class="i18n">You may skip this step if you do not plan to use the random key generator.</p>
+              <a href="#" class="nicerButton 100pxwidth" onClick="ninja.seeder.seedCount = ninja.seeder.seedLimit; ninja.seeder.seed();">Skip
+                &raquo;</a>
+              <p id="skipMessage" class="i18n">You may skip this step if you do not plan to use the random key
+                generator.</p>
             </div>
           </div>
         </div>
@@ -5959,7 +5965,11 @@ h1 { margin: 0px; height: 91px; }
 
             <h3 id="securitystep0title" class="i18n">Step 0. Follow the security checklist recommendation</h3>
             <p id="securitystep0" class="i18n">
-              First step is to <strong>download</strong> this website from <a href="https://github.com/MichaelMure/WalletGenerator.net/archive/master.zip">Github</a> and open the index.html file directly from your computer. It's just too easy to sneak some evil code in the 6000+ lines of javascript to leak your private key, and you don't want to see your fund stolen. Code version control make it much easier to cross-check what actually run. For extra security, <strong>unplug your Internet access</strong> while generating your wallet.
+              First step is to <strong>download</strong> this website from <a href="https://github.com/nao20010128nao/WalletGenerator.net/archive/master.zip">Github</a>
+              and open the index.html file directly from your computer. It's just too easy to sneak some evil code in
+              the 6000+ lines of javascript to leak your private key, and you don't want to see your fund stolen. Code
+              version control make it much easier to cross-check what actually run. For extra security, <strong>unplug
+                your Internet access</strong> while generating your wallet.
             </p>
             <h3 id="securitystep1title" class="i18n">Step 1. Generate new address</h3>
             <p id="securitystep1" class="i18n">
@@ -5967,7 +5977,8 @@ h1 { margin: 0px; height: 91px; }
             </p>
             <h3 id="securitystep2title" class="i18n">Step 2. Print the Paper Wallet</h3>
             <p id="securitystep2" class="i18n">
-              Click the Paper Wallet tab and print the page on high quality setting. <strong>Never save the page as a PDF file to print it later since a file is more likely to be hacked than a piece of paper.</strong>
+              Click the Paper Wallet tab and print the page on high quality setting. <strong>Never save the page as a
+                PDF file to print it later since a file is more likely to be hacked than a piece of paper.</strong>
             </p>
             <h3 id="securitystep3title" class="i18n">Step 3. Fold the Paper Wallet</h3>
             <p id="securitystep3" class="i18n">
@@ -5978,18 +5989,23 @@ h1 { margin: 0px; height: 91px; }
 
             <h3 id="securitystep4title" class="i18n">Step 4. Share your public address</h3>
             <p id="securitystep4" class="i18n">
-              Use your public address to receive money from other crypto-currency users. You can share your public address as much as you want.
+              Use your public address to receive money from other crypto-currency users. You can share your public
+              address as much as you want.
             </p>
             <h3 id="securitystep5title" class="i18n">Step 5. Keep your private key secret</h3>
             <p id="securitystep5" class="i18n">
-              The private key is literally the keys to your coins, if someone was to obtain it, they could withdraw the funds currently in the wallet, and any funds that might be deposited in that wallet.
+              The private key is literally the keys to your coins, if someone was to obtain it, they could withdraw the
+              funds currently in the wallet, and any funds that might be deposited in that wallet.
             </p>
             <p>
-              <strong id="securitystep6" class="i18n">Please test spending a small amount before receiving any large payments.</strong><br /><br />
+              <strong id="securitystep6" class="i18n">Please test spending a small amount before receiving any large
+                payments.</strong><br /><br />
             </p>
             <h3 id="securitystep7title" class="i18n">Consider supporting us</h3>
             <p id="securitystep7" class="i18n">
-              This service is free and will stay free, without advertising or tracking of any sort. Please consider <a href="#" onclick="ninja.tabSwitch(document.getElementById('donate'));">making a donation</a> to support us and the people that add support for new currencies.
+              This service is free and will stay free, without advertising or tracking of any sort. Please consider <a
+                href="#" onclick="ninja.tabSwitch(document.getElementById('donate'));">making a donation</a> to support
+              us and the people that add support for new currencies.
             </p>
 
           </div>
@@ -6000,18 +6016,20 @@ h1 { margin: 0px; height: 91px; }
               <b id="securitychecktitle" class="i18n">Security Checklist :</b>
 
               <ul>
-              <li id="envSecurityCheck"></li>
+                <li id="envSecurityCheck"></li>
 
-              <li id="browserSecurityCheck"></li>
+                <li id="browserSecurityCheck"></li>
 
-              <li id="securitychecklivecd" class="i18n">
-                Are you using a secure operating system guaranteed to be free of spyware and viruses, for example, an Ubuntu LiveCD?
-              </li>
+                <li id="securitychecklivecd" class="i18n">
+                  Are you using a secure operating system guaranteed to be free of spyware and viruses, for example, an
+                  Ubuntu LiveCD?
+                </li>
               </ul>
             </div>
 
             <div class="supportedCurrenciesChecklist">
-              <b><span id="supportedcurrenciescounter"></span><span id="supportedcurrencylbl" class="i18n">supported currencies !</span></b>
+              <b><span id="supportedcurrenciescounter"></span><span id="supportedcurrencylbl" class="i18n">supported
+                  currencies !</span></b>
               <div id="supportedcurrencies"></div>
             </div>
           </div>
@@ -6020,68 +6038,105 @@ h1 { margin: 0px; height: 91px; }
         <div id="faqZone">
           <h2>Frequently asked questions :</h2>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion1');ninja.toggleFaqQuestion('faqQuestion1.1')">&#8226; Is it safe ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion1');ninja.toggleFaqQuestion('faqQuestion1.1')">&#8226;
+              Is it safe ?</a></h3>
           <p class="faqAnswer" id="faqQuestion1">
-            We try to make it that way ! The core of the tool, that generate the keys is 99% the same as the well reviewed bitaddress.org. We only changed it to be able to generate addresses for different crypto-currencies.
+            We try to make it that way ! The core of the tool, that generate the keys is 99% the same as the well
+            reviewed bitaddress.org. We only changed it to be able to generate addresses for different
+            crypto-currencies.
           </p>
           <p class="faqAnswer" id="faqQuestion1.1">
-We think that having a unique generator for multiple currencies lead to a much better reviewed tool for all than having a myriad of half-backed generators.
-Changes made to this generator are available on Github in small and divided commits and those are easy to review and reuse.
-Walletgenerator.net use the same security measures as the original project. All-in-one html document, no ajax, no analytics, no external calls, no CDN that can inject anything they want. And trust us, we have seen some nasty things when reviewing some wallet generator.
+            We think that having a unique generator for multiple currencies lead to a much better reviewed tool for all
+            than having a myriad of half-backed generators.
+            Changes made to this generator are available on Github in small and divided commits and those are easy to
+            review and reuse.
+            Walletgenerator.net use the same security measures as the original project. All-in-one html document, no
+            ajax, no analytics, no external calls, no CDN that can inject anything they want. And trust us, we have
+            seen some nasty things when reviewing some wallet generator.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion2');">&#8226; Why should I use a paper wallet ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion2');">&#8226; Why
+              should I use a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion2">
-              Advantages of a paper wallet are multiple:<br/><br/>
-              <span class="faqListBullet">&#8658;</span> They are not subject to malwares and keyloggers<br/>
-              <span class="faqListBullet">&#8658;</span> You don’t rely on a third party’s honesty or capacity to protect your coins<br/>
-              <span class="faqListBullet">&#8658;</span> You won't lose your coins when your device break
+            Advantages of a paper wallet are multiple:<br /><br />
+            <span class="faqListBullet">&#8658;</span> They are not subject to malwares and keyloggers<br />
+            <span class="faqListBullet">&#8658;</span> You don’t rely on a third party’s honesty or capacity to protect
+            your coins<br />
+            <span class="faqListBullet">&#8658;</span> You won't lose your coins when your device break
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion3');">&#8226; How to use a paper wallet ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion3');">&#8226; How to
+              use a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion3">
-            Once you have generated and printed a wallet, you can send coins to the public address, like for any wallet. Store your paper wallet securely. It contains everything that is needed to spend your funds. Consider using BIP38 to secure your paper wallet with a password.
+            Once you have generated and printed a wallet, you can send coins to the public address, like for any
+            wallet. Store your paper wallet securely. It contains everything that is needed to spend your funds.
+            Consider using BIP38 to secure your paper wallet with a password.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion4');">&#8226; How to spend the coins stored in a paper wallet ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion4');">&#8226; How to
+              spend the coins stored in a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion4">
-            You will need to import your private key in a real client, that you can download from the currency website. The exact method to do that will depend on the client. If there is no integrated method, you can usually fall back to the debug console and use the command “importprivkey [yourprivatekey]“.
+            You will need to import your private key in a real client, that you can download from the currency website.
+            The exact method to do that will depend on the client. If there is no integrated method, you can usually
+            fall back to the debug console and use the command “importprivkey [yourprivatekey]“.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; How walletgenerator.net is different than another wallet generator ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; How
+              walletgenerator.net is different than another wallet generator ?</a></h3>
           <p class="faqAnswer" id="faqQuestion5">
-            It’s not that different. You will find another design for the paper wallet and some improvements here and there. The big difference is that this is a unique project for a lot of currencies, so more people can review it and check its safety.
+            It’s not that different. You will find another design for the paper wallet and some improvements here and
+            there. The big difference is that this is a unique project for a lot of currencies, so more people can
+            review it and check its safety.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion7');">&#8226; Can you add support for cryptocurrency XYZ ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion7');">&#8226; Can you
+              add support for cryptocurrency XYZ ?</a></h3>
           <p class="faqAnswer" id="faqQuestion7">
-            Absolutely ! To help us do that, you can <a href="https://docs.google.com/forms/d/1nPIvukVWxlaveUPEUAEhGKwvEuwJiPSgs5zc5LhDVpk/viewform">fill this  form</a>. But keep in mind that there is some currency that we cannot support. If the developers made some change in the address format, we won’t hack the crypto core of the project and take the risk to tamper the security of the others currencies.
-            You can also implement the support yourself by following this <a href="https://github.com/MichaelMure/WalletGenerator.net/wiki/How-to-add-a-new-currency">non-developer How-To</a>
+            Absolutely ! To help us do that, you can <a href="https://docs.google.com/forms/d/1nPIvukVWxlaveUPEUAEhGKwvEuwJiPSgs5zc5LhDVpk/viewform">fill
+              this form</a>. But keep in mind that there is some currency that we cannot support. If the developers
+            made some change in the address format, we won’t hack the crypto core of the project and take the risk to
+            tamper the security of the others currencies.
+            You can also implement the support yourself by following this <a href="https://github.com/nao20010128nao/WalletGenerator.net/wiki/How-to-add-a-new-currency">non-developer
+              How-To</a>
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion8');">&#8226; Why should I make a donation ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion8');">&#8226; Why
+              should I make a donation ?</a></h3>
           <p class="faqAnswer" id="faqQuestion8">
-            Donations money are used to pay our hosting service provider, but it’ll also be used to make walletgenerator.net more secure as we plan to organize a CrowdCurity campain as soon as we get enough money to pay for it.
+            Donations money are used to pay our hosting service provider, but it’ll also be used to make
+            walletgenerator.net more secure as we plan to organize a CrowdCurity campain as soon as we get enough money
+            to pay for it.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion9');">&#8226; I found a bug, what shall I do ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion9');">&#8226; I found
+              a bug, what shall I do ?</a></h3>
           <p class="faqAnswer" id="faqQuestion9">
-            You can report bugs using GitHub. You can also contact us using our Twitter account (<a href="http://twitter.com/WalletGenerator" target="_blank">@WalletGenerator</a>). Just try to explain clearly what is wrong and we will try to fix the bug as soon as possible.
+            You can report bugs using GitHub. You can also contact us using our Twitter account (<a href="http://twitter.com/WalletGenerator"
+              target="_blank">@WalletGenerator</a>). Just try to explain clearly what is wrong and we will try to fix
+            the bug as soon as possible.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion10');">&#8226; Who are you ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion10');">&#8226; Who
+              are you ?</a></h3>
           <p class="faqAnswer" id="faqQuestion10">
             We are just two random guy having fun with a side project.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion11');">&#8226; How can I help ?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion11');">&#8226; How
+              can I help ?</a></h3>
           <p class="faqAnswer" id="faqQuestion11">
-            Donation are always welcome, but you can also help us translate the website. It's really easy. Just add "?i18nextract=LANGUAGECODE" in the end of the url (for instance http://walletgenerator.net/?i18nextract=es for Spanish). You will see at the end of the page a pre-filled javascript array ready to be translated. Translate or correct it, and send it to us the way you prefer. Even partial translation are helpful !
+            Donation are always welcome, but you can also help us translate the website. It's really easy. Just add
+            "?i18nextract=LANGUAGECODE" in the end of the url (for instance http://walletgenerator.net/?i18nextract=es
+            for Spanish). You will see at the end of the page a pre-filled javascript array ready to be translated.
+            Translate or correct it, and send it to us the way you prefer. Even partial translation are helpful !
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226; Private keys imported to Electrum (and its derivation) seemingly works but it's broken !</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226;
+              Private keys imported to Electrum (and its derivation) seemingly works but it's broken !</a></h3>
           <p class="faqAnswer" id="faqQuestion12">
-              This occurs if you're using uncompressed private key. (in WIF format) Electrum recognizes ALL private keys as it is compressed, so importing uncompressed ones breaks the wallet. Use "Wallet Details" tab to convert your private keys.
+            This occurs if you're using uncompressed private key. (in WIF format) Electrum recognizes ALL private keys
+            as it is compressed, so importing uncompressed ones breaks the wallet. Use "Wallet Details" tab to convert
+            your private keys.
           </p>
 
         </div>
@@ -6090,18 +6145,21 @@ Walletgenerator.net use the same security measures as the original project. All-
       <div id="paperarea">
         <div class="commands">
           <div id="papercommands" class="row">
-            <span><label id="paperlabelencrypt" for="paperencrypt" class="i18n">BIP38 Encrypt?</label> <input type="checkbox" id="paperencrypt" onchange="ninja.wallets.paperwallet.toggleEncrypt(this);" /></span>
-            <span><label id="paperlabelBIPpassphrase" for="paperpassphrase" class="i18n">Passphrase:</label> <input type="text" id="paperpassphrase" /></span>
+            <span><label id="paperlabelencrypt" for="paperencrypt" class="i18n">BIP38 Encrypt?</label> <input type="checkbox"
+                id="paperencrypt" onchange="ninja.wallets.paperwallet.toggleEncrypt(this);" /></span>
+            <span><label id="paperlabelBIPpassphrase" for="paperpassphrase" class="i18n">Passphrase:</label> <input
+                type="text" id="paperpassphrase" /></span>
             <select id="addresstype" onchange="ninja.wallets.paperwallet.publicMode=this.selectedIndex;">
               <option selected value="0">Compressed</option>
               <option value="1">Uncompressed</option>
               <option value="2" id="selectsegwit">SegWit</option>
               <option value="3" id="selectsegwitp2sh">SegWit (P2SH-wrapped)</option>
             </select>
-            <br/>
+            <br />
             <input type="button" id="papergenerate" value="Randomly generate" onclick="ninja.wallets.paperwallet.build(document.getElementById('paperpassphrase').value);" />
             <span>OR</span>
-            <input placeholder="Enter your own WIF private key" id="suppliedPrivateKey" name="suppliedPrivateKey" spellcheck="false" />&nbsp;
+            <input placeholder="Enter your own WIF private key" id="suppliedPrivateKey" name="suppliedPrivateKey"
+              spellcheck="false" />&nbsp;
             <input type="button" id="papergenerate" value="Apply &raquo;" onClick="ninja.wallets.paperwallet.testAndApplyVanityKey();" />
 
             <span class="print">
@@ -6117,10 +6175,14 @@ Walletgenerator.net use the same security measures as the original project. All-
       <div id="bulkarea" class="walletarea">
         <div class="commands">
           <div id="bulkcommands" class="row">
-            <span><label id="bulklabelstartindex" for="bulkstartindex" class="i18n">Start index:</label> <input type="text" id="bulkstartindex" value="1" /></span>
-            <span><label id="bulklabelrowstogenerate" for="bulklimit" class="i18n">Rows to generate:</label> <input type="text" id="bulklimit" value="3" /></span>
-            <span><label id="bulklabelcompressed" for="bulkcompressed" class="i18n">Compressed addresses?</label> <input type="checkbox" id="bulkcompressed" /></span>
-            <span><input type="button" id="bulkgenerate" value="Generate" onclick="ninja.wallets.bulkwallet.buildCSV(document.getElementById('bulklimit').value * 1, document.getElementById('bulkstartindex').value * 1, document.getElementById('bulkcompressed').checked);" /> </span>
+            <span><label id="bulklabelstartindex" for="bulkstartindex" class="i18n">Start index:</label> <input type="text"
+                id="bulkstartindex" value="1" /></span>
+            <span><label id="bulklabelrowstogenerate" for="bulklimit" class="i18n">Rows to generate:</label> <input
+                type="text" id="bulklimit" value="3" /></span>
+            <span><label id="bulklabelcompressed" for="bulkcompressed" class="i18n">Compressed addresses?</label>
+              <input type="checkbox" id="bulkcompressed" /></span>
+            <span><input type="button" id="bulkgenerate" value="Generate" onclick="ninja.wallets.bulkwallet.buildCSV(document.getElementById('bulklimit').value * 1, document.getElementById('bulkstartindex').value * 1, document.getElementById('bulkcompressed').checked);" />
+            </span>
             <span class="print"><input type="button" name="print" id="bulkprint" value="Print" onclick="window.print();" /></span>
           </div>
         </div>
@@ -6133,14 +6195,18 @@ Walletgenerator.net use the same security measures as the original project. All-
       <div id="brainarea" class="walletarea">
         <div id="braincommands" class="commands">
           <div class="row">
-            <span id="brainlabelenterpassphrase" class="label"><label id="brainlabelenterpassphraselbl" class="i18n" for="brainpassphrase">Enter Passphrase: </label></span>
+            <span id="brainlabelenterpassphrase" class="label"><label id="brainlabelenterpassphraselbl" class="i18n"
+                for="brainpassphrase">Enter Passphrase: </label></span>
             <input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
-            <span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
+            <span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow"
+                onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
             <span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
           </div>
           <div class="row extra">
-            <span class="label" id="brainlabelconfirm"><label id="brainlabelconfirmlbl" class="i18n" for="brainpassphraseconfirm">Confirm Passphrase: </label></span>
-            <input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
+            <span class="label" id="brainlabelconfirm"><label id="brainlabelconfirmlbl" class="i18n" for="brainpassphraseconfirm">Confirm
+                Passphrase: </label></span>
+            <input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();"
+              onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
             <span><input tabindex="3" type="button" id="brainview" value="View" onclick="ninja.wallets.brainwallet.view();" /></span>
             <span id="brainalgorithm" class="notes right i18n">Algorithm: SHA256(passphrase)</span>
           </div>
@@ -6170,27 +6236,30 @@ Walletgenerator.net use the same security measures as the original project. All-
 
           <div class="row extra qrzone">
             <span class="qrinput">
-            <label id="detaillabelenterprivatekey" for="detailprivkey" class="i18n">Enter Private Key</label>
+              <label id="detaillabelenterprivatekey" for="detailprivkey" class="i18n">Enter Private Key</label>
 
               <span class="qrcodeinputwrapper">
-                <input type="text" id="detailprivkey" value="" placeholder="Enter a private key, or click the QR icon to scan" autocomplete="off" onFocus="this.select();" onKeyPress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
+                <input type="text" id="detailprivkey" value="" placeholder="Enter a private key, or click the QR icon to scan"
+                  autocomplete="off" onFocus="this.select();" onKeyPress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
                 <img onClick="ninja.wallets.detailwallet.qrscanner.start()" />
               </span>
 
-            <input type="button" id="detailview" value="View Details" onclick="ninja.wallets.detailwallet.viewDetails();" />
-          </span>
-          <span class="print">
-            <input type="button" name="print" id="detailprint" value="Print" onclick="window.print();" />
-          </span>
+              <input type="button" id="detailview" value="View Details" onclick="ninja.wallets.detailwallet.viewDetails();" />
+            </span>
+            <span class="print">
+              <input type="button" name="print" id="detailprint" value="Print" onclick="window.print();" />
+            </span>
           </div>
 
           <div id="paperqrscanner">
             <div class="background"></div>
             <div id="mainbody" class="dialog instructionsarea">
               <h2 id="qrcaminstructiontitle" class="i18n">Scan QR code using your camera</h2>
-              <div id="paperqrnotsupported" class="hide redColor i18n">Sorry, but your web browser does not support the HTML5 camera controls. Try using a recent version of Firefox (recommended), Chrome or Opera.</div>
+              <div id="paperqrnotsupported" class="hide redColor i18n">Sorry, but your web browser does not support the
+                HTML5 camera controls. Try using a recent version of Firefox (recommended), Chrome or Opera.</div>
               <div id="paperqrpermissiondenied" class="hide redColor i18n">
-                <p>Permission denied. Your browser should display a message requesting access to your camera. Please click the "Allow" button to enable the camera.</p>
+                <p>Permission denied. Your browser should display a message requesting access to your camera. Please
+                  click the "Allow" button to enable the camera.</p>
               </div>
               <div id="paperqrerror" class="redColor"></div>
               <div id="paperqroutput"></div>
@@ -6198,13 +6267,17 @@ Walletgenerator.net use the same security measures as the original project. All-
             </div>
           </div>
           <div id="detailbip38commands">
-            <span><label id="detaillabelpassphrase" class="i18n">Enter BIP38 Passphrase</label> <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" /></span>
+            <span><label id="detaillabelpassphrase" class="i18n">Enter BIP38 Passphrase</label> <input type="text" id="detailprivkeypassphrase"
+                value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" /></span>
             <span><input type="button" id="detaildecrypt" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.viewDetails();" /></span>
           </div>
         </div>
         <div id="detailkeyarea">
           <div class="notes">
-            <span id="detaillabelnote1" class="i18n">Your Private Key is a unique secret number that only you know. It can be encoded in a number of different formats. Below we show the Public Address and Public Key that corresponds to your Private Key as well as your Private Key in the most popular encoding formats (WIF, WIFC, HEX, B64).</span>
+            <span id="detaillabelnote1" class="i18n">Your Private Key is a unique secret number that only you know. It
+              can be encoded in a number of different formats. Below we show the Public Address and Public Key that
+              corresponds to your Private Key as well as your Private Key in the most popular encoding formats (WIF,
+              WIFC, HEX, B64).</span>
             <br /><br />
           </div>
           <div class="pubqr">
@@ -6249,7 +6322,8 @@ Walletgenerator.net use the same security measures as the original project. All-
               <span class="output" id="detailprivwif"></span>
             </div>
             <div class="item right">
-              <span class="label"><span id="detaillabelprivwifcomp" class="i18n">Private Key WIF Compressed<br />52 characters Base58</span></span>
+              <span class="label"><span id="detaillabelprivwifcomp" class="i18n">Private Key WIF Compressed<br />52
+                  characters Base58</span></span>
               <div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
               <span class="output" id="detailprivwifcomp"></span>
             </div>
@@ -6282,310 +6356,375 @@ Walletgenerator.net use the same security measures as the original project. All-
               <span id="detaillabelq1" class="i18n">How do I make a wallet using dice? What is B6?</span>
               <div id="detaile1" class="more"></div>
             </div>
-            <div id="detaila1" class="answer i18n">An important part of creating a crypto-currency wallet is ensuring the random numbers used to create the wallet are truly random. Physical randomness is better than computer generated pseudo-randomness. The easiest way to generate physical randomness is with dice. To create a crypto-currency private key you only need one six sided die which you roll 99 times. Stopping each time to record the value of the die. When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0. By doing this you are recording the big random number, your private key, in B6 or base 6 format. You can then enter the 99 character base 6 private key into the text field above and click View Details. You will then see the public address associated with your private key. You should also make note of your private key in WIF format since it is more widely used.</div>
+            <div id="detaila1" class="answer i18n">An important part of creating a crypto-currency wallet is ensuring
+              the random numbers used to create the wallet are truly random. Physical randomness is better than
+              computer generated pseudo-randomness. The easiest way to generate physical randomness is with dice. To
+              create a crypto-currency private key you only need one six sided die which you roll 99 times. Stopping
+              each time to record the value of the die. When recording the values follow these rules: 1=1, 2=2, 3=3,
+              4=4, 5=5, 6=0. By doing this you are recording the big random number, your private key, in B6 or base 6
+              format. You can then enter the 99 character base 6 private key into the text field above and click View
+              Details. You will then see the public address associated with your private key. You should also make note
+              of your private key in WIF format since it is more widely used.</div>
           </div>
         </div>
       </div>
 
       <div id="donatearea" class="walletarea">
-        <div id="donatetextfooter" class="i18n">To support the development of this wallet generator, you can donate to the following addresses. When the support for a currency has been added by an external contributor to the project, he receives the donation directly. </div>
+        <div id="donatetextfooter" class="i18n">To support the development of this wallet generator, you can donate to
+          the following addresses. When the support for a currency has been added by an external contributor to the
+          project, he receives the donation directly. </div>
         <div id="donatelist"></div>
         <div id="donateqrcode"></div>
         <div id="donateinfo"></div>
-    <div id="changelog">
-      <hr/>
-      <h3>Release notes</h3>
-      <p>
-      01.2018 --
-        <ul>
-          <li>Add support for multi-prefix currencies (like ZCash). Contribution from terryxsq.</li>
-          <li>Fix Espers configuration. Contribution from ctgiant.</li>
-          <li>Update Espers logo. Contribution from nazarsh.</li>
-          <li>Add support for Dimecoin. Contribution from hanoncs.</li>
-          <li>Add support for LBRY Credits. Contribution from todd1251.</li>
-          <li>Add support for AGAcoin. Contribution from vx28643.</li>
-          <li>Add support for PacCOin. Contribution from al-mac.</li>
-          <li>Add support for HFRcoin. Contribution from hfrcoin.</li>
-          <li>Add support for CampusCoin. Contribution from campuscoindev.</li>
-          <li>Add support for Bitcore, CopperCoin, Ember, KittehCoin, NYC, Peercoin, PiggyCoin. Contribution from jdspringer.</li>
-          <li>Add support for AXE. Contribution from charlesrocket.</li>
-          <li>Add support for ROIcoin. Contribution from DisasterFaster.</li>
-          <li>Add support for ZCash. Contribution from terryxsq.</li>
-          <li>Add support for Yenten. Contribution from WorldBot.</li>
-          <li>Add support for NEETCOIN. Contribution from rmdfwqclmrkcvpbe.</li>
-          <li>Add support for Garlicoin.</li>
-        </ul>
-      <p>
-      12.2017 --
-        <ul>
-          <li>Update Vertcoin to new wallet format.</li>
-          <li>Update Vertcoin background graphics.</li>
-          <li>Update Bitcoin Cash logo.</li>
-        </ul>
-      <p>
-      12.2017 --
-        <ul>
-          <li>New translation in portugese ! Contribution from Gabriel Barreiro.</li>
-          <li>New translation in polish ! Contribution from Piotr Gerus.</li>
-          <li>New partial translation in chinese ! Contribution from Frank Ou.</li>
-          <li>Fix Emercoin support. Contribution from vx28643.</li>
-          <li>Add support for Stratis and NavCoin. Contribution from Sean Auriti.</li>
-          <li>Add support for Flurbo. Contribution from Flurbos.</li>
-          <li>Add support for BitcoinGold. Contribution from F3de81.</li>
-          <li>Add support for XP. Contribution from Jason Brink.</li>
-          <li>Add support for ROI. Contribution from DisasterFaster.</li>
-          <li>Add support for BolivarCoin. Contribution from Elpidio Moreno.</li>
-          <li>Add support for TrezarCoin, contribution from fenrisl.</li>
-          <li>Add support for BiblePay. Contribution from John Doer.</li>
-          <li>Add support for ColossusCoinXt. Contribution from Дмитрий Брега.</li>
-          <li>Add support for HOdlcoin. Contribution from R4FKEN.</li>
-          <li>Add support for BitConnect. Contribution from ExtendLord.</li>
-          <li>Add support for Nyancoin. Contribution from jwflame.</li>
-          <li>Add support for BitZeny. Contribution from rmdfwqclmrkcvpbe.</li>
-          <li>Add support for Alqo, Copico and DNotes. Contribution from drewrothstein.</li>
-          <li>Add support for Blocknet. Contribution from mthf.</li>
-          <li>Add support for BoxyCoin. Contribution from BoxyCoin team.</li>
-          <li>Add support for VergeCoin. Contribution from Graham Pratt.</li>
-          <li>Add support for KHcoin. Contribution from In Mean.</li>
-          <li>Remove support for HTML5Coin and add support for HTMLCoin. Contribution from bonchien.</li>
-        </ul>
-      <p>
-      10.2017 --
-        <ul>
-          <li>New translation in Dutch ! Contribution from MadnessJax.</li>
-          <li>New translation in German ! Contribution from fflo.</li>
-          <li>New translation in italian ! Contribution from F3de81.</li>
-          <li>New partial translation in Turkish ! Contribution from snipeTR.</li>
-          <li>Add support for WACoins. Contribution from WACoinsTeam.</li>
-          <li>Add support forNeedleCoin. Contribution from F3de81.</li>
-          <li>Add support for Rupaya. Contribution from rupaya-project.</li>
-          <li>Add support for Particl. Contribution from dasource.</li>
-          <li>Add support for Madbytecoin. Contribution from mvidberg.</li>
-          <li>Add support for CryptoWisdomCoin. Contribution from mvidberg.</li>
-          <li>Add support for Terracoin. Contribution from caique39.</li>
-          <li>Add support for SixEleven. Contribution from fflo.</li>
-          <li>Update Syscoin to new wallet format. Contribution from donredhorse.</li>
-          <li>Update MonetaryUnit to new wallet format. Contribution from BBoBBG.</li>
-          <li>Improved Chaincoin graphics. Contribution from suprnurd.</li>
-        </ul>
-      <p>
-      09.2017 --
-        <ul>
-          <li>New translation in Ukrainian ! Contribution from Dmytro.</li>
-          <li>Add support for Bitcoin Cash.</li>
-          <li>Add support for C2Coin. Contribution from Chris.</li>
-          <li>Add support for frazcoin. Contribution from frazcoin.</li>
-          <li>Add support for Condensate. Contribution from OBAVi.</li>
-          <li>Add support for pinkcoin. Contribution from Christopher Siminski.</li>
-          <li>Add support for innox. Contribution from Dave</li>
-          <li>Add support for electra. Contribution from bob van egeraat.</li>
-          <li>Add support for ChainCoin. Contribution from brakmic.</li>
-          <li>Add support for prospercoin classic. Contribution from inmean.</li>
-          <li>Add support for Cagecoin. Contribution from knkrth.</li>
-          <li>Add support for deeponion. Contribution from deeponion.</li>
-          <li>Add support for Florin. Contribution from bitspill.</li>
-          <li>Add support for SmileyCoin. Contribution from fridasnaedis.</li>
-          <li>Add support for Cryptonite. Contribution from tnotm.</li>
-          <li>Add support for 2Give, Fedoracoin and Qubitcoin. Contribution from jemekite.</li>
-          <li>Add support for Versioncoin. Contribution from CryptoRagazzo.</li>
-          <li>Add support fpr PIVX and Testnet PIVX. Contribution from Fuzzbawls.</li>
-          <li>Add support for lomocoin. Contribution from liuji.</li>
-          <li>Add support for SwagBucks. Contribution from pinkmagicdev.</li>
-        </ul>
-      <p>
-      01.2017 --
-        <ul>
-          <li>Add support for Espers. Contribution from ctgiant.</li>
-          <li>Add support for Vcash, Dogecoin testnet and BitSynq. Contribution from tloriato.</li>
-          <li>Add support for Deutsche eMark. Contribution from xBlackEye.</li>
-          <li>Add support for MintCoin. Contribution from Fuzzbawls.</li>
-          <li>Add support for IncaKoin. Contribution from WorldBot.</li>
-          <li>Add support for Aquariuscoin, Lanacoin, Tajcoin and Nevacoin. Contribution from cryptosi.</li>
-          <li>Add support for DigiByte. Contribution from Maurice van Beurden.</li>
-          <li>Add support for Emerald. contribution from Paraskewas Zormbalas.</li>
-        </ul>
-      <p>
-      05.2016 --
-        <ul>
-          <li>Add support for ParkByte. Contribution from ParkByte.</li>
-          <li>Add support for BlackJack. Contribution from BlackJackDev.</li>
-          <li>Add support for SecKCoin. Contribution from hevsnt.</li>
-          <li>Add support for CashCoin. Contribution from BigDig.</li>
-          <li>Add support for iCash. Contribution from Alexander Pochtov.</li>
-        </ul>
-      02.2016 --
-        <ul>
-          <li>Add support for TransferCoin. Contribution from Stoner19.</li>
-          <li>Add support for BitcoinDark and Spreadcoin. Contribution from vx28643.</li>
-          <li>Rename Guldencoin to Gulden. Contribution from mjmacleod.</li>
-        </ul>
-      <p>
-      11.2015 --
-        <ul>
-          <li>Add support for Neoscoin, Rubycoin, Influxcoin and Hyperstake. Contribution from Stoner19.</li>
-        </ul>
-      <p>
-      10.2015 --
-        <ul>
-          <li>Add support for SibCoin. Contribution from testzcrypto.</li>
-          <li>Replace Gridcoin with GridcoinResearch. Contribution from esspam.</li>
-          <li>Add support for CryptoClub. Contribution from cryptoclubber.</li>
-          <li>Add support for Capricoin. contribution from Jackie Love4u.</li>
-          <li>Add support for CryptoBullion, contribution from John Sacco.</li>
-          <li>Update FuelCoin logo. contribution from Jackie Love4u.</li>
-          <li>Add support for MartexCoin. contribution from MartexCoin.</li>
-          <li>Add support for GabenCoin. contribution from Jan Visser.</li>
-        </ul>
-      <p>
-      08.2015 --
-        <ul>
-          <li>Add support for masterdoge. Contribution from koad.</li>
-          <li>New translation in Spanish ! Contribution from PrAeToRiAn.</li>
-          <li>Improved Russian translation. Contribution from UdjinM6.</li>
-          <li>Fixed Fujicoin address generation. Contribution from Fujicoin.</li>
-        </ul>
-      <p>
-      07.2015 --
-        <ul>
-          <li>Add support for Animecoin, EnergyCoin and USDe. Contribution from TestZ.</li>
-          <li>Add support for LiteDoge, Pesetacoin, Syscoin and Viacoin. Contribution from Puppy Firelyte.</li>
-        </ul>
-      <p>
-      05.2015 --
-        <ul>
-          <li>Add support for Emercoin. Contribution from vx28643.</li>
-        </ul>
-      <p>
-      05.2015 --
-        <ul>
-          <li>New translation in russian ! Contribution from UdjinM6.</li>
-          <li>Darkcoin rebranded as Dash. Contribution from UdjinM6.</li>
-          <li>Add support for Cryptoescudo, Fujicoin and Sambacoin. Contribution from Marcdnd.</li>
-        </ul>
-      <p>
-      04.2015 --
-        <ul>
-          <li>Add support for Omnicoin. Contribution from MeshCollider.</li>
-          <li>Add support for Canada eCoin. Contribution from koad</li>
-        </ul>
-      <p>
-      03.2015 --
-        <ul>
-          <li>Add support for PhoenixCoin. Contribution from rekkitcwts.</li>
-        </ul>
-      <p>
-      02.2015 --
-        <ul>
-          <li>Add support for DogecoinDark, Riecoin, and WorldCoin. Contribution from rekkitcwts.</li>
-        </ul>
-      <p>
-      02.2015 --
-        <ul>
-          <li>Add support for Quark, CannabisCoin and SongCoin. Contribution from rekkitcwts.</li>
-        </ul>
-      <p>
-      12.2014 --
-      <ul>
-        <li>Add support for DeafDollars, MobiusCoin, BunnyCoin, Ocupy, FUDcoin, StealthCoin, Rimbit, Paycoin and MonetaryUnit.</li>
-      </ul>
-      <p>
-      11.2014 --
-        <ul>
-          <li>Add support for IridiumCoin, Latium, Magicoin, Nubits, TittieCoin, WankCoin, HamRadioCoin, ImperiumCoin, IncognitoCoin and Mooncoin</li>
-          <li>HTTPS support is here !</li>
-        </ul>
-      <p>
-      10.2014 --
-        <ul>
-          <li>Add support for Jumbucks. Contribution from Julian Yap.</li>
-        </ul>
-      <p>
-      10.2014 --
-        <ul>
-          <li>Add support for HTML5Coin, W2Coin, PandaCoin, ACoin, Fibre, and Titcoin.</li>
-          <li>Remove support fo HTMLCoin</li>
-        </ul>
-      <p>
-      09.2014 --
-        <ul>
-          <li>Add support for eKrona, Mazacoin, iXcoin, eGulden and Potcoin.</li>
-        </ul>
-      <p>
-      08.2014 --
-        <ul>
-          <li>Enter your own private key to print a paper wallet, and BIP38 encrypt them as well !</li>
-          <li>Add support for Apexcoin, Cassubian Detk, Freicoin, Judgecoin, Myriadcoin and Onyxcoin.</li>
-        </ul>
-      <p>
-      07.2014 --
-        <ul>
-          <li>Add support for Unobtanium, WeAreSatoshi Coin, Zetacoin, Vikingcoin, Guldencoin, PHCoin and Fuelcoin.</li>
-        </ul>
-      <p>
-      07.2014 --
-        <ul>
-          <li>Fix a vulnerability that lead to the generation of less random wallet that normal on old browser. If you use a browser older than the mentionned version/date, we advise you to regenerate your wallets.
+        <div id="changelog">
+          <hr />
+          <h3>Release notes</h3>
+          <p>
+            11.2018 --
             <ul>
-              <li>Firefox 21: may 2013</li>
-              <li>Chrome 11: april 2011</li>
-              <li>IE 11: october 2013</li>
-              <li>Opera 14: july 2013</li>
-              <li>Safari 3.1: march 2008</li>
+              <li>Add support for MangaCoin.</li>
+              <li>Update libraries in use.</li>
+              <li>Add support for SegWit address.</li>
             </ul>
-          </li>
-          <li>Added a Frequently Asked Question section on the main page</li>
-        </ul>
-      <p>
-      06.2014 --
-        <ul>
-          <li>Add support for GlobalBoost, Fluttercoin, Guncoin and Birdcoin.</li>
-        </ul>
-      <p>
-      06.2014 --
-        <ul>
-          <li>Add support for Monocle, TreasureHuntCoin and GoodCoin.</li>
-        </ul>
-      <p>
-      05.2014 --
-        <ul>
-          <li>Add support for Gridcoin and Fastcoin.</li>
-        </ul>
-      <p>
-      05.2014 --
-        <ul>
-          <li>Add support for 11 new currencies (42coin, Alphacoin, Anoncoin, Corgicoin, Darkcoin, Devcoin, Digitalcoin, HTMLCoin, Magic Internet Money, Megacoin and Novacoin).</li>
-          <li>Ability to scan a QRCode with your webcam to check the wallet details.</li>
-          <li>New design for Peercoin and Dogecoin paperwallets, such wow.</li>
-        </ul>
-      <p>
-      04.2014 --
-        <ul>
-          <li>Bring back the wallet details to decrypt Bip38 encoded wallet.</li>
-          <li>Add a button to skip the seeding. Don't skip if you intend to use the generated wallet !</li>
-          <li>Fix a display bug for a Bip38 encoded paper wallet.</li>
-        </ul>
-      <p>
-      04.2014 --
-        <ul>
-          <li>Add support for Blackcoin and Primecoin</li>
-          <li>Add direct access to a currency. Example: <a href="http://walletgenerator.net/?currency=Vertcoin">http://walletgenerator.net/?currency=Vertcoin</a></li>
-        </ul>
-      <p>
-      04.2014 --
-        <ul>
-          <li>Multi-currency support with 13 different currencies</li>
-          <li>Original design for the paper wallet</li>
-          <li>Improved design of the website</li>
-          <li>Security checklist and more user-friendly explanations</li>
-        </ul>
-    </div>
+          </p>
+          <p>
+            09.2018 --
+            <ul>
+              <li>Add support for Monacoin.</li>
+            </ul>
+          </p>
+          <p>
+            01.2018 --
+            <ul>
+              <li>Add support for multi-prefix currencies (like ZCash). Contribution from terryxsq.</li>
+              <li>Fix Espers configuration. Contribution from ctgiant.</li>
+              <li>Update Espers logo. Contribution from nazarsh.</li>
+              <li>Add support for Dimecoin. Contribution from hanoncs.</li>
+              <li>Add support for LBRY Credits. Contribution from todd1251.</li>
+              <li>Add support for AGAcoin. Contribution from vx28643.</li>
+              <li>Add support for PacCOin. Contribution from al-mac.</li>
+              <li>Add support for HFRcoin. Contribution from hfrcoin.</li>
+              <li>Add support for CampusCoin. Contribution from campuscoindev.</li>
+              <li>Add support for Bitcore, CopperCoin, Ember, KittehCoin, NYC, Peercoin, PiggyCoin. Contribution from
+                jdspringer.</li>
+              <li>Add support for AXE. Contribution from charlesrocket.</li>
+              <li>Add support for ROIcoin. Contribution from DisasterFaster.</li>
+              <li>Add support for ZCash. Contribution from terryxsq.</li>
+              <li>Add support for Yenten. Contribution from WorldBot.</li>
+              <li>Add support for NEETCOIN. Contribution from rmdfwqclmrkcvpbe.</li>
+              <li>Add support for Garlicoin.</li>
+            </ul>
+          </p>
+          <p>
+            12.2017 --
+            <ul>
+              <li>Update Vertcoin to new wallet format.</li>
+              <li>Update Vertcoin background graphics.</li>
+              <li>Update Bitcoin Cash logo.</li>
+            </ul>
+          </p>
+          <p>
+            12.2017 --
+            <ul>
+              <li>New translation in portugese ! Contribution from Gabriel Barreiro.</li>
+              <li>New translation in polish ! Contribution from Piotr Gerus.</li>
+              <li>New partial translation in chinese ! Contribution from Frank Ou.</li>
+              <li>Fix Emercoin support. Contribution from vx28643.</li>
+              <li>Add support for Stratis and NavCoin. Contribution from Sean Auriti.</li>
+              <li>Add support for Flurbo. Contribution from Flurbos.</li>
+              <li>Add support for BitcoinGold. Contribution from F3de81.</li>
+              <li>Add support for XP. Contribution from Jason Brink.</li>
+              <li>Add support for ROI. Contribution from DisasterFaster.</li>
+              <li>Add support for BolivarCoin. Contribution from Elpidio Moreno.</li>
+              <li>Add support for TrezarCoin, contribution from fenrisl.</li>
+              <li>Add support for BiblePay. Contribution from John Doer.</li>
+              <li>Add support for ColossusCoinXt. Contribution from Дмитрий Брега.</li>
+              <li>Add support for HOdlcoin. Contribution from R4FKEN.</li>
+              <li>Add support for BitConnect. Contribution from ExtendLord.</li>
+              <li>Add support for Nyancoin. Contribution from jwflame.</li>
+              <li>Add support for BitZeny. Contribution from rmdfwqclmrkcvpbe.</li>
+              <li>Add support for Alqo, Copico and DNotes. Contribution from drewrothstein.</li>
+              <li>Add support for Blocknet. Contribution from mthf.</li>
+              <li>Add support for BoxyCoin. Contribution from BoxyCoin team.</li>
+              <li>Add support for VergeCoin. Contribution from Graham Pratt.</li>
+              <li>Add support for KHcoin. Contribution from In Mean.</li>
+              <li>Remove support for HTML5Coin and add support for HTMLCoin. Contribution from bonchien.</li>
+            </ul>
+          </p>
+          <p>
+            10.2017 --
+            <ul>
+              <li>New translation in Dutch ! Contribution from MadnessJax.</li>
+              <li>New translation in German ! Contribution from fflo.</li>
+              <li>New translation in italian ! Contribution from F3de81.</li>
+              <li>New partial translation in Turkish ! Contribution from snipeTR.</li>
+              <li>Add support for WACoins. Contribution from WACoinsTeam.</li>
+              <li>Add support forNeedleCoin. Contribution from F3de81.</li>
+              <li>Add support for Rupaya. Contribution from rupaya-project.</li>
+              <li>Add support for Particl. Contribution from dasource.</li>
+              <li>Add support for Madbytecoin. Contribution from mvidberg.</li>
+              <li>Add support for CryptoWisdomCoin. Contribution from mvidberg.</li>
+              <li>Add support for Terracoin. Contribution from caique39.</li>
+              <li>Add support for SixEleven. Contribution from fflo.</li>
+              <li>Update Syscoin to new wallet format. Contribution from donredhorse.</li>
+              <li>Update MonetaryUnit to new wallet format. Contribution from BBoBBG.</li>
+              <li>Improved Chaincoin graphics. Contribution from suprnurd.</li>
+            </ul>
+          </p>
+          <p>
+            09.2017 --
+            <ul>
+              <li>New translation in Ukrainian ! Contribution from Dmytro.</li>
+              <li>Add support for Bitcoin Cash.</li>
+              <li>Add support for C2Coin. Contribution from Chris.</li>
+              <li>Add support for frazcoin. Contribution from frazcoin.</li>
+              <li>Add support for Condensate. Contribution from OBAVi.</li>
+              <li>Add support for pinkcoin. Contribution from Christopher Siminski.</li>
+              <li>Add support for innox. Contribution from Dave</li>
+              <li>Add support for electra. Contribution from bob van egeraat.</li>
+              <li>Add support for ChainCoin. Contribution from brakmic.</li>
+              <li>Add support for prospercoin classic. Contribution from inmean.</li>
+              <li>Add support for Cagecoin. Contribution from knkrth.</li>
+              <li>Add support for deeponion. Contribution from deeponion.</li>
+              <li>Add support for Florin. Contribution from bitspill.</li>
+              <li>Add support for SmileyCoin. Contribution from fridasnaedis.</li>
+              <li>Add support for Cryptonite. Contribution from tnotm.</li>
+              <li>Add support for 2Give, Fedoracoin and Qubitcoin. Contribution from jemekite.</li>
+              <li>Add support for Versioncoin. Contribution from CryptoRagazzo.</li>
+              <li>Add support fpr PIVX and Testnet PIVX. Contribution from Fuzzbawls.</li>
+              <li>Add support for lomocoin. Contribution from liuji.</li>
+              <li>Add support for SwagBucks. Contribution from pinkmagicdev.</li>
+            </ul>
+          </p>
+          <p>
+            01.2017 --
+            <ul>
+              <li>Add support for Espers. Contribution from ctgiant.</li>
+              <li>Add support for Vcash, Dogecoin testnet and BitSynq. Contribution from tloriato.</li>
+              <li>Add support for Deutsche eMark. Contribution from xBlackEye.</li>
+              <li>Add support for MintCoin. Contribution from Fuzzbawls.</li>
+              <li>Add support for IncaKoin. Contribution from WorldBot.</li>
+              <li>Add support for Aquariuscoin, Lanacoin, Tajcoin and Nevacoin. Contribution from cryptosi.</li>
+              <li>Add support for DigiByte. Contribution from Maurice van Beurden.</li>
+              <li>Add support for Emerald. contribution from Paraskewas Zormbalas.</li>
+            </ul>
+          </p>
+          <p>
+            05.2016 --
+            <ul>
+              <li>Add support for ParkByte. Contribution from ParkByte.</li>
+              <li>Add support for BlackJack. Contribution from BlackJackDev.</li>
+              <li>Add support for SecKCoin. Contribution from hevsnt.</li>
+              <li>Add support for CashCoin. Contribution from BigDig.</li>
+              <li>Add support for iCash. Contribution from Alexander Pochtov.</li>
+            </ul>
+          </p>
+          <p>
+            02.2016 --
+            <ul>
+              <li>Add support for TransferCoin. Contribution from Stoner19.</li>
+              <li>Add support for BitcoinDark and Spreadcoin. Contribution from vx28643.</li>
+              <li>Rename Guldencoin to Gulden. Contribution from mjmacleod.</li>
+            </ul>
+          </p>
+          <p>
+            11.2015 --
+            <ul>
+              <li>Add support for Neoscoin, Rubycoin, Influxcoin and Hyperstake. Contribution from Stoner19.</li>
+            </ul>
+          </p>
+          <p>
+            10.2015 --
+            <ul>
+              <li>Add support for SibCoin. Contribution from testzcrypto.</li>
+              <li>Replace Gridcoin with GridcoinResearch. Contribution from esspam.</li>
+              <li>Add support for CryptoClub. Contribution from cryptoclubber.</li>
+              <li>Add support for Capricoin. contribution from Jackie Love4u.</li>
+              <li>Add support for CryptoBullion, contribution from John Sacco.</li>
+              <li>Update FuelCoin logo. contribution from Jackie Love4u.</li>
+              <li>Add support for MartexCoin. contribution from MartexCoin.</li>
+              <li>Add support for GabenCoin. contribution from Jan Visser.</li>
+            </ul>
+          </p>
+          <p>
+            08.2015 --
+            <ul>
+              <li>Add support for masterdoge. Contribution from koad.</li>
+              <li>New translation in Spanish ! Contribution from PrAeToRiAn.</li>
+              <li>Improved Russian translation. Contribution from UdjinM6.</li>
+              <li>Fixed Fujicoin address generation. Contribution from Fujicoin.</li>
+            </ul>
+          </p>
+          <p>
+            07.2015 --
+            <ul>
+              <li>Add support for Animecoin, EnergyCoin and USDe. Contribution from TestZ.</li>
+              <li>Add support for LiteDoge, Pesetacoin, Syscoin and Viacoin. Contribution from Puppy Firelyte.</li>
+            </ul>
+          </p>
+          <p>
+            05.2015 --
+            <ul>
+              <li>Add support for Emercoin. Contribution from vx28643.</li>
+            </ul>
+          </p>
+          <p>
+            05.2015 --
+            <ul>
+              <li>New translation in russian ! Contribution from UdjinM6.</li>
+              <li>Darkcoin rebranded as Dash. Contribution from UdjinM6.</li>
+              <li>Add support for Cryptoescudo, Fujicoin and Sambacoin. Contribution from Marcdnd.</li>
+            </ul>
+          </p>
+          <p>
+            04.2015 --
+            <ul>
+              <li>Add support for Omnicoin. Contribution from MeshCollider.</li>
+              <li>Add support for Canada eCoin. Contribution from koad</li>
+            </ul>
+          </p>
+          <p>
+            03.2015 --
+            <ul>
+              <li>Add support for PhoenixCoin. Contribution from rekkitcwts.</li>
+            </ul>
+            <p>
+            </p>
+            02.2015 --
+            <ul>
+              <li>Add support for DogecoinDark, Riecoin, and WorldCoin. Contribution from rekkitcwts.</li>
+            </ul>
+            <p>
+            </p>
+            02.2015 --
+            <ul>
+              <li>Add support for Quark, CannabisCoin and SongCoin. Contribution from rekkitcwts.</li>
+            </ul>
+          </p>
+          <p>
+            12.2014 --
+            <ul>
+              <li>Add support for DeafDollars, MobiusCoin, BunnyCoin, Ocupy, FUDcoin, StealthCoin, Rimbit, Paycoin and
+                MonetaryUnit.</li>
+            </ul>
+          </p>
+          <p>
+            11.2014 --
+            <ul>
+              <li>Add support for IridiumCoin, Latium, Magicoin, Nubits, TittieCoin, WankCoin, HamRadioCoin,
+                ImperiumCoin, IncognitoCoin and Mooncoin</li>
+              <li>HTTPS support is here !</li>
+            </ul>
+          </p>
+          <p>
+            10.2014 --
+            <ul>
+              <li>Add support for Jumbucks. Contribution from Julian Yap.</li>
+            </ul>
+          </p>
+          <p>
+            10.2014 --
+            <ul>
+              <li>Add support for HTML5Coin, W2Coin, PandaCoin, ACoin, Fibre, and Titcoin.</li>
+              <li>Remove support fo HTMLCoin</li>
+            </ul>
+          </p>
+          <p>
+            09.2014 --
+            <ul>
+              <li>Add support for eKrona, Mazacoin, iXcoin, eGulden and Potcoin.</li>
+            </ul>
+          </p>
+          <p>
+            08.2014 --
+            <ul>
+              <li>Enter your own private key to print a paper wallet, and BIP38 encrypt them as well !</li>
+              <li>Add support for Apexcoin, Cassubian Detk, Freicoin, Judgecoin, Myriadcoin and Onyxcoin.</li>
+            </ul>
+          </p>
+          <p>
+            07.2014 --
+            <ul>
+              <li>Add support for Unobtanium, WeAreSatoshi Coin, Zetacoin, Vikingcoin, Guldencoin, PHCoin and Fuelcoin.</li>
+            </ul>
+          </p>
+          <p>
+            07.2014 --
+            <ul>
+              <li>Fix a vulnerability that lead to the generation of less random wallet that normal on old browser. If
+                you use a browser older than the mentionned version/date, we advise you to regenerate your wallets.
+                <ul>
+                  <li>Firefox 21: may 2013</li>
+                  <li>Chrome 11: april 2011</li>
+                  <li>IE 11: october 2013</li>
+                  <li>Opera 14: july 2013</li>
+                  <li>Safari 3.1: march 2008</li>
+                </ul>
+              </li>
+              <li>Added a Frequently Asked Question section on the main page</li>
+            </ul>
+          </p>
+          <p>
+            06.2014 --
+            <ul>
+              <li>Add support for GlobalBoost, Fluttercoin, Guncoin and Birdcoin.</li>
+            </ul>
+          </p>
+          <p>
+            06.2014 --
+            <ul>
+              <li>Add support for Monocle, TreasureHuntCoin and GoodCoin.</li>
+            </ul>
+          </p>
+          <p>
+            05.2014 --
+            <ul>
+              <li>Add support for Gridcoin and Fastcoin.</li>
+            </ul>
+          </p>
+          <p>
+            05.2014 --
+            <ul>
+              <li>Add support for 11 new currencies (42coin, Alphacoin, Anoncoin, Corgicoin, Darkcoin, Devcoin,
+                Digitalcoin, HTMLCoin, Magic Internet Money, Megacoin and Novacoin).</li>
+              <li>Ability to scan a QRCode with your webcam to check the wallet details.</li>
+              <li>New design for Peercoin and Dogecoin paperwallets, such wow.</li>
+            </ul>
+          </p>
+          <p>
+            04.2014 --
+            <ul>
+              <li>Bring back the wallet details to decrypt Bip38 encoded wallet.</li>
+              <li>Add a button to skip the seeding. Don't skip if you intend to use the generated wallet !</li>
+              <li>Fix a display bug for a Bip38 encoded paper wallet.</li>
+            </ul>
+          </p>
+          <p>
+            04.2014 --
+            <ul>
+              <li>Add support for Blackcoin and Primecoin</li>
+              <li>Add direct access to a currency. Example: <a href="http://walletgenerator.net/?currency=Vertcoin">http://walletgenerator.net/?currency=Vertcoin</a></li>
+            </ul>
+          </p>
+          <p>
+            04.2014 --
+            <ul>
+              <li>Multi-currency support with 13 different currencies</li>
+              <li>Original design for the paper wallet</li>
+              <li>Improved design of the website</li>
+              <li>Security checklist and more user-friendly explanations</li>
+            </ul>
+          </p>
+        </div>
       </div>
     </div>
 
     <div id="footer" class="footer">
       <div>
-        <span class="item"><a id="footersupport" href="#" onclick="ninja.tabSwitch(document.getElementById('donate'));" class="i18n">Support WalletGenerator.net</a></span>
-        <span class="item"><a href="https://github.com/MichaelMure/WalletGenerator.net" target="_blank" id="footerlabelgithub" class="i18n">Download (GitHub Repository)</a></span>
+        <span class="item"><a id="footersupport" href="#" onclick="ninja.tabSwitch(document.getElementById('donate'));"
+            class="i18n">Support WalletGenerator.net</a></span>
+        <span class="item"><a href="https://github.com/nao20010128nao/WalletGenerator.net" target="_blank" id="footerlabelgithub"
+            class="i18n">Download (GitHub Repository)</a></span>
       </div>
       <div class="copyright">
         <span id="footerlabelcopyright1">Copyright WalletGenerator.net.</span>
@@ -6596,7 +6735,7 @@ Walletgenerator.net use the same security measures as the original project. All-
   </div>
 
   <script type="text/javascript">
-(function (window) {
+    (function (window) {
 	var muchIndex    = 0;
 	var wowLength    = 0;
 	var manyWords    = null;
@@ -6673,7 +6812,7 @@ Walletgenerator.net use the same security measures as the original project. All-
 	window.Doge = Doge;
 
 }(window));;
-var janin = {};
+    var janin = {};
 
 janin.currency = {
     createCurrency: function (name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp) {
@@ -6988,7 +7127,7 @@ janin.currencies = [
     janin.currency.createCurrency("Testnet PIVX", 0x8b, 0xef, "9", "c", null),
     janin.currency.createCurrency("Testnet WACoins", 0x51, 0xd1, "8", "[XY]", null)
 ];;
-var ninja = {
+    var ninja = {
 	wallets: {}
 };
 
@@ -7299,7 +7438,7 @@ ninja.publicKey = {
 		return pubHexUncompressed;
 	}
 };;
-	ninja.seeder = {
+    	ninja.seeder = {
 		init: (function () {
 			document.getElementById("generatekeyinput").value = "";
 		})(),
@@ -7592,7 +7731,7 @@ ninja.publicKey = {
 		var answerDiv = document.getElementById(elementId);
 		answerDiv.style.display = answerDiv.style.display == "block" ? "none" : "block";
 	};;
-ninja.translator = {
+    ninja.translator = {
 	currentCulture: "en",
 
 	autodetectTranslation: function() {
@@ -8550,7 +8689,7 @@ ninja.translator = {
 	}
 };
 ;
-ninja.wallets.singlewallet = {
+    ninja.wallets.singlewallet = {
 	open: function () {
 		if (document.getElementById("btcaddress").innerHTML == "") {
 			ninja.wallets.singlewallet.generateNewAddressAndKey();
@@ -8591,7 +8730,7 @@ ninja.wallets.singlewallet = {
 		}
 	}
 };;
-ninja.wallets.paperwallet = {
+    ninja.wallets.paperwallet = {
 	open: function () {
 		document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div
 		var paperArea = document.getElementById("paperarea");
@@ -8770,7 +8909,7 @@ ninja.wallets.paperwallet = {
 		}
 	}
 };;
-ninja.wallets.bulkwallet = {
+    ninja.wallets.bulkwallet = {
 	open: function () {
 		document.getElementById("bulkarea").style.display = "block";
 		// show a default CSV list if the text area is empty
@@ -8843,7 +8982,7 @@ ninja.wallets.bulkwallet = {
 		}
 	}
 };;
-ninja.wallets.brainwallet = {
+    ninja.wallets.brainwallet = {
 	open: function () {
 		document.getElementById("brainarea").style.display = "block";
 		document.getElementById("brainpassphrase").focus();
@@ -8906,7 +9045,7 @@ ninja.wallets.brainwallet = {
 		}
 	}
 };;
-ninja.wallets.detailwallet = {
+    ninja.wallets.detailwallet = {
 	qrscanner: {
 		scanner: null,
 
@@ -9101,7 +9240,7 @@ ninja.wallets.detailwallet = {
 		document.getElementById("detailbip38").style.display = "none";
 	}
 };;
-ninja.wallets.donate = {
+    ninja.wallets.donate = {
     open: function () {
         document.getElementById("donatearea").style.display = "block";
     },
@@ -9119,7 +9258,7 @@ ninja.wallets.donate = {
         document.getElementById("donateqrcode").style.top = (e.offsetTop+15) + 'px';
     }
 };;
-(function (ninja) {
+    (function (ninja) {
 	var ut = ninja.unitTests = {
 		runSynchronousTests: function () {
 			document.getElementById("busyblock").className = "busy";
@@ -9713,7 +9852,7 @@ ninja.wallets.donate = {
 		}
 	};
 })(ninja);;
-// change language
+    // change language
 if (ninja.getQueryString()["culture"] != undefined) {
 	ninja.translator.translate(ninja.getQueryString()["culture"]);
 } else {
@@ -9835,4 +9974,5 @@ ninja.browserSecurityCheck();
 
   </script>
 </body>
+
 </html>
