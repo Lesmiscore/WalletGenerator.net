@@ -20,8 +20,8 @@ ninja.wallets.singlewallet = {
 			var key = bitcoin.ECPair.makeRandom({
 				network: janin.selectedCurrency
 			});
-			var bitcoinAddress = key.getAddress();
-			var privateKeyWif = key.toWIF();
+			var bitcoinAddress = ninja.privateKey.getAddressWith(key);
+			var privateKeyWif = ninja.privateKey.getWIFWith(key);
 			document.getElementById("btcaddress").innerHTML = bitcoinAddress;
 			document.getElementById("btcprivwif").innerHTML = privateKeyWif;
 			var keyValuePair = {

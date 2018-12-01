@@ -130,20 +130,23 @@ ninja.wallets.detailwallet = {
 		if (btcKey.d) {
 			document.getElementById("detailprivhex").innerHTML = btcKey.d.toBuffer().toString("hex").toUpperCase();
 			document.getElementById("detailprivb64").innerHTML = btcKey.d.toBuffer().toString("base64");
+			var wif = ninja.privateKey.getWIFWith(btcKey, 1);
+			var wifComp = ninja.privateKey.getWIFWith(btcKey, 0);
+			document.getElementById("detailprivwif").innerHTML = wif;
+			document.getElementById("detailprivwifcomp").innerHTML = wifComp;
+			ninja.qrCode.showQrCode({
+				"detailqrcodeprivate": wif,
+				"detailqrcodeprivatecomp": wifComp
+			}, 4);
 		}
-		btcKey.compressed = false;
-		var bitcoinAddress = btcKey.getAddress();
-		var wif = btcKey.toWIF();
+		var bitcoinAddress = ninja.privateKey.getAddressWith(btcKey, 1);
+		var bitcoinAddressComp = ninja.privateKey.getAddressWith(btcKey, 0);
+		var pubKeyCompressed = btcKey.Q.getEncoded(true);
+
 		document.getElementById("detailpubkey").innerHTML = btcKey.Q.getEncoded(false).toString("hex").toUpperCase();
 		document.getElementById("detailaddress").innerHTML = bitcoinAddress;
-		document.getElementById("detailprivwif").innerHTML = wif;
-		btcKey.compressed = true;
-		var bitcoinAddressComp = btcKey.getAddress();
-		var wifComp = btcKey.toWIF();
-		var pubKeyCompressed = btcKey.Q.getEncoded(true);
 		document.getElementById("detailpubkeycomp").innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
 		document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
-		document.getElementById("detailprivwifcomp").innerHTML = wifComp;
 
 		if (janin.selectedCurrency.bech32) {
 			// pubKey for SegWit addresses must be compressed form
@@ -161,9 +164,7 @@ ninja.wallets.detailwallet = {
 
 		ninja.qrCode.showQrCode({
 			"detailqrcodepublic": bitcoinAddress,
-			"detailqrcodepubliccomp": bitcoinAddressComp,
-			"detailqrcodeprivate": wif,
-			"detailqrcodeprivatecomp": wifComp
+			"detailqrcodepubliccomp": bitcoinAddressComp
 		}, 4);
 	},
 

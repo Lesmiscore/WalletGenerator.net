@@ -65,7 +65,7 @@ ninja.privateKey = {
 	getAddressWith(btcKey, mode) {
 		var compressed = btcKey.compressed;
 		try {
-			switch (mode) {
+			switch (mode || 0) {
 				case 0: // compressed
 					btcKey.compressed = true;
 					return btcKey.getAddress();

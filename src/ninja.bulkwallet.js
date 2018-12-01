@@ -45,7 +45,7 @@ ninja.wallets.bulkwallet = {
 			});
 
 			bulkWallet.csv.push((bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex) +
-				",\"" + key.getAddress() + "\",\"" + key.toWIF() + "\"");
+				",\"" + ninja.privateKey.getAddressWith(key) + "\",\"" + ninja.privateKey.getWIFWith(key) + "\"");
 
 			document.getElementById("bulktextarea").value = ninja.translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
 

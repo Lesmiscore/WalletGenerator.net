@@ -26,8 +26,8 @@ ninja.wallets.brainwallet = {
 				var btcKey = new bitcoin.ECPair(bigi.fromBuffer(bytes), null, {
 					network: janin.selectedCurrency
 				});
-				var bitcoinAddress = btcKey.getAddress();
-				var privWif = btcKey.toWIF();
+				var bitcoinAddress = ninja.privateKey.getAddressWith(btcKey);
+				var privWif = ninja.privateKey.getWIFWith(btcKey);
 				document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
 				document.getElementById("brainbtcprivwif").innerHTML = privWif;
 				ninja.qrCode.showQrCode({
