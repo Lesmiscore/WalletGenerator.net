@@ -37158,6 +37158,7 @@ ninja.privateKey = {
 			wif.decode(key);
 			return true;
 		} catch (e) {}
+		// Hex/Base64
 		var testValue = function (buffer) {
 			if (buffer.length != 32)
 				return false;
@@ -37165,8 +37166,18 @@ ninja.privateKey = {
 			var scalar = bigi.fromByteArrayUnsigned(buffer);
 			return n.compareTo(scalar) > 0;
 		}
-		// TODO: support mini key
-		return testValue(Buffer.from(key, 'hex')) || testValue(Buffer.from(key, 'base64'));
+		if (testValue(Buffer.from(key, 'hex')))
+			return true;
+		if (testValue(Buffer.from(key, 'base64')))
+			return true;
+		// Mini key
+		if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
+			var sha256 = bitcoin.crypto.sha256(key + "?");
+			if (sha256[0] == 0x00) {
+				return true;
+			}
+		}
+		return false;
 	},
 	decodePrivateKey: function (key) {
 		if (!ninja.privateKey.isPrivateKey(key)) {
@@ -37192,6 +37203,13 @@ ninja.privateKey = {
 		if (hex) return hex;
 		var base64 = tryBy("base64");
 		if (base64) return base64;
+		if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
+			var sha256 = bitcoin.crypto.sha256(key);
+			return new bitcoin.ECPair(bigi.fromByteArrayUnsigned(sha256), null, {
+				network: janin.selectedCurrency,
+				compressed: true
+			});
+		}
 	},
 	getECKeyFromAdding: function (privKey1, privKey2) {
 		var n = elliptic.curves.secp256k1.curve.n;
@@ -37220,7 +37238,7 @@ ninja.privateKey = {
 	// 58 base58 characters starting with 6P
 	isBIP38Format: function (key) {
 		key = key.toString();
-		return (/^6P[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{56}$/.test(key));
+		return (/^6P[1-9A-HJ-NP-Za-km-z]{56}$/.test(key));
 	},
 	BIP38EncryptedKeyToByteArrayAsync: function (base58Encrypted, passphrase, callback) {
 		// we're decrypting BIP38-encryped key
