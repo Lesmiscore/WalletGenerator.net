@@ -1,6 +1,9 @@
 // export packages we need
+Error.captureStackTrace = Error.captureStackTrace || (() => {});
+
 const toExport = {
     bitcoin: require('bitcoinjs-lib'),
+    zcash: require('bitcoinjs-lib-zcash'),
     bigi: require('bigi'),
     bip38: require('bip38'),
     wif: require('wif'),

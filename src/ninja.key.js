@@ -38,6 +38,9 @@ ninja.privateKey = {
 		try {
 			return bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
 		} catch (error) {}
+		try {
+			return zcash.ECPair.fromWIF(key, janin.selectedCurrency);
+		} catch (error) {}
 		// Base64/Hex
 		function tryBy(enc) {
 			try {
@@ -68,10 +71,22 @@ ninja.privateKey = {
 			switch (mode || 0) {
 				case 0: // compressed
 					btcKey.compressed = true;
-					return btcKey.getAddress();
+					if (btcKey.network.zcash) {
+						// zcash
+						return zcash.ECPair.prototype.getAddress.call(btcKey);
+					} else {
+						// bitcoin
+						return bitcoin.ECPair.prototype.getAddress.call(btcKey);
+					}
 				case 1: // uncompressed
 					btcKey.compressed = false;
-					return btcKey.getAddress();
+					if (btcKey.network.zcash) {
+						// zcash
+						return zcash.ECPair.prototype.getAddress.call(btcKey);
+					} else {
+						// bitcoin
+						return bitcoin.ECPair.prototype.getAddress.call(btcKey);
+					}
 				case 2: // segwit
 					if (btcKey.network.bech32) {
 						var pubKeyCompressed = btcKey.Q.getEncoded(true);
@@ -307,5 +322,30 @@ ninja.publicKey = {
 		var pubByteArray = ecPoint.encoded("buffer", 0);
 		var pubHexUncompressed = ninja.publicKey.getHexFromByteArray(pubByteArray);
 		return pubHexUncompressed;
+	}
+};
+
+ninja.ecpair = {
+	getAddressWith: ninja.privateKey.getAddressWith,
+	getWIFWith: ninja.privateKey.getWIFWith,
+	create: function (d, Q, opts) {
+		opts = Object.assign({}, opts || {}, {
+			network: janin.selectedCurrency
+		});
+		if (janin.selectedCurrency.zcash) {
+			return new zcash.ECPair(d, Q, opts);
+		} else {
+			return new bitcoin.ECPair(d, Q, opts);
+		}
+	},
+	makeRandom: function (opts) {
+		opts = Object.assign({}, opts || {}, {
+			network: janin.selectedCurrency
+		});
+		if (janin.selectedCurrency.zcash) {
+			return zcash.ECPair.makeRandom(opts);
+		} else {
+			return bitcoin.ECPair.makeRandom(opts);
+		}
 	}
 };

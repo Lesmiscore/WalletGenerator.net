@@ -39,8 +39,7 @@ ninja.wallets.bulkwallet = {
 		var bulkWallet = ninja.wallets.bulkwallet;
 		if (bulkWallet.csvRowsRemaining > 0) {
 			bulkWallet.csvRowsRemaining--;
-			var key = bitcoin.ECPair.makeRandom({
-				network: janin.selectedCurrency,
+			var key = ninja.ecpair.makeRandom({
 				compressed: bulkWallet.compressedAddrs
 			});
 

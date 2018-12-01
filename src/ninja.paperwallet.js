@@ -85,10 +85,7 @@ ninja.wallets.paperwallet = {
 				ninja.wallets.paperwallet.showArtisticWallet(idPostFix, address, encryptedKey);
 			});
 		} else {
-			var key = bitcoin.ECPair.makeRandom({
-				network: janin.selectedCurrency,
-				compressed: true
-			});
+			var key = ninja.ecpair.makeRandom();
 			var bitcoinAddress = ninja.privateKey.getAddressWith(
 				key, ninja.wallets.paperwallet.publicMode
 			);
