@@ -230,6 +230,10 @@ h1 { margin: 0px; height: 91px; }
 #detailarea .pubqr .item .label { text-decoration: none; }
 #detailarea .pubqr .item { float: left; margin: 10px 0; position: relative; }
 #detailarea .pubqr .item.right { float: right; position: relative; top: 0; }
+#detailarea .pubqrsw { display: block; }
+#detailarea .pubqrsw .item .label { text-decoration: none; }
+#detailarea .pubqrsw .item { float: left; margin: 10px 0; position: relative; }
+#detailarea .pubqrsw .item.right { float: right; position: relative; top: 0; }
 #detailarea .privqr .item .label { text-decoration: none; }
 #detailarea .privqr .item { float: left; margin: 0; position: relative; }
 #detailarea .privqr .item.right { float: right; position: relative; }
@@ -243,7 +247,7 @@ h1 { margin: 0px; height: 91px; }
 #detailarea #detailqrcodeprivatecomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailpubkey { width: 590px; }
 #detailbip38commands { display: none; padding-top: 5px; }
-#paperqrscanner { position: absolute; display: none; width: 100%; height: 100%; top: 0; left: 0; z-index: 5000; vertical-aligh: middle; }
+#paperqrscanner { position: absolute; display: none; width: 100%; height: 100%; top: 0; left: 0; z-index: 5000; vertical-align: middle; }
 #paperqrscanner.show { display: block; }
 
 .englishjson { text-align: center; padding: 40px 0 20px 0; }

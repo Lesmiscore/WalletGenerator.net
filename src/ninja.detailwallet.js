@@ -140,9 +140,24 @@ ninja.wallets.detailwallet = {
 		btcKey.compressed = true;
 		var bitcoinAddressComp = btcKey.getAddress();
 		var wifComp = btcKey.toWIF();
-		document.getElementById("detailpubkeycomp").innerHTML = btcKey.Q.getEncoded(true).toString("hex").toUpperCase();
+		var pubKeyCompressed = btcKey.Q.getEncoded(true);
+		document.getElementById("detailpubkeycomp").innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
 		document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 		document.getElementById("detailprivwifcomp").innerHTML = wifComp;
+
+		if (janin.selectedCurrency.bech32) {
+			// pubKey for SegWit addresses must be compressed form
+			var redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+			var bitcoinAddressSegWit = bitcoin.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, janin.selectedCurrency.bech32);
+			var scriptPubKey = bitcoin.crypto.hash160(redeemScript);
+			var bitcoinAddressSegWitP2SH = bitcoin.address.toBase58Check(scriptPubKey, janin.selectedCurrency.scriptHash);
+			document.getElementById("detailaddresssegwit").innerHTML = bitcoinAddressSegWit;
+			document.getElementById("detailaddresssegwitp2sh").innerHTML = bitcoinAddressSegWitP2SH;
+			ninja.qrCode.showQrCode({
+				"detailqrcodesegwit": bitcoinAddressSegWit,
+				"detailqrcodesegwitp2sh": bitcoinAddressSegWitP2SH
+			}, 4);
+		}
 
 		ninja.qrCode.showQrCode({
 			"detailqrcodepublic": bitcoinAddress,
@@ -157,6 +172,8 @@ ninja.wallets.detailwallet = {
 		document.getElementById("detailpubkeycomp").innerHTML = "";
 		document.getElementById("detailaddress").innerHTML = "";
 		document.getElementById("detailaddresscomp").innerHTML = "";
+		document.getElementById("detailaddresssegwit").innerHTML = "";
+		document.getElementById("detailaddresssegwitp2sh").innerHTML = "";
 		document.getElementById("detailprivwif").innerHTML = "";
 		document.getElementById("detailprivwifcomp").innerHTML = "";
 		document.getElementById("detailprivhex").innerHTML = "";
@@ -168,6 +185,8 @@ ninja.wallets.detailwallet = {
 		document.getElementById("detailqrcodepubliccomp").innerHTML = "";
 		document.getElementById("detailqrcodeprivate").innerHTML = "";
 		document.getElementById("detailqrcodeprivatecomp").innerHTML = "";
+		document.getElementById("detailqrcodesegwit").innerHTML = "";
+		document.getElementById("detailqrcodesegwitp2sh").innerHTML = "";
 		document.getElementById("detailb6").style.display = "none";
 		document.getElementById("detailmini").style.display = "none";
 		document.getElementById("detailbip38commands").style.display = "none";
