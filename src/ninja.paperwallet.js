@@ -21,16 +21,18 @@ ninja.wallets.paperwallet = {
 
 	remaining: null, // use to keep track of how many addresses are left to process when building the paper wallet
 	count: 0,
+	batchComplete: null,
 	pageBreakAtDefault: 1,
 	pageBreakAtArtisticDefault: 1,
 	pageBreakAt: null,
 	publicMode: 0, // compressed
 
-	build: function (passphrase) {
-		var numWallets = 1;
+	build: function (passphrase, numWallets, batchComplete) {
+		numWallets = numWallets || 1;
 		var pageBreakAt = 1;
 		ninja.wallets.paperwallet.remaining = numWallets;
 		ninja.wallets.paperwallet.count = 0;
+		ninja.wallets.paperwallet.batchComplete = batchComplete;
 		ninja.wallets.paperwallet.pageBreakAt = pageBreakAt;
 		document.getElementById("paperkeyarea").innerHTML = "";
 		if (ninja.wallets.paperwallet.encrypt) {
@@ -74,6 +76,9 @@ ninja.wallets.paperwallet = {
 			ninja.wallets.paperwallet.generateNewWallet(i);
 			ninja.wallets.paperwallet.remaining--;
 			setTimeout(ninja.wallets.paperwallet.batch, 0);
+		} else {
+			setTimeout(ninja.wallets.paperwallet.batchComplete, 0);
+			ninja.wallets.paperwallet.batchComplete = null;
 		}
 	},
 
