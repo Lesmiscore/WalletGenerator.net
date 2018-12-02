@@ -44,9 +44,9 @@ ninja.privateKey = {
 		// Base64/Hex
 		function tryBy(enc) {
 			try {
-				var buf = Buffer.from(key, enc);
-				if (new RegExp("^" + escapeRegExp(key) + "$", 'i').test(buf.toString(enc))) {
-					return ninja.ecpair.create(bigi.fromByteArrayUnsigned(buf), null, {
+				var hex = Buffer.from(key, enc).toString('hex');
+				if (hex.length == 64) {
+					return ninja.ecpair.create(bigi.fromHex(hex), null, {
 						compressed: true
 					});
 				}
@@ -57,8 +57,8 @@ ninja.privateKey = {
 		var base64 = tryBy("base64");
 		if (base64) return base64;
 		if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
-			var sha256 = bitcoin.crypto.sha256(key);
-			return ninja.ecpair.create(bigi.fromByteArrayUnsigned(sha256), null, {
+			var sha256 = bitcoin.crypto.sha256(key).toString('hex');
+			return ninja.ecpair.create(bigi.fromHex(sha256), null, {
 				compressed: true
 			});
 		}
