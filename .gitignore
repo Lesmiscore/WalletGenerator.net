@@ -8,3 +8,6 @@ robots.txt
 sitemap.xml
 /.idea
 /node_modules
+
+index.html
+src/exported.js
