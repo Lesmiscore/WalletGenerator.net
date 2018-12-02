@@ -19,7 +19,8 @@ janin.currency = {
             CWIF_Start: CWIF_Start,
             donate: donate,
 
-            zcash: networkVersion > 0xff
+            zcash: networkVersion > 0xff,
+            bch: name === "BitcoinCash"
         };
         return currency;
     },
@@ -86,6 +87,18 @@ janin.currency = {
             var elem = document.getElementById(swids[id]);
             if (!elem) continue;
             if (janin.selectedCurrency.bech32) {
+                elem.style.display = "block";
+            } else {
+                elem.style.display = "none";
+            }
+        }
+        
+        // Hide CashAddr fields for non-BCH
+        var swids = ["selectcashaddrcomp", "selectcashaddr"];
+        for (let id in swids) {
+            var elem = document.getElementById(swids[id]);
+            if (!elem) continue;
+            if (janin.selectedCurrency.bch) {
                 elem.style.display = "block";
             } else {
                 elem.style.display = "none";

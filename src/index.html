@@ -353,10 +353,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <span><label id="paperlabelBIPpassphrase" for="paperpassphrase" class="i18n">Passphrase:</label> <input
                 type="text" id="paperpassphrase" /></span>
             <select id="addresstype" onchange="ninja.wallets.paperwallet.publicMode=this.selectedIndex;">
-              <option selected value="0">Compressed</option>
+              <option value="0" selected>Compressed</option>
               <option value="1">Uncompressed</option>
               <option value="2" id="selectsegwit">SegWit</option>
               <option value="3" id="selectsegwitp2sh">SegWit (P2SH-wrapped)</option>
+              <option value="4" id="selectcashaddrcomp">CashAddress (Compressed)</option>
+              <option value="5" id="selectcashaddr">CashAddress (Uncompressed)</option>
             </select>
             <br />
             <input type="button" id="papergenerate" value="Randomly generate" onclick="ninja.wallets.paperwallet.build(document.getElementById('paperpassphrase').value);" />

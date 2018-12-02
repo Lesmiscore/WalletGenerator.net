@@ -13,7 +13,8 @@ const toExport = {
     base58: require('base58'),
     bnjs: require('bn.js'),
     aes: require('browserify-aes'),
-    Buffer: require('safe-buffer').Buffer
+    Buffer: require('safe-buffer').Buffer,
+    bchaddrjs: require('bchaddrjs')
 };
 require("./array.map");
 try {

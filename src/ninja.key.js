@@ -98,6 +98,16 @@ ninja.privateKey = {
 						var scriptPubKey = bitcoin.crypto.hash160(redeemScript);
 						return bitcoin.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
 					}
+				case 4: // cashaddr (compressed)
+					if (btcKey.network.bch) {
+						var legacy = ninja.privateKey.getAddressWith(btcKey, 0);
+						return bchaddrjs.toCashAddress(legacy).split(':')[1];
+					}
+				case 5: // cashaddr (uncompressed)
+					if (btcKey.network.bch) {
+						var legacy = ninja.privateKey.getAddressWith(btcKey, 1);
+						return bchaddrjs.toCashAddress(legacy).split(':')[1];
+					}
 			}
 			return ninja.privateKey.getAddressWith(btcKey, 0);
 		} finally {
@@ -109,6 +119,7 @@ ninja.privateKey = {
 		try {
 			switch (mode) {
 				case 1: // uncompressed
+				case 5: // cashaddr (uncompressed)
 					btcKey.compressed = false;
 					break;
 				default: // other
