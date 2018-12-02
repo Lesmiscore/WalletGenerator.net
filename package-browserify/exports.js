@@ -15,6 +15,7 @@ const toExport = {
     aes: require('browserify-aes'),
     Buffer: require('safe-buffer').Buffer
 };
+require("./array.map");
 try {
     Object.assign(window, toExport);
 } catch (e) {
