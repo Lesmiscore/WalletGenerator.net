@@ -5,7 +5,7 @@ janin.currency = {
         var currency = {
             // that's ok to copy from bitcoin; because we only need parameters to make addresses
             messagePrefix: '\x18Bitcoin Signed Message:\n',
-            bech32: b32hrp || undefined,
+            bech32: b32hrp,
             bip32: {
                 public: 0x0488b21e,
                 private: 0x0488ade4
