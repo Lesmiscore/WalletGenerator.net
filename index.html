@@ -5880,6 +5880,7 @@ h1 { margin: 0px; height: 91px; }
 #detailkeyarea { padding: 10px; }
 #detailarea { margin: 0; text-align: left; }
 #detailarea .notes { text-align: left; font-size: 80%; padding: 0 0 20px 0; }
+#detailarea .pubaddress { width: 100%; }
 #detailarea .pubqr .item .label { text-decoration: none; }
 #detailarea .pubqr .item { float: left; margin: 10px 0; position: relative; }
 #detailarea .pubqr .item.right { float: right; position: relative; top: 0; }
@@ -5896,6 +5897,8 @@ h1 { margin: 0px; height: 91px; }
 #detailarea .output { display: block; font-family: monospace; font-size: 1.25em; }
 #detailarea #detailqrcodepublic { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodepubliccomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
+#detailarea #detailqrcodesegwit { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
+#detailarea #detailqrcodesegwitp2sh { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodeprivate { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodeprivatecomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailpubkey { width: 590px; }
@@ -6424,31 +6427,32 @@ h1 { margin: 0px; height: 91px; }
               WIFC, HEX, B64).</span>
             <br /><br />
           </div>
-          <div class="pubqr">
-            <div class="item">
-              <span class="label i18n" id="detaillabelbitcoinaddress">Public Address</span>
-              <div id="detailqrcodepublic" class="qrcode_public"></div>
-              <span class="output" id="detailaddress"></span>
-            </div>
-            <div class="item right">
-              <span class="label i18n" id="detaillabelbitcoinaddresscomp">Public Address Compressed</span>
-              <div id="detailqrcodepubliccomp" class="qrcode_public"></div>
-              <span class="output" id="detailaddresscomp"></span>
-            </div>
-          </div>
-          <br /><br />
-          <div id="pubqrsw" class="pubqrsw">
-            <div class="item">
-              <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit Address</span>
-              <div id="detailqrcodesegwit" class="qrcode_public"></div>
-              <span class="output" id="detailaddresssegwit"></span>
-            </div>
-            <div class="item right">
-              <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit (P2SH-wrapped) Address</span>
-              <div id="detailqrcodesegwitp2sh" class="qrcode_public"></div>
-              <span class="output" id="detailaddresssegwitp2sh"></span>
-            </div>
-          </div>
+          <table class="pubaddress">
+            <tr class="pubqr">
+              <td class="item">
+                <span class="label i18n" id="detaillabelbitcoinaddress">Public Address</span>
+                <div id="detailqrcodepublic" class="qrcode_public"></div>
+                <span class="output" id="detailaddress"></span>
+              </td>
+              <td class="item right">
+                <span class="label i18n" id="detaillabelbitcoinaddresscomp">Public Address Compressed</span>
+                <div id="detailqrcodepubliccomp" class="qrcode_public"></div>
+                <span class="output" id="detailaddresscomp"></span>
+              </td>
+            </tr>
+            <tr id="pubqrsw" class="pubqrsw">
+              <td class="item">
+                <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit Address</span>
+                <div id="detailqrcodesegwit" class="qrcode_public"></div>
+                <span class="output" id="detailaddresssegwit"></span>
+              </td>
+              <td class="item right">
+                <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit (P2SH-wrapped) Address</span>
+                <div id="detailqrcodesegwitp2sh" class="qrcode_public"></div>
+                <span class="output" id="detailaddresssegwitp2sh"></span>
+              </td>
+            </tr>
+          </table>
           <br /><br />
           <div class="item clear">
             <span class="label i18n" id="detaillabelpublickey">Public Key (130 characters [0-9A-F]):</span>
