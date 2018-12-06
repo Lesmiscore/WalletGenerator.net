@@ -235,7 +235,7 @@ janin.currencies = [
     janin.currency.createCurrency("MadbyteCoin", 0x32, 0x6e, "4", "H", "MCBdZDK326yhGM77nWjj3vHX96edd2PQW3"),
     janin.currency.createCurrency("MagicInternetMoney", 0x30, 0xb0, "6", "T", "LPRqCTYEy53FkEzhRTCauLc7Qq23Z5mxZU"),
     janin.currency.createCurrency("Magicoin", 0x14, 0x94, "5", "[NP]", "9H6ddyu9S9gyrEHxVrpMBTBZWrwAvdtehD"),
-    janin.currency.createCurrency("MangaCoin", 0x6e, 0xb0, "6", "T", ""),
+    janin.currency.createCurrency("MangaCoin", 0x6e, 0xb0, "6", "T", "", 0x61, "manga"),
     janin.currency.createCurrency("Marscoin", 0x32, 0xb2, "6", "T", "M8caDttyKt2r7V7WHMMkRZ1jEzxj16fgCn"),
     janin.currency.createCurrency("MarteXcoin", 0x32, 0xb2, "6", "T", "M8DSVG13j3qpNDRbuuUBh5juQmSd15wLXH"),
     janin.currency.createCurrency("MasterDoge", 0x33, 0x8b, "5", "M", "Mm4Xqy9FYZ8N1NJzuXCaJLZcw8o2cmVC7c"),
