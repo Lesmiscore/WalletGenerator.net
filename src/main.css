@@ -231,10 +231,12 @@ h1 { margin: 0px; height: 91px; }
 #detailarea .pubqr .item .label { text-decoration: none; }
 #detailarea .pubqr .item { float: left; margin: 10px 0; position: relative; }
 #detailarea .pubqr .item.right { float: right; position: relative; top: 0; }
-#detailarea .pubqrsw { display: block; }
 #detailarea .pubqrsw .item .label { text-decoration: none; }
 #detailarea .pubqrsw .item { float: left; margin: 10px 0; position: relative; }
 #detailarea .pubqrsw .item.right { float: right; position: relative; top: 0; }
+#detailarea .pubqrbch .item .label { text-decoration: none; }
+#detailarea .pubqrbch .item { float: left; margin: 10px 0; position: relative; }
+#detailarea .pubqrbch .item.right { float: right; position: relative; top: 0; }
 #detailarea .privqr .item .label { text-decoration: none; }
 #detailarea .privqr .item { float: left; margin: 0; position: relative; }
 #detailarea .privqr .item.right { float: right; position: relative; }
@@ -246,6 +248,8 @@ h1 { margin: 0px; height: 91px; }
 #detailarea #detailqrcodepubliccomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodesegwit { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodesegwitp2sh { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
+#detailarea #detailqrcodebch { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
+#detailarea #detailqrcodebchcomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodeprivate { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailarea #detailqrcodeprivatecomp { position: relative; float: right; margin: 0 0 0 10px; padding: 13px 11px 11px 11px; }
 #detailpubkey { width: 590px; }

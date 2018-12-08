@@ -94,7 +94,7 @@ janin.currency = {
         }
 
         // Hide CashAddr fields for non-BCH
-        var swids = ["selectcashaddrcomp", "selectcashaddr"];
+        var swids = ["pubqrbch", "selectcashaddrcomp", "selectcashaddr"];
         for (let id in swids) {
             var elem = document.getElementById(swids[id]);
             if (!elem) continue;

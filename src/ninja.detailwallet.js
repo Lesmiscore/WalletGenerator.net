@@ -147,7 +147,6 @@ ninja.wallets.detailwallet = {
 		document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 
 		if (janin.selectedCurrency.bech32) {
-			// pubKey for SegWit addresses must be compressed form
 			var bitcoinAddressSegWit = ninja.privateKey.getAddressWith(btcKey, 2);
 			var bitcoinAddressSegWitP2SH = ninja.privateKey.getAddressWith(btcKey, 3);
 			document.getElementById("detailaddresssegwit").innerHTML = bitcoinAddressSegWit;
@@ -155,6 +154,17 @@ ninja.wallets.detailwallet = {
 			ninja.qrCode.showQrCode({
 				"detailqrcodesegwit": bitcoinAddressSegWit,
 				"detailqrcodesegwitp2sh": bitcoinAddressSegWitP2SH
+			}, 4);
+		}
+
+		if (janin.selectedCurrency.bch) {
+			var bitcoinAddressBch = ninja.privateKey.getAddressWith(btcKey, 5);
+			var bitcoinAddressBchComp = ninja.privateKey.getAddressWith(btcKey, 4);
+			document.getElementById("detailaddressbch").innerHTML = bitcoinAddressBch;
+			document.getElementById("detailaddressbchcomp").innerHTML = bitcoinAddressBchComp;
+			ninja.qrCode.showQrCode({
+				"detailqrcodebch": bitcoinAddressBch,
+				"detailqrcodebchcomp": bitcoinAddressBchComp
 			}, 4);
 		}
 
