@@ -9413,10 +9413,8 @@ ninja.ecpair = {
 
 		if (janin.selectedCurrency.bech32) {
 			// pubKey for SegWit addresses must be compressed form
-			var redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
-			var bitcoinAddressSegWit = bitcoin.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, janin.selectedCurrency.bech32);
-			var scriptPubKey = bitcoin.crypto.hash160(redeemScript);
-			var bitcoinAddressSegWitP2SH = bitcoin.address.toBase58Check(scriptPubKey, janin.selectedCurrency.scriptHash);
+			var bitcoinAddressSegWit = ninja.privateKey.getAddressWith(btcKey, 2);
+			var bitcoinAddressSegWitP2SH = ninja.privateKey.getAddressWith(btcKey, 3);
 			document.getElementById("detailaddresssegwit").innerHTML = bitcoinAddressSegWit;
 			document.getElementById("detailaddresssegwitp2sh").innerHTML = bitcoinAddressSegWitP2SH;
 			ninja.qrCode.showQrCode({
