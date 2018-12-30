@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "init": "npm i;cd package-browserify/;npm i",
-    "start": "cd package-browserify/;npm start;cd ../;grunt"
+    "start": "cd package-browserify/ ; npm start ; cd ../;grunt",
+    "public": "npm run start ; mkdir public ; cp -R logos/ images/ wallets/ index.html public/"
   },
   "author": "MichaelMure",
   "license": "MIT",

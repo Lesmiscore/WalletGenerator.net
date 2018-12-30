@@ -4,9 +4,7 @@ pages:
   script:
     - npm i -g grunt
     - npm run init
-    - npm run start
-    - mkdir public
-    - mv logos images wallets index.html public
+    - npm run public
   artifacts:
     paths:
       - public

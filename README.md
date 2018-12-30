@@ -22,9 +22,7 @@ You can help us support more currency by following this non-developer How-To: ht
 
 ```bash
 npm i -g grunt
-npm start
-mkdir public/
-mv logos/ images/ wallets/ index.html public/
+npm run public
 ```
 
 # Notice of Copyrights and Licenses
