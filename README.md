@@ -14,6 +14,10 @@ Please send DONATIONS for this project using the crypto-currency addresses avail
 
 You can help us support more currency by following this non-developer How-To: https://github.com/MichaelMure/WalletGenerator.net/wiki/How-to-add-a-new-currency    
 
+# Available hosted sites
+- https://nao20010128nao.github.io/WalletGenerator.net/
+- https://lm26.gitlab.io/WalletGenerator.net/
+
 # Steps to build
 
 ```bash
