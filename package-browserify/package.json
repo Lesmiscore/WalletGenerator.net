@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "browserify": "browserify",
-    "start": "browserify exports.js -o exported.js;google-closure-compiler --js=exported.js --js_output_file=compressed.js;uglifyjs --compress --mangle --keep-fnames --output ../src/exported.js -- compressed.js;rm exported.js compressed.js"
+    "start": "browserify exports.js -o exported.js;google-closure-compiler --js=exported.js --js_output_file=../src/exported.js;rm exported.js"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +22,6 @@
     "randombytes": "^2.0.6",
     "safe-buffer": "^5.1.2",
     "scryptsy": "^2.0.0",
-    "uglify-js": "^3.4.9",
     "wif": "^2.0.6"
   },
   "devDependencies": {
