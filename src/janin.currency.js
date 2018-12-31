@@ -20,7 +20,7 @@ janin.currency = {
             donate: donate,
 
             zcash: networkVersion > 0xff,
-            bch: name === "BitcoinCash"
+            bch: name === "BitcoinCash" // TODO: support BSV if they added new type of address
         };
         return currency;
     },
@@ -325,8 +325,10 @@ janin.currencies = [
 
 
     janin.currency.createCurrency("Testnet Bitcoin", 0x6f, 0xef, "9", "c", null, 0xC4, "tb"),
+    janin.currency.createCurrency("Testnet BitZeny", 111, 239, "9", "c", null, 196, "tz"),
     janin.currency.createCurrency("Testnet Dogecoin", 0x71, 0xf1, "9", "c", null),
     janin.currency.createCurrency("Testnet MonetaryUnit", 0x26, 0x40, "3", "A", null),
+    janin.currency.createCurrency("Testnet Monacoin", 111, 239, "9", "c", null, 196, "tmona"),
     janin.currency.createCurrency("Testnet PIVX", 0x8b, 0xef, "9", "c", null),
     janin.currency.createCurrency("Testnet WACoins", 0x51, 0xd1, "8", "[XY]", null)
 ];
