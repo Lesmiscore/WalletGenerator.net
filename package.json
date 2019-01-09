@@ -26,8 +26,5 @@
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/MichaelMure/WalletGenerator.net/issues"
-  },
-  "devDependencies": {
-    "bitcoinjs-lib": "^3.3.2"
   }
 }
