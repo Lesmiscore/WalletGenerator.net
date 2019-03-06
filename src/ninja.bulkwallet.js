@@ -1,72 +1,86 @@
-ninja.wallets.bulkwallet = {
-	open: function () {
-		document.getElementById("bulkarea").style.display = "block";
-		// show a default CSV list if the text area is empty
-		if (document.getElementById("bulktextarea").value == "") {
-			// return control of the thread to the browser to render the tab switch UI then build a default CSV list
-			setTimeout(function () {
-				ninja.wallets.bulkwallet.buildCSV(3, 1, document.getElementById("bulkcompressed").checked);
-			}, 200);
-		}
-	},
+const bulkWallet = (module.exports = {
+  open: function() {
+    document.getElementById("bulkarea").style.display = "block";
+    // show a default CSV list if the text area is empty
+    if (document.getElementById("bulktextarea").value == "") {
+      // return control of the thread to the browser to render the tab switch UI then build a default CSV list
+      setTimeout(function() {
+        bulkWallet.buildCSV(
+          3,
+          1,
+          document.getElementById("bulkcompressed").checked
+        );
+      }, 200);
+    }
+  },
 
-	close: function () {
-		document.getElementById("bulkarea").style.display = "none";
-	},
+  close: function() {
+    document.getElementById("bulkarea").style.display = "none";
+  },
 
-	// use this function to bulk generate addresses
-	// rowLimit: number of Bitcoin Addresses to generate
-	// startIndex: add this number to the row index for output purposes
-	// returns:
-	// index,bitcoinAddress,privateKeyWif
-	buildCSV: function (rowLimit, startIndex, compressedAddrs) {
-		var bulkWallet = ninja.wallets.bulkwallet;
-		document.getElementById("bulktextarea").value = ninja.translator.get("bulkgeneratingaddresses") + rowLimit;
-		bulkWallet.csv = [];
-		bulkWallet.csvRowLimit = rowLimit;
-		bulkWallet.csvRowsRemaining = rowLimit;
-		bulkWallet.csvStartIndex = --startIndex;
-		bulkWallet.compressedAddrs = !!compressedAddrs;
-		setTimeout(bulkWallet.batchCSV, 0);
-	},
+  // use this function to bulk generate addresses
+  // rowLimit: number of Bitcoin Addresses to generate
+  // startIndex: add this number to the row index for output purposes
+  // returns:
+  // index,bitcoinAddress,privateKeyWif
+  buildCSV: function(rowLimit, startIndex, compressedAddrs) {
+    //var bulkWallet = bulkwallet;
+    document.getElementById("bulktextarea").value =
+      translator.get("bulkgeneratingaddresses") + rowLimit;
+    bulkWallet.csv = [];
+    bulkWallet.csvRowLimit = rowLimit;
+    bulkWallet.csvRowsRemaining = rowLimit;
+    bulkWallet.csvStartIndex = --startIndex;
+    bulkWallet.compressedAddrs = !!compressedAddrs;
+    setTimeout(bulkWallet.batchCSV, 0);
+  },
 
-	csv: [],
-	csvRowsRemaining: null, // use to keep track of how many rows are left to process when building a large CSV array
-	csvRowLimit: 0,
-	csvStartIndex: 0,
+  csv: [],
+  csvRowsRemaining: null, // use to keep track of how many rows are left to process when building a large CSV array
+  csvRowLimit: 0,
+  csvStartIndex: 0,
 
-	batchCSV: function () {
-		var bulkWallet = ninja.wallets.bulkwallet;
-		if (bulkWallet.csvRowsRemaining > 0) {
-			bulkWallet.csvRowsRemaining--;
-			var key = ninja.ecpair.makeRandom({
-				compressed: bulkWallet.compressedAddrs
-			});
+  batchCSV: function() {
+    //var bulkWallet = bulkwallet;
+    if (bulkWallet.csvRowsRemaining > 0) {
+      bulkWallet.csvRowsRemaining--;
+      var key = ecpair.makeRandom({
+        compressed: bulkWallet.compressedAddrs
+      });
 
-			bulkWallet.csv.push((bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex) +
-				",\"" + ninja.privateKey.getAddressWith(key) + "\",\"" + ninja.privateKey.getWIFWith(key) + "\"");
+      bulkWallet.csv.push(
+        bulkWallet.csvRowLimit -
+          bulkWallet.csvRowsRemaining +
+          bulkWallet.csvStartIndex +
+          ',"' +
+          privateKey.getAddressWith(key) +
+          '","' +
+          ninja.privateKey.getWIFWith(key) +
+          '"'
+      );
 
-			document.getElementById("bulktextarea").value = ninja.translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
+      document.getElementById("bulktextarea").value =
+        translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
 
-			// release thread to browser to render UI
-			setTimeout(bulkWallet.batchCSV, 0);
-		}
-		// processing is finished so put CSV in text area
-		else if (bulkWallet.csvRowsRemaining === 0) {
-			document.getElementById("bulktextarea").value = bulkWallet.csv.join("\n");
-		}
-	},
+      // release thread to browser to render UI
+      setTimeout(bulkWallet.batchCSV, 0);
+    }
+    // processing is finished so put CSV in text area
+    else if (bulkWallet.csvRowsRemaining === 0) {
+      document.getElementById("bulktextarea").value = bulkWallet.csv.join("\n");
+    }
+  },
 
-	openCloseFaq: function (faqNum) {
-		// do close
-		if (document.getElementById("bulka" + faqNum).style.display == "block") {
-			document.getElementById("bulka" + faqNum).style.display = "none";
-			document.getElementById("bulke" + faqNum).setAttribute("class", "more");
-		}
-		// do open
-		else {
-			document.getElementById("bulka" + faqNum).style.display = "block";
-			document.getElementById("bulke" + faqNum).setAttribute("class", "less");
-		}
-	}
-};
+  openCloseFaq: function(faqNum) {
+    // do close
+    if (document.getElementById("bulka" + faqNum).style.display == "block") {
+      document.getElementById("bulka" + faqNum).style.display = "none";
+      document.getElementById("bulke" + faqNum).setAttribute("class", "more");
+    }
+    // do open
+    else {
+      document.getElementById("bulka" + faqNum).style.display = "block";
+      document.getElementById("bulke" + faqNum).setAttribute("class", "less");
+    }
+  }
+});
