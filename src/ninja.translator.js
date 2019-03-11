@@ -62,17 +62,17 @@ const translator = (module.exports = {
   ],
 
   translations: {
-    //en.js
-    //fr.js
-    //de.js
-    //nl.js
-    //pt.js
-    //ru.js
-    //es.js
-    //it.js
-    //ua.js
-    //tr.js
-    //pl.js
-    //zh.js
+    en: require("../l10n/en.js"),
+    fr: require("../l10n/fr.js"),
+    de: require("../l10n/de.js"),
+    nl: require("../l10n/nl.js"),
+    pt: require("../l10n/pt.js"),
+    ru: require("../l10n/ru.js"),
+    es: require("../l10n/es.js"),
+    it: require("../l10n/it.js"),
+    ua: require("../l10n/ua.js"),
+    tr: require("../l10n/tr.js"),
+    pl: require("../l10n/pl.js"),
+    zh: require("../l10n/zh.js")
   }
 });
