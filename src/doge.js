@@ -1,19 +1,19 @@
 (function(window) {
-  var muchIndex = 0;
-  var wowLength = 0;
-  var manyWords = null;
-  var suchInterval = null;
-  var muchPlay = false;
-  var wowElement = document.createElement("div");
-  var suchColors = ["#FF0000", "#00FF00", "#0000FF"];
+  let muchIndex = 0;
+  let wowLength = 0;
+  let manyWords = null;
+  let suchInterval = null;
+  let muchPlay = false;
+  let wowElement = document.createElement("div");
+  let suchColors = ["#FF0000", "#00FF00", "#0000FF"];
 
   function veryRandom(val) {
     return Math.floor(Math.random() * val);
   }
 
   function placeWord(word) {
-    var muchWidth = window.innerWidth - 200; //Very random offset
-    var manyHeight = window.innerHeight - 26; //Such fontsize based offset
+    let muchWidth = window.innerWidth - 200; //Very random offset
+    let manyHeight = window.innerHeight - 26; //Such fontsize based offset
 
     wowElement.textContent = word;
     wowElement.style.left = veryRandom(muchWidth) + "px";
@@ -34,7 +34,7 @@
     }, 6000);
   }
 
-  var Doge = function(words) {
+  let Doge = function(words) {
     if (typeof words !== "object" || words.length === undefined) {
       return console.error("Wow. Words is not array. Much Error.");
     }

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         input: "./src/index.html",
         output: "./index.html",
         tokens: [
-          { token: "//exported.js", file: "./src/exported.js" },
+          { token: "//exported.js", file: "./exported-comp.js" },
           { token: "/\\*main.css\\*/", file: "./src/main.css" }
         ]
       }

@@ -189,11 +189,11 @@ const paperwallet = (module.exports = {
   },
 
   showArtisticWallet: function(idPostFix, bitcoinAddress, privateKey) {
-    const keyValuePair = {};
+    let keyValuePair = {};
     keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
     qrCode.showQrCode(keyValuePair, 3.5);
 
-    const keyValuePair = {};
+    keyValuePair = {};
     keyValuePair["qrcode_private" + idPostFix] = privateKey;
     qrCode.showQrCode(keyValuePair, 2.8);
 

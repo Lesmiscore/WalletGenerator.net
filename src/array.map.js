@@ -3,15 +3,15 @@
 // Reference: http://es5.github.com/#x15.4.4.19
 if (!Array.prototype.map) {
   Array.prototype.map = function(callback, thisArg) {
-    var T, A, k;
+    let T, A, k;
     if (this == null) {
       throw new TypeError(" this is null or not defined");
     }
     // 1. Let O be the result of calling ToObject passing the |this| value as the argument.
-    var O = Object(this);
+    let O = Object(this);
     // 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
     // 3. Let len be ToUint32(lenValue).
-    var len = O.length >>> 0;
+    let len = O.length >>> 0;
     // 4. If IsCallable(callback) is false, throw a TypeError exception.
     // See: http://es5.github.com/#x9.11
     if ({}.toString.call(callback) != "[object Function]") {
