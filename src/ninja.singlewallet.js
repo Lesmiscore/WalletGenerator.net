@@ -17,12 +17,12 @@ const singlewallet = (module.exports = {
   // generate bitcoin address and private key and update information in the HTML
   generateNewAddressAndKey: function() {
     try {
-      var key = ecpair.makeRandom();
-      var bitcoinAddress = privateKey.getAddressWith(key);
-      var privateKeyWif = privateKey.getWIFWith(key);
+      const key = ecpair.makeRandom();
+      const bitcoinAddress = privateKey.getAddressWith(key);
+      const privateKeyWif = privateKey.getWIFWith(key);
       document.getElementById("btcaddress").innerHTML = bitcoinAddress;
       document.getElementById("btcprivwif").innerHTML = privateKeyWif;
-      var keyValuePair = {
+      const keyValuePair = {
         qrcode_public: bitcoinAddress,
         qrcode_private: privateKeyWif
       };

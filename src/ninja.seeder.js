@@ -5,7 +5,7 @@ const seeder = (module.exports = {
 
   // number of mouse movements to wait for
   seedLimit: (function() {
-    var num = randombytes(12)[11];
+    const num = randombytes(12)[11];
     return 200 + Math.floor(num);
   })(),
 
@@ -21,7 +21,7 @@ const seeder = (module.exports = {
   // seed function exists to wait for mouse movement to add more entropy before generating an address
   seed: function(evt) {
     evt = evt || window.event;
-    var timeStamp = new Date().getTime();
+    const timeStamp = new Date().getTime();
     // seeding is over now we generate and display the address
     if (seeder.seedCount == ninja.seeder.seedLimit) {
       seeder.seedCount++;
@@ -46,7 +46,7 @@ const seeder = (module.exports = {
 
   // seed function exists to wait for mouse movement to add more entropy before generating an address
   seedKeyPress: function(evt) {
-    if (!evt) var evt = window.event;
+    evt = evt || window.event;
     // seeding is over now we generate and display the address
     if (seeder.seedCount == ninja.seeder.seedLimit) {
       seeder.seedCount++;
@@ -57,11 +57,11 @@ const seeder = (module.exports = {
     }
     // seed key press character
     else if (seeder.seedCount < ninja.seeder.seedLimit && evt.which) {
-      var timeStamp = new Date().getTime();
+      const timeStamp = new Date().getTime();
       // seed a bunch (minimum seedLimit) of times
       //SecureRandom.seedTime();
       //SecureRandom.seedInt8(evt.which);
-      var keyPressTimeDiff = timeStamp - seeder.lastInputTime;
+      const keyPressTimeDiff = timeStamp - seeder.lastInputTime;
       //SecureRandom.seedInt8(keyPressTimeDiff);
       seeder.seedCount++;
       seeder.lastInputTime = new Date().getTime();
@@ -70,7 +70,7 @@ const seeder = (module.exports = {
   },
 
   showPool: function() {
-    var poolHex = randombytes(256).toString("hex"); //Buffer.from(SecureRandom.pool).toString('hex');
+    const poolHex = randombytes(256).toString("hex"); //Buffer.from(SecureRandom.pool).toString('hex');
     document.getElementById("seedpool").innerHTML = poolHex;
     document.getElementById("seedpooldisplay").innerHTML = poolHex;
     document.getElementById("mousemovelimit").innerHTML =
@@ -78,7 +78,7 @@ const seeder = (module.exports = {
   },
 
   showPoint: function(x, y) {
-    var div = document.createElement("div");
+    const div = document.createElement("div");
     div.setAttribute("class", "seedpoint");
     div.style.top = y + "px";
     div.style.left = x + "px";
@@ -100,7 +100,7 @@ const seeder = (module.exports = {
   },
 
   removePoints: function() {
-    for (var i = 0; i < seeder.seedPoints.length; i++) {
+    for (let i = 0; i < seeder.seedPoints.length; i++) {
       document.body.removeChild(seeder.seedPoints[i]);
     }
     seeder.seedPoints = [];

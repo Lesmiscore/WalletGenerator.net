@@ -1,3 +1,13 @@
+const { QRCodeScanner } = require("./jsqrcode.js");
+const translator = require("./ninja.translator.js");
+const ecpair = require("./ninja.ecpair.js");
+const privateKey = require("./ninja.privatekey.js");
+const brainwallet = require("./ninja.brainwallet.js");
+const qrCode = require("./ninja.qrcode.js");
+const janin = require("./janin.currency.js");
+const bitcoin = require("bitcoinjs-lib");
+const bigi = require("bigi");
+
 const detailwallet = (module.exports = {
   qrscanner: {
     scanner: null,
@@ -5,7 +15,7 @@ const detailwallet = (module.exports = {
     start: function() {
       document.getElementById("paperqrscanner").className = "show";
       detailwallet.qrscanner.showError(null);
-      var supported = detailwallet.qrscanner.scanner.isSupported();
+      const supported = detailwallet.qrscanner.scanner.isSupported();
       if (!supported) {
         document.getElementById("paperqrnotsupported").className = "";
       } else {
@@ -20,7 +30,10 @@ const detailwallet = (module.exports = {
 
     showError: function(error) {
       if (error) {
-        if (error == "PERMISSION_DENIED" || error == "PermissionDeniedError") {
+        if (
+          error === "PERMISSION_DENIED" ||
+          error === "PermissionDeniedError"
+        ) {
           document.getElementById("paperqrerror").innerHTML = "";
           document.getElementById("paperqrpermissiondenied").className = "";
         } else {
@@ -60,7 +73,7 @@ const detailwallet = (module.exports = {
 
   openCloseFaq: function(faqNum) {
     // do close
-    if (document.getElementById("detaila" + faqNum).style.display == "block") {
+    if (document.getElementById("detaila" + faqNum).style.display === "block") {
       document.getElementById("detaila" + faqNum).style.display = "none";
       document.getElementById("detaile" + faqNum).setAttribute("class", "more");
     }
@@ -72,32 +85,32 @@ const detailwallet = (module.exports = {
   },
 
   viewDetails: function() {
-    var bip38 = false;
-    var key = document
+    const bip38 = false;
+    const key = document
       .getElementById("detailprivkey")
       .value.toString()
       .replace(/^\s+|\s+$/g, ""); // trim white space
     document.getElementById("detailprivkey").value = key;
-    var bip38CommandDisplay = document.getElementById("detailbip38commands")
+    const bip38CommandDisplay = document.getElementById("detailbip38commands")
       .style.display;
     detailwallet.clear();
-    if (key == "") {
+    if (key === "") {
       return;
     }
     if (privateKey.isBIP38Format(key)) {
       document.getElementById(
         "detailbip38commands"
       ).style.display = bip38CommandDisplay;
-      if (bip38CommandDisplay != "block") {
+      if (bip38CommandDisplay !== "block") {
         document.getElementById("detailbip38commands").style.display = "block";
         document.getElementById("detailprivkeypassphrase").focus();
         return;
       }
-      var passphrase = document
+      const passphrase = document
         .getElementById("detailprivkeypassphrase")
         .value.toString()
         .replace(/^\s+|\s+$/g, ""); // trim white space
-      if (passphrase == "") {
+      if (passphrase === "") {
         alert(translator.get("bip38alertpassphraserequired"));
         return;
       }
@@ -113,18 +126,18 @@ const detailwallet = (module.exports = {
           alert(btcKeyOrError.message);
           detailwallet.clear();
         } else {
-          detailwallet.populateKeyDetails(ninja.ecpair.create(btcKeyOrError));
+          detailwallet.populateKeyDetails(ecpair.create(btcKeyOrError));
         }
       });
     } else {
-      var btcKey = privateKey.decodePrivateKey(key);
+      let btcKey = privateKey.decodePrivateKey(key);
       if (!btcKey) {
         // enforce a minimum passphrase length
         if (key.length >= brainwallet.minPassphraseLength) {
           // Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
-          var usePassphrase = confirm(translator.get("detailconfirmsha256"));
+          const usePassphrase = confirm(translator.get("detailconfirmsha256"));
           if (usePassphrase) {
-            var bytes = bitcoin.crypto.sha256(key);
+            const bytes = bitcoin.crypto.sha256(key);
             btcKey = ecpair.create(bigi.fromBuffer(bytes), null);
           } else {
             detailwallet.clear();
@@ -148,8 +161,8 @@ const detailwallet = (module.exports = {
       document.getElementById(
         "detailprivb64"
       ).innerHTML = btcKey.d.toBuffer().toString("base64");
-      var wif = privateKey.getWIFWith(btcKey, 1);
-      var wifComp = privateKey.getWIFWith(btcKey, 0);
+      const wif = privateKey.getWIFWith(btcKey, 1);
+      const wifComp = privateKey.getWIFWith(btcKey, 0);
       document.getElementById("detailprivwif").innerHTML = wif;
       document.getElementById("detailprivwifcomp").innerHTML = wifComp;
       qrCode.showQrCode(
@@ -160,9 +173,9 @@ const detailwallet = (module.exports = {
         4
       );
     }
-    var bitcoinAddress = privateKey.getAddressWith(btcKey, 1);
-    var bitcoinAddressComp = privateKey.getAddressWith(btcKey, 0);
-    var pubKeyCompressed = btcKey.Q.getEncoded(true);
+    const bitcoinAddress = privateKey.getAddressWith(btcKey, 1);
+    const bitcoinAddressComp = privateKey.getAddressWith(btcKey, 0);
+    const pubKeyCompressed = btcKey.Q.getEncoded(true);
 
     document.getElementById("detailpubkey").innerHTML = btcKey.Q.getEncoded(
       false
@@ -176,8 +189,8 @@ const detailwallet = (module.exports = {
     document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 
     if (janin.selectedCurrency.bech32) {
-      var bitcoinAddressSegWit = privateKey.getAddressWith(btcKey, 2);
-      var bitcoinAddressSegWitP2SH = privateKey.getAddressWith(btcKey, 3);
+      const bitcoinAddressSegWit = privateKey.getAddressWith(btcKey, 2);
+      const bitcoinAddressSegWitP2SH = privateKey.getAddressWith(btcKey, 3);
       document.getElementById(
         "detailaddresssegwit"
       ).innerHTML = bitcoinAddressSegWit;
@@ -194,8 +207,8 @@ const detailwallet = (module.exports = {
     }
 
     if (janin.selectedCurrency.bch) {
-      var bitcoinAddressBch = privateKey.getAddressWith(btcKey, 5);
-      var bitcoinAddressBchComp = privateKey.getAddressWith(btcKey, 4);
+      const bitcoinAddressBch = privateKey.getAddressWith(btcKey, 5);
+      const bitcoinAddressBchComp = privateKey.getAddressWith(btcKey, 4);
       document.getElementById("detailaddressbch").innerHTML = bitcoinAddressBch;
       document.getElementById(
         "detailaddressbchcomp"

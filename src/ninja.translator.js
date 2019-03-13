@@ -4,7 +4,7 @@ const translator = (module.exports = {
   autodetectTranslation: function() {
     // window.navigator.language for Firefox / Chrome / Opera Safari
     // window.navigator.userLanguage for IE
-    var language = window.navigator.language || window.navigator.userLanguage;
+    const language = window.navigator.language || window.navigator.userLanguage;
     if (!translator.translate(language)) {
       // Try to remove part after dash, for example cs-CZ -> cs
       language = language.substr(0, language.indexOf("-"));
@@ -13,19 +13,19 @@ const translator = (module.exports = {
   },
 
   translate: function(culture) {
-    var dict = translator.translations[culture];
+    const dict = translator.translations[culture];
     if (dict) {
       // set current culture
       translator.currentCulture = culture;
       // update menu UI
-      for (var cult in translator.translations) {
+      for (const cult in translator.translations) {
         document.getElementById("culture" + cult).setAttribute("class", "");
       }
       document
         .getElementById("culture" + culture)
         .setAttribute("class", "selected");
       // apply translations for each know id
-      for (var id in dict) {
+      for (const id in dict) {
         if (document.getElementById(id) && document.getElementById(id).value) {
           document.getElementById(id).value = dict[id];
         } else if (document.getElementById(id)) {
@@ -38,7 +38,7 @@ const translator = (module.exports = {
   },
 
   get: function(id) {
-    var translation =
+    const translation =
       translator.translations[ninja.translator.currentCulture][id];
     return translation;
   },

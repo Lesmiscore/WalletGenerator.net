@@ -1,8 +1,12 @@
+const translator = require("./ninja.translator.js");
+const ecpair = require("./ninja.ecpair.js");
+const privateKey = require("./ninja.privatekey.js");
+
 const bulkWallet = (module.exports = {
   open: function() {
     document.getElementById("bulkarea").style.display = "block";
     // show a default CSV list if the text area is empty
-    if (document.getElementById("bulktextarea").value == "") {
+    if (document.getElementById("bulktextarea").value === "") {
       // return control of the thread to the browser to render the tab switch UI then build a default CSV list
       setTimeout(function() {
         bulkWallet.buildCSV(
@@ -24,7 +28,7 @@ const bulkWallet = (module.exports = {
   // returns:
   // index,bitcoinAddress,privateKeyWif
   buildCSV: function(rowLimit, startIndex, compressedAddrs) {
-    //var bulkWallet = bulkwallet;
+    //const bulkWallet = bulkwallet;
     document.getElementById("bulktextarea").value =
       translator.get("bulkgeneratingaddresses") + rowLimit;
     bulkWallet.csv = [];
@@ -41,10 +45,10 @@ const bulkWallet = (module.exports = {
   csvStartIndex: 0,
 
   batchCSV: function() {
-    //var bulkWallet = bulkwallet;
+    //const bulkWallet = bulkwallet;
     if (bulkWallet.csvRowsRemaining > 0) {
       bulkWallet.csvRowsRemaining--;
-      var key = ecpair.makeRandom({
+      const key = ecpair.makeRandom({
         compressed: bulkWallet.compressedAddrs
       });
 
@@ -55,7 +59,7 @@ const bulkWallet = (module.exports = {
           ',"' +
           privateKey.getAddressWith(key) +
           '","' +
-          ninja.privateKey.getWIFWith(key) +
+          privateKey.getWIFWith(key) +
           '"'
       );
 
@@ -73,7 +77,7 @@ const bulkWallet = (module.exports = {
 
   openCloseFaq: function(faqNum) {
     // do close
-    if (document.getElementById("bulka" + faqNum).style.display == "block") {
+    if (document.getElementById("bulka" + faqNum).style.display === "block") {
       document.getElementById("bulka" + faqNum).style.display = "none";
       document.getElementById("bulke" + faqNum).setAttribute("class", "more");
     }

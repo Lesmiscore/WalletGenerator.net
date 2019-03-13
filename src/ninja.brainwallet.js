@@ -1,3 +1,10 @@
+const ecpair = require("./ninja.ecpair.js");
+const translator = require("./ninja.translator.js");
+const privateKey = require("./ninja.privatekey.js");
+const qrCode = require("./ninja.qrcode.js");
+const bitcoin = require("bitcoinjs-lib");
+const bigi = require("bigi");
+
 const brainwallet = (module.exports = {
   open: function() {
     document.getElementById("brainarea").style.display = "block";
@@ -16,27 +23,27 @@ const brainwallet = (module.exports = {
   view: function() {
     document.getElementById("brainerror").innerHTML = "";
 
-    var key = document
+    const key = document
       .getElementById("brainpassphrase")
       .value.toString()
       .replace(/^\s+|\s+$/g, ""); // trim white space
     document.getElementById("brainpassphrase").value = key;
-    var keyConfirm = document
+    const keyConfirm = document
       .getElementById("brainpassphraseconfirm")
       .value.toString()
       .replace(/^\s+|\s+$/g, ""); // trim white space
     document.getElementById("brainpassphraseconfirm").value = keyConfirm;
 
     if (
-      key == keyConfirm ||
+      key === keyConfirm ||
       document.getElementById("brainpassphraseshow").checked
     ) {
       // enforce a minimum passphrase length
       if (key.length >= brainwallet.minPassphraseLength) {
-        var bytes = bitcoin.crypto.sha256(key);
-        var btcKey = ecpair.create(bigi.fromBuffer(bytes), null);
-        var bitcoinAddress = privateKey.getAddressWith(btcKey);
-        var privWif = privateKey.getWIFWith(btcKey);
+        const bytes = bitcoin.crypto.sha256(key);
+        const btcKey = ecpair.create(bigi.fromBuffer(bytes), null);
+        const bitcoinAddress = privateKey.getAddressWith(btcKey);
+        const privWif = privateKey.getWIFWith(btcKey);
         document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
         document.getElementById("brainbtcprivwif").innerHTML = privWif;
         qrCode.showQrCode({

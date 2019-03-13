@@ -1,10 +1,10 @@
 const paperwallet = (module.exports = {
   open: function() {
     document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div
-    var paperArea = document.getElementById("paperarea");
+    const paperArea = document.getElementById("paperarea");
     paperArea.style.display = "block";
 
-    var pageBreakAt = paperwallet.pageBreakAtArtisticDefault;
+    const pageBreakAt = paperwallet.pageBreakAtArtisticDefault;
 
     if (document.getElementById("paperkeyarea").innerHTML == "") {
       document.getElementById("paperpassphrase").disabled = true;
@@ -29,7 +29,7 @@ const paperwallet = (module.exports = {
 
   build: function(passphrase, numWallets, batchComplete) {
     numWallets = numWallets || 1;
-    var pageBreakAt = 1;
+    const pageBreakAt = 1;
     paperwallet.remaining = numWallets;
     paperwallet.count = 0;
     paperwallet.batchComplete = batchComplete;
@@ -58,11 +58,11 @@ const paperwallet = (module.exports = {
 
   batch: function() {
     if (paperwallet.remaining > 0) {
-      var paperArea = document.getElementById("paperkeyarea");
+      const paperArea = document.getElementById("paperkeyarea");
       paperwallet.count++;
-      var i = paperwallet.count;
-      var pageBreakAt = paperwallet.pageBreakAt;
-      var div = document.createElement("div");
+      const i = paperwallet.count;
+      const pageBreakAt = paperwallet.pageBreakAt;
+      const div = document.createElement("div");
       div.setAttribute("id", "keyarea" + i);
 
       div.innerHTML = paperwallet.templateArtisticHtml(i);
@@ -71,7 +71,7 @@ const paperwallet = (module.exports = {
       if (paperArea.innerHTML != "") {
         // page break
         if ((i - 1) % pageBreakAt == 0 && i >= pageBreakAt) {
-          var pBreak = document.createElement("div");
+          const pBreak = document.createElement("div");
           pBreak.setAttribute("class", "pagebreak");
           document.getElementById("paperkeyarea").appendChild(pBreak);
           div.style.pageBreakBefore = "always";
@@ -99,12 +99,12 @@ const paperwallet = (module.exports = {
         }
       );
     } else {
-      var key = ecpair.makeRandom();
-      var bitcoinAddress = privateKey.getAddressWith(
+      const key = ecpair.makeRandom();
+      const bitcoinAddress = privateKey.getAddressWith(
         key,
         paperwallet.publicMode
       );
-      var privateKeyWif = privateKey.getWIFWith(key, paperwallet.publicMode);
+      const privateKeyWif = privateKey.getWIFWith(key, paperwallet.publicMode);
 
       paperwallet.showArtisticWallet(idPostFix, bitcoinAddress, privateKeyWif);
     }
@@ -113,14 +113,14 @@ const paperwallet = (module.exports = {
   // Verify that a self-entered key is valid, and compute the corresponding
   // public address, render the wallet.
   testAndApplyVanityKey: function() {
-    var suppliedKey = document.getElementById("suppliedPrivateKey").value;
+    const suppliedKey = document.getElementById("suppliedPrivateKey").value;
     suppliedKey = suppliedKey.trim(); // in case any spaces or whitespace got pasted in
     document.getElementById("suppliedPrivateKey").value = suppliedKey;
     if (!privateKey.isPrivateKey(suppliedKey)) {
       alert(translator.get("detailalertnotvalidprivatekey"));
     } else {
-      var parsedKey = privateKey.decodePrivateKey(suppliedKey);
-      var computedPublicAddress = privateKey.getAddressWith(
+      const parsedKey = privateKey.decodePrivateKey(suppliedKey);
+      const computedPublicAddress = privateKey.getAddressWith(
         parsedKey,
         paperwallet.publicMode
       );
@@ -147,13 +147,13 @@ const paperwallet = (module.exports = {
   },
 
   templateArtisticHtml: function(i) {
-    var keyelement = "btcprivwif";
-    var coinImgUrl =
+    const keyelement = "btcprivwif";
+    const coinImgUrl =
       "logos/" + janin.selectedCurrency.name.toLowerCase() + ".png";
-    var walletBackgroundUrl =
+    const walletBackgroundUrl =
       "" + janin.selectedCurrency.name.toLowerCase() + ".png";
 
-    var walletHtml =
+    const walletHtml =
       "<div class='coinIcoin'> <img id='coinImg' src='" +
       coinImgUrl +
       "' alt='currency_logo' /></div><div class='artwallet' id='artwallet" +
@@ -189,11 +189,11 @@ const paperwallet = (module.exports = {
   },
 
   showArtisticWallet: function(idPostFix, bitcoinAddress, privateKey) {
-    var keyValuePair = {};
+    const keyValuePair = {};
     keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
     qrCode.showQrCode(keyValuePair, 3.5);
 
-    var keyValuePair = {};
+    const keyValuePair = {};
     keyValuePair["qrcode_private" + idPostFix] = privateKey;
     qrCode.showQrCode(keyValuePair, 2.8);
 
@@ -211,7 +211,7 @@ const paperwallet = (module.exports = {
   },
 
   resetLimits: function() {
-    var paperEncrypt = document.getElementById("paperencrypt");
+    const paperEncrypt = document.getElementById("paperencrypt");
 
     document.getElementById("paperkeyarea").style.fontSize = "100%";
     if (paperEncrypt.checked) {

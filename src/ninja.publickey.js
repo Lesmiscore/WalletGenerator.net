@@ -17,7 +17,7 @@ const publicKey = (module.exports = {
     return /^0[23][A-Fa-f0-9]{64}$/.test(key);
   },
   getBitcoinAddressFromByteArray: function(pubKeyByteArray) {
-    var pubKeyHash = bitcoin.crypto.hash160(pubKeyByteArray);
+    const pubKeyHash = bitcoin.crypto.hash160(pubKeyByteArray);
     return bitcoin.address.toBase58Check(pubKeyHash, 0);
   },
   getHexFromByteArray: function(pubKeyByteArray) {
@@ -26,36 +26,36 @@ const publicKey = (module.exports = {
       .toUpperCase();
   },
   getByteArrayFromAdding: function(pubKeyHex1, pubKeyHex2) {
-    var curve = elliptic.curves.secp256k1;
-    var ecPoint1 = curve.decodePoint(Buffer.from(pubKeyHex1, "hex"));
-    var ecPoint2 = curve.decodePoint(Buffer.from(pubKeyHex2, "hex"));
+    const curve = elliptic.curves.secp256k1;
+    const ecPoint1 = curve.decodePoint(Buffer.from(pubKeyHex1, "hex"));
+    const ecPoint2 = curve.decodePoint(Buffer.from(pubKeyHex2, "hex"));
     // if both points are the same return null
     if (ecPoint1.eq(ecPoint2)) return null;
-    var compressed = ecPoint1.compressed && ecPoint2.compressed;
-    var pubKey = ecPoint1.add(ecPoint2).getEncoded(compressed);
+    const compressed = ecPoint1.compressed && ecPoint2.compressed;
+    const pubKey = ecPoint1.add(ecPoint2).getEncoded(compressed);
     return pubKey;
   },
   getByteArrayFromMultiplying: function(pubKeyHex, ecKey) {
-    var ecPoint = elliptic.curves.secp256k1.decodePoint(
+    const ecPoint = elliptic.curves.secp256k1.decodePoint(
       Buffer.from(pubKeyHex, "hex")
     );
-    var compressed = ecPoint.compressed && ecKey.compressed;
+    const compressed = ecPoint.compressed && ecKey.compressed;
     // if both points are the same return null
     ecKey.compressed = false;
     if (ecPoint.eq(ecKey.Q)) {
       return null;
     }
-    var bigInt = ecKey.d;
-    var pubKey = ecPoint.mul(bigInt).encoded("buffer", compressed);
+    const bigInt = ecKey.d;
+    const pubKey = ecPoint.mul(bigInt).encoded("buffer", compressed);
     return pubKey;
   },
   // used by unit test
   getDecompressedPubKeyHex: function(pubKeyHexComp) {
-    var ecPoint = elliptic.curves.secp256k1.decodePoint(
+    const ecPoint = elliptic.curves.secp256k1.decodePoint(
       Buffer.from(pubKeyHexComp, "hex")
     );
-    var pubByteArray = ecPoint.encoded("buffer", 0);
-    var pubHexUncompressed = publicKey.getHexFromByteArray(pubByteArray);
+    const pubByteArray = ecPoint.encoded("buffer", 0);
+    const pubHexUncompressed = publicKey.getHexFromByteArray(pubByteArray);
     return pubHexUncompressed;
   }
 });

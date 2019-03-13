@@ -141,7 +141,7 @@ const useCurrency = function(index) {
   }
 
   // easter egg doge ;)
-  if (name() == "Dogecoin") {
+  if (name() === "Dogecoin") {
     doge = new Doge([
       "wow",
       "so paper wallet",
@@ -157,7 +157,7 @@ const useCurrency = function(index) {
     return;
   }
 
-  if (doge != null) {
+  if (doge !== null) {
     doge.stop();
     doge = null;
   }
@@ -172,6 +172,13 @@ module.exports = {
   CWIF_RegEx,
   useCurrency
 };
+
+Object.defineProperty(module.exports, "selectedCurrency", {
+  get: () => selectedCurrency,
+  set: useCurrency,
+  enumerable: true,
+  configurable: true
+});
 
 let currencies = [
   //                              name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp
