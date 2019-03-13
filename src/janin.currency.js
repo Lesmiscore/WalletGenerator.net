@@ -1,4 +1,11 @@
-let selectedCurrency;
+const singlewallet = require("./ninja.singlewallet.js");
+const paperwallet = require("./ninja.paperwallet.js");
+const brainwallet = require("./ninja.brainwallet.js");
+const seeder = require("./ninja.seeder.js");
+const translator = require("./ninja.translator.js");
+const Doge = require("./doge.js");
+
+let selectedCurrency, doge;
 
 const createCurrency = function(
   name,
@@ -10,7 +17,7 @@ const createCurrency = function(
   scriptHash,
   b32hrp
 ) {
-  var currency = {
+  return {
     // that's ok to copy from bitcoin; because we only need parameters to make addresses
     messagePrefix: "\x18Bitcoin Signed Message:\n",
     bech32: b32hrp,
@@ -30,7 +37,6 @@ const createCurrency = function(
     zcash: networkVersion > 0xff,
     bch: name === "BitcoinCash" // TODO: support BSV if they added new type of address
   };
-  return currency;
 };
 
 const name = function() {
@@ -63,15 +69,15 @@ const CWIF_RegEx = function() {
 
 // Switch currency
 const useCurrency = function(index) {
-  selectedCurrency = janin.currencies[index];
+  selectedCurrency = currencies[index];
 
-  var coinImgUrl = "logos/" + name().toLowerCase() + ".png";
+  const coinImgUrl = "logos/" + name().toLowerCase() + ".png";
   document.getElementById("coinLogoImg").src = coinImgUrl;
 
   // Update title depending on currency
-  document.title = name() + " " + ninja.translator.get("title");
+  document.title = name() + " " + translator.get("title");
   document.getElementById("siteTitle").alt =
-    name() + " " + ninja.translator.get("title");
+    name() + " " + translator.get("title");
 
   // Update i18n link
   document.getElementById("cultureen").href =
@@ -99,13 +105,11 @@ const useCurrency = function(index) {
   document.getElementById("culturezh").href =
     "?culture=zh&currency=" + name().toLowerCase();
 
-  if (ninja.seeder.isDone()) {
+  if (seeder.isDone()) {
     // Regenerate a new wallet when not expensive
-    ninja.wallets.singlewallet.generateNewAddressAndKey();
-    ninja.wallets.paperwallet.build(
-      document.getElementById("paperpassphrase").value
-    );
-    ninja.wallets.brainwallet.view();
+    singlewallet.generateNewAddressAndKey();
+    paperwallet.build(document.getElementById("paperpassphrase").value);
+    brainwallet.view();
   }
 
   // Reset wallet tab when expensive or not applicable
@@ -113,9 +117,9 @@ const useCurrency = function(index) {
   document.getElementById("suppliedPrivateKey").value = "";
 
   // Hide SegWit fields for non-segwit coins
-  var swids = ["pubqrsw", "selectsegwit", "selectsegwitp2sh"];
+  const swids = ["pubqrsw", "selectsegwit", "selectsegwitp2sh"];
   for (let id in swids) {
-    var elem = document.getElementById(swids[id]);
+    const elem = document.getElementById(swids[id]);
     if (!elem) continue;
     if (selectedCurrency.bech32) {
       elem.style.display = "block";
@@ -125,9 +129,9 @@ const useCurrency = function(index) {
   }
 
   // Hide CashAddr fields for non-BCH
-  var swids = ["pubqrbch", "selectcashaddrcomp", "selectcashaddr"];
-  for (let id in swids) {
-    var elem = document.getElementById(swids[id]);
+  const caids = ["pubqrbch", "selectcashaddrcomp", "selectcashaddr"];
+  for (let id in caids) {
+    const elem = document.getElementById(caids[id]);
     if (!elem) continue;
     if (selectedCurrency.bch) {
       elem.style.display = "block";
@@ -138,7 +142,7 @@ const useCurrency = function(index) {
 
   // easter egg doge ;)
   if (name() == "Dogecoin") {
-    janin.doge = new Doge([
+    doge = new Doge([
       "wow",
       "so paper wallet",
       "such random",
@@ -153,9 +157,9 @@ const useCurrency = function(index) {
     return;
   }
 
-  if (janin.doge != null) {
-    janin.doge.stop();
-    janin.doge = null;
+  if (doge != null) {
+    doge.stop();
+    doge = null;
   }
 };
 
