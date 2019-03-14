@@ -11,8 +11,10 @@ const tabSwitch = function(walletTab) {
       singlewallet: require("./ninja.singlewallet.js")
     };
     for (const wType in wallets) {
-      document.getElementById(wType).className = "tab";
-      wallets[wType].close();
+      if ({}.hasOwnProperty.call(wallets, wType)) {
+        document.getElementById(wType).className = "tab";
+        wallets[wType].close();
+      }
     }
     walletTab.className += " selected";
     wallets[walletTab.getAttribute("id")].open();
@@ -99,7 +101,9 @@ const forSerialized = function(initial, max, whatToDo, onComplete) {
 const foreachSerialized = function(collection, whatToDo, onComplete) {
   const keys = [];
   for (const name in collection) {
-    keys.push(name);
+    if ({}.hasOwnProperty.call(collection, name)) {
+      keys.push(name);
+    }
   }
   forSerialized(
     0,
