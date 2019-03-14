@@ -35,7 +35,7 @@
   }
 
   let Doge = function(words) {
-    if (typeof words !== "object" || words.length === undefined) {
+    if (!Array.isArray(words)) {
       return console.error("Wow. Words is not array. Much Error.");
     }
 
@@ -60,7 +60,7 @@
       muchPlay = false;
       clearInterval(suchInterval);
     }
-    if (wowElement != null) wowElement.parentNode.removeChild(wowElement);
+    if (wowElement !== null) wowElement.parentNode.removeChild(wowElement);
   };
 
   module.exports = Doge;

@@ -1,9 +1,12 @@
+const bitcoin = require("bitcoinjs-lib");
+const elliptic = require("elliptic");
+
 const publicKey = (module.exports = {
   isPublicKeyHexFormat: function(key) {
     key = key.toString();
     return (
       publicKey.isUncompressedPublicKeyHexFormat(key) ||
-      ninja.publicKey.isCompressedPublicKeyHexFormat(key)
+      publicKey.isCompressedPublicKeyHexFormat(key)
     );
   },
   // 130 characters [0-9A-F] starts with 04

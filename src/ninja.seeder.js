@@ -1,3 +1,6 @@
+const randombytes = require("randombytes");
+const singlewallet = require("./singlewallet.js");
+
 const seeder = (module.exports = {
   init: (function() {
     document.getElementById("generatekeyinput").value = "";
@@ -15,7 +18,7 @@ const seeder = (module.exports = {
 
   isDone: function() {
     // randomBytes uses crypto.getRandomValues for random
-    return seeder.seedCount >= ninja.seeder.seedLimit;
+    return seeder.seedCount >= seeder.seedLimit;
   },
 
   // seed function exists to wait for mouse movement to add more entropy before generating an address
@@ -23,7 +26,7 @@ const seeder = (module.exports = {
     evt = evt || window.event;
     const timeStamp = new Date().getTime();
     // seeding is over now we generate and display the address
-    if (seeder.seedCount == ninja.seeder.seedLimit) {
+    if (seeder.seedCount === seeder.seedLimit) {
       seeder.seedCount++;
       singlewallet.open();
       document.getElementById("menu").style.visibility = "visible";
@@ -31,9 +34,9 @@ const seeder = (module.exports = {
     }
     // seed mouse position X and Y when mouse movements are greater than 40ms apart.
     else if (
-      seeder.seedCount < ninja.seeder.seedLimit &&
+      seeder.seedCount < seeder.seedLimit &&
       evt &&
-      timeStamp - ninja.seeder.lastInputTime > 40
+      timeStamp - seeder.lastInputTime > 40
     ) {
       //SecureRandom.seedTime();
       //SecureRandom.seedInt16((evt.clientX * evt.clientY));
@@ -48,7 +51,7 @@ const seeder = (module.exports = {
   seedKeyPress: function(evt) {
     evt = evt || window.event;
     // seeding is over now we generate and display the address
-    if (seeder.seedCount == ninja.seeder.seedLimit) {
+    if (seeder.seedCount === seeder.seedLimit) {
       seeder.seedCount++;
       singlewallet.open();
       document.getElementById("generate").style.display = "none";
@@ -56,7 +59,7 @@ const seeder = (module.exports = {
       seeder.removePoints();
     }
     // seed key press character
-    else if (seeder.seedCount < ninja.seeder.seedLimit && evt.which) {
+    else if (seeder.seedCount < seeder.seedLimit && evt.which) {
       const timeStamp = new Date().getTime();
       // seed a bunch (minimum seedLimit) of times
       //SecureRandom.seedTime();
@@ -74,7 +77,7 @@ const seeder = (module.exports = {
     document.getElementById("seedpool").innerHTML = poolHex;
     document.getElementById("seedpooldisplay").innerHTML = poolHex;
     document.getElementById("mousemovelimit").innerHTML =
-      seeder.seedLimit - ninja.seeder.seedCount;
+      seeder.seedLimit - seeder.seedCount;
   },
 
   showPoint: function(x, y) {
@@ -84,15 +87,15 @@ const seeder = (module.exports = {
     div.style.left = x + "px";
 
     // let's make the entropy 'points' grow and change color!
-    percentageComplete = seeder.seedCount / ninja.seeder.seedLimit;
+    let percentageComplete = seeder.seedCount / seeder.seedLimit;
     document.getElementById("progress-bar-percentage").style.width =
       Math.ceil(percentageComplete * 100) + "%";
 
     // for some reason, appending these divs to an IOS device breaks clicking altogether (?)
     if (
-      navigator.platform != "iPad" &&
-      navigator.platform != "iPhone" &&
-      navigator.platform != "iPod"
+      navigator.platform !== "iPad" &&
+      navigator.platform !== "iPhone" &&
+      navigator.platform !== "iPod"
     ) {
       document.body.appendChild(div);
     }

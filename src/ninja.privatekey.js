@@ -1,3 +1,20 @@
+const bitcoin = require("bitcoinjs-lib");
+const zcash = require("bitcoinjs-lib-zcash");
+const bigi = require("bigi");
+const bip38 = require("bip38");
+const wif = require("wif");
+const elliptic = require("elliptic");
+const randombytes = require("randombytes");
+const scrypt = require("scryptsy");
+const base58 = require("base58");
+const bnjs = require("bn.js");
+const bchaddrjs = require("bchaddrjs");
+const aes = require("browserify-aes");
+
+const janin = require("./janin.currency.js");
+const ecpair = require("./ninja.ecpair.js");
+const translator = require("./ninja.translator.js");
+
 const privateKey = (module.exports = {
   isPrivateKey: function(key) {
     try {
@@ -7,7 +24,7 @@ const privateKey = (module.exports = {
     } catch (e) {}
     // Hex/Base64
     const testValue = function(buffer) {
-      if (buffer.length != 32) return false;
+      if (buffer.length !== 32) return false;
       const n = bigi.fromByteArrayUnsigned(
         elliptic.curves.secp256k1.curve.n.toArray()
       );
@@ -19,7 +36,7 @@ const privateKey = (module.exports = {
     // Mini key
     if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
       const sha256 = bitcoin.crypto.sha256(key + "?");
-      if (sha256[0] == 0x00) {
+      if (sha256[0] === 0x00) {
         return true;
       }
     }
@@ -40,7 +57,7 @@ const privateKey = (module.exports = {
     function tryBy(enc) {
       try {
         const hex = Buffer.from(key, enc).toString("hex");
-        if (hex.length == 64) {
+        if (hex.length === 64) {
           return ecpair.create(bigi.fromHex(hex), null, {
             compressed: true
           });
@@ -198,7 +215,7 @@ const privateKey = (module.exports = {
   ) {
     // encrypt
     const decoded = wif.decode(base58Key);
-    const encryptedKey = bip38.encrypt(
+    let encryptedKey = bip38.encrypt(
       decoded.privateKey,
       compressed,
       passphrase
@@ -247,7 +264,7 @@ const privateKey = (module.exports = {
     const magicBytes = [0x2c, 0xe9, 0xb3, 0xe1, 0xff, 0x39, 0xe2, 0x51];
     if (noNumbers) magicBytes[7] = 0x53;
 
-    const intermediate = magicBytes.concat(ownerEntropy).concat(passpoint);
+    let intermediate = magicBytes.concat(ownerEntropy).concat(passpoint);
 
     // base58check encode
     intermediate = intermediate.concat(
@@ -302,19 +319,19 @@ const privateKey = (module.exports = {
       64
     );
     // 6) Do AES256Encrypt(seedb[0...15]] xor derivedhalf1[0...15], derivedhalf2), call the 16-byte result encryptedpart1
-    for (const i = 0; i < 16; ++i) {
+    for (let i = 0; i < 16; ++i) {
       seedB[i] ^= derivedBytes[i];
     }
-    const decipher1 = aes.createDecipher("aes-256-ecb", derivedBytes.slice(32));
+    const decipher1 = aes.createDecipher("aes-256-ecb", seedB.slice(0, 16));
     decipher1.setAutoPadding(false);
-    decipher1.end(encryptedPart2);
+    decipher1.end(derivedBytes.slice(16, 32));
     const encryptedPart1 = decipher1.read();
 
     // 7) Do AES256Encrypt((encryptedpart1[8...15] + seedb[16...23]) xor derivedhalf1[16...31], derivedhalf2), call the 16-byte result encryptedseedb.
     const message2 = encryptedPart1
       .slice(8, 8 + 8)
       .concat(seedB.slice(16, 16 + 8));
-    for (const i = 0; i < 16; ++i) {
+    for (let i = 0; i < 16; ++i) {
       message2[i] ^= derivedBytes[i + 16];
     }
     const decipher2 = aes.createDecipheriv(
@@ -326,7 +343,7 @@ const privateKey = (module.exports = {
     const encryptedSeedB = decipher2.read();
 
     // 0x01 0x43 + flagbyte + addresshash + ownerentropy + encryptedpart1[0...7] + encryptedpart2
-    const encryptedKey = [0x01, 0x43, flagByte]
+    let encryptedKey = [0x01, 0x43, flagByte]
       .concat(addressHash)
       .concat(ownerEntropy)
       .concat(encryptedPart1.slice(0, 8))

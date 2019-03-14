@@ -1,3 +1,8 @@
+const janin = require("./janin.currency.js");
+const privateKey = require("./ninja.privatekey.js");
+const bitcoin = require("bitcoinjs-lib");
+const zcash = require("bitcoinjs-lib-zcash");
+
 const ecpair = (module.exports = {
   getAddressWith: privateKey.getAddressWith,
   getWIFWith: privateKey.getWIFWith,

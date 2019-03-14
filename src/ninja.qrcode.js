@@ -1,3 +1,5 @@
+const QRCode = require("./qrcode.js");
+
 const qrCode = (module.exports = {
   // determine which type number is big enough for the input text length
   getTypeNumber: function(text) {
@@ -27,7 +29,7 @@ const qrCode = (module.exports = {
   },
 
   createCanvas: function(text, sizeMultiplier) {
-    sizeMultiplier = sizeMultiplier == undefined ? 2 : sizeMultiplier; // default 2
+    sizeMultiplier = !sizeMultiplier ? 2 : sizeMultiplier; // default 2
     // create the qrcode itself
     const typeNumber = qrCode.getTypeNumber(text);
     const qrcode = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
@@ -36,20 +38,20 @@ const qrCode = (module.exports = {
     const width = qrcode.getModuleCount() * sizeMultiplier;
     const height = qrcode.getModuleCount() * sizeMultiplier;
     // create canvas element
-    const canvas = document.createElement("canvas");
+    let canvas = document.createElement("canvas");
     const scale = 10.0;
     canvas.width = width * scale;
     canvas.height = height * scale;
     canvas.style.width = width + "px";
     canvas.style.height = height + "px";
-    const ctx = canvas.getContext("2d");
+    let ctx = canvas.getContext("2d");
     ctx.scale(scale, scale);
     // compute tileW/tileH based on width/height
     const tileW = width / qrcode.getModuleCount();
     const tileH = height / qrcode.getModuleCount();
     // draw in the canvas
-    for (const row = 0; row < qrcode.getModuleCount(); row++) {
-      for (const col = 0; col < qrcode.getModuleCount(); col++) {
+    for (let row = 0; row < qrcode.getModuleCount(); row++) {
+      for (let col = 0; col < qrcode.getModuleCount(); col++) {
         ctx.fillStyle = qrcode.isDark(row, col) ? "#000000" : "#ffffff";
         ctx.fillRect(col * tileW, row * tileH, tileW, tileH);
       }
@@ -64,10 +66,10 @@ const qrCode = (module.exports = {
     const qr = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
     qr.addData(text);
     qr.make();
-    const tableHtml = "<table class='qrcodetable'>";
-    for (const r = 0; r < qr.getModuleCount(); r++) {
+    let tableHtml = "<table class='qrcodetable'>";
+    for (let r = 0; r < qr.getModuleCount(); r++) {
       tableHtml += "<tr>";
-      for (const c = 0; c < qr.getModuleCount(); c++) {
+      for (let c = 0; c < qr.getModuleCount(); c++) {
         if (qr.isDark(r, c)) {
           tableHtml += "<td class='qrcodetddark'/>";
         } else {

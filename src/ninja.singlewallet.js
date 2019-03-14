@@ -1,6 +1,10 @@
+const ecpair = require("./ecpair.js");
+const privateKey = require("./privatekey.js");
+const qrCode = require("./qrcode.js");
+
 const singlewallet = (module.exports = {
   open: function() {
-    if (document.getElementById("btcaddress").innerHTML == "") {
+    if (document.getElementById("btcaddress").innerHTML === "") {
       singlewallet.generateNewAddressAndKey();
     }
     document.getElementById("walletCommands").style.display = "block";

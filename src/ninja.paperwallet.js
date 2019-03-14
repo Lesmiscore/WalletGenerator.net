@@ -1,3 +1,9 @@
+const janin = require("./janin.currency.js");
+const privateKey = require("./ninja.privatekey.js");
+const translator = require("./ninja.translator.js");
+const ecpair = require("./ninja.ecpair.js");
+const qrCode = require("./ninja.qrcode.js");
+
 const paperwallet = (module.exports = {
   open: function() {
     document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div
@@ -6,7 +12,7 @@ const paperwallet = (module.exports = {
 
     const pageBreakAt = paperwallet.pageBreakAtArtisticDefault;
 
-    if (document.getElementById("paperkeyarea").innerHTML == "") {
+    if (document.getElementById("paperkeyarea").innerHTML === "") {
       document.getElementById("paperpassphrase").disabled = true;
       document.getElementById("paperencrypt").checked = false;
       paperwallet.encrypt = false;
@@ -36,7 +42,7 @@ const paperwallet = (module.exports = {
     paperwallet.pageBreakAt = pageBreakAt;
     document.getElementById("paperkeyarea").innerHTML = "";
     if (paperwallet.encrypt) {
-      if (passphrase == "") {
+      if (passphrase === "") {
         alert(translator.get("bip38alertpassphraserequired"));
         return;
       }
@@ -68,9 +74,9 @@ const paperwallet = (module.exports = {
       div.innerHTML = paperwallet.templateArtisticHtml(i);
       div.setAttribute("class", "keyarea art");
 
-      if (paperArea.innerHTML != "") {
+      if (paperArea.innerHTML !== "") {
         // page break
-        if ((i - 1) % pageBreakAt == 0 && i >= pageBreakAt) {
+        if ((i - 1) % pageBreakAt === 0 && i >= pageBreakAt) {
           const pBreak = document.createElement("div");
           pBreak.setAttribute("class", "pagebreak");
           document.getElementById("paperkeyarea").appendChild(pBreak);
@@ -92,7 +98,7 @@ const paperwallet = (module.exports = {
   generateNewWallet: function(idPostFix) {
     if (paperwallet.encrypt) {
       privateKey.BIP38GenerateECAddressAsync(
-        ninja.paperwallet.intermediatePoint,
+        paperwallet.intermediatePoint,
         false,
         function(address, encryptedKey) {
           paperwallet.showArtisticWallet(idPostFix, address, encryptedKey);
@@ -113,7 +119,7 @@ const paperwallet = (module.exports = {
   // Verify that a self-entered key is valid, and compute the corresponding
   // public address, render the wallet.
   testAndApplyVanityKey: function() {
-    const suppliedKey = document.getElementById("suppliedPrivateKey").value;
+    let suppliedKey = document.getElementById("suppliedPrivateKey").value;
     suppliedKey = suppliedKey.trim(); // in case any spaces or whitespace got pasted in
     document.getElementById("suppliedPrivateKey").value = suppliedKey;
     if (!privateKey.isPrivateKey(suppliedKey)) {
@@ -188,19 +194,19 @@ const paperwallet = (module.exports = {
     return walletHtml;
   },
 
-  showArtisticWallet: function(idPostFix, bitcoinAddress, privateKey) {
+  showArtisticWallet: function(idPostFix, bitcoinAddress, privKey) {
     let keyValuePair = {};
     keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
     qrCode.showQrCode(keyValuePair, 3.5);
 
     keyValuePair = {};
-    keyValuePair["qrcode_private" + idPostFix] = privateKey;
+    keyValuePair["qrcode_private" + idPostFix] = privKey;
     qrCode.showQrCode(keyValuePair, 2.8);
 
     document.getElementById(
       "btcaddress" + idPostFix
     ).innerHTML = bitcoinAddress;
-    document.getElementById("btcprivwif" + idPostFix).innerHTML = privateKey;
+    document.getElementById("btcprivwif" + idPostFix).innerHTML = privKey;
   },
 
   toggleEncrypt: function(element) {

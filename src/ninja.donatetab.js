@@ -1,4 +1,4 @@
-const qrCode = require("./ninja.qrcode.js");
+const qrCode = require("./qrcode.js");
 const janin = require("./janin.currency.js");
 
 const donate = (module.exports = {

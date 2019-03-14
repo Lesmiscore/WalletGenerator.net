@@ -1,14 +1,14 @@
-const translator = require("./ninja.translator.js");
+const translator = require("./translator.js");
 
 const tabSwitch = function(walletTab) {
   if (walletTab.className.indexOf("selected") === -1) {
     // unselect all tabs
     const wallets = {
-      brainwallet: require("./ninja.brainwallet.js"),
-      bulkwallet: require("./ninja.bulkwallet.js"),
-      detailwallet: require("./ninja.detailwallet.js"),
-      paperwallet: require("./ninja.paperwallet.js"),
-      singlewallet: require("./ninja.singlewallet.js")
+      brainwallet: require("./brainwallet.js"),
+      bulkwallet: require("./bulkwallet.js"),
+      detailwallet: require("./detailwallet.js"),
+      paperwallet: require("./paperwallet.js"),
+      singlewallet: require("./singlewallet.js")
     };
     for (const wType in wallets) {
       document.getElementById(wType).className = "tab";

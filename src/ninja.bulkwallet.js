@@ -1,6 +1,6 @@
-const translator = require("./ninja.translator.js");
-const ecpair = require("./ninja.ecpair.js");
-const privateKey = require("./ninja.privatekey.js");
+const translator = require("./translator.js");
+const ecpair = require("./ecpair.js");
+const privateKey = require("./privatekey.js");
 
 const bulkWallet = (module.exports = {
   open: function() {

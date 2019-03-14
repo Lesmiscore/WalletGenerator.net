@@ -4,7 +4,7 @@ const translator = (module.exports = {
   autodetectTranslation: function() {
     // window.navigator.language for Firefox / Chrome / Opera Safari
     // window.navigator.userLanguage for IE
-    const language = window.navigator.language || window.navigator.userLanguage;
+    let language = window.navigator.language || window.navigator.userLanguage;
     if (!translator.translate(language)) {
       // Try to remove part after dash, for example cs-CZ -> cs
       language = language.substr(0, language.indexOf("-"));
@@ -38,9 +38,7 @@ const translator = (module.exports = {
   },
 
   get: function(id) {
-    const translation =
-      translator.translations[ninja.translator.currentCulture][id];
-    return translation;
+    return translator.translations[translator.currentCulture][id];
   },
 
   staticID: [
