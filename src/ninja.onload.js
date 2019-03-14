@@ -1,10 +1,10 @@
-const translator = require("./translator.js");
+const translator = require("./ninja.translator.js");
 const janin = require("./janin.currency.js");
 const {
   getQueryString,
   envSecurityCheck,
   browserSecurityCheck
-} = require("./misc.js");
+} = require("./ninja.misc.js");
 
 // change language
 if (getQueryString()["culture"]) {

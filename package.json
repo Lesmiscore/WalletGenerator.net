@@ -33,7 +33,8 @@
     "start": "npm run export ; grunt",
     "export": "browserify src/init.js -o exported.js ; google-closure-compiler --js=exported.js --js_output_file=exported-comp.js ; rm exported.js",
     "public": "npm run start ; rm -rf public ; mkdir public ; cp -R logos/ images/ wallets/ index.html public/",
-    "lint": "cd src ; eslint ninja.*.js janin.*.js doge.js init.js misc.js"
+    "lint": "cd src ; eslint ninja.*.js janin.*.js doge.js init.js misc.js coins/",
+    "pret": "cd src ; prettier --write ninja.*.js janin.*.js doge.js init.js misc.js coins/*.js"
   },
   "author": "MichaelMure",
   "license": "MIT",

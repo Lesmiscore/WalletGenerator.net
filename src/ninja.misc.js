@@ -1,20 +1,18 @@
-const translator = require("./translator.js");
+const translator = require("./ninja.translator.js");
 
 const tabSwitch = function(walletTab) {
   if (walletTab.className.indexOf("selected") === -1) {
     // unselect all tabs
     const wallets = {
-      brainwallet: require("./brainwallet.js"),
-      bulkwallet: require("./bulkwallet.js"),
-      detailwallet: require("./detailwallet.js"),
-      paperwallet: require("./paperwallet.js"),
-      singlewallet: require("./singlewallet.js")
+      brainwallet: require("./ninja.brainwallet.js"),
+      bulkwallet: require("./ninja.bulkwallet.js"),
+      detailwallet: require("./ninja.detailwallet.js"),
+      paperwallet: require("./ninja.paperwallet.js"),
+      singlewallet: require("./ninja.singlewallet.js")
     };
     for (const wType in wallets) {
-      if ({}.hasOwnProperty.call(wallets, wType)) {
-        document.getElementById(wType).className = "tab";
-        wallets[wType].close();
-      }
+      document.getElementById(wType).className = "tab";
+      wallets[wType].close();
     }
     walletTab.className += " selected";
     wallets[walletTab.getAttribute("id")].open();
@@ -101,9 +99,7 @@ const forSerialized = function(initial, max, whatToDo, onComplete) {
 const foreachSerialized = function(collection, whatToDo, onComplete) {
   const keys = [];
   for (const name in collection) {
-    if ({}.hasOwnProperty.call(collection, name)) {
-      keys.push(name);
-    }
+    keys.push(name);
   }
   forSerialized(
     0,

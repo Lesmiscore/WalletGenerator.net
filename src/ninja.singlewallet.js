@@ -1,6 +1,6 @@
-const ecpair = require("./ecpair.js");
-const privateKey = require("./privatekey.js");
-const qrCode = require("./qrcode.js");
+const ecpair = require("./ninja.ecpair.js");
+const privateKey = require("./ninja.privatekey.js");
+const qrCode = require("./ninja.qrcode.js");
 
 const singlewallet = (module.exports = {
   open: function() {

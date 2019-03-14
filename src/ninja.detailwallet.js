@@ -1,9 +1,9 @@
 const { QRCodeScanner } = require("./jsqrcode.js");
-const translator = require("./translator.js");
-const ecpair = require("./ecpair.js");
-const privateKey = require("./privatekey.js");
-const brainwallet = require("./brainwallet.js");
-const qrCode = require("./qrcode.js");
+const translator = require("./ninja.translator.js");
+const ecpair = require("./ninja.ecpair.js");
+const privateKey = require("./ninja.privatekey.js");
+const brainwallet = require("./ninja.brainwallet.js");
+const qrCode = require("./ninja.qrcode.js");
 const janin = require("./janin.currency.js");
 const bitcoin = require("bitcoinjs-lib");
 const bigi = require("bigi");
