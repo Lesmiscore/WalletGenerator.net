@@ -89,17 +89,21 @@ const qrCode = (module.exports = {
   //		"string1" is the string you want encoded into the QRCode.
   showQrCode: function(keyValuePair, sizeMultiplier) {
     for (const key in keyValuePair) {
-      const value = keyValuePair[key];
-      try {
-        if (document.getElementById(key)) {
-          document.getElementById(key).innerHTML = "";
-          document
-            .getElementById(key)
-            .appendChild(qrCode.createCanvas(value, sizeMultiplier));
+      if ({}.hasOwnProperty.call(keyValuePair, key)) {
+        const value = keyValuePair[key];
+        try {
+          if (document.getElementById(key)) {
+            document.getElementById(key).innerHTML = "";
+            document
+              .getElementById(key)
+              .appendChild(qrCode.createCanvas(value, sizeMultiplier));
+          }
+        } catch (e) {
+          // for browsers that do not support canvas (IE8)
+          document.getElementById(key).innerHTML = qrCode.createTableHtml(
+            value
+          );
         }
-      } catch (e) {
-        // for browsers that do not support canvas (IE8)
-        document.getElementById(key).innerHTML = qrCode.createTableHtml(value);
       }
     }
   }

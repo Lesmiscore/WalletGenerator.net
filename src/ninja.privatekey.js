@@ -1,3 +1,5 @@
+/*eslint no-fallthrough: "off"*/
+
 const bitcoin = require("bitcoinjs-lib");
 const zcash = require("bitcoinjs-lib-zcash");
 const bigi = require("bigi");

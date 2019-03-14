@@ -119,24 +119,28 @@ const useCurrency = function(index) {
   // Hide SegWit fields for non-segwit coins
   const swids = ["pubqrsw", "selectsegwit", "selectsegwitp2sh"];
   for (let id in swids) {
-    const elem = document.getElementById(swids[id]);
-    if (!elem) continue;
-    if (selectedCurrency.bech32) {
-      elem.style.display = "block";
-    } else {
-      elem.style.display = "none";
+    if ({}.hasOwnProperty.call(swids, id)) {
+      const elem = document.getElementById(swids[id]);
+      if (!elem) continue;
+      if (selectedCurrency.bech32) {
+        elem.style.display = "block";
+      } else {
+        elem.style.display = "none";
+      }
     }
   }
 
   // Hide CashAddr fields for non-BCH
   const caids = ["pubqrbch", "selectcashaddrcomp", "selectcashaddr"];
   for (let id in caids) {
-    const elem = document.getElementById(caids[id]);
-    if (!elem) continue;
-    if (selectedCurrency.bch) {
-      elem.style.display = "block";
-    } else {
-      elem.style.display = "none";
+    if ({}.hasOwnProperty.call(caids, id)) {
+      const elem = document.getElementById(caids[id]);
+      if (!elem) continue;
+      if (selectedCurrency.bch) {
+        elem.style.display = "block";
+      } else {
+        elem.style.display = "none";
+      }
     }
   }
 

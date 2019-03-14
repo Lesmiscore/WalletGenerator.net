@@ -19,7 +19,9 @@ const translator = (module.exports = {
       translator.currentCulture = culture;
       // update menu UI
       for (const cult in translator.translations) {
-        document.getElementById("culture" + cult).setAttribute("class", "");
+        if ({}.hasOwnProperty.call(translator.translations, cult)) {
+          document.getElementById("culture" + cult).setAttribute("class", "");
+        }
       }
       document
         .getElementById("culture" + culture)
