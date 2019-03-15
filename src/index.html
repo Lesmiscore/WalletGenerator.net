@@ -238,7 +238,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <div id="faqZone">
           <h2>Frequently asked questions :</h2>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion1');ninja.toggleFaqQuestion('faqQuestion1.1')">&#8226;
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink1" onclick="ninja.toggleFaqQuestion('faqQuestion1');ninja.toggleFaqQuestion('faqQuestion1.1')">&#8226;
               Is it safe ?</a></h3>
           <p class="faqAnswer" id="faqQuestion1">
             We try to make it that way ! The core of the tool, that generate the keys is 99% the same as the well
@@ -255,7 +255,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             seen some nasty things when reviewing some wallet generator.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion2');">&#8226; Why
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink2" onclick="ninja.toggleFaqQuestion('faqQuestion2');">&#8226; Why
               should I use a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion2">
             Advantages of a paper wallet are multiple:<br /><br />
@@ -265,7 +265,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <span class="faqListBullet">&#8658;</span> You won't lose your coins when your device break
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion3');">&#8226; How to
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink3" onclick="ninja.toggleFaqQuestion('faqQuestion3');">&#8226; How to
               use a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion3">
             Once you have generated and printed a wallet, you can send coins to the public address, like for any
@@ -273,7 +273,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             Consider using BIP38 to secure your paper wallet with a password.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion4');">&#8226; How to
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink4" onclick="ninja.toggleFaqQuestion('faqQuestion4');">&#8226; How to
               spend the coins stored in a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion4">
             You will need to import your private key in a real client, that you can download from the currency website.
@@ -281,7 +281,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             fall back to the debug console and use the command “importprivkey [yourprivatekey]“.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; How
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink5" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; How
               walletgenerator.net is different than another wallet generator ?</a></h3>
           <p class="faqAnswer" id="faqQuestion5">
             It’s not that different. You will find another design for the paper wallet and some improvements here and
@@ -289,7 +289,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             review it and check its safety.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion7');">&#8226; Can you
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink6" onclick="ninja.toggleFaqQuestion('faqQuestion7');">&#8226; Can you
               add support for cryptocurrency XYZ ?</a></h3>
           <p class="faqAnswer" id="faqQuestion7">
             Absolutely ! To help us do that, you can <a href="https://docs.google.com/forms/d/1nPIvukVWxlaveUPEUAEhGKwvEuwJiPSgs5zc5LhDVpk/viewform">fill
@@ -300,7 +300,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
               How-To</a>
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion8');">&#8226; Why
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink7" onclick="ninja.toggleFaqQuestion('faqQuestion8');">&#8226; Why
               should I make a donation ?</a></h3>
           <p class="faqAnswer" id="faqQuestion8">
             Donations money are used to pay our hosting service provider, but it’ll also be used to make
@@ -308,7 +308,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             to pay for it.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion9');">&#8226; I found
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink8" onclick="ninja.toggleFaqQuestion('faqQuestion9');">&#8226; I found
               a bug, what shall I do ?</a></h3>
           <p class="faqAnswer" id="faqQuestion9">
             You can report bugs using GitHub. You can also contact us using our Twitter account (<a href="http://twitter.com/WalletGenerator"
@@ -316,13 +316,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             the bug as soon as possible.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion10');">&#8226; Who
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink9" onclick="ninja.toggleFaqQuestion('faqQuestion10');">&#8226; Who
               are you ?</a></h3>
           <p class="faqAnswer" id="faqQuestion10">
             We are just two random guy having fun with a side project.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion11');">&#8226; How
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink10" onclick="ninja.toggleFaqQuestion('faqQuestion11');">&#8226; How
               can I help ?</a></h3>
           <p class="faqAnswer" id="faqQuestion11">
             Donation are always welcome, but you can also help us translate the website. It's really easy. Just add
@@ -331,7 +331,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             Translate or correct it, and send it to us the way you prefer. Even partial translation are helpful !
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226;
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink12" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226;
               Private keys imported to Electrum (and its derivation) seemingly works but it's broken !</a></h3>
           <p class="faqAnswer" id="faqQuestion12">
             This occurs if you're using uncompressed private key. (in WIF format) Electrum recognizes ALL private keys

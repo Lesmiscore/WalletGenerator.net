@@ -16,6 +16,7 @@ function onload(func) {
 // should I export ninja here?
 
 onload(() => {
+  require("./handlers.js");
   require("./ninja.seeder.js");
   require("./ninja.onload.js");
 });

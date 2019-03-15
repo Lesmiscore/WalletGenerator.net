@@ -12,14 +12,14 @@
     "bn.js": "^4.11.8",
     "browserify-aes": "^1.2.0",
     "elliptic": "^6.4.1",
-    "randombytes": "^2.0.6",
-    "safe-buffer": "^5.1.2",
-    "scryptsy": "^2.0.0",
-    "wif": "^2.0.6",
     "grunt": "~0.4.1",
     "grunt-combine": "~0.8.3",
     "grunt-lineending": "~0.2.4",
-    "minimatch": ">=3.0.2"
+    "minimatch": ">=3.0.2",
+    "randombytes": "^2.0.6",
+    "safe-buffer": "^5.1.2",
+    "scryptsy": "^2.0.0",
+    "wif": "^2.0.6"
   },
   "repository": {
     "type": "git",
