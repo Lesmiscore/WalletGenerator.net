@@ -8,9 +8,7 @@ module.exports = class Zcash extends Bitcoin {
     privateKeyPrefix,
     WIF_Start,
     CWIF_Start,
-    donate,
-    scriptHash,
-    b32hrp
+    donate
   ) {
     super(
       name,
@@ -18,9 +16,7 @@ module.exports = class Zcash extends Bitcoin {
       privateKeyPrefix,
       WIF_Start,
       CWIF_Start,
-      donate,
-      scriptHash,
-      b32hrp
+      donate
     );
     this.world = zcash;
   }
