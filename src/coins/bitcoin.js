@@ -190,4 +190,13 @@ module.exports = class Bitcoin {
       btcKey.compressed = compressed;
     }
   }
+  getAddressFormatNames() {
+    return [
+      "Compressed",
+      "Uncompressed",
+      "SegWit",
+      "SegWit (P2SH-wrapped)"
+      // no cashaddress
+    ];
+  }
 };

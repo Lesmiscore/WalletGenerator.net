@@ -20,4 +20,13 @@ module.exports = class Zcash extends Bitcoin {
     );
     this.world = zcash;
   }
+
+  getAddressFormatNames() {
+    return [
+      "Compressed",
+      "Uncompressed"
+      // no segwit
+      // no cashaddress
+    ];
+  }
 };
