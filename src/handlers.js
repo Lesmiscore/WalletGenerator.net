@@ -1,3 +1,13 @@
+const seeder = require("./ninja.seeder.js");
+const singlewallet = require("./ninja.singlewallet.js");
+const paperwallet = require("./ninja.paperwallet.js");
+const bulkwallet = require("./ninja.bulkwallet.js");
+const brainwallet = require("./ninja.brainwallet.js");
+const detailwallet = require("./ninja.detailwallet.js");
+const janin = require("./janin.currency.js");
+const { tabSwitch, toggleFaqQuestion } = require("./ninja.misc.js");
+const { printMany } = require("./misc.js");
+
 function ev(selector, name, func) {
   const list = document.querySelectorAll(selector);
   Array.prototype.forEach.call(list, function(element) {
@@ -83,11 +93,7 @@ ev("#faqLink11", "click", function() {
   toggleFaqQuestion("faqQuestion11");
 });
 
-ev("#faqLink12", "click", function() {
-  toggleFaqQuestion("faqQuestion12");
-});
-
-ev("#paperlabelencrypt", "change", function() {
+ev("#paperencrypt", "change", function() {
   paperwallet.toggleEncrypt(this);
 });
 
@@ -119,13 +125,17 @@ ev("#bulkgenerate", "click", function() {
   );
 });
 
+ev("#bulkprint", "click", function() {
+  window.print();
+});
+
 ev("#brainpassphrase", "focus", function() {
   this.select();
 });
 
 ev("#brainpassphrase", "keypress", function(event) {
-  if (event.keyCode == 13) {
-    ninja.wallets.brainwallet.view();
+  if (event.keyCode === 13) {
+    brainwallet.view();
   }
 });
 
@@ -142,7 +152,7 @@ ev("#brainpassphraseconfirm", "focus", function() {
 });
 
 ev("#brainpassphraseconfirm", "keypress", function() {
-  if (event.keyCode == 13) {
+  if (event.keyCode === 13) {
     brainwallet.view();
   }
 });
@@ -156,7 +166,7 @@ ev("#detailprivkey", "focus", function() {
 });
 
 ev("#detailprivkey", "keypress", function() {
-  if (event.keyCode == 13) {
+  if (event.keyCode === 13) {
     detailwallet.viewDetails();
   }
 });
@@ -182,7 +192,7 @@ ev("#detaillabelpassphrase", "focus", function() {
 });
 
 ev("#detaillabelpassphrase", "keypress", function() {
-  if (event.keyCode == 13) {
+  if (event.keyCode === 13) {
     detailwallet.viewDetails();
   }
 });
@@ -191,4 +201,10 @@ ev("#detaildecrypt", "click", function() {
   detailwallet.viewDetails();
 });
 
-// resume at line 477
+ev("#detailq1", "click", function() {
+  detailwallet.openCloseFaq(1);
+});
+
+ev("#footersupport", "click", function() {
+  tabSwitch(document.getElementById("donate"));
+});
