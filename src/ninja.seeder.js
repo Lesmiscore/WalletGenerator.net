@@ -1,5 +1,5 @@
 const randombytes = require("randombytes");
-const singlewallet = require("./singlewallet.js");
+const singlewallet = require("./ninja.singlewallet.js");
 
 const seeder = (module.exports = {
   init: (function() {

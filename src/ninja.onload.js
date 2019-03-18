@@ -6,6 +6,8 @@ const {
   browserSecurityCheck
 } = require("./ninja.misc.js");
 
+let i, a, x;
+
 // change language
 if (getQueryString()["culture"]) {
   translator.translate(getQueryString()["culture"]);
@@ -32,7 +34,6 @@ if (getQueryString()["currency"] === null) {
 // populate currency dropdown list
 const select = document.getElementById("currency");
 let options = "";
-let i, a, x;
 for (i = 0; i < janin.currencies.length; i++) {
   const curr = janin.currencies[i];
   options += "<option value='" + i + "'";

@@ -89,7 +89,6 @@ module.exports = {
   detaillabelprivb64: "Chiave privata Base64 (44 caratteri):",
   detaillabelprivmini:
     "Chiave privata formato mini (22, 26 or 30 caratteri, inizia per 'S'):",
-  detaillabelPassphrase: "Inserisci Passphrase BIP38",
   detaildecrypt: "Decripta BIP38",
   detaillabelprivb6: "Chiave privata Base6 (99 caratteri [0-5]):",
   detaillabelprivbip38:
