@@ -1,10 +1,9 @@
 const { QRCodeScanner } = require("./jsqrcode.js");
 const translator = require("./ninja.translator.js");
-const ecpair = require("./ninja.ecpair.js");
 const privateKey = require("./ninja.privatekey.js");
 const brainwallet = require("./ninja.brainwallet.js");
 const qrCode = require("./ninja.qrcode.js");
-const janin = require("./janin.currency.js");
+const janin = require("./lazy/janin.currency.js");
 const bitcoin = require("bitcoinjs-lib");
 const bigi = require("bigi");
 
@@ -126,7 +125,7 @@ const detailwallet = (module.exports = {
           alert(btcKeyOrError.message);
           detailwallet.clear();
         } else {
-          detailwallet.populateKeyDetails(ecpair.create(btcKeyOrError));
+          detailwallet.populateKeyDetails(privateKey.create(btcKeyOrError));
         }
       });
     } else {
@@ -138,7 +137,7 @@ const detailwallet = (module.exports = {
           const usePassphrase = confirm(translator.get("detailconfirmsha256"));
           if (usePassphrase) {
             const bytes = bitcoin.crypto.sha256(key);
-            btcKey = ecpair.create(bigi.fromBuffer(bytes), null);
+            btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
           } else {
             detailwallet.clear();
           }
@@ -188,7 +187,7 @@ const detailwallet = (module.exports = {
     ).innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
     document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 
-    if (janin.selectedCurrency.bech32) {
+    if (janin().selectedCurrency.bech32) {
       const bitcoinAddressSegWit = privateKey.getAddressWith(btcKey, 2);
       const bitcoinAddressSegWitP2SH = privateKey.getAddressWith(btcKey, 3);
       document.getElementById(
@@ -206,7 +205,7 @@ const detailwallet = (module.exports = {
       );
     }
 
-    if (janin.selectedCurrency.bch) {
+    if (janin().selectedCurrency.bch) {
       const bitcoinAddressBch = privateKey.getAddressWith(btcKey, 5);
       const bitcoinAddressBchComp = privateKey.getAddressWith(btcKey, 4);
       document.getElementById("detailaddressbch").innerHTML = bitcoinAddressBch;

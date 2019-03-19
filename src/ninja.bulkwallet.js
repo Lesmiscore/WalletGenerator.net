@@ -1,5 +1,4 @@
 const translator = require("./ninja.translator.js");
-const ecpair = require("./ninja.ecpair.js");
 const privateKey = require("./ninja.privatekey.js");
 
 const bulkWallet = (module.exports = {
@@ -48,7 +47,7 @@ const bulkWallet = (module.exports = {
     //const bulkWallet = bulkwallet;
     if (bulkWallet.csvRowsRemaining > 0) {
       bulkWallet.csvRowsRemaining--;
-      const key = ecpair.makeRandom({
+      const key = privateKey.makeRandom({
         compressed: bulkWallet.compressedAddrs
       });
 

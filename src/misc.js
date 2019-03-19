@@ -1,6 +1,5 @@
-const paperwallet = require("./ninja.paperwallet.js");
-
 function printMany() {
+  const paperwallet = require("./ninja.paperwallet.js");
   paperwallet.build(
     document.getElementById("paperpassphrase").value,
     10,
@@ -17,7 +16,15 @@ function escapeRegExp(string) {
   );
 }
 
+function ev(selector, name, func) {
+  const list = document.querySelectorAll(selector);
+  Array.prototype.forEach.call(list, function(element) {
+    element.addEventListener(name, func, false);
+  });
+}
+
 module.exports = {
   printMany,
-  escapeRegExp
+  escapeRegExp,
+  ev
 };

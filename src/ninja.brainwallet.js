@@ -1,4 +1,3 @@
-const ecpair = require("./ninja.ecpair.js");
 const translator = require("./ninja.translator.js");
 const privateKey = require("./ninja.privatekey.js");
 const qrCode = require("./ninja.qrcode.js");
@@ -41,7 +40,7 @@ const brainwallet = (module.exports = {
       // enforce a minimum passphrase length
       if (key.length >= brainwallet.minPassphraseLength) {
         const bytes = bitcoin.crypto.sha256(key);
-        const btcKey = ecpair.create(bigi.fromBuffer(bytes), null);
+        const btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
         const bitcoinAddress = privateKey.getAddressWith(btcKey);
         const privWif = privateKey.getWIFWith(btcKey);
         document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;

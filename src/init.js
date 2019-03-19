@@ -15,6 +15,6 @@ function onload(func) {
 
 onload(() => {
   require("./handlers.js");
-  require("./ninja.seeder.js");
   require("./ninja.onload.js");
+  require("./ninja.seeder.js");
 });

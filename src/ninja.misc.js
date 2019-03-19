@@ -8,7 +8,8 @@ const tabSwitch = function(walletTab) {
       bulkwallet: require("./ninja.bulkwallet.js"),
       detailwallet: require("./ninja.detailwallet.js"),
       paperwallet: require("./ninja.paperwallet.js"),
-      singlewallet: require("./ninja.singlewallet.js")
+      singlewallet: require("./ninja.singlewallet.js"),
+      donate: require("./ninja.donatetab.js")
     };
     for (const wType in wallets) {
       if ({}.hasOwnProperty.call(wallets, wType)) {

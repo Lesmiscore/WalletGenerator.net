@@ -1,7 +1,3 @@
-const singlewallet = require("./ninja.singlewallet.js");
-const paperwallet = require("./ninja.paperwallet.js");
-const brainwallet = require("./ninja.brainwallet.js");
-const seeder = require("./ninja.seeder.js");
 const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
 
@@ -71,6 +67,10 @@ const CWIF_RegEx = function() {
 const useCurrency = function(index) {
   selectedCurrency = currencies[index];
 
+  const singlewallet = require("./ninja.singlewallet.js");
+  const paperwallet = require("./ninja.paperwallet.js");
+  const brainwallet = require("./ninja.brainwallet.js");
+
   const coinImgUrl = "logos/" + name().toLowerCase() + ".png";
   document.getElementById("coinLogoImg").src = coinImgUrl;
 
@@ -105,7 +105,7 @@ const useCurrency = function(index) {
   document.getElementById("culturezh").href =
     "?culture=zh&currency=" + name().toLowerCase();
 
-  if (seeder.isDone()) {
+  if (require("./ninja.seeder.js").isDone()) {
     // Regenerate a new wallet when not expensive
     singlewallet.generateNewAddressAndKey();
     paperwallet.build(document.getElementById("paperpassphrase").value);
@@ -161,28 +161,11 @@ const useCurrency = function(index) {
     return;
   }
 
-  if (doge !== null) {
+  if (doge) {
     doge.stop();
     doge = null;
   }
 };
-
-module.exports = {
-  createCurrency,
-  name,
-  networkVersion,
-  privateKeyPrefix,
-  WIF_RegEx,
-  CWIF_RegEx,
-  useCurrency
-};
-
-Object.defineProperty(module.exports, "selectedCurrency", {
-  get: () => selectedCurrency,
-  set: useCurrency,
-  enumerable: true,
-  configurable: true
-});
 
 let currencies = [
   //                              name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp
@@ -1782,3 +1765,21 @@ let currencies = [
   createCurrency("Testnet PIVX", 0x8b, 0xef, "9", "c", null),
   createCurrency("Testnet WACoins", 0x51, 0xd1, "8", "[XY]", null)
 ];
+
+module.exports = {
+  createCurrency,
+  name,
+  networkVersion,
+  privateKeyPrefix,
+  WIF_RegEx,
+  CWIF_RegEx,
+  useCurrency,
+  currencies
+};
+
+Object.defineProperty(module.exports, "selectedCurrency", {
+  get: () => selectedCurrency,
+  set: useCurrency,
+  enumerable: true,
+  configurable: true
+});

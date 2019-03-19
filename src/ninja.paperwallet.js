@@ -1,7 +1,6 @@
 const janin = require("./janin.currency.js");
 const privateKey = require("./ninja.privatekey.js");
 const translator = require("./ninja.translator.js");
-const ecpair = require("./ninja.ecpair.js");
 const qrCode = require("./ninja.qrcode.js");
 
 const paperwallet = (module.exports = {
@@ -105,7 +104,7 @@ const paperwallet = (module.exports = {
         }
       );
     } else {
-      const key = ecpair.makeRandom();
+      const key = privateKey.makeRandom();
       const bitcoinAddress = privateKey.getAddressWith(
         key,
         paperwallet.publicMode
@@ -157,7 +156,7 @@ const paperwallet = (module.exports = {
     const coinImgUrl =
       "logos/" + janin.selectedCurrency.name.toLowerCase() + ".png";
     const walletBackgroundUrl =
-      "" + janin.selectedCurrency.name.toLowerCase() + ".png";
+      "wallets/" + janin.selectedCurrency.name.toLowerCase() + ".png";
 
     const walletHtml =
       "<div class='coinIcoin'> <img id='coinImg' src='" +

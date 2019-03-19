@@ -1,26 +1,18 @@
 const seeder = require("./ninja.seeder.js");
-const singlewallet = require("./ninja.singlewallet.js");
 const paperwallet = require("./ninja.paperwallet.js");
 const bulkwallet = require("./ninja.bulkwallet.js");
 const brainwallet = require("./ninja.brainwallet.js");
 const detailwallet = require("./ninja.detailwallet.js");
-const janin = require("./janin.currency.js");
+const janin = require("./lazy/janin.currency.js");
 const { tabSwitch, toggleFaqQuestion } = require("./ninja.misc.js");
-const { printMany } = require("./misc.js");
-
-function ev(selector, name, func) {
-  const list = document.querySelectorAll(selector);
-  Array.prototype.forEach.call(list, function(element) {
-    element.addEventListener("click", func, false);
-  });
-}
+const { printMany, ev } = require("./misc.js");
 
 ev("body", "mousemove", function(event) {
   seeder.seed(event);
 });
 
 ev("#currency", "change", function() {
-  janin.useCurrency(this.selectedIndex);
+  janin().useCurrency(this.selectedIndex);
 });
 
 ev("#menu div", "click", function() {
@@ -37,7 +29,7 @@ ev("#seedSkipper a", "click", function() {
 });
 
 ev("#newaddress", "click", function() {
-  singlewallet.generateNewAddressAndKey();
+  require("./ninja.singlewallet.js").generateNewAddressAndKey();
 });
 
 ev("#singleprint", "click", function() {
