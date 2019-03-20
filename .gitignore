@@ -10,6 +10,7 @@ sitemap.xml
 /node_modules
 
 index.html
+exported.js
 exported-comp.js
 src/exported.js
 public/
