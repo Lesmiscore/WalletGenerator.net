@@ -29,4 +29,7 @@ module.exports = class Zcash extends Bitcoin {
       // no cashaddress
     ];
   }
+  getAddressTitleNames() {
+    return ["Public Address Compressed", "Public Address"];
+  }
 };

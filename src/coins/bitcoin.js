@@ -2,6 +2,7 @@ const bitcoin = require("bitcoinjs-lib");
 const wif = require("wif");
 const bigi = require("bigi");
 const elliptic = require("elliptic");
+const translator = require("../ninja.translator.js");
 
 module.exports = class Bitcoin {
   constructor(
@@ -31,10 +32,8 @@ module.exports = class Bitcoin {
       CWIF_Start: CWIF_Start,
       donate: donate
     };
-  }
-
-  name() {
-    return this.network.name;
+    this.name = name;
+    this.donate = donate;
   }
 
   networkVersion() {
@@ -43,22 +42,6 @@ module.exports = class Bitcoin {
 
   privateKeyPrefix() {
     return this.network.wif;
-  }
-
-  WIF_RegEx() {
-    return new RegExp(
-      "^" +
-        this.network.WIF_Start +
-        "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{50}$"
-    );
-  }
-
-  CWIF_RegEx() {
-    return new RegExp(
-      "^" +
-        this.network.CWIF_Start +
-        "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{51}$"
-    );
   }
 
   create(d, Q, opts) {
@@ -198,5 +181,82 @@ module.exports = class Bitcoin {
       "SegWit (P2SH-wrapped)"
       // no cashaddress
     ];
+  }
+  getAddressTitleNames() {
+    return [
+      "Public Address Compressed",
+      "Public Address",
+      "SegWit Address",
+      "SegWit Address (P2SH-wrapped)"
+      // no cashaddress
+    ];
+  }
+
+  templateArtisticHtml(i) {
+    const keyelement = "btcprivwif";
+    const coinImgUrl = "logos/" + this.name.toLowerCase() + ".png";
+    const walletBackgroundUrl = "wallets/" + this.name.toLowerCase() + ".png";
+
+    const walletHtml =
+      "<div class='coinIcoin'> <img id='coinImg' src='" +
+      coinImgUrl +
+      "' alt='currency_logo' /></div><div class='artwallet' id='artwallet" +
+      i +
+      "'>" +
+      "<img id='papersvg" +
+      i +
+      "' class='papersvg' src='" +
+      walletBackgroundUrl +
+      "' />" +
+      "<div id='qrcode_public" +
+      i +
+      "' class='qrcode_public'></div>" +
+      "<div id='qrcode_private" +
+      i +
+      "' class='qrcode_private'></div>" +
+      "<div class='btcaddress' id='btcaddress" +
+      i +
+      "'></div>" +
+      "<div class='" +
+      keyelement +
+      "' id='" +
+      keyelement +
+      i +
+      "'></div>" +
+      "<div class='paperWalletText'><img class='backLogo' src='" +
+      coinImgUrl +
+      "' alt='currency_logo' />" +
+      translator.get("paperwalletback") +
+      "</div>" +
+      "</div>";
+    return walletHtml;
+  }
+
+  isPublicKeyHexFormat(key) {
+    key = key.toString();
+    return (
+      this.isUncompressedPublicKeyHexFormat(key) ||
+      this.isCompressedPublicKeyHexFormat(key)
+    );
+  }
+  // 130 characters [0-9A-F] starts with 04
+  isUncompressedPublicKeyHexFormat(key) {
+    key = key.toString();
+    return /^04[A-Fa-f0-9]{128}$/.test(key);
+  }
+  // 66 characters [0-9A-F] starts with 02 or 03
+  isCompressedPublicKeyHexFormat(key) {
+    key = key.toString();
+    return /^0[23][A-Fa-f0-9]{64}$/.test(key);
+  }
+
+  getPublicKey(btcKey, compressed) {
+    return btcKey.Q.getEncoded(compressed);
+  }
+  getPrivateKeyBuffer(btcKey) {
+    return btcKey.d.toBuffer();
+  }
+  havePrivateKey(btcKey) {
+    return !!btcKey.d;
   }
 };

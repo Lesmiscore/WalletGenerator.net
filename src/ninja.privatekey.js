@@ -17,143 +17,19 @@ const janin = require("./janin.currency.js");
 const translator = require("./ninja.translator.js");
 
 const isPrivateKey = function(key) {
-  try {
-    // WIF/CWIF
-    wif.decode(key);
-    return true;
-  } catch (e) {}
-  // Hex/Base64
-  const testValue = function(buffer) {
-    if (buffer.length !== 32) return false;
-    const n = bigi.fromByteArrayUnsigned(
-      elliptic.curves.secp256k1.curve.n.toArray()
-    );
-    const scalar = bigi.fromByteArrayUnsigned(buffer);
-    return n.compareTo(scalar) > 0;
-  };
-  if (testValue(Buffer.from(key, "hex"))) return true;
-  if (testValue(Buffer.from(key, "base64"))) return true;
-  // Mini key
-  if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
-    const sha256 = bitcoin.crypto.sha256(key + "?");
-    if (sha256[0] === 0x00) {
-      return true;
-    }
-  }
-  return false;
+  return janin.selectedCurrency.isPrivateKey(key);
 };
 const decodePrivateKey = function(key) {
   if (!isPrivateKey(key)) {
     return null;
   }
-  // WIF/CWIF
-  try {
-    return bitcoin.ECPair.fromWIF(key, janin.selectedCurrency);
-  } catch (error) {}
-  try {
-    return zcash.ECPair.fromWIF(key, janin.selectedCurrency);
-  } catch (error) {}
-  // Base64/Hex
-  function tryBy(enc) {
-    try {
-      const hex = Buffer.from(key, enc).toString("hex");
-      if (hex.length === 64) {
-        return create(bigi.fromHex(hex), null, {
-          compressed: true
-        });
-      }
-    } catch (error) {}
-  }
-  const hex = tryBy("hex");
-  if (hex) return hex;
-  const base64 = tryBy("base64");
-  if (base64) return base64;
-  if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
-    const sha256 = bitcoin.crypto.sha256(key).toString("hex");
-    return create(bigi.fromHex(sha256), null, {
-      compressed: true
-    });
-  }
+  return janin.selectedCurrency.decodePrivateKey(key);
 };
 const getAddressWith = function(btcKey, mode) {
-  const compressed = btcKey.compressed;
-  try {
-    switch (mode || 0) {
-      case 0: // compressed
-        btcKey.compressed = true;
-        if (btcKey.network.zcash) {
-          // zcash
-          return zcash.ECPair.prototype.getAddress.call(btcKey);
-        } else {
-          // bitcoin
-          return bitcoin.ECPair.prototype.getAddress.call(btcKey);
-        }
-      case 1: // uncompressed
-        btcKey.compressed = false;
-        if (btcKey.network.zcash) {
-          // zcash
-          return zcash.ECPair.prototype.getAddress.call(btcKey);
-        } else {
-          // bitcoin
-          return bitcoin.ECPair.prototype.getAddress.call(btcKey);
-        }
-      case 2: // segwit
-        if (btcKey.network.bech32) {
-          const pubKeyCompressed = btcKey.Q.getEncoded(true);
-          const redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(
-            bitcoin.crypto.hash160(pubKeyCompressed)
-          );
-          return bitcoin.address.toBech32(
-            bitcoin.script.compile(redeemScript).slice(2, 22),
-            0,
-            btcKey.network.bech32
-          );
-        }
-      case 3: // segwit (p2sh)
-        if (btcKey.network.bech32) {
-          const pubKeyCompressed = btcKey.Q.getEncoded(true);
-          const redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(
-            bitcoin.crypto.hash160(pubKeyCompressed)
-          );
-          const scriptPubKey = bitcoin.crypto.hash160(redeemScript);
-          return bitcoin.address.toBase58Check(
-            scriptPubKey,
-            btcKey.network.scriptHash
-          );
-        }
-      case 4: // cashaddr (compressed)
-        if (btcKey.network.bch) {
-          const legacy = getAddressWith(btcKey, 0);
-          return bchaddrjs.toCashAddress(legacy).split(":")[1];
-        }
-      case 5: // cashaddr (uncompressed)
-        if (btcKey.network.bch) {
-          const legacy = getAddressWith(btcKey, 1);
-          return bchaddrjs.toCashAddress(legacy).split(":")[1];
-        }
-    }
-    return getAddressWith(btcKey, 0);
-  } finally {
-    btcKey.compressed = compressed;
-  }
+  return janin.selectedCurrency.getAddressWith(btcKey, mode);
 };
 const getWIFWith = function(btcKey, mode) {
-  const compressed = btcKey.compressed;
-  try {
-    switch (mode) {
-      case 1: // uncompressed
-      case 5: // cashaddr (uncompressed)
-        btcKey.compressed = false;
-        break;
-      default:
-        // other
-        btcKey.compressed = true;
-        break;
-    }
-    return btcKey.toWIF();
-  } finally {
-    btcKey.compressed = compressed;
-  }
+  return janin.selectedCurrency.getWIFWith(btcKey, mode);
 };
 const getECKeyFromAdding = function(privKey1, privKey2) {
   const n = elliptic.curves.secp256k1.curve.n;
@@ -345,24 +221,10 @@ const BIP38GenerateECAddressAsync = function(
   callback(generatedAddress, base58.encode(encryptedKey));
 };
 const create = function(d, Q, opts) {
-  opts = Object.assign({}, opts || {}, {
-    network: janin.selectedCurrency
-  });
-  if (janin.selectedCurrency.zcash) {
-    return new zcash.ECPair(d, Q, opts);
-  } else {
-    return new bitcoin.ECPair(d, Q, opts);
-  }
+  return janin.selectedCurrency.create(d, Q, opts);
 };
 const makeRandom = function(opts) {
-  opts = Object.assign({}, opts || {}, {
-    network: janin.selectedCurrency
-  });
-  if (janin.selectedCurrency.zcash) {
-    return zcash.ECPair.makeRandom(opts);
-  } else {
-    return bitcoin.ECPair.makeRandom(opts);
-  }
+  return janin.selectedCurrency.makeRandom(opts);
 };
 
 module.exports = {

@@ -152,14 +152,16 @@ const detailwallet = (module.exports = {
   },
 
   populateKeyDetails: function(btcKey) {
-    if (btcKey.d) {
-      document.getElementById("detailprivhex").innerHTML = btcKey.d
-        .toBuffer()
-        .toString("hex")
-        .toUpperCase();
+    if (janin().selectedCurrency.havePrivateKey(btcKey)) {
+      const privKeyBuffer = janin().selectedCurrency.getPrivateKeyBuffer(
+        btcKey
+      );
+      document.getElementById(
+        "detailprivhex"
+      ).innerHTML = privKeyBuffer.toString("hex").toUpperCase();
       document.getElementById(
         "detailprivb64"
-      ).innerHTML = btcKey.d.toBuffer().toString("base64");
+      ).innerHTML = privKeyBuffer.toString("base64");
       const wif = privateKey.getWIFWith(btcKey, 1);
       const wifComp = privateKey.getWIFWith(btcKey, 0);
       document.getElementById("detailprivwif").innerHTML = wif;
@@ -174,11 +176,11 @@ const detailwallet = (module.exports = {
     }
     const bitcoinAddress = privateKey.getAddressWith(btcKey, 1);
     const bitcoinAddressComp = privateKey.getAddressWith(btcKey, 0);
-    const pubKeyCompressed = btcKey.Q.getEncoded(true);
+    const pubKeyCompressed = janin().selectedCurrency.getPublicKey(true);
 
-    document.getElementById("detailpubkey").innerHTML = btcKey.Q.getEncoded(
-      false
-    )
+    // TODO: make table for each address by currency
+    document.getElementById("detailpubkey").innerHTML = janin()
+      .selectedCurrency.getPublicKey(false)
       .toString("hex")
       .toUpperCase();
     document.getElementById("detailaddress").innerHTML = bitcoinAddress;

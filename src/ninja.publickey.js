@@ -1,23 +1,11 @@
 const bitcoin = require("bitcoinjs-lib");
 const elliptic = require("elliptic");
+const janin = require("./lazy/janin.currency.js");
 
 const publicKey = (module.exports = {
   isPublicKeyHexFormat: function(key) {
     key = key.toString();
-    return (
-      publicKey.isUncompressedPublicKeyHexFormat(key) ||
-      publicKey.isCompressedPublicKeyHexFormat(key)
-    );
-  },
-  // 130 characters [0-9A-F] starts with 04
-  isUncompressedPublicKeyHexFormat: function(key) {
-    key = key.toString();
-    return /^04[A-Fa-f0-9]{128}$/.test(key);
-  },
-  // 66 characters [0-9A-F] starts with 02 or 03
-  isCompressedPublicKeyHexFormat: function(key) {
-    key = key.toString();
-    return /^0[23][A-Fa-f0-9]{64}$/.test(key);
+    return janin().selectedCurrency.isPublicKeyHexFormat(key);
   },
   getBitcoinAddressFromByteArray: function(pubKeyByteArray) {
     const pubKeyHash = bitcoin.crypto.hash160(pubKeyByteArray);
@@ -51,14 +39,5 @@ const publicKey = (module.exports = {
     const bigInt = ecKey.d;
     const pubKey = ecPoint.mul(bigInt).encoded("buffer", compressed);
     return pubKey;
-  },
-  // used by unit test
-  getDecompressedPubKeyHex: function(pubKeyHexComp) {
-    const ecPoint = elliptic.curves.secp256k1.decodePoint(
-      Buffer.from(pubKeyHexComp, "hex")
-    );
-    const pubByteArray = ecPoint.encoded("buffer", 0);
-    const pubHexUncompressed = publicKey.getHexFromByteArray(pubByteArray);
-    return pubHexUncompressed;
   }
 });
