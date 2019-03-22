@@ -97,7 +97,7 @@ const paperwallet = (module.exports = {
     } else {
       const key = privateKey.makeRandom();
       const bitcoinAddress = privateKey.getAddressWith(key, paperwallet.publicMode);
-      const privateKeyWif = privateKey.getWIFWith(key, paperwallet.publicMode);
+      const privateKeyWif = privateKey.getWIFForAddress(key, paperwallet.publicMode);
 
       paperwallet.showArtisticWallet(idPostFix, bitcoinAddress, privateKeyWif);
     }
@@ -114,7 +114,7 @@ const paperwallet = (module.exports = {
     } else {
       const parsedKey = privateKey.decodePrivateKey(suppliedKey);
       const computedPublicAddress = privateKey.getAddressWith(parsedKey, paperwallet.publicMode);
-      suppliedKey = privateKey.getWIFWith(parsedKey, paperwallet.publicMode);
+      suppliedKey = privateKey.getWIFForAddress(parsedKey, paperwallet.publicMode);
       if (paperwallet.encrypt) {
         document.getElementById("busyblock").className = "busy";
         privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey, document.getElementById("paperpassphrase").value, false, function(encodedKey) {

@@ -103,6 +103,8 @@ module.exports = class Bitcoin {
       });
     }
   }
+
+  // correspond to getAddressFormatNames, getAddressTitleNames
   getAddressWith(btcKey, mode) {
     const compressed = btcKey.compressed;
     try {
@@ -134,7 +136,9 @@ module.exports = class Bitcoin {
       btcKey.compressed = compressed;
     }
   }
-  getWIFWith(btcKey, mode) {
+
+  // correspond to getAddressFormatNames, getAddressTitleNames
+  getWIFForAddress(btcKey, mode) {
     const compressed = btcKey.compressed;
     try {
       switch (mode) {
@@ -151,6 +155,25 @@ module.exports = class Bitcoin {
       btcKey.compressed = compressed;
     }
   }
+
+  // correspond to getWIFTitleNames
+  getWIFByType(btcKey, mode) {
+    const compressed = btcKey.compressed;
+    try {
+      switch (mode) {
+        case 0: // compressed
+          btcKey.compressed = true;
+          break;
+        case 1: // uncompressed
+          btcKey.compressed = false;
+          break;
+      }
+      return btcKey.toWIF();
+    } finally {
+      btcKey.compressed = compressed;
+    }
+  }
+
   getAddressFormatNames() {
     return [
       "Compressed",
@@ -168,6 +191,10 @@ module.exports = class Bitcoin {
       "SegWit Address (P2SH-wrapped)"
       // no cashaddress
     ];
+  }
+
+  getWIFTitleNames() {
+    return ["Private Key WIF Compressed<br />52 characters Base58", "Private Key WIF<br />51 characters Base58"];
   }
 
   templateArtisticHtml(i) {

@@ -37,7 +37,7 @@ const brainwallet = (module.exports = {
         const bytes = bitcoin.crypto.sha256(key);
         const btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
         const bitcoinAddress = privateKey.getAddressWith(btcKey);
-        const privWif = privateKey.getWIFWith(btcKey);
+        const privWif = privateKey.getWIFForAddress(btcKey);
         document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
         document.getElementById("brainbtcprivwif").innerHTML = privWif;
         qrCode.showQrCode({

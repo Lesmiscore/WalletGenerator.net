@@ -15,6 +15,7 @@
     "grunt": "~0.4.1",
     "grunt-combine": "~0.8.3",
     "grunt-lineending": "~0.2.4",
+    "lodash": "^4.17.11",
     "minimatch": ">=3.0.2",
     "randombytes": "^2.0.6",
     "safe-buffer": "^5.1.2",

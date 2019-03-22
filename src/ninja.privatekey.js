@@ -28,8 +28,8 @@ const decodePrivateKey = function(key) {
 const getAddressWith = function(btcKey, mode) {
   return janin.selectedCurrency.getAddressWith(btcKey, mode);
 };
-const getWIFWith = function(btcKey, mode) {
-  return janin.selectedCurrency.getWIFWith(btcKey, mode);
+const getWIFForAddress = function(btcKey, mode) {
+  return janin.selectedCurrency.getWIFForAddress(btcKey, mode);
 };
 const getECKeyFromAdding = function(privKey1, privKey2) {
   const n = elliptic.curves.secp256k1.curve.n;
@@ -189,7 +189,7 @@ module.exports = {
   isPrivateKey,
   decodePrivateKey,
   getAddressWith,
-  getWIFWith,
+  getWIFForAddress,
   getECKeyFromAdding,
   getECKeyFromMultiplying,
   isBIP38Format,

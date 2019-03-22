@@ -1,5 +1,6 @@
 const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
+const _ = require("lodash");
 const Bitcoin = require("./coins/bitcoin");
 const Zcash = require("./coins/zcash");
 const BitcoinCash = require("./coins/bitcoincash");
@@ -94,6 +95,76 @@ const useCurrency = function(index) {
       }
     }
   }
+
+  // make a table and dropdown from currency instance
+  let publicQrTable = "";
+  let chunkId = 0;
+  for (let [first, second] of _.chunk(selectedCurrency.getAddressTitleNames(), 2)) {
+    publicQrTable += `<tr id="pubqr${chunkId}" class="pubqr">`;
+    const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
+    publicQrTable += `
+<td class="item">
+  <span class="label" id="label${firstStripped}">${first}</span>
+  <div id="detailqrcode${firstStripped}" class="qrcode_public left"></div>
+  <span class="output" id="detailaddress${firstStripped}"></span>
+</td>
+`;
+    if (second) {
+      const secondStripped = second.toLowerCase().replace(/[^a-z0-9]/g, "");
+      publicQrTable += `
+<td class="item right">
+  <span class="label" id="label${secondStripped}">${second}</span>
+  <div id="detailqrcode${secondStripped}" class="qrcode_public right"></div>
+  <span class="output" id="detailaddress${secondStripped}"></span>
+</td>
+`;
+    }
+    publicQrTable += "</tr>";
+    chunkId++;
+  }
+  document.getElementById("pubaddress").innerHTML = publicQrTable;
+
+  let privateQrTable = "";
+  chunkId = 0;
+  for (let [first, second] of _.chunk(selectedCurrency.getWIFTitleNames(), 2)) {
+    privateQrTable += `<tr id="privqr${chunkId}" class="privqr">`;
+    const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
+    privateQrTable += `
+<td class="item">
+  <span class="label" id="label${firstStripped}">${first}</span>
+  <div id="detailqrcode${firstStripped}" class="qrcode_private left"></div>
+  <span class="output" id="detailaddress${firstStripped}"></span>
+</td>
+`;
+    if (second) {
+      const secondStripped = second.toLowerCase().replace(/[^a-z0-9]/g, "");
+      privateQrTable += `
+<td class="item right">
+  <span class="label" id="label${secondStripped}">${second}</span>
+  <div id="detailqrcode${secondStripped}" class="qrcode_private right"></div>
+  <span class="output" id="detailaddress${secondStripped}"></span>
+</td>
+`;
+    }
+    privateQrTable += "</tr>";
+    chunkId++;
+  }
+  document.getElementById("privaddress").innerHTML = privateQrTable;
+
+  const formatNames = selectedCurrency.getAddressFormatNames();
+  let addrTypeDropdown = "";
+  for (let i in formatNames) {
+    if ({}.hasOwnProperty.call(formatNames, i)) {
+      if (!+i) {
+        // i == 0
+        addrTypeDropdown += `<option value="0" selected>${formatNames[i]}</option>`;
+      } else {
+        addrTypeDropdown += `<option value="${i}">${formatNames[i]}</option>`;
+      }
+    }
+  }
+  document.getElementById("addresstype").innerHTML = addrTypeDropdown;
+  paperwallet.publicMode = 0;
 
   // easter egg doge ;)
   if (name() === "Dogecoin") {

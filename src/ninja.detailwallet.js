@@ -148,91 +148,60 @@ const detailwallet = (module.exports = {
       const privKeyBuffer = janin().selectedCurrency.getPrivateKeyBuffer(btcKey);
       document.getElementById("detailprivhex").innerHTML = privKeyBuffer.toString("hex").toUpperCase();
       document.getElementById("detailprivb64").innerHTML = privKeyBuffer.toString("base64");
-      const wif = privateKey.getWIFWith(btcKey, 1);
-      const wifComp = privateKey.getWIFWith(btcKey, 0);
-      document.getElementById("detailprivwif").innerHTML = wif;
-      document.getElementById("detailprivwifcomp").innerHTML = wifComp;
-      qrCode.showQrCode(
-        {
-          detailqrcodeprivate: wif,
-          detailqrcodeprivatecomp: wifComp
-        },
-        4
-      );
-    }
-    const bitcoinAddress = privateKey.getAddressWith(btcKey, 1);
-    const bitcoinAddressComp = privateKey.getAddressWith(btcKey, 0);
-    const pubKeyCompressed = janin().selectedCurrency.getPublicKey(true);
 
-    // TODO: make table for each address by currency
-    document.getElementById("detailpubkey").innerHTML = janin()
-      .selectedCurrency.getPublicKey(false)
-      .toString("hex")
-      .toUpperCase();
-    document.getElementById("detailaddress").innerHTML = bitcoinAddress;
+      const privTitles = janin().selectedCurrency.getWIFTitleNames();
+      const privQrParams = {};
+      for (let i in privTitles) {
+        if ({}.hasOwnProperty.call(privTitles, i)) {
+          const stripped = privTitles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
+          const address = janin().selectedCurrency.getWIFByType(btcKey, +i);
+          privQrParams[`detailqrcode${stripped}`] = address;
+          document.getElementById(`detailaddress${stripped}`).innerHTML = address;
+        }
+      }
+
+      qrCode.showQrCode(privQrParams, 4);
+    }
+    const pubKeyCompressed = janin().selectedCurrency.getPublicKey(btcKey, true);
+    const pubKeyUncompressed = janin().selectedCurrency.getPublicKey(btcKey, false);
+
+    document.getElementById("detailpubkey").innerHTML = pubKeyUncompressed.toString("hex").toUpperCase();
     document.getElementById("detailpubkeycomp").innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
-    document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 
-    if (janin().selectedCurrency.bech32) {
-      const bitcoinAddressSegWit = privateKey.getAddressWith(btcKey, 2);
-      const bitcoinAddressSegWitP2SH = privateKey.getAddressWith(btcKey, 3);
-      document.getElementById("detailaddresssegwit").innerHTML = bitcoinAddressSegWit;
-      document.getElementById("detailaddresssegwitp2sh").innerHTML = bitcoinAddressSegWitP2SH;
-      qrCode.showQrCode(
-        {
-          detailqrcodesegwit: bitcoinAddressSegWit,
-          detailqrcodesegwitp2sh: bitcoinAddressSegWitP2SH
-        },
-        4
-      );
+    const addrTitles = janin().selectedCurrency.getAddressTitleNames();
+    const addrQrParams = {};
+    for (let i in addrTitles) {
+      if ({}.hasOwnProperty.call(addrTitles, i)) {
+        const stripped = addrTitles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
+        const address = janin().selectedCurrency.getAddressWith(btcKey, +i);
+        addrQrParams[`detailqrcode${stripped}`] = address;
+        document.getElementById(`detailaddress${stripped}`).innerHTML = address;
+      }
     }
 
-    if (janin().selectedCurrency.bch) {
-      const bitcoinAddressBch = privateKey.getAddressWith(btcKey, 5);
-      const bitcoinAddressBchComp = privateKey.getAddressWith(btcKey, 4);
-      document.getElementById("detailaddressbch").innerHTML = bitcoinAddressBch;
-      document.getElementById("detailaddressbchcomp").innerHTML = bitcoinAddressBchComp;
-      qrCode.showQrCode(
-        {
-          detailqrcodebch: bitcoinAddressBch,
-          detailqrcodebchcomp: bitcoinAddressBchComp
-        },
-        4
-      );
-    }
-
-    qrCode.showQrCode(
-      {
-        detailqrcodepublic: bitcoinAddress,
-        detailqrcodepubliccomp: bitcoinAddressComp
-      },
-      4
-    );
+    qrCode.showQrCode(addrQrParams, 4);
   },
 
   clear: function() {
     document.getElementById("detailpubkey").innerHTML = "";
     document.getElementById("detailpubkeycomp").innerHTML = "";
-    document.getElementById("detailaddress").innerHTML = "";
-    document.getElementById("detailaddresscomp").innerHTML = "";
-    document.getElementById("detailaddresssegwit").innerHTML = "";
-    document.getElementById("detailaddresssegwitp2sh").innerHTML = "";
-    document.getElementById("detailprivwif").innerHTML = "";
-    document.getElementById("detailprivwifcomp").innerHTML = "";
     document.getElementById("detailprivhex").innerHTML = "";
     document.getElementById("detailprivb64").innerHTML = "";
     document.getElementById("detailprivb6").innerHTML = "";
     document.getElementById("detailprivmini").innerHTML = "";
     document.getElementById("detailprivbip38").innerHTML = "";
-    document.getElementById("detailqrcodepublic").innerHTML = "";
-    document.getElementById("detailqrcodepubliccomp").innerHTML = "";
-    document.getElementById("detailqrcodeprivate").innerHTML = "";
-    document.getElementById("detailqrcodeprivatecomp").innerHTML = "";
-    document.getElementById("detailqrcodesegwit").innerHTML = "";
-    document.getElementById("detailqrcodesegwitp2sh").innerHTML = "";
     document.getElementById("detailb6").style.display = "none";
     document.getElementById("detailmini").style.display = "none";
     document.getElementById("detailbip38commands").style.display = "none";
     document.getElementById("detailbip38").style.display = "none";
+
+    const titles = Array.prototype.concat.call(janin().selectedCurrency.getAddressTitleNames(), janin().selectedCurrency.getWIFTitleNames());
+    for (let i in titles) {
+      if ({}.hasOwnProperty.call(titles, i)) {
+        const stripped = titles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
+        document.getElementById(`detailqrcode${stripped}`).innerHTML = "";
+        document.getElementById(`detailaddress${stripped}`).innerHTML = "";
+      }
+    }
   }
 });

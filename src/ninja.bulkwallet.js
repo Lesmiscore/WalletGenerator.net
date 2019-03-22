@@ -46,7 +46,7 @@ const bulkWallet = (module.exports = {
         compressed: bulkWallet.compressedAddrs
       });
 
-      bulkWallet.csv.push(bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex + ',"' + privateKey.getAddressWith(key) + '","' + privateKey.getWIFWith(key) + '"');
+      bulkWallet.csv.push(bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex + ',"' + privateKey.getAddressWith(key) + '","' + privateKey.getWIFForAddress(key) + '"');
 
       document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
 

@@ -21,7 +21,7 @@ const generateNewAddressAndKey = function() {
   try {
     const key = privateKey.makeRandom();
     const bitcoinAddress = privateKey.getAddressWith(key);
-    const privateKeyWif = privateKey.getWIFWith(key);
+    const privateKeyWif = privateKey.getWIFForAddress(key);
     document.getElementById("btcaddress").innerHTML = bitcoinAddress;
     document.getElementById("btcprivwif").innerHTML = privateKeyWif;
     const keyValuePair = {

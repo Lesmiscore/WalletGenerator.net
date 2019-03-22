@@ -350,12 +350,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <span><label id="paperlabelBIPpassphrase" for="paperpassphrase" class="i18n">Passphrase:</label> <input
                 type="text" id="paperpassphrase" /></span>
             <select id="addresstype">
-              <option value="0" selected>Compressed</option>
-              <option value="1">Uncompressed</option>
-              <option value="2" id="selectsegwit">SegWit</option>
-              <option value="3" id="selectsegwitp2sh">SegWit (P2SH-wrapped)</option>
-              <option value="4" id="selectcashaddrcomp">CashAddress (Compressed)</option>
-              <option value="5" id="selectcashaddr">CashAddress (Uncompressed)</option>
             </select>
             <br />
             <input type="button" id="papergenerate" value="Randomly generate" />
@@ -482,43 +476,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
               WIFC, HEX, B64).</span>
             <br /><br />
           </div>
-          <table class="pubaddress">
-            <tr class="pubqr">
-              <td class="item">
-                <span class="label i18n" id="detaillabelbitcoinaddress">Public Address</span>
-                <div id="detailqrcodepublic" class="qrcode_public"></div>
-                <span class="output" id="detailaddress"></span>
-              </td>
-              <td class="item right">
-                <span class="label i18n" id="detaillabelbitcoinaddresscomp">Public Address Compressed</span>
-                <div id="detailqrcodepubliccomp" class="qrcode_public"></div>
-                <span class="output" id="detailaddresscomp"></span>
-              </td>
-            </tr>
-            <tr id="pubqrsw" class="pubqrsw">
-              <td class="item">
-                <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit Address</span>
-                <div id="detailqrcodesegwit" class="qrcode_public"></div>
-                <span class="output" id="detailaddresssegwit"></span>
-              </td>
-              <td class="item right">
-                <span class="label i18n" id="detaillabelbitcoinaddresssegwitp2sh">SegWit (P2SH-wrapped) Address</span>
-                <div id="detailqrcodesegwitp2sh" class="qrcode_public"></div>
-                <span class="output" id="detailaddresssegwitp2sh"></span>
-              </td>
-            </tr>
-            <tr id="pubqrbch" class="pubqrbch">
-              <td class="item">
-                <span class="label i18n" id="detaillabelbitcoinaddressbch">CashAddress (Uncompressed)</span>
-                <div id="detailqrcodebch" class="qrcode_public"></div>
-                <span class="output" id="detailaddressbch"></span>
-              </td>
-              <td class="item right">
-                <span class="label i18n" id="detaillabelbitcoinaddressbchcomp">CashAddress (Compressed)</span>
-                <div id="detailqrcodebchcomp" class="qrcode_public"></div>
-                <span class="output" id="detailaddressbchcomp"></span>
-              </td>
-            </tr>
+          <table id="pubaddress" class="pubaddress">
           </table>
           <br /><br />
           <div class="item clear">
@@ -530,19 +488,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <span class="output" id="detailpubkeycomp"></span>
           </div>
           <hr />
-          <div class="privqr">
-            <div class="item">
-              <span class="label"><span id="detaillabelprivwif" class="i18n">Private Key WIF<br />51 characters Base58</span></span>
-              <div id="detailqrcodeprivate" class="qrcode_private"></div>
-              <span class="output" id="detailprivwif"></span>
-            </div>
-            <div class="item right">
-              <span class="label"><span id="detaillabelprivwifcomp" class="i18n">Private Key WIF Compressed<br />52
-                  characters Base58</span></span>
-              <div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
-              <span class="output" id="detailprivwifcomp"></span>
-            </div>
-          </div>
+          <table id="privaddress" class="privaddress">
+          </table>
           <br /><br />
           <div class="item clear">
             <span class="label i18n" id="detaillabelprivhex">Private Key Hexadecimal Format (64 characters [0-9A-F]):</span>
