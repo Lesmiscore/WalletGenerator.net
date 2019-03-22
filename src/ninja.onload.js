@@ -1,10 +1,6 @@
 const translator = require("./ninja.translator.js");
 const janin = require("./lazy/janin.currency.js");
-const {
-  getQueryString,
-  envSecurityCheck,
-  browserSecurityCheck
-} = require("./ninja.misc.js");
+const { getQueryString, envSecurityCheck, browserSecurityCheck } = require("./ninja.misc.js");
 const { ev } = require("./misc.js");
 
 let i, a, x;
@@ -15,17 +11,13 @@ if (getQueryString()["culture"]) {
 } else {
   translator.autodetectTranslation();
 }
-if (
-  getQueryString()["showseedpool"] === "true" ||
-  getQueryString()["showseedpool"] === "1"
-) {
+if (getQueryString()["showseedpool"] === "true" || getQueryString()["showseedpool"] === "1") {
   document.getElementById("seedpoolarea").style.display = "block";
 }
 // change currency
 const currency = (getQueryString()["currency"] || "bitcoin").toLowerCase();
 for (i = 0; i < janin().currencies.length; i++) {
-  if (janin().currencies[i].name.toLowerCase() === currency)
-    janin().useCurrency(i);
+  if (janin().currencies[i].name.toLowerCase() === currency) janin().useCurrency(i);
 }
 // Reset title if no currency is choosen
 if (!getQueryString()["currency"]) {
@@ -50,14 +42,12 @@ for (i = 0; i < janin().currencies.length; i++) {
   const curr = janin().currencies[i];
   if (!curr.donate) continue;
   currencieslist += "<a href='?currency=" + curr.name;
-  if (getQueryString()["culture"])
-    currencieslist += "&culture=" + getQueryString()["culture"];
+  if (getQueryString()["culture"]) currencieslist += "&culture=" + getQueryString()["culture"];
   currencieslist += "'>" + curr.name + "</a> ";
   j++;
 }
 supportedcurrencies.innerHTML = currencieslist;
-document.getElementById("supportedcurrenciescounter").innerHTML =
-  j.toString() + " ";
+document.getElementById("supportedcurrenciescounter").innerHTML = j.toString() + " ";
 // populate donate list
 document.getElementById("donateqrcode").style.display = "none";
 const donatelist = document.getElementById("donatelist");
@@ -65,14 +55,8 @@ let list = "<table>";
 for (i = 0; i < janin().currencies.length; i++) {
   if (!janin().currencies[i].donate) continue;
   list += "<tr id='currencydonatelink" + i + "'>";
-  list +=
-    "<td class='currencyNameColumn'>" + janin().currencies[i].name + "</td>";
-  list +=
-    "<td class='address'><a href='" +
-    janin().currencies[i].name.toLowerCase() +
-    ":" +
-    janin().currencies[i].donate +
-    "'>";
+  list += "<td class='currencyNameColumn'>" + janin().currencies[i].name + "</td>";
+  list += "<td class='address'><a href='" + janin().currencies[i].name.toLowerCase() + ":" + janin().currencies[i].donate + "'>";
   list += janin().currencies[i].donate + "</a></td></tr>";
 }
 list += "</table>";
@@ -101,28 +85,15 @@ if (getQueryString()["i18nextract"]) {
   for (x = 0; x < a.length; x++) {
     i18n += "\t";
     i18n += '"' + a[x].id + '": "';
-    if (
-      translator.translations[culture] &&
-      translator.translations[culture][a[x].id]
-    )
-      i18n += cleani18n(translator.translations[culture][a[x].id]);
+    if (translator.translations[culture] && translator.translations[culture][a[x].id]) i18n += cleani18n(translator.translations[culture][a[x].id]);
     else i18n += "(ENGLISH)" + cleani18n(a[x].innerHTML);
     i18n += '",\n';
   }
   for (x = 0; x < translator.staticID.length; x++) {
     i18n += "\t";
     i18n += '"' + translator.staticID[x] + '": "';
-    if (
-      translator.translations[culture] &&
-      translator.translations[culture][translator.staticID[x]]
-    )
-      i18n += cleani18n(
-        translator.translations[culture][translator.staticID[x]]
-      );
-    else
-      i18n +=
-        "(ENGLISH)" +
-        cleani18n(translator.translations["en"][translator.staticID[x]]);
+    if (translator.translations[culture] && translator.translations[culture][translator.staticID[x]]) i18n += cleani18n(translator.translations[culture][translator.staticID[x]]);
+    else i18n += "(ENGLISH)" + cleani18n(translator.translations["en"][translator.staticID[x]]);
     i18n += '",\n';
   }
 

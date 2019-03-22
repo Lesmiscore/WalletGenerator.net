@@ -94,15 +94,11 @@ const qrCode = (module.exports = {
         try {
           if (document.getElementById(key)) {
             document.getElementById(key).innerHTML = "";
-            document
-              .getElementById(key)
-              .appendChild(qrCode.createCanvas(value, sizeMultiplier));
+            document.getElementById(key).appendChild(qrCode.createCanvas(value, sizeMultiplier));
           }
         } catch (e) {
           // for browsers that do not support canvas (IE8)
-          document.getElementById(key).innerHTML = qrCode.createTableHtml(
-            value
-          );
+          document.getElementById(key).innerHTML = qrCode.createTableHtml(value);
         }
       }
     }

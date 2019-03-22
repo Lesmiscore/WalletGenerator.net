@@ -3,22 +3,8 @@ const bitcoin = require("bitcoinjs-lib");
 const bchaddrjs = require("bchaddrjs");
 
 module.exports = class BitcoinCash extends Bitcoin {
-  constructor(
-    name,
-    networkVersion,
-    privateKeyPrefix,
-    WIF_Start,
-    CWIF_Start,
-    donate
-  ) {
-    super(
-      name,
-      networkVersion,
-      privateKeyPrefix,
-      WIF_Start,
-      CWIF_Start,
-      donate
-    );
+  constructor(name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate) {
+    super(name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate);
   }
 
   getAddressWith(btcKey, mode) {

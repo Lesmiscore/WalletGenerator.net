@@ -29,10 +29,7 @@ const detailwallet = (module.exports = {
 
     showError: function(error) {
       if (error) {
-        if (
-          error === "PERMISSION_DENIED" ||
-          error === "PermissionDeniedError"
-        ) {
+        if (error === "PERMISSION_DENIED" || error === "PermissionDeniedError") {
           document.getElementById("paperqrerror").innerHTML = "";
           document.getElementById("paperqrpermissiondenied").className = "";
         } else {
@@ -90,16 +87,13 @@ const detailwallet = (module.exports = {
       .value.toString()
       .replace(/^\s+|\s+$/g, ""); // trim white space
     document.getElementById("detailprivkey").value = key;
-    const bip38CommandDisplay = document.getElementById("detailbip38commands")
-      .style.display;
+    const bip38CommandDisplay = document.getElementById("detailbip38commands").style.display;
     detailwallet.clear();
     if (key === "") {
       return;
     }
     if (privateKey.isBIP38Format(key)) {
-      document.getElementById(
-        "detailbip38commands"
-      ).style.display = bip38CommandDisplay;
+      document.getElementById("detailbip38commands").style.display = bip38CommandDisplay;
       if (bip38CommandDisplay !== "block") {
         document.getElementById("detailbip38commands").style.display = "block";
         document.getElementById("detailprivkeypassphrase").focus();
@@ -117,9 +111,7 @@ const detailwallet = (module.exports = {
       // show Private Key BIP38 Format
       document.getElementById("detailprivbip38").innerHTML = key;
       document.getElementById("detailbip38").style.display = "block";
-      privateKey.BIP38EncryptedKeyToByteArrayAsync(key, passphrase, function(
-        btcKeyOrError
-      ) {
+      privateKey.BIP38EncryptedKeyToByteArrayAsync(key, passphrase, function(btcKeyOrError) {
         document.getElementById("busyblock").className = "";
         if (btcKeyOrError.message) {
           alert(btcKeyOrError.message);
@@ -153,15 +145,9 @@ const detailwallet = (module.exports = {
 
   populateKeyDetails: function(btcKey) {
     if (janin().selectedCurrency.havePrivateKey(btcKey)) {
-      const privKeyBuffer = janin().selectedCurrency.getPrivateKeyBuffer(
-        btcKey
-      );
-      document.getElementById(
-        "detailprivhex"
-      ).innerHTML = privKeyBuffer.toString("hex").toUpperCase();
-      document.getElementById(
-        "detailprivb64"
-      ).innerHTML = privKeyBuffer.toString("base64");
+      const privKeyBuffer = janin().selectedCurrency.getPrivateKeyBuffer(btcKey);
+      document.getElementById("detailprivhex").innerHTML = privKeyBuffer.toString("hex").toUpperCase();
+      document.getElementById("detailprivb64").innerHTML = privKeyBuffer.toString("base64");
       const wif = privateKey.getWIFWith(btcKey, 1);
       const wifComp = privateKey.getWIFWith(btcKey, 0);
       document.getElementById("detailprivwif").innerHTML = wif;
@@ -184,20 +170,14 @@ const detailwallet = (module.exports = {
       .toString("hex")
       .toUpperCase();
     document.getElementById("detailaddress").innerHTML = bitcoinAddress;
-    document.getElementById(
-      "detailpubkeycomp"
-    ).innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
+    document.getElementById("detailpubkeycomp").innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
     document.getElementById("detailaddresscomp").innerHTML = bitcoinAddressComp;
 
     if (janin().selectedCurrency.bech32) {
       const bitcoinAddressSegWit = privateKey.getAddressWith(btcKey, 2);
       const bitcoinAddressSegWitP2SH = privateKey.getAddressWith(btcKey, 3);
-      document.getElementById(
-        "detailaddresssegwit"
-      ).innerHTML = bitcoinAddressSegWit;
-      document.getElementById(
-        "detailaddresssegwitp2sh"
-      ).innerHTML = bitcoinAddressSegWitP2SH;
+      document.getElementById("detailaddresssegwit").innerHTML = bitcoinAddressSegWit;
+      document.getElementById("detailaddresssegwitp2sh").innerHTML = bitcoinAddressSegWitP2SH;
       qrCode.showQrCode(
         {
           detailqrcodesegwit: bitcoinAddressSegWit,
@@ -211,9 +191,7 @@ const detailwallet = (module.exports = {
       const bitcoinAddressBch = privateKey.getAddressWith(btcKey, 5);
       const bitcoinAddressBchComp = privateKey.getAddressWith(btcKey, 4);
       document.getElementById("detailaddressbch").innerHTML = bitcoinAddressBch;
-      document.getElementById(
-        "detailaddressbchcomp"
-      ).innerHTML = bitcoinAddressBchComp;
+      document.getElementById("detailaddressbchcomp").innerHTML = bitcoinAddressBchComp;
       qrCode.showQrCode(
         {
           detailqrcodebch: bitcoinAddressBch,

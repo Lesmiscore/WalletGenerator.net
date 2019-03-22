@@ -8,11 +8,7 @@ const bulkWallet = (module.exports = {
     if (document.getElementById("bulktextarea").value === "") {
       // return control of the thread to the browser to render the tab switch UI then build a default CSV list
       setTimeout(function() {
-        bulkWallet.buildCSV(
-          3,
-          1,
-          document.getElementById("bulkcompressed").checked
-        );
+        bulkWallet.buildCSV(3, 1, document.getElementById("bulkcompressed").checked);
       }, 200);
     }
   },
@@ -28,8 +24,7 @@ const bulkWallet = (module.exports = {
   // index,bitcoinAddress,privateKeyWif
   buildCSV: function(rowLimit, startIndex, compressedAddrs) {
     //const bulkWallet = bulkwallet;
-    document.getElementById("bulktextarea").value =
-      translator.get("bulkgeneratingaddresses") + rowLimit;
+    document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + rowLimit;
     bulkWallet.csv = [];
     bulkWallet.csvRowLimit = rowLimit;
     bulkWallet.csvRowsRemaining = rowLimit;
@@ -51,19 +46,9 @@ const bulkWallet = (module.exports = {
         compressed: bulkWallet.compressedAddrs
       });
 
-      bulkWallet.csv.push(
-        bulkWallet.csvRowLimit -
-          bulkWallet.csvRowsRemaining +
-          bulkWallet.csvStartIndex +
-          ',"' +
-          privateKey.getAddressWith(key) +
-          '","' +
-          privateKey.getWIFWith(key) +
-          '"'
-      );
+      bulkWallet.csv.push(bulkWallet.csvRowLimit - bulkWallet.csvRowsRemaining + bulkWallet.csvStartIndex + ',"' + privateKey.getAddressWith(key) + '","' + privateKey.getWIFWith(key) + '"');
 
-      document.getElementById("bulktextarea").value =
-        translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
+      document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + bulkWallet.csvRowsRemaining;
 
       // release thread to browser to render UI
       setTimeout(bulkWallet.batchCSV, 0);

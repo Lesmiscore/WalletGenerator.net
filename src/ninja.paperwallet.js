@@ -46,16 +46,11 @@ const paperwallet = (module.exports = {
         return;
       }
       document.getElementById("busyblock").className = "busy";
-      privateKey.BIP38GenerateIntermediatePointAsync(
-        passphrase,
-        null,
-        null,
-        function(intermediate) {
-          paperwallet.intermediatePoint = intermediate;
-          document.getElementById("busyblock").className = "";
-          setTimeout(paperwallet.batch, 0);
-        }
-      );
+      privateKey.BIP38GenerateIntermediatePointAsync(passphrase, null, null, function(intermediate) {
+        paperwallet.intermediatePoint = intermediate;
+        document.getElementById("busyblock").className = "";
+        setTimeout(paperwallet.batch, 0);
+      });
     } else {
       setTimeout(paperwallet.batch, 0);
     }
@@ -96,19 +91,12 @@ const paperwallet = (module.exports = {
   // idPostFix: 1, 2, 3, etc.
   generateNewWallet: function(idPostFix) {
     if (paperwallet.encrypt) {
-      privateKey.BIP38GenerateECAddressAsync(
-        paperwallet.intermediatePoint,
-        false,
-        function(address, encryptedKey) {
-          paperwallet.showArtisticWallet(idPostFix, address, encryptedKey);
-        }
-      );
+      privateKey.BIP38GenerateECAddressAsync(paperwallet.intermediatePoint, false, function(address, encryptedKey) {
+        paperwallet.showArtisticWallet(idPostFix, address, encryptedKey);
+      });
     } else {
       const key = privateKey.makeRandom();
-      const bitcoinAddress = privateKey.getAddressWith(
-        key,
-        paperwallet.publicMode
-      );
+      const bitcoinAddress = privateKey.getAddressWith(key, paperwallet.publicMode);
       const privateKeyWif = privateKey.getWIFWith(key, paperwallet.publicMode);
 
       paperwallet.showArtisticWallet(idPostFix, bitcoinAddress, privateKeyWif);
@@ -125,26 +113,14 @@ const paperwallet = (module.exports = {
       alert(translator.get("detailalertnotvalidprivatekey"));
     } else {
       const parsedKey = privateKey.decodePrivateKey(suppliedKey);
-      const computedPublicAddress = privateKey.getAddressWith(
-        parsedKey,
-        paperwallet.publicMode
-      );
+      const computedPublicAddress = privateKey.getAddressWith(parsedKey, paperwallet.publicMode);
       suppliedKey = privateKey.getWIFWith(parsedKey, paperwallet.publicMode);
       if (paperwallet.encrypt) {
         document.getElementById("busyblock").className = "busy";
-        privateKey.BIP38PrivateKeyToEncryptedKeyAsync(
-          suppliedKey,
-          document.getElementById("paperpassphrase").value,
-          false,
-          function(encodedKey) {
-            document.getElementById("busyblock").className = "";
-            paperwallet.showArtisticWallet(
-              1,
-              computedPublicAddress,
-              encodedKey
-            );
-          }
-        );
+        privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey, document.getElementById("paperpassphrase").value, false, function(encodedKey) {
+          document.getElementById("busyblock").className = "";
+          paperwallet.showArtisticWallet(1, computedPublicAddress, encodedKey);
+        });
       } else {
         paperwallet.showArtisticWallet(1, computedPublicAddress, suppliedKey);
       }
@@ -164,9 +140,7 @@ const paperwallet = (module.exports = {
     keyValuePair["qrcode_private" + idPostFix] = privKey;
     qrCode.showQrCode(keyValuePair, 2.8);
 
-    document.getElementById(
-      "btcaddress" + idPostFix
-    ).innerHTML = bitcoinAddress;
+    document.getElementById("btcaddress" + idPostFix).innerHTML = bitcoinAddress;
     document.getElementById("btcprivwif" + idPostFix).innerHTML = privKey;
   },
 

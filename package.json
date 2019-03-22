@@ -61,11 +61,11 @@
   },
   "lint-staged": {
     "*.{json,md}": [
-      "prettier --write",
+      "prettier --print-width 200 --write",
       "git add"
     ],
     "*.js": [
-      "prettier --write",
+      "prettier --print-width 200 --write",
       "eslint",
       "git add"
     ]

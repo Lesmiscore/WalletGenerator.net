@@ -110,11 +110,7 @@ ev("#singleprint", "click", function() {
 });
 
 ev("#bulkgenerate", "click", function() {
-  bulkwallet.buildCSV(
-    document.getElementById("bulklimit").value * 1,
-    document.getElementById("bulkstartindex").value * 1,
-    document.getElementById("bulkcompressed").checked
-  );
+  bulkwallet.buildCSV(document.getElementById("bulklimit").value * 1, document.getElementById("bulkstartindex").value * 1, document.getElementById("bulkcompressed").checked);
 });
 
 ev("#bulkprint", "click", function() {

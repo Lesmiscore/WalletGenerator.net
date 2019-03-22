@@ -27,16 +27,10 @@ const envSecurityCheck = function() {
   switch (window.location.protocol) {
     case "http:":
     case "https:":
-      innerHTML =
-        '<span style="color: #990000;">' +
-        translator.get("securitychecklistofflineNOK") +
-        "</span>";
+      innerHTML = '<span style="color: #990000;">' + translator.get("securitychecklistofflineNOK") + "</span>";
       break;
     case "file:":
-      innerHTML =
-        '<span style="color: #009900;">' +
-        translator.get("securitychecklistofflineOK") +
-        "</span>";
+      innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistofflineOK") + "</span>";
       break;
     default:
   }
@@ -46,15 +40,9 @@ const envSecurityCheck = function() {
 const browserSecurityCheck = function() {
   let innerHTML = "";
   if (window.crypto && window.crypto.getRandomValues) {
-    innerHTML =
-      '<span style="color: #009900;">' +
-      translator.get("securitychecklistrandomOK") +
-      "</span>";
+    innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistrandomOK") + "</span>";
   } else {
-    innerHTML =
-      '<span style="color: #990000;">' +
-      translator.get("securitychecklistrandomNOK") +
-      "</span>";
+    innerHTML = '<span style="color: #990000;">' + translator.get("securitychecklistrandomNOK") + "</span>";
   }
   document.getElementById("browserSecurityCheck").innerHTML = innerHTML;
 };
@@ -118,8 +106,7 @@ const foreachSerialized = function(collection, whatToDo, onComplete) {
 
 const toggleFaqQuestion = function(elementId) {
   const answerDiv = document.getElementById(elementId);
-  answerDiv.style.display =
-    answerDiv.style.display === "block" ? "none" : "block";
+  answerDiv.style.display = answerDiv.style.display === "block" ? "none" : "block";
 };
 
 module.exports = {

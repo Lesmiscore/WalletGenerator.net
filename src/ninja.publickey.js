@@ -27,9 +27,7 @@ const publicKey = (module.exports = {
     return pubKey;
   },
   getByteArrayFromMultiplying: function(pubKeyHex, ecKey) {
-    const ecPoint = elliptic.curves.secp256k1.decodePoint(
-      Buffer.from(pubKeyHex, "hex")
-    );
+    const ecPoint = elliptic.curves.secp256k1.decodePoint(Buffer.from(pubKeyHex, "hex"));
     const compressed = ecPoint.compressed && ecKey.compressed;
     // if both points are the same return null
     ecKey.compressed = false;

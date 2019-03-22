@@ -8,9 +8,7 @@ const brainwallet = (module.exports = {
   open: function() {
     document.getElementById("brainarea").style.display = "block";
     document.getElementById("brainpassphrase").focus();
-    document.getElementById("brainwarning").innerHTML = translator.get(
-      "brainalertpassphrasewarning"
-    );
+    document.getElementById("brainwarning").innerHTML = translator.get("brainalertpassphrasewarning");
   },
 
   close: function() {
@@ -33,10 +31,7 @@ const brainwallet = (module.exports = {
       .replace(/^\s+|\s+$/g, ""); // trim white space
     document.getElementById("brainpassphraseconfirm").value = keyConfirm;
 
-    if (
-      key === keyConfirm ||
-      document.getElementById("brainpassphraseshow").checked
-    ) {
+    if (key === keyConfirm || document.getElementById("brainpassphraseshow").checked) {
       // enforce a minimum passphrase length
       if (key.length >= brainwallet.minPassphraseLength) {
         const bytes = bitcoin.crypto.sha256(key);
@@ -51,15 +46,11 @@ const brainwallet = (module.exports = {
         });
         document.getElementById("brainkeyarea").style.visibility = "visible";
       } else {
-        document.getElementById("brainerror").innerHTML = translator.get(
-          "brainalertpassphrasetooshort"
-        );
+        document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasetooshort");
         brainwallet.clear();
       }
     } else {
-      document.getElementById("brainerror").innerHTML = translator.get(
-        "brainalertpassphrasedoesnotmatch"
-      );
+      document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasedoesnotmatch");
       brainwallet.clear();
     }
   },
@@ -71,15 +62,11 @@ const brainwallet = (module.exports = {
   showToggle: function(element) {
     if (element.checked) {
       document.getElementById("brainpassphrase").setAttribute("type", "text");
-      document.getElementById("brainpassphraseconfirm").style.visibility =
-        "hidden";
+      document.getElementById("brainpassphraseconfirm").style.visibility = "hidden";
       document.getElementById("brainlabelconfirm").style.visibility = "hidden";
     } else {
-      document
-        .getElementById("brainpassphrase")
-        .setAttribute("type", "password");
-      document.getElementById("brainpassphraseconfirm").style.visibility =
-        "visible";
+      document.getElementById("brainpassphrase").setAttribute("type", "password");
+      document.getElementById("brainpassphraseconfirm").style.visibility = "visible";
       document.getElementById("brainlabelconfirm").style.visibility = "visible";
     }
   }

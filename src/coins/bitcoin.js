@@ -5,16 +5,7 @@ const elliptic = require("elliptic");
 const translator = require("../ninja.translator.js");
 
 module.exports = class Bitcoin {
-  constructor(
-    name,
-    networkVersion,
-    privateKeyPrefix,
-    WIF_Start,
-    CWIF_Start,
-    donate,
-    scriptHash,
-    b32hrp
-  ) {
+  constructor(name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp) {
     this.world = bitcoin;
     this.network = {
       messagePrefix: "\x18Bitcoin Signed Message:\n",
@@ -66,9 +57,7 @@ module.exports = class Bitcoin {
     // Hex/Base64
     const testValue = function(buffer) {
       if (buffer.length !== 32) return false;
-      const n = bigi.fromByteArrayUnsigned(
-        elliptic.curves.secp256k1.curve.n.toArray()
-      );
+      const n = bigi.fromByteArrayUnsigned(elliptic.curves.secp256k1.curve.n.toArray());
       const scalar = bigi.fromByteArrayUnsigned(buffer);
       return n.compareTo(scalar) > 0;
     };
@@ -129,26 +118,15 @@ module.exports = class Bitcoin {
         case 2: // segwit
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
-            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(
-              bitcoin.crypto.hash160(pubKeyCompressed)
-            );
-            return this.world.address.toBech32(
-              bitcoin.script.compile(redeemScript).slice(2, 22),
-              0,
-              btcKey.network.bech32
-            );
+            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+            return this.world.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
           }
         case 3: // segwit (p2sh)
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
-            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(
-              bitcoin.crypto.hash160(pubKeyCompressed)
-            );
+            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
             const scriptPubKey = bitcoin.crypto.hash160(redeemScript);
-            return this.world.address.toBase58Check(
-              scriptPubKey,
-              btcKey.network.scriptHash
-            );
+            return this.world.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
           }
       }
       return this.getAddressWith(btcKey, 0);
@@ -234,10 +212,7 @@ module.exports = class Bitcoin {
 
   isPublicKeyHexFormat(key) {
     key = key.toString();
-    return (
-      this.isUncompressedPublicKeyHexFormat(key) ||
-      this.isCompressedPublicKeyHexFormat(key)
-    );
+    return this.isUncompressedPublicKeyHexFormat(key) || this.isCompressedPublicKeyHexFormat(key);
   }
   // 130 characters [0-9A-F] starts with 04
   isUncompressedPublicKeyHexFormat(key) {

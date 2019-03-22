@@ -23,9 +23,7 @@ const translator = (module.exports = {
           document.getElementById("culture" + cult).setAttribute("class", "");
         }
       }
-      document
-        .getElementById("culture" + culture)
-        .setAttribute("class", "selected");
+      document.getElementById("culture" + culture).setAttribute("class", "selected");
       // apply translations for each know id
       for (const id in dict) {
         if (document.getElementById(id) && document.getElementById(id).value) {

@@ -33,11 +33,7 @@ const seeder = (module.exports = {
       seeder.removePoints();
     }
     // seed mouse position X and Y when mouse movements are greater than 40ms apart.
-    else if (
-      seeder.seedCount < seeder.seedLimit &&
-      evt &&
-      timeStamp - seeder.lastInputTime > 40
-    ) {
+    else if (seeder.seedCount < seeder.seedLimit && evt && timeStamp - seeder.lastInputTime > 40) {
       //SecureRandom.seedTime();
       //SecureRandom.seedInt16((evt.clientX * evt.clientY));
       seeder.showPoint(evt.clientX, evt.clientY);
@@ -76,8 +72,7 @@ const seeder = (module.exports = {
     const poolHex = randombytes(256).toString("hex"); //Buffer.from(SecureRandom.pool).toString('hex');
     document.getElementById("seedpool").innerHTML = poolHex;
     document.getElementById("seedpooldisplay").innerHTML = poolHex;
-    document.getElementById("mousemovelimit").innerHTML =
-      seeder.seedLimit - seeder.seedCount;
+    document.getElementById("mousemovelimit").innerHTML = seeder.seedLimit - seeder.seedCount;
   },
 
   showPoint: function(x, y) {
@@ -88,15 +83,10 @@ const seeder = (module.exports = {
 
     // let's make the entropy 'points' grow and change color!
     let percentageComplete = seeder.seedCount / seeder.seedLimit;
-    document.getElementById("progress-bar-percentage").style.width =
-      Math.ceil(percentageComplete * 100) + "%";
+    document.getElementById("progress-bar-percentage").style.width = Math.ceil(percentageComplete * 100) + "%";
 
     // for some reason, appending these divs to an IOS device breaks clicking altogether (?)
-    if (
-      navigator.platform !== "iPad" &&
-      navigator.platform !== "iPhone" &&
-      navigator.platform !== "iPod"
-    ) {
+    if (navigator.platform !== "iPad" && navigator.platform !== "iPhone" && navigator.platform !== "iPod") {
       document.body.appendChild(div);
     }
     seeder.seedPoints.push(div);
