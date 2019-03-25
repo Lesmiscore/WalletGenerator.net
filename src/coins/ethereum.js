@@ -1,37 +1,71 @@
-// DO NOT EDIT WHEN YOU ADD A NEW COIN
+const ethWallet = require("ethereumjs-wallet");
 const translator = require("../ninja.translator.js");
 
-module.exports = class Bitcoin {
+module.exports = class Ethereum {
   constructor(name, donate) {
     this.name = name;
     this.donate = donate;
   }
 
-  create(d, Q, opts) {}
-  makeRandom(opts) {}
+  create(d, Q, opts) {
+    if (d) {
+      return ethWallet.fromPrivateKey(d.toBuffer());
+    }
+    return ethWallet.fromPublicKey(Q, true);
+  }
+  makeRandom(opts) {
+    return ethWallet.generate();
+  }
 
-  isPrivateKey(key) {}
+  isPrivateKey(key) {
+    key = `${key}`.toLowerCase();
+    if (key.startsWith("0x")) {
+      key = key.slice(2);
+    }
+    return /^[0-9a-f]{64}$/.test(key);
+  }
 
-  decodePrivateKey(key) {}
+  decodePrivateKey(key) {
+    key = `${key}`.toLowerCase();
+    if (key.startsWith("0x")) {
+      key = key.slice(2);
+    }
+    return ethWallet.fromPrivateKey(Buffer.from(key, "hex"));
+  }
 
   // correspond to getAddressFormatNames, getAddressTitleNames
-  getAddressWith(key, mode) {}
+  getAddressWith(key, mode) {
+    switch (mode) {
+      default:
+        return key.getChecksumAddressString();
+    }
+  }
 
   // correspond to getAddressFormatNames, getAddressTitleNames
-  getWIFForAddress(key, mode) {}
+  getWIFForAddress(key, mode) {
+    switch (mode) {
+      default:
+        return "0x" + key.getPrivateKey().toString("hex");
+    }
+  }
 
   // correspond to getWIFTitleNames
-  getWIFByType(key, mode) {}
+  getWIFByType(key, mode) {
+    switch (mode) {
+      default:
+        return "0x" + key.getPrivateKey().toString("hex");
+    }
+  }
 
   getAddressFormatNames() {
-    return [];
+    return ["Normal"];
   }
   getAddressTitleNames() {
-    return [];
+    return ["Public Address"];
   }
 
   getWIFTitleNames() {
-    return [];
+    return ["Private Key"];
   }
 
   templateArtisticHtml(i) {
@@ -58,7 +92,13 @@ module.exports = class Bitcoin {
     return walletHtml;
   }
 
-  getPublicKey(key, compressed) {}
-  getPrivateKeyBuffer(key) {}
-  havePrivateKey(key) {}
+  getPublicKey(key, compressed) {
+    return key.getPublicKey();
+  }
+  getPrivateKeyBuffer(key) {
+    return key.getPrivateKey();
+  }
+  havePrivateKey(key) {
+    return !!key.getPrivateKey();
+  }
 };

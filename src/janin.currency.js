@@ -4,6 +4,7 @@ const _ = require("lodash");
 const Bitcoin = require("./coins/bitcoin");
 const Zcash = require("./coins/zcash");
 const BitcoinCash = require("./coins/bitcoincash");
+const Ethereum = require("./coins/ethereum");
 
 let selectedCurrency, doge;
 
@@ -249,6 +250,7 @@ let currencies = [
   new Bitcoin("Emercoin", 0x21, 0x80, "5", "[LK]", "EN5nVyEbLrhYfcjoyGgQFtD3QHETyj1dy1"),
   new Bitcoin("EnergyCoin", 0x5c, 0xdc, "8", "Z", "eD2P3q5PdyHYNwT94Dg6Wt4pBz64k8gwGf"),
   new Bitcoin("Espers", 0x21, 0x90, "5", "N", "EVB5z1zoYYZrjUnGw3fekn1aMjfVhMUKHW"),
+  new Ethereum("Ethereum"),
   new Bitcoin("Fastcoin", 0x60, 0xe0, "8", "a", "frxe8F7gQdiAVgy4mRXjpXH5vN1wyta1db"),
   new Bitcoin("Feathercoin", 0x0e, 0x8e, "5", "N", "6dxAP6oacHsove5X2kZPpddcT1Am167YzC"),
   new Bitcoin("Fedoracoin", 0x21, 0x80, "5", "[KL]", "ENRPj6iEh14Xky2hv4B7zTJGMe5Kchjeo8"),

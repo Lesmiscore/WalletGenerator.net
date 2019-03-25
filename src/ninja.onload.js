@@ -40,7 +40,7 @@ let currencieslist = "";
 let j = 0;
 for (i = 0; i < janin().currencies.length; i++) {
   const curr = janin().currencies[i];
-  if (!curr.donate) continue;
+  //if (!curr.donate) continue;
   currencieslist += "<a href='?currency=" + curr.name;
   if (getQueryString()["culture"]) currencieslist += "&culture=" + getQueryString()["culture"];
   currencieslist += "'>" + curr.name + "</a> ";
