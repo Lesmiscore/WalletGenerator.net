@@ -1,10 +1,12 @@
 const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
 const _ = require("lodash");
+
 const Bitcoin = require("./coins/bitcoin");
 const Zcash = require("./coins/zcash");
 const BitcoinCash = require("./coins/bitcoincash");
 const Ethereum = require("./coins/ethereum");
+const NEM = require("./coins/nem");
 
 let selectedCurrency, doge;
 
@@ -304,6 +306,7 @@ let currencies = [
   new Bitcoin("MasterDoge", 0x33, 0x8b, "5", "M", "Mm4Xqy9FYZ8N1NJzuXCaJLZcw8o2cmVC7c"),
   new Bitcoin("Mazacoin", 0x32, 0xe0, "8", "a", "MLUXCv3GfNgmUSXc5Ek3ePaQ4cfsJwEXHa"),
   new Bitcoin("Megacoin", 0x32, 0xb2, "6", "T", "MPeVmJHvkXN3caneWCB5zGgtGHRRBSLmWd"),
+  // new NEM("Mijin", null, NEM.mijin), // disabled because I can't find large size of logo
   new Bitcoin("MiningEnthusiastCoin", 0x30, 0xb0, "6", "T", ""),
   new Bitcoin("MintCoin", 0x33, 0xb3, "[67]", "T", "MdT7t7MhbgQLSdMhHJCyoGHUuniqZDrj4h"),
   new Bitcoin("MobiusCoin", 0x00, 0x80, "5", "[LK]", "1HKNrUR3BaFC8u4VMfnjCuXDPrYGh7jU8S"),
@@ -317,12 +320,13 @@ let currencies = [
   new Bitcoin("Navcoin", 0x35, 0x96, "6", "P", "NP2wVKjiT1PbpkFMCfkSxR7QsV3iezf4T6"),
   new Bitcoin("NeedleCoin", 0x35, 0xb5, "7", "T", "NYtEDYHNabMqiad5J2tEPFwE9wnhJQpN1W"),
   new Bitcoin("NEETCOIN", 0x35, 0xb5, "7", "T", "NgTALUftFyFk8osvqo5TryBkeNYKvGBssp"),
-  new Bitcoin("NYC", 0x3c, 0xbc, "7", "U", "RY1XJPWksA5zUTCNJ416XJhY9yiFSFfTvz"),
+  new NEM("NEM", null, NEM.mainnet),
   new Bitcoin("Neoscoin", 0x35, 0xb1, "6", "T", "NZw6WJPiKYcXxua1VveieihiNJRYanHjrP"),
   new Bitcoin("Nevacoin", 0x35, 0xb1, "6", "T", "NQDJrKGP3TNhKhKzaHMdg1Wk9FWCT4Nx3q"),
   new Bitcoin("Novacoin", 0x08, 0x88, "5", "M", "4EZMrEA5LnmwtcK5b2JfCq9k5YS4ZVZrtT"),
   new Bitcoin("Nubits", 0x19, 0xbf, "7", "V", "BPWCkyaVqWdaf3uqahrgdTjB2QTnRZzPMM"),
   new Bitcoin("Nyancoin", 0x2d, 0xad, "6", "S", "KHRsf8ofFYqGm4XoeHuFakKPLs5CH2dhK3"),
+  new Bitcoin("NYC", 0x3c, 0xbc, "7", "U", "RY1XJPWksA5zUTCNJ416XJhY9yiFSFfTvz"),
   new Bitcoin("Ocupy", 0x73, 0xf3, "9", "[cd]", "ocLKVPkQRFtKn5mFygrd4QJG9eZd1sKTyi"),
   new Bitcoin("Omnicoin", 0x73, 0xf3, "9", "[cd]", "oMesh62joeab2yMoJUH28mGE8h2suDzcYc"),
   new Bitcoin("Onyxcoin", 0x73, 0xf3, "9", "[cd]", "odRRCGXooJvKs7cn7sax1bJv9EJwwEy94Z"),
@@ -400,6 +404,7 @@ let currencies = [
   new Bitcoin("Testnet Dogecoin", 0x71, 0xf1, "9", "c", null),
   new Bitcoin("Testnet MonetaryUnit", 0x26, 0x40, "3", "A", null),
   new Bitcoin("Testnet Monacoin", 111, 239, "9", "c", null, 196, "tmona"),
+  new NEM("Testnet NEM", null, NEM.testnet),
   new Bitcoin("Testnet PIVX", 0x8b, 0xef, "9", "c", null),
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, "8", "[XY]", null)
 ];

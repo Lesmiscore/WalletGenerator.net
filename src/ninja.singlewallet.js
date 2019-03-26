@@ -32,6 +32,7 @@ const generateNewAddressAndKey = function() {
   } catch (e) {
     // browser does not have sufficient JavaScript support to generate a bitcoin address
     alert(e);
+    console.error(e);
     document.getElementById("btcaddress").innerHTML = "error";
     document.getElementById("btcprivwif").innerHTML = "error";
     document.getElementById("qrcode_public").innerHTML = "";
