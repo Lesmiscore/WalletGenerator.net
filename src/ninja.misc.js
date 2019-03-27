@@ -66,10 +66,12 @@ const runSerialized = function(functions, onComplete) {
   else {
     // run the first function, and make it call this
     // function when finished with the rest of the list
-    const f = functions.shift();
-    f(function() {
-      runSerialized(functions, onComplete);
-    });
+    setTimeout(() => {
+      const f = functions.shift();
+      f(function() {
+        runSerialized(functions, onComplete);
+      });
+    }, 0);
   }
 };
 
@@ -80,9 +82,11 @@ const forSerialized = function(initial, max, whatToDo, onComplete) {
     onComplete();
   } else {
     // same idea as runSerialized
-    whatToDo(initial, function() {
-      forSerialized(++initial, max, whatToDo, onComplete);
-    });
+    setTimeout(() => {
+      whatToDo(initial, function() {
+        forSerialized(++initial, max, whatToDo, onComplete);
+      });
+    }, 0);
   }
 };
 
@@ -94,14 +98,16 @@ const foreachSerialized = function(collection, whatToDo, onComplete) {
       keys.push(name);
     }
   }
-  forSerialized(
-    0,
-    keys.length,
-    function(i, callback) {
-      whatToDo(keys[i], callback);
-    },
-    onComplete
-  );
+  setTimeout(() => {
+    forSerialized(
+      0,
+      keys.length,
+      function(i, callback) {
+        whatToDo(keys[i], callback);
+      },
+      onComplete
+    );
+  }, 0);
 };
 
 const toggleFaqQuestion = function(elementId) {
