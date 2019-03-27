@@ -4,8 +4,9 @@ const bigi = require("bigi");
 const elliptic = require("elliptic");
 const translator = require("../ninja.translator.js");
 
+// "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
 module.exports = class Bitcoin {
-  constructor(name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp) {
+  constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp) {
     this.world = bitcoin;
     this.network = {
       messagePrefix: "\x18Bitcoin Signed Message:\n",
@@ -19,20 +20,10 @@ module.exports = class Bitcoin {
       wif: privateKeyPrefix,
 
       name: name,
-      WIF_Start: WIF_Start,
-      CWIF_Start: CWIF_Start,
       donate: donate
     };
     this.name = name;
     this.donate = donate;
-  }
-
-  networkVersion() {
-    return this.network.pubKeyHash;
-  }
-
-  privateKeyPrefix() {
-    return this.network.wif;
   }
 
   create(d, Q, opts) {
