@@ -10,7 +10,7 @@ const open = function() {
 
   pageBreakAt = pageBreakAtArtisticDefault;
 
-  if (document.getElementById("paperkeyarea").innerHTML === "") {
+  if (!document.getElementById("paperkeyarea").innerHTML) {
     document.getElementById("paperpassphrase").disabled = true;
     document.getElementById("paperencrypt").checked = false;
     encrypt = false;
@@ -41,7 +41,7 @@ const build = function(passphrase, numWallets, _batchComplete) {
   count = 0;
   document.getElementById("paperkeyarea").innerHTML = "";
   if (encrypt) {
-    if (passphrase === "") {
+    if (!passphrase) {
       alert(translator.get("bip38alertpassphraserequired"));
       return;
     }
@@ -67,7 +67,7 @@ const batch = function() {
     div.innerHTML = templateArtisticHtml(i);
     div.setAttribute("class", "keyarea art");
 
-    if (paperArea.innerHTML !== "") {
+    if (paperArea.innerHTML) {
       // page break
       if ((i - 1) % pageBreakAt === 0 && i >= pageBreakAt) {
         const pBreak = document.createElement("div");
