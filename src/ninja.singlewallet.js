@@ -20,8 +20,8 @@ const close = function() {
 const generateNewAddressAndKey = function() {
   try {
     const key = privateKey.makeRandom();
-    const bitcoinAddress = privateKey.getAddressWith(key);
-    const privateKeyWif = privateKey.getWIFForAddress(key);
+    const bitcoinAddress = privateKey.getAddressWith(key, publicMode);
+    const privateKeyWif = privateKey.getWIFForAddress(key, publicMode);
     document.getElementById("btcaddress").innerHTML = bitcoinAddress;
     document.getElementById("btcprivwif").innerHTML = privateKeyWif;
     const keyValuePair = {
@@ -40,4 +40,12 @@ const generateNewAddressAndKey = function() {
   }
 };
 
+let publicMode = 0;
+
 module.exports = { open, close, generateNewAddressAndKey };
+
+Object.defineProperty(module.exports, "publicMode", {
+  enumerable: true,
+  get: () => publicMode,
+  set: pm => (publicMode = pm)
+});

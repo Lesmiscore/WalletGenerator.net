@@ -72,34 +72,6 @@ const useCurrency = function(index) {
   document.getElementById("bulktextarea").value = "";
   document.getElementById("suppliedPrivateKey").value = "";
 
-  // Hide SegWit fields for non-segwit coins
-  const swids = ["pubqrsw", "selectsegwit", "selectsegwitp2sh"];
-  for (let id in swids) {
-    if ({}.hasOwnProperty.call(swids, id)) {
-      const elem = document.getElementById(swids[id]);
-      if (!elem) continue;
-      if (selectedCurrency.bech32) {
-        elem.style.display = "block";
-      } else {
-        elem.style.display = "none";
-      }
-    }
-  }
-
-  // Hide CashAddr fields for non-BCH
-  const caids = ["pubqrbch", "selectcashaddrcomp", "selectcashaddr"];
-  for (let id in caids) {
-    if ({}.hasOwnProperty.call(caids, id)) {
-      const elem = document.getElementById(caids[id]);
-      if (!elem) continue;
-      if (selectedCurrency.bch) {
-        elem.style.display = "block";
-      } else {
-        elem.style.display = "none";
-      }
-    }
-  }
-
   // make a table and dropdown from currency instance
   let publicQrTable = "";
   let chunkId = 0;
@@ -168,7 +140,9 @@ const useCurrency = function(index) {
     }
   }
   document.getElementById("addresstype").innerHTML = addrTypeDropdown;
+  document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
   paperwallet.publicMode = 0;
+  singlewallet.publicMode = 0;
 
   // easter egg doge ;)
   if (name() === "Dogecoin") {

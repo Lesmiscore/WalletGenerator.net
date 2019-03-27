@@ -1,4 +1,5 @@
 const seeder = require("./ninja.seeder.js");
+const singlewallet = require("./ninja.singlewallet.js");
 const paperwallet = require("./ninja.paperwallet.js");
 const bulkwallet = require("./ninja.bulkwallet.js");
 const brainwallet = require("./ninja.brainwallet.js");
@@ -91,6 +92,9 @@ ev("#paperencrypt", "change", function() {
 
 ev("#addresstype", "change", function() {
   paperwallet.publicMode = this.selectedIndex;
+});
+ev("#singleaddresstype", "change", function() {
+  singlewallet.publicMode = this.selectedIndex;
 });
 
 ev("#papergenerate[value='Randomly generate']", "click", function() {
