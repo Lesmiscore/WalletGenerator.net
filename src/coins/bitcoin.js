@@ -175,22 +175,40 @@ module.exports = class Bitcoin {
   }
 
   getAddressFormatNames() {
-    return [
-      "Compressed",
-      "Uncompressed",
-      "SegWit",
-      "SegWit (P2SH-wrapped)"
-      // no cashaddress
-    ];
+    if (this.network.bech32) {
+      return [
+        "Compressed",
+        "Uncompressed",
+        "SegWit",
+        "SegWit (P2SH-wrapped)"
+        // no cashaddress
+      ];
+    } else {
+      return [
+        "Compressed",
+        "Uncompressed"
+        // no segwit
+        // no cashaddress
+      ];
+    }
   }
   getAddressTitleNames() {
-    return [
-      "Public Address Compressed",
-      "Public Address",
-      "SegWit Address",
-      "SegWit Address (P2SH-wrapped)"
-      // no cashaddress
-    ];
+    if (this.network.bech32) {
+      return [
+        "Public Address Compressed",
+        "Public Address",
+        "SegWit Address",
+        "SegWit Address (P2SH-wrapped)"
+        // no cashaddress
+      ];
+    } else {
+      return [
+        "Public Address Compressed",
+        "Public Address"
+        // no segwit
+        // no cashaddress
+      ];
+    }
   }
 
   getWIFTitleNames() {
