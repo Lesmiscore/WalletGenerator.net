@@ -20,6 +20,7 @@
     "minimatch": ">=3.0.2",
     "nem-sdk": "^1.6.7",
     "randombytes": "^2.0.6",
+    "ripple-keypairs": "^0.11.0",
     "safe-buffer": "^5.1.2",
     "scryptsy": "^2.0.0",
     "wif": "^2.0.6"

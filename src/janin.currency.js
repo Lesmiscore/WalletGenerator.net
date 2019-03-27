@@ -7,6 +7,7 @@ const Zcash = require("./coins/zcash");
 const BitcoinCash = require("./coins/bitcoincash");
 const Ethereum = require("./coins/ethereum");
 const NEM = require("./coins/nem");
+const Ripple = require("./coins/ripple");
 
 let selectedCurrency, doge;
 
@@ -352,6 +353,7 @@ let currencies = [
   new Bitcoin("Riecoin", 0x3c, 0x80, "5", "[LK]", "RUsNQFds88sdWszMUVKwfdBhE9PtzLTK6N"),
   new Bitcoin("Rimbit", 0x3c, 0xbc, "7", "U", "RJNYNAafwKmkGf1hb3LDXiL1gRhSPPrXxN"),
   new Bitcoin("Ringo", 0x3c, 0x80, "5", "[LK]", ""), // WIF UNKNOWN
+  new Ripple("Ripple"),
   new Bitcoin("ROIcoin", 0x3c, 0x80, "5", "[LK]", "RKUwWKMfwoq2trvQ4Q3a529U7KZq3Pq6gw"),
   new Bitcoin("Rubycoin", 0x3c, 0xbc, "7", "U", "RNsGHZnnr4pa3nYSp5NsuPtqTAGHT6XWqb"),
   new Bitcoin("Rupaya", 0x3c, 0xbc, "7", "U", "RENYagTnHvczPgFYaAhfVqh9y6B1yaMaij"),
