@@ -1,4 +1,5 @@
 /* global describe, it */
+/* eslint no-undefined:0 */
 const assert = require("assert");
 require("./fakedocument");
 
@@ -8,8 +9,8 @@ describe("coin order", function() {
     const names = janin.currencies.map(a => a.name);
     const mainnets = names.filter(a => !a.toLowerCase().startsWith("testnet "));
     const testnets = names.filter(a => a.toLowerCase().startsWith("testnet "));
-    mainnets.sort((a, b) => a.localeCompare(b, null, { sensitivity: "base" }));
-    testnets.sort((a, b) => a.localeCompare(b, null, { sensitivity: "base" }));
+    mainnets.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+    testnets.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
     const expected = [].concat(mainnets, testnets);
     assert.deepEqual(names, expected);
   });
