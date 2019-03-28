@@ -1,14 +1,14 @@
 const translator = require("../ninja.translator.js");
 const keypairs = require("ripple-keypairs");
+const Coin = require("./coin");
 
 const elliptic = require("elliptic");
 const Ed25519 = elliptic.eddsa("ed25519");
 const Secp256k1 = elliptic.ec("secp256k1");
 
-module.exports = class Ripple {
+module.exports = class Ripple extends Coin {
   constructor(name, donate) {
-    this.name = name;
-    this.donate = donate;
+    super(name, donate);
   }
 
   create(d, Q, opts) {
@@ -91,30 +91,6 @@ module.exports = class Ripple {
 
   getWIFTitleNames(key) {
     return ["Raw hex", "Seed"];
-  }
-
-  templateArtisticHtml(i) {
-    const keyelement = "btcprivwif";
-    const coinImgUrl = "logos/" + this.name.toLowerCase() + ".png";
-    const walletBackgroundUrl = "wallets/" + this.name.toLowerCase() + ".png";
-
-    const walletHtml = `
-      <div class='coinIcoin'>
-        <img id='coinImg' src='${coinImgUrl}' alt='currency_logo' />
-      </div>
-      <div class='artwallet' id='artwallet${i}'>
-        <img id='papersvg${i}' class='papersvg' src='${walletBackgroundUrl}' />
-        <div id='qrcode_public${i}' class='qrcode_public'></div>
-        <div id='qrcode_private${i}' class='qrcode_private'></div>
-        <div class='btcaddress' id='btcaddress${i}'></div>
-        <div class='${keyelement}' id='${keyelement}${i}'></div>
-        <div class='paperWalletText'>
-          <img class='backLogo' src='${coinImgUrl}' alt='currency_logo' />
-          ${translator.get("paperwalletback")}
-        </div>
-      </div>
-    `;
-    return walletHtml;
   }
 
   getPublicKey(key, compressed) {

@@ -1,11 +1,11 @@
 const translator = require("../ninja.translator.js");
 const nem = require("nem-sdk").default;
 const randomBytes = require("randombytes");
+const Coin = require("./coin");
 
-module.exports = class NEM {
+module.exports = class NEM extends Coin {
   constructor(name, donate, network) {
-    this.name = name;
-    this.donate = donate;
+    super(name, donate);
     this.network = network || nem.model.network.data.mainnet.id;
   }
 

@@ -1,10 +1,10 @@
 const ethWallet = require("ethereumjs-wallet");
 const translator = require("../ninja.translator.js");
+const Coin = require("./coin");
 
-module.exports = class Ethereum {
+module.exports = class Ethereum extends Coin {
   constructor(name, donate) {
-    this.name = name;
-    this.donate = donate;
+    super(name, donate);
   }
 
   create(d, Q, opts) {

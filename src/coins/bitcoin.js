@@ -3,10 +3,12 @@ const wif = require("wif");
 const bigi = require("bigi");
 const elliptic = require("elliptic");
 const translator = require("../ninja.translator.js");
+const Coin = require("./coin");
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
-module.exports = class Bitcoin {
+module.exports = class Bitcoin extends Coin {
   constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp) {
+    super(name, donate);
     this.world = bitcoin;
     this.network = {
       messagePrefix: "\x18Bitcoin Signed Message:\n",
@@ -17,13 +19,8 @@ module.exports = class Bitcoin {
       },
       pubKeyHash: networkVersion & 0xffff,
       scriptHash: scriptHash || 0x05,
-      wif: privateKeyPrefix,
-
-      name: name,
-      donate: donate
+      wif: privateKeyPrefix
     };
-    this.name = name;
-    this.donate = donate;
   }
 
   create(d, Q, opts) {
