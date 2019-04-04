@@ -14,11 +14,9 @@ module.exports = class BitcoinCash extends Bitcoin {
       switch (mode || 0) {
         case 0: // compressed
           btcKey.compressed = true;
-          // bitcoin
           return bitcoin.ECPair.prototype.getAddress.call(btcKey);
         case 1: // uncompressed
           btcKey.compressed = false;
-          // bitcoin
           return bitcoin.ECPair.prototype.getAddress.call(btcKey);
         case 2: // cashaddr (compressed)
           legacy = this.getAddressWith(btcKey, 0);

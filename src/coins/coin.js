@@ -1,4 +1,3 @@
-// DO NOT EDIT WHEN YOU ADD A NEW COIN
 const translator = require("../ninja.translator.js");
 
 module.exports = class Coin {

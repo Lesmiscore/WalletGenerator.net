@@ -227,21 +227,6 @@ module.exports = class Bitcoin extends Coin {
     return walletHtml;
   }
 
-  isPublicKeyHexFormat(key) {
-    key = key.toString();
-    return this.isUncompressedPublicKeyHexFormat(key) || this.isCompressedPublicKeyHexFormat(key);
-  }
-  // 130 characters [0-9A-F] starts with 04
-  isUncompressedPublicKeyHexFormat(key) {
-    key = key.toString();
-    return /^04[A-Fa-f0-9]{128}$/.test(key);
-  }
-  // 66 characters [0-9A-F] starts with 02 or 03
-  isCompressedPublicKeyHexFormat(key) {
-    key = key.toString();
-    return /^0[23][A-Fa-f0-9]{64}$/.test(key);
-  }
-
   getPublicKey(btcKey, compressed) {
     return btcKey.Q.getEncoded(compressed);
   }
