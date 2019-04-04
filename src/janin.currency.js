@@ -24,7 +24,7 @@ const useCurrency = function(index) {
   const paperwallet = require("./ninja.paperwallet.js");
   const brainwallet = require("./ninja.brainwallet.js");
 
-  const coinImgUrl = "logos/" + lowerCurrency + ".png";
+  const coinImgUrl = selectedCurrency.getCoinImageUrl();
   document.getElementById("coinLogoImg").src = coinImgUrl;
 
   // Update title depending on currency
@@ -131,10 +131,7 @@ const useCurrency = function(index) {
   // easter egg doge ;)
   if (name() === "Dogecoin") {
     doge = new Doge(["wow", "so paper wallet", "such random", "very pretty", "much design", "awesome", "much crypto", "such coin", "wow!!", "to da moon"]);
-    return;
-  }
-
-  if (doge) {
+  } else if (doge) {
     doge.stop();
     doge = null;
   }
