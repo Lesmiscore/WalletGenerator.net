@@ -1,7 +1,4 @@
-/*eslint no-fallthrough: "off"*/
-
 const bitcoin = require("bitcoinjs-lib");
-const zcash = require("bitcoinjs-lib-zcash");
 const bigi = require("bigi");
 const bip38 = require("bip38");
 const wif = require("wif");
@@ -10,7 +7,6 @@ const randombytes = require("randombytes");
 const scrypt = require("scryptsy");
 const base58 = require("base58");
 const bnjs = require("bn.js");
-const bchaddrjs = require("bchaddrjs");
 const aes = require("browserify-aes");
 
 const janin = require("./janin.currency.js");
@@ -30,28 +26,6 @@ const getAddressWith = function(btcKey, mode) {
 };
 const getWIFForAddress = function(btcKey, mode) {
   return janin.selectedCurrency.getWIFForAddress(btcKey, mode);
-};
-const getECKeyFromAdding = function(privKey1, privKey2) {
-  const n = elliptic.curves.secp256k1.curve.n;
-  const ecKey1 = decodePrivateKey(privKey1);
-  const ecKey2 = decodePrivateKey(privKey2);
-  // if both keys are the same return null
-  if (ecKey1.d.eq(ecKey2.d)) return null;
-  const combinedPrivateKey = create(ecKey1.d.add(ecKey2.d).mod(n), null, {
-    compressed: ecKey1.compressed && ecKey2.compressed
-  });
-  return combinedPrivateKey;
-};
-const getECKeyFromMultiplying = function(privKey1, privKey2) {
-  const n = elliptic.curves.secp256k1.curve.n;
-  const ecKey1 = decodePrivateKey(privKey1);
-  const ecKey2 = decodePrivateKey(privKey2);
-  // if both keys are the same return null
-  if (ecKey1.d.eq(ecKey2.d)) return null;
-  const combinedPrivateKey = create(ecKey1.d.mul(ecKey2.d).mod(n), null, {
-    compressed: ecKey1.compressed && ecKey2.compressed
-  });
-  return combinedPrivateKey;
 };
 // 58 base58 characters starting with 6P
 const isBIP38Format = function(key) {
@@ -190,8 +164,6 @@ module.exports = {
   decodePrivateKey,
   getAddressWith,
   getWIFForAddress,
-  getECKeyFromAdding,
-  getECKeyFromMultiplying,
   isBIP38Format,
   BIP38EncryptedKeyToByteArrayAsync,
   BIP38PrivateKeyToEncryptedKeyAsync,
