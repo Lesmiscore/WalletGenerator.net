@@ -30,7 +30,7 @@ ev("#seedSkipper a", "click", function() {
 });
 
 ev("#newaddress", "click", function() {
-  require("./ninja.singlewallet.js").generateNewAddressAndKey();
+  singlewallet.generateNewAddressAndKey();
 });
 
 ev("#singleprint", "click", function() {

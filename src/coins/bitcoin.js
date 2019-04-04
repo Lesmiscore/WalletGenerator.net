@@ -97,13 +97,12 @@ module.exports = class Bitcoin extends Coin {
     const compressed = btcKey.compressed;
     try {
       switch (mode || 0) {
+        default:
         case 0: // compressed
           btcKey.compressed = true;
-          // bitcoin
           return this.world.ECPair.prototype.getAddress.call(btcKey);
         case 1: // uncompressed
           btcKey.compressed = false;
-          // bitcoin
           return this.world.ECPair.prototype.getAddress.call(btcKey);
         case 2: // segwit
           if (btcKey.network.bech32) {
@@ -111,6 +110,7 @@ module.exports = class Bitcoin extends Coin {
             const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
             return this.world.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
           }
+          return this.getAddressWith(btcKey, 0);
         case 3: // segwit (p2sh)
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
@@ -118,8 +118,8 @@ module.exports = class Bitcoin extends Coin {
             const scriptPubKey = bitcoin.crypto.hash160(redeemScript);
             return this.world.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
           }
+          return this.getAddressWith(btcKey, 0);
       }
-      return this.getAddressWith(btcKey, 0);
     } finally {
       btcKey.compressed = compressed;
     }
