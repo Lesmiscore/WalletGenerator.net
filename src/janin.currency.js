@@ -15,22 +15,6 @@ const name = function() {
   return selectedCurrency.name;
 };
 
-const networkVersion = function() {
-  return selectedCurrency.pubKeyHash;
-};
-
-const privateKeyPrefix = function() {
-  return selectedCurrency.wif;
-};
-
-const WIF_RegEx = function() {
-  return new RegExp("^" + selectedCurrency.WIF_Start + "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{50}$");
-};
-
-const CWIF_RegEx = function() {
-  return new RegExp("^" + selectedCurrency.CWIF_Start + "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{51}$");
-};
-
 // Switch currency
 const useCurrency = function(index) {
   selectedCurrency = currencies[index];
@@ -342,6 +326,7 @@ let currencies = [
   new Bitcoin("Sprouts", 0x3f, 0x80, ""), // WIF UNKNOWN
   new Bitcoin("StealthCoin", 0x3e, 0xbe, "SJJGGq7UyoUH1TExGJCQ6ee49ztJr2quF8"),
   new Bitcoin("Stratis", 0x3f, 0xbf, "ScMNGH91SpNwbRDeK8vYXXJ3aYpwBr9Pen"),
+  new Bitcoin("Sugarchain", 0x3f, 0x80, ""),
   new Bitcoin("Susucoin", 0x3f, 0x80, ""),
   new Bitcoin("SwagBucks", 0x3f, 0x99, "SJJGGq7UyoUH1TExGJCQ6ee49ztJr2quF8"),
   new Bitcoin("Syscoin", 0x00, 0x80, "133miKEHohCR5qnbEZ64MFZkCzFM2HpeAd"),
@@ -386,10 +371,6 @@ let currencies = [
 
 module.exports = {
   name,
-  networkVersion,
-  privateKeyPrefix,
-  WIF_RegEx,
-  CWIF_RegEx,
   useCurrency,
   currencies
 };
