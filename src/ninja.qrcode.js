@@ -37,13 +37,13 @@ const createCanvas = function(text, sizeMultiplier) {
   const width = qrcode.getModuleCount() * sizeMultiplier;
   const height = qrcode.getModuleCount() * sizeMultiplier;
   // create canvas element
-  let canvas = document.createElement("canvas");
+  const canvas = document.createElement("canvas");
   const scale = 10.0;
   canvas.width = width * scale;
   canvas.height = height * scale;
   canvas.style.width = width + "px";
   canvas.style.height = height + "px";
-  let ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
   ctx.scale(scale, scale);
   // compute tileW/tileH based on width/height
   const tileW = width / qrcode.getModuleCount();
