@@ -31,9 +31,26 @@ function onload(func) {
   }
 }
 
+function invoke(func) {
+  if (typeof func === "function") {
+    const args = Array.from(arguments).slice(1);
+    return Function.prototype.apply(func, args);
+  }
+}
+
+function toArray(obj) {
+  if (Array.isArray(obj)) {
+    return obj;
+  } else {
+    return [obj];
+  }
+}
+
 module.exports = {
   printMany,
   escapeRegExp,
   ev,
-  onload
+  onload,
+  invoke,
+  toArray
 };
