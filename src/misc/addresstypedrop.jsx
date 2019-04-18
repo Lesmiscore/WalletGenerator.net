@@ -2,10 +2,10 @@ import React from "react";
 import janin from "../janin.currency";
 import { invoke } from "../misc";
 
-module.exports = class CurrencyDrop extends React.Component {
+module.exports = class AddressTypeDrop extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: 0, coin: props.coin };
+    this.state = { value: props.mode, coin: props.coin };
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
@@ -27,7 +27,7 @@ module.exports = class CurrencyDrop extends React.Component {
       num++;
     }
     return (
-      <select id="currency" value={this.state.value} onChange={this.handleChange}>
+      <select id={this.props.id || "currency"} value={this.state.value} onChange={this.handleChange}>
         {options}
       </select>
     );

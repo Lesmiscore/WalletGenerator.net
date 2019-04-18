@@ -4,11 +4,10 @@ import CurrencyDrop from "./currencydrop";
 module.exports = class CurrencyDdl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hide: props.hide };
   }
   render() {
     return (
-      <div id="currencyddl" class={this.state.hide ? "hide" : ""}>
+      <div id="currencyddl">
         <span id="choosecurrency" class="i18n">
           Choose currency
         </span>{" "}
