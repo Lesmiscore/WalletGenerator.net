@@ -10,7 +10,6 @@ module.exports = class SingleWallet extends React.Component {
     this.state = {
       public: "",
       private: "",
-      coin: props.coin || 0,
       publicMode: 0
     };
     this.newAddress = this.newAddress.bind(this);
@@ -18,7 +17,7 @@ module.exports = class SingleWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.state.coin];
+    return janin.currencies[this.props.coin];
   }
 
   newAddress() {
@@ -45,7 +44,7 @@ module.exports = class SingleWallet extends React.Component {
             <input type="button" id="newaddress" value="Generate New Address" onClick={this.newAddress} />
           </span>
           <span>
-            <AddressTypeDrop coin={this.state.coin} mode={this.state.publicMode} onChange={this.pubModeChange} />
+            <AddressTypeDrop coin={this.props.coin} mode={this.state.publicMode} onChange={this.pubModeChange} />
           </span>
           <span class="print">
             <input type="button" name="print" value="Print" id="singleprint" onClick={window.print} />

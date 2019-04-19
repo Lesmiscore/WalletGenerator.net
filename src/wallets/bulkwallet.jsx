@@ -19,7 +19,7 @@ module.exports = class BulkWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.state.coin];
+    return janin.currencies[this.props.coin];
   }
 
   pubModeChange(bulkPublicMode) {
