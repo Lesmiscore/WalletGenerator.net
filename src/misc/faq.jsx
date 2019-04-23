@@ -175,8 +175,6 @@ module.exports = class FAQ extends React.Component {
     );
   }
   toggleDisplay(num) {
-    const state = {};
-    state[`faqDisplay${num}`] = !this.state[`faqDisplay${num}`];
-    this.setState(state);
+    this.setState(s => ({ [`faqDisplay${num}`]: !s[`faqDisplay${num}`] }));
   }
 };

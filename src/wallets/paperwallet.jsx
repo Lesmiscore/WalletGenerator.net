@@ -28,10 +28,10 @@ module.exports = class PaperWallet extends React.Component {
     this.setState({ bip38Check: event.target.checked });
   }
   onBip38PassphraseChange(event) {
-    this.setState({ bip38Passphrease: +event.target.value });
+    this.setState({ bip38Passphrease: event.target.value });
   }
   onSuppliedPrivateKey(event) {
-    this.setState({ suppliedPrivateKey: +event.target.value });
+    this.setState({ suppliedPrivateKey: event.target.value });
   }
   pubModeChange(publicMode) {
     this.setState({ publicMode });

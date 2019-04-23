@@ -5,7 +5,7 @@ import QRCode from "../qrcode.js";
 module.exports = class QRCodeComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: props.value, size: props.size || 2, canvasSize: false };
+    this.state = { canvasSize: 0 };
   }
   render() {
     if (!this.state.canvasSize) {
@@ -15,8 +15,8 @@ module.exports = class QRCodeComponent extends React.Component {
     return <canvas ref="canvas" width={this.state.canvasSize} height={this.state.canvasSize} />;
   }
   componentDidMount() {
-    const sizeMultiplier = this.state.size; // default 2
-    const text = this.state.value;
+    const sizeMultiplier = this.props.size || 2; // default 2
+    const text = this.props.value;
     // create the qrcode itself
     const typeNumber = getTypeNumber(text);
     const qrcode = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
