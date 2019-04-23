@@ -1,10 +1,41 @@
 import React from "react";
 import ChangeLog from "../static/changelog";
+import QRCode from "../misc/qrcode";
+import janin from "../janin.currency";
 
 module.exports = class Donate extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      qrcode: "",
+      qrcodeOffsetTop: 0
+    };
+    this.displayQrCode = this.displayQrCode.bind(this);
+  }
+  displayQrCode(currencyid, e) {
+    const currencies = janin.currencies;
+    this.setState({ qrcode: `${currencies[currencyid].name.toLowerCase()}:${currencies[currencyid].donate}`, qrcodeOffsetTop: e.offsetTop + 15 });
+  }
+  makeDonateList() {
+    const currencies = janin.currencies;
+    const list = [];
+    for (let i = 0; i < currencies.length; i++) {
+      if (!currencies[i].donate) continue;
+      const inner = [];
+
+      inner.push(
+        <td class="currencyNameColumn">{currencies[i].name}</td>,
+        <td class="address">
+          <a href={`${currencies[i].name.toLowerCase()}:${currencies[i].donate}`}>{currencies[i].donate}</a>
+        </td>
+      );
+      list.push(
+        <tr id={`currencydonatelink${i}`} onMouseOver={e => this.displayQrCode(i, e)}>
+          {inner}
+        </tr>
+      );
+    }
+    return <table>{list}</table>;
   }
   render() {
     return (
@@ -13,8 +44,12 @@ module.exports = class Donate extends React.Component {
           To support the development of this wallet generator, you can donate to the following addresses. When the support for a currency has been added by an external contributor to the project, he
           receives the donation directly.
         </div>
-        <div id="donatelist" />
-        <div id="donateqrcode" />
+        <div id="donatelist">{this.makeDonateList()}</div>
+        {this.state.qrcode && (
+          <div id="donateqrcode" style={`top:${this.state.qrcodeOffsetTop};`}>
+            <QRCode value={this.state.qrcode} size={4} />
+          </div>
+        )}
         <div id="donateinfo" />
         <ChangeLog />
       </div>

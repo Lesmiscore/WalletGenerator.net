@@ -16,6 +16,7 @@ module.exports = class FAQ extends React.Component {
       faqDisplay10: false,
       faqDisplay11: false
     };
+    this.toggleDisplay = this.toggleDisplay.bind(this);
   }
   render() {
     return (
@@ -23,7 +24,7 @@ module.exports = class FAQ extends React.Component {
         <h2>Frequently asked questions :</h2>
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink1">
+          <a class="faqLink" id="faqLink1" onClick={() => this.toggleDisplay(1)}>
             &#8226; Is it safe ?
           </a>
         </h3>
@@ -42,7 +43,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink2">
+          <a class="faqLink" id="faqLink2" onClick={() => this.toggleDisplay(2)}>
             &#8226; Why should I use a paper wallet ?
           </a>
         </h3>
@@ -60,7 +61,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink3">
+          <a class="faqLink" id="faqLink3" onClick={() => this.toggleDisplay(3)}>
             &#8226; How to use a paper wallet ?
           </a>
         </h3>
@@ -72,7 +73,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink4">
+          <a class="faqLink" id="faqLink4" onClick={() => this.toggleDisplay(4)}>
             &#8226; How to spend the coins stored in a paper wallet ?
           </a>
         </h3>
@@ -84,7 +85,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink5">
+          <a class="faqLink" id="faqLink5" onClick={() => this.toggleDisplay(5)}>
             &#8226; How walletgenerator.net is different than another wallet generator ?
           </a>
         </h3>
@@ -96,7 +97,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink6">
+          <a class="faqLink" id="faqLink6" onClick={() => this.toggleDisplay(6)}>
             &#8226; Can you add support for cryptocurrency XYZ ?
           </a>
         </h3>
@@ -110,7 +111,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink7">
+          <a class="faqLink" id="faqLink7" onClick={() => this.toggleDisplay(7)}>
             &#8226; Why should I make a donation ?
           </a>
         </h3>
@@ -122,7 +123,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink8">
+          <a class="faqLink" id="faqLink8" onClick={() => this.toggleDisplay(8)}>
             &#8226; I found a bug, what shall I do ?
           </a>
         </h3>
@@ -137,7 +138,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink9">
+          <a class="faqLink" id="faqLink9" onClick={() => this.toggleDisplay(9)}>
             &#8226; Who are you ?
           </a>
         </h3>
@@ -148,7 +149,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink10">
+          <a class="faqLink" id="faqLink10" onClick={() => this.toggleDisplay(10)}>
             &#8226; How can I help ?
           </a>
         </h3>
@@ -161,7 +162,7 @@ module.exports = class FAQ extends React.Component {
         )}
 
         <h3 class="faqQuestion">
-          <a class="faqLink" id="faqLink11">
+          <a class="faqLink" id="faqLink11" onClick={() => this.toggleDisplay(11)}>
             &#8226; Private keys imported to Electrum (and its derivation) seemingly works but it's broken !
           </a>
         </h3>

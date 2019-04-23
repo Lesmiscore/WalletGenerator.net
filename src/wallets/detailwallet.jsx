@@ -23,6 +23,8 @@ module.exports = class PaperWallet extends React.Component {
       faq: false,
       displayBip38: false
     };
+    this.onWifChange = this.onWifChange.bind(this);
+    this.onBip38PassphraseChange = this.onBip38PassphraseChange.bind(this);
   }
 
   getCoin() {
