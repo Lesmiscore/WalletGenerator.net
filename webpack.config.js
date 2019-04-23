@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/init.js",
+  entry: "./src/init.jsx",
   mode: "development",
   output: {
     path: path.resolve(__dirname),

@@ -1,4 +1,4 @@
-const Bitcoin = require("./bitcoin");
+const Bitcoin = require("./bitcoin").default;
 const bitcoin = require("bitcoinjs-lib");
 const bchaddrjs = require("bchaddrjs");
 

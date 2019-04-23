@@ -4,6 +4,7 @@ import CurrencyDrop from "./currencydrop";
 module.exports = class CurrencyDdl extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { coin: this.props.coin };
   }
   render() {
     return (
@@ -12,7 +13,7 @@ module.exports = class CurrencyDdl extends React.Component {
           Choose currency
         </span>{" "}
         :
-        <CurrencyDrop onChange={this.props.onChange} />
+        <CurrencyDrop coin={this.props.coin} onChange={this.props.onChange} />
       </div>
     );
   }

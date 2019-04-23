@@ -1,5 +1,5 @@
 const zcash = require("bitcoinjs-lib-zcash");
-const Bitcoin = require("./bitcoin");
+const Bitcoin = require("./bitcoin").default;
 
 module.exports = class Zcash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {

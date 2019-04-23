@@ -5,7 +5,7 @@ import { invoke } from "../misc";
 module.exports = class CurrencyDrop extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: janin.currencies.indexOf(janin.selectedCurrency) };
+    this.state = { value: this.props.coin };
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {

@@ -2,7 +2,7 @@ const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
 const _ = require("lodash");
 
-const Bitcoin = require("./coins/bitcoin");
+const Bitcoin = require("./coins/bitcoin").default;
 const Zcash = require("./coins/zcash");
 const BitcoinCash = require("./coins/bitcoincash");
 const Ethereum = require("./coins/ethereum");
@@ -366,10 +366,15 @@ let currencies = [
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, null)
 ];
 
+const findCoinIndex = function(_name) {
+  return currencies.map(a => a.name.toLowerCase()).indexOf(_name.toLowerCase());
+};
+
 module.exports = {
   name,
   useCurrency,
-  currencies
+  currencies,
+  findCoinIndex
 };
 
 Object.defineProperty(module.exports, "selectedCurrency", {

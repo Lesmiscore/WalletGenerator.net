@@ -39,8 +39,8 @@
     "start": "npm run export ; grunt",
     "export": "webpack ; google-closure-compiler --js=exported.js --jscomp_off=\"*\" --warning_level=QUIET --js_output_file=exported-comp.js ; rm exported.js",
     "public": "npm run start ; rm -rf public ; mkdir public ; cp -R logos/ images/ wallets/ index.html public/",
-    "lint": "cd src ; eslint ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/ lazy/ ../tests/",
-    "pret": "cd src ; prettier --print-width 200 --write ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js* lazy/*.js* misc/*.js* static/*.js* wallets/*.js* ../tests/*.js",
+    "lint": "cd src ; eslint *.jsx ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/ lazy/ ../tests/",
+    "pret": "cd src ; prettier --print-width 200 --write *.jsx ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js* lazy/*.js* misc/*.js* static/*.js* wallets/*.js* ../tests/*.js",
     "browser": "npm run public ; browser-sync start --server --files=./public/**",
     "reload": "npm run public ; browser-sync reload",
     "test": "mocha tests/"

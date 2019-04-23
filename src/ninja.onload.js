@@ -1,72 +1,9 @@
 const translator = require("./ninja.translator.js");
 const janin = require("./lazy/janin.currency.js");
-const { getQueryString, envSecurityCheck, browserSecurityCheck } = require("./ninja.misc.js");
+const { getQueryString } = require("./ninja.misc.js");
 const { ev } = require("./misc.js");
 
 let i, a, x;
-
-// change language
-if (getQueryString()["culture"]) {
-  translator.translate(getQueryString()["culture"]);
-} else {
-  translator.autodetectTranslation();
-}
-if (getQueryString()["showseedpool"] === "true" || getQueryString()["showseedpool"] === "1") {
-  document.getElementById("seedpoolarea").style.display = "block";
-}
-// change currency
-const currency = (getQueryString()["currency"] || "bitcoin").toLowerCase();
-for (i = 0; i < janin().currencies.length; i++) {
-  if (janin().currencies[i].name.toLowerCase() === currency) janin().useCurrency(i);
-}
-// Reset title if no currency is choosen
-if (!getQueryString()["currency"]) {
-  document.title = translator.get("defaultTitle");
-  document.getElementById("siteTitle").alt = translator.get("defaultTitle");
-}
-// populate currency dropdown list
-const select = document.getElementById("currency");
-let options = "";
-for (i = 0; i < janin().currencies.length; i++) {
-  const curr = janin().currencies[i];
-  options += "<option value='" + i + "'";
-  if (curr.name === janin().name()) options += " selected='selected'";
-  options += ">" + curr.name + "</option>";
-}
-select.innerHTML = options;
-// populate supported currency list
-const supportedcurrencies = document.getElementById("supportedcurrencies");
-let currencieslist = "";
-let j = 0;
-for (i = 0; i < janin().currencies.length; i++) {
-  const curr = janin().currencies[i];
-  //if (!curr.donate) continue;
-  currencieslist += "<a href='?currency=" + curr.name;
-  if (getQueryString()["culture"]) currencieslist += "&culture=" + getQueryString()["culture"];
-  currencieslist += "'>" + curr.name + "</a> ";
-  j++;
-}
-supportedcurrencies.innerHTML = currencieslist;
-document.getElementById("supportedcurrenciescounter").innerHTML = j.toString() + " ";
-// populate donate list
-document.getElementById("donateqrcode").style.display = "none";
-const donatelist = document.getElementById("donatelist");
-let list = "<table>";
-for (i = 0; i < janin().currencies.length; i++) {
-  if (!janin().currencies[i].donate) continue;
-  list += "<tr id='currencydonatelink" + i + "'>";
-  list += "<td class='currencyNameColumn'>" + janin().currencies[i].name + "</td>";
-  list += "<td class='address'><a href='" + janin().currencies[i].name.toLowerCase() + ":" + janin().currencies[i].donate + "'>";
-  list += janin().currencies[i].donate + "</a></td></tr>";
-}
-list += "</table>";
-donatelist.innerHTML = list;
-for (i = 0; i < janin().currencies.length; i++) {
-  if (!janin().currencies[i].donate) continue;
-  ev("tr#currencydonatelink" + i, "mouseover", function() {
-    require("./ninja.donatetab.js").displayQrCode(21, this);
-  });
-}
 
 // Extract i18n
 if (getQueryString()["i18nextract"]) {
@@ -110,6 +47,3 @@ function cleani18n(string) {
     .replace(/\s*\n+\s*/g, "\\n") // replace new line
     .replace(/"/g, '\\"');
 }
-
-envSecurityCheck();
-browserSecurityCheck();

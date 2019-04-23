@@ -7,7 +7,7 @@ import janin from "../janin.currency";
 import bitcoin from "bitcoinjs-lib";
 import bigi from "bigi";
 
-module.exports = class PaperWallet extends React.Component {
+module.exports = class DetailWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
