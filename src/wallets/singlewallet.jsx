@@ -37,60 +37,62 @@ export default class SingleWallet extends React.Component {
   }
 
   render() {
-    <div id="singlearea" class="walletarea">
-      <div id="walletCommands" class="commands">
-        <div id="singlecommands" class="row">
-          <span>
-            <input type="button" id="newaddress" value="Generate New Address" onClick={this.newAddress} />
-          </span>
-          <span>
-            <AddressTypeDrop coin={this.props.coin} mode={this.state.publicMode} onChange={this.pubModeChange} />
-          </span>
-          <span class="print">
-            <input type="button" name="print" value="Print" id="singleprint" onClick={window.print} />
-          </span>
-        </div>
-      </div>
-      <div id="keyarea" class="keyarea">
-        <div class="public">
-          <div class="pubaddress">
-            <span class="label i18n" id="singlelabelbitcoinaddress">
-              Public Address
+    return (
+      <div id="singlearea" class="walletarea">
+        <div id="walletCommands" class="commands">
+          <div id="singlecommands" class="row">
+            <span>
+              <input type="button" id="newaddress" value="Generate New Address" onClick={this.newAddress} />
             </span>
-          </div>
-          <div id="qrcode_public" class="qrcode_public">
-            {this.state.public && <QRCode value={this.state.public} size={4} />}
-          </div>
-          <div class="pubaddress">
-            <span class="output" id="btcaddress">
-              {this.state.public}
+            <span>
+              <AddressTypeDrop coin={this.props.coin} mode={this.state.publicMode} onChange={this.pubModeChange} />
             </span>
-          </div>
-          <div id="singleshare" class="i18n">
-            SHARE
+            <span class="print">
+              <input type="button" name="print" value="Print" id="singleprint" onClick={window.print} />
+            </span>
           </div>
         </div>
-        <div class="private">
-          <div class="privwif">
-            <span class="label i18n" id="singlelabelprivatekey">
-              Private Key (Wallet Import Format)
-            </span>
+        <div id="keyarea" class="keyarea">
+          <div class="public">
+            <div class="pubaddress">
+              <span class="label i18n" id="singlelabelbitcoinaddress">
+                Public Address
+              </span>
+            </div>
+            <div id="qrcode_public" class="qrcode_public">
+              {this.state.public && <QRCode value={this.state.public} size={4} />}
+            </div>
+            <div class="pubaddress">
+              <span class="output" id="btcaddress">
+                {this.state.public}
+              </span>
+            </div>
+            <div id="singleshare" class="i18n">
+              SHARE
+            </div>
           </div>
-          <div id="qrcode_private" class="qrcode_private">
-            {this.state.private && <QRCode value={this.state.private} size={4} />}
-          </div>
-          <div class="privwif">
-            <span class="output" id="btcprivwif">
-              {this.state.private}
-            </span>
-          </div>
-          <div id="singlesecret" class="i18n">
-            SECRET
+          <div class="private">
+            <div class="privwif">
+              <span class="label i18n" id="singlelabelprivatekey">
+                Private Key (Wallet Import Format)
+              </span>
+            </div>
+            <div id="qrcode_private" class="qrcode_private">
+              {this.state.private && <QRCode value={this.state.private} size={4} />}
+            </div>
+            <div class="privwif">
+              <span class="output" id="btcprivwif">
+                {this.state.private}
+              </span>
+            </div>
+            <div id="singlesecret" class="i18n">
+              SECRET
+            </div>
           </div>
         </div>
-      </div>
 
-      <SingleSafety />
-    </div>;
+        <SingleSafety />
+      </div>
+    );
   }
 }

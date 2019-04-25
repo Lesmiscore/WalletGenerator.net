@@ -57,23 +57,23 @@ export default class Root extends React.Component {
         <Banner />
         <CurrencyDl />
 
-        <div class="menu" id="menu">
-          <div class={`tab i18n ${this.state.wallet === 0 ? "selected" : ""}`} onClick={() => this.selectWallet(0)} id="singlewallet">
+        <div className="menu" id="menu">
+          <div className={`tab i18n ${this.state.wallet === 0 ? "selected" : ""}`} onClick={() => this.selectWallet(0)} id="singlewallet">
             Single Wallet
           </div>
-          <div class={`tab i18n ${this.state.wallet === 1 ? "selected" : ""}`} onClick={() => this.selectWallet(1)} id="paperwallet">
+          <div className={`tab i18n ${this.state.wallet === 1 ? "selected" : ""}`} onClick={() => this.selectWallet(1)} id="paperwallet">
             Paper Wallet
           </div>
-          <div class={`tab i18n ${this.state.wallet === 2 ? "selected" : ""}`} onClick={() => this.selectWallet(2)} id="bulkwallet">
+          <div className={`tab i18n ${this.state.wallet === 2 ? "selected" : ""}`} onClick={() => this.selectWallet(2)} id="bulkwallet">
             Bulk Wallet
           </div>
-          <div class={`tab i18n ${this.state.wallet === 3 ? "selected" : ""}`} onClick={() => this.selectWallet(3)} id="brainwallet">
+          <div className={`tab i18n ${this.state.wallet === 3 ? "selected" : ""}`} onClick={() => this.selectWallet(3)} id="brainwallet">
             Brain Wallet
           </div>
-          <div class={`tab i18n ${this.state.wallet === 4 ? "selected" : ""}`} onClick={() => this.selectWallet(4)} id="detailwallet">
+          <div className={`tab i18n ${this.state.wallet === 4 ? "selected" : ""}`} onClick={() => this.selectWallet(4)} id="detailwallet">
             Wallet Details
           </div>
-          <div class={`tab i18n ${this.state.wallet === 5 ? "selected" : ""}`} onClick={() => this.selectWallet(5)} id="donate">
+          <div className={`tab i18n ${this.state.wallet === 5 ? "selected" : ""}`} onClick={() => this.selectWallet(5)} id="donate">
             Support
           </div>
         </div>

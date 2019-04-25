@@ -17,9 +17,13 @@ export default class CurrencyDrop extends React.Component {
   render() {
     let options = [];
     let num = 0;
-    for (let curr of currencies.length) {
+    for (let curr of currencies) {
       //options.push(React.createElement("option", Object.assign({ value: `${i}` }, curr.name === janin.name() ? { selected: "selected" } : {}), curr.name));
-      options.push(<option value={num}>{curr.name}</option>);
+      options.push(
+        <option value={num} key={num}>
+          {curr.name}
+        </option>
+      );
       num++;
     }
     return (

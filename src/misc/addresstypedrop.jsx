@@ -23,7 +23,11 @@ export default class AddressTypeDrop extends React.Component {
     let options = [];
     let num = 0;
     for (let curr of this.getCoin().getAddressFormatNames()) {
-      options.push(<option value={num}>{curr.name}</option>);
+      options.push(
+        <option value={num} key={num}>
+          {curr.name}
+        </option>
+      );
       num++;
     }
     return (

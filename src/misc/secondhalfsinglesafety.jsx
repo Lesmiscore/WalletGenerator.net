@@ -18,24 +18,28 @@ export default class SecondHalfSingleSafety extends React.Component {
     switch (window.location.protocol) {
       case "http:":
       case "https:":
-        return <span style="color: #990000;">{get("securitychecklistofflineNOK")}</span>;
+        return <span style={{ color: "#990000" }}>{get("securitychecklistofflineNOK")}</span>;
       default:
-        return <span style="color: #009900;">{get("securitychecklistofflineOK")}</span>;
+        return <span style={{ color: "#009900" }}>{get("securitychecklistofflineOK")}</span>;
     }
   }
 
   browserSecurityCheck() {
     if (window.crypto && window.crypto.getRandomValues) {
-      return <span style="color: #009900;">{get("securitychecklistrandomOK")}</span>;
+      return <span style={{ color: "#009900" }}>{get("securitychecklistrandomOK")}</span>;
     } else {
-      return <span style="color: #990000;">{get("securitychecklistrandomNOK")}</span>;
+      return <span style={{ color: "#990000" }}>{get("securitychecklistrandomNOK")}</span>;
     }
   }
 
   buildCurrenciesList() {
     const components = [];
     for (let curr of currencies) {
-      components.push(<a href={"?currency=" + curr.name + (query["culture"] ? "&culture=" + query["culture"] : "")}>{curr.name}</a>);
+      components.push(
+        <a key={curr.name} href={"?currency=" + curr.name + (query["culture"] ? "&culture=" + query["culture"] : "")}>
+          {curr.name}
+        </a>
+      );
     }
     return components;
   }
