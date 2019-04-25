@@ -1,7 +1,7 @@
-const zcash = require("bitcoinjs-lib-zcash");
-const Bitcoin = require("./bitcoin").default;
+import zcash from "bitcoinjs-lib-zcash";
+import Bitcoin from "./bitcoin";
 
-module.exports = class Zcash extends Bitcoin {
+export default class Zcash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
     super(name, networkVersion, privateKeyPrefix, donate);
     this.world = zcash;
@@ -18,4 +18,4 @@ module.exports = class Zcash extends Bitcoin {
   getAddressTitleNames() {
     return ["Public Address Compressed", "Public Address"];
   }
-};
+}

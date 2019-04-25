@@ -9,7 +9,7 @@ const base58 = require("base58");
 const bnjs = require("bn.js");
 const aes = require("browserify-aes");
 
-const janin = require("./janin.currency.js");
+const janin = require("./janin.currency.js").default;
 const translator = require("./ninja.translator.js");
 
 const isPrivateKey = function(key) {
@@ -159,7 +159,7 @@ const makeRandom = function(opts) {
   return janin.selectedCurrency.makeRandom(opts);
 };
 
-module.exports = {
+export default {
   isPrivateKey,
   decodePrivateKey,
   getAddressWith,

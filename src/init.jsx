@@ -1,7 +1,10 @@
-const { onload } = require("./misc.js");
-const { render } = require("react-dom");
+import { onload } from "./misc.js";
+import { render } from "react-dom";
+import Root from "./root.jsx";
 
 onload(() => {
-  require("./ninja.onload.js");
+  try {
+    require("./ninja.onload.js");
+  } catch (e) {}
   render(<Root />, document.getElementsByTagName("body"));
 });

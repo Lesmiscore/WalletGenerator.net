@@ -1,12 +1,12 @@
-const bitcoin = require("bitcoinjs-lib");
-const wif = require("wif");
-const bigi = require("bigi");
-const elliptic = require("elliptic");
-const translator = require("../ninja.translator.js");
-const Coin = require("./coin");
+import bitcoin, { crypto, script } from "bitcoinjs-lib";
+import { decode } from "wif";
+import { fromByteArrayUnsigned, fromHex } from "bigi";
+import { curves } from "elliptic";
+import { get } from "../ninja.translator.js";
+import Coin from "./coin.jsx";
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
-module.exports = class Bitcoin extends Coin {
+export default class Bitcoin extends Coin {
   constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp) {
     super(name, donate);
     this.world = bitcoin;
@@ -39,21 +39,21 @@ module.exports = class Bitcoin extends Coin {
   isPrivateKey(key) {
     try {
       // WIF/CWIF
-      wif.decode(key);
+      decode(key);
       return true;
     } catch (e) {}
     // Hex/Base64
     const testValue = function(buffer) {
       if (buffer.length !== 32) return false;
-      const n = bigi.fromByteArrayUnsigned(elliptic.curves.secp256k1.curve.n.toArray());
-      const scalar = bigi.fromByteArrayUnsigned(buffer);
+      const n = fromByteArrayUnsigned(curves.secp256k1.curve.n.toArray());
+      const scalar = fromByteArrayUnsigned(buffer);
       return n.compareTo(scalar) > 0;
     };
     if (testValue(Buffer.from(key, "hex"))) return true;
     if (testValue(Buffer.from(key, "base64"))) return true;
     // Mini key
     if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
-      const sha256 = bitcoin.crypto.sha256(key + "?");
+      const sha256 = crypto.sha256(key + "?");
       if (sha256[0] === 0x00) {
         return true;
       }
@@ -74,7 +74,7 @@ module.exports = class Bitcoin extends Coin {
       try {
         const hex = Buffer.from(key, enc).toString("hex");
         if (hex.length === 64) {
-          return this.create(bigi.fromHex(hex), null, {
+          return this.create(fromHex(hex), null, {
             compressed: true
           });
         }
@@ -85,8 +85,8 @@ module.exports = class Bitcoin extends Coin {
     const base64 = tryBy("base64");
     if (base64) return base64;
     if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
-      const sha256 = bitcoin.crypto.sha256(key).toString("hex");
-      return this.create(bigi.fromHex(sha256), null, {
+      const sha256 = crypto.sha256(key).toString("hex");
+      return this.create(fromHex(sha256), null, {
         compressed: true
       });
     }
@@ -107,15 +107,15 @@ module.exports = class Bitcoin extends Coin {
         case 2: // segwit
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
-            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
-            return this.world.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
+            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(crypto.hash160(pubKeyCompressed));
+            return this.world.address.toBech32(script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
           }
           return this.getAddressWith(btcKey, 0);
         case 3: // segwit (p2sh)
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
-            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
-            const scriptPubKey = bitcoin.crypto.hash160(redeemScript);
+            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(crypto.hash160(pubKeyCompressed));
+            const scriptPubKey = crypto.hash160(redeemScript);
             return this.world.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
           }
           return this.getAddressWith(btcKey, 0);
@@ -220,7 +220,7 @@ module.exports = class Bitcoin extends Coin {
         <div class='${keyelement}' id='${keyelement}${i}'></div>
         <div class='paperWalletText'>
           <img class='backLogo' src='${coinImgUrl}' alt='currency_logo' />
-          ${translator.get("paperwalletback")}
+          ${get("paperwalletback")}
         </div>
       </div>
     `;
@@ -236,4 +236,4 @@ module.exports = class Bitcoin extends Coin {
   havePrivateKey(btcKey) {
     return !!btcKey.d;
   }
-};
+}

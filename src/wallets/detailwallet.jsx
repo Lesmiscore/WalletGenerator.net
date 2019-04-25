@@ -1,13 +1,14 @@
 import React from "react";
+import QRCode from "../misc/qrcode.jsx";
+
 import privateKey from "../ninja.privatekey";
 import _ from "lodash";
-import QRCode from "../misc/qrcode";
-import translator from "../ninja.translator";
-import janin from "../janin.currency";
+import { get } from "../ninja.translator";
+import { currencies } from "../janin.currency";
 import bitcoin from "bitcoinjs-lib";
 import bigi from "bigi";
 
-module.exports = class DetailWallet extends React.Component {
+export default class DetailWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +29,7 @@ module.exports = class DetailWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.props.coin];
+    return currencies[this.props.coin];
   }
 
   onWifChange(event) {
@@ -55,7 +56,7 @@ module.exports = class DetailWallet extends React.Component {
       }
       const passphrase = this.state.passphrase.replace(/^\s+|\s+$/g, ""); // trim white space
       if (!passphrase) {
-        alert(translator.get("bip38alertpassphraserequired"));
+        alert(get("bip38alertpassphraserequired"));
         return;
       }
       // show Private Key BIP38 Format
@@ -73,7 +74,7 @@ module.exports = class DetailWallet extends React.Component {
         // enforce a minimum passphrase length
         if (key.length >= minPassphraseLength) {
           // Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
-          const usePassphrase = confirm(translator.get("detailconfirmsha256"));
+          const usePassphrase = confirm(get("detailconfirmsha256"));
           if (usePassphrase) {
             const bytes = bitcoin.crypto.sha256(key);
             btcKey = coin.create(bigi.fromBuffer(bytes), null);
@@ -81,7 +82,7 @@ module.exports = class DetailWallet extends React.Component {
             this.clear();
           }
         } else {
-          alert(translator.get("detailalertnotvalidprivatekey"));
+          alert(get("detailalertnotvalidprivatekey"));
           this.clear();
         }
       } else {
@@ -370,4 +371,4 @@ module.exports = class DetailWallet extends React.Component {
       </div>
     );
   }
-};
+}

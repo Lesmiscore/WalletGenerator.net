@@ -1,9 +1,9 @@
-const translator = require("../ninja.translator.js");
-const nem = require("nem-sdk").default;
-const randomBytes = require("randombytes");
-const Coin = require("./coin");
+import { get } from "../ninja.translator.js";
+import nem from "nem-sdk";
+import randomBytes from "randombytes";
+import Coin from "./coin.jsx";
 
-module.exports = class NEM extends Coin {
+export default class NEM extends Coin {
   constructor(name, donate, network) {
     super(name, donate);
     this.network = network || nem.model.network.data.mainnet.id;
@@ -91,7 +91,7 @@ module.exports = class NEM extends Coin {
         <div class='${keyelement}' id='${keyelement}${i}'></div>
         <div class='paperWalletText'>
           <img class='backLogo' src='${coinImgUrl}' alt='currency_logo' />
-          ${translator.get("paperwalletback")}
+          ${get("paperwalletback")}
         </div>
       </div>
     `;
@@ -107,8 +107,8 @@ module.exports = class NEM extends Coin {
   havePrivateKey(key) {
     return true;
   }
-};
+}
 
-module.exports.mainnet = nem.model.network.data.mainnet.id;
-module.exports.testnet = nem.model.network.data.testnet.id;
-module.exports.mijin = nem.model.network.data.mijin.id;
+export const mainnet = nem.model.network.data.mainnet.id;
+export const testnet = nem.model.network.data.testnet.id;
+export const mijin = nem.model.network.data.mijin.id;

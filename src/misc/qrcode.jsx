@@ -2,7 +2,7 @@ import React from "react";
 import { getTypeNumber } from "../ninja.qrcode";
 import QRCode from "../qrcode.js";
 
-module.exports = class QRCodeComponent extends React.Component {
+export default class QRCodeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = { canvasSize: 0 };
@@ -42,4 +42,4 @@ module.exports = class QRCodeComponent extends React.Component {
       }
     }
   }
-};
+}

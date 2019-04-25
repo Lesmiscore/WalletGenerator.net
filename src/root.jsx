@@ -1,28 +1,28 @@
 import React from "react";
-import janin from "./janin.currency";
-import { getQueryString, envSecurityCheck, browserSecurityCheck } from "./ninja.misc.js";
+import { findCoinIndex } from "./janin.currency.js";
+import { getQueryString } from "./ninja.misc.js";
 
-import CultureMenu from "./static/culturemenu";
-import Banner from "./static/banner";
-import CurrencyDl from "./misc/currencyddl";
+import CultureMenu from "./misc/culturemenu.jsx";
+import Banner from "./static/banner.jsx";
+import CurrencyDl from "./misc/currencyddl.jsx";
 
-import SingleWallet from "./wallets/singlewallet";
-import PaperWallet from "./wallets/paperwallet";
-import BulkWallet from "./wallets/bulkwallet";
-import BrainWallet from "./wallets/brainwallet";
-import DetailWallet from "./wallets/detailwallet";
-import Donate from "./wallets/donate";
+import SingleWallet from "./wallets/singlewallet.jsx";
+import PaperWallet from "./wallets/paperwallet.jsx";
+import BulkWallet from "./wallets/bulkwallet.jsx";
+import BrainWallet from "./wallets/brainwallet.jsx";
+import DetailWallet from "./wallets/detailwallet.jsx";
+import Donate from "./wallets/donate.jsx";
 
-import Footer from "./static/footer";
+import Footer from "./static/footer.jsx";
 
 const query = getQueryString();
 
-module.exports = class Root extends React.Component {
+export default class Root extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       wallet: 0,
-      coin: janin.findCoinIndex(query["currency"] || "bitcoin"),
+      coin: findCoinIndex(query["currency"] || "bitcoin"),
       culture: query["culture"] || "en"
     };
     this.selectWallet = this.selectWallet.bind(this);
@@ -53,7 +53,7 @@ module.exports = class Root extends React.Component {
   render() {
     return (
       <div id="main">
-        <CultureMenu culture={this.state.currency} onChange={this.changeCulture} />
+        <CultureMenu culture={this.state.culture} onChange={this.changeCulture} />
         <Banner />
         <CurrencyDl />
 
@@ -84,4 +84,4 @@ module.exports = class Root extends React.Component {
       </div>
     );
   }
-};
+}

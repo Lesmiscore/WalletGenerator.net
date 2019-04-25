@@ -1,11 +1,11 @@
 import React from "react";
 import bitcoin from "bitcoinjs-lib";
-import janin from "../janin.currency";
-import QRCode from "../misc/qrcode";
+import { currencies } from "../janin.currency";
+import QRCode from "../misc/qrcode.jsx";
 import bigi from "bigi";
-import translator from "../ninja.translator";
+import { get } from "../ninja.translator";
 
-module.exports = class BrainWallet extends React.Component {
+export default class BrainWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ module.exports = class BrainWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.props.coin];
+    return currencies[this.props.coin];
   }
 
   onBrainPassphraseChange(event) {
@@ -52,11 +52,11 @@ module.exports = class BrainWallet extends React.Component {
         const privWif = coin.getWIFForAddress(btcKey);
         this.setState({ address: bitcoinAddress, wif: privWif });
       } else {
-        this.setState({ error: translator.get("brainalertpassphrasetooshort") });
+        this.setState({ error: get("brainalertpassphrasetooshort") });
         this.clear();
       }
     } else {
-      this.setState({ error: translator.get("brainalertpassphrasedoesnotmatch") });
+      this.setState({ error: get("brainalertpassphrasedoesnotmatch") });
       this.clear();
     }
   }
@@ -145,4 +145,4 @@ module.exports = class BrainWallet extends React.Component {
       </div>
     );
   }
-};
+}

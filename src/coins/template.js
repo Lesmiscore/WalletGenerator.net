@@ -1,7 +1,7 @@
 // DO NOT EDIT WHEN YOU ADD A NEW COIN
-const Coin = require("./coin");
+import Coin from "./coin.jsx";
 
-module.exports = class Bitcoin extends Coin {
+export default class Bitcoin extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }
@@ -36,4 +36,4 @@ module.exports = class Bitcoin extends Coin {
   getPublicKey(key, compressed) {}
   getPrivateKeyBuffer(key) {}
   havePrivateKey(key) {}
-};
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-module.exports = () => {
+export default () => {
   return (
     <div class="banner">
       <div id="coinLogo">

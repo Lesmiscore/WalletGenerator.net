@@ -1,8 +1,8 @@
-const Bitcoin = require("./bitcoin").default;
-const bitcoin = require("bitcoinjs-lib");
-const bchaddrjs = require("bchaddrjs");
+import Bitcoin from "./bitcoin";
+import { ECPair } from "bitcoinjs-lib";
+import { toCashAddress } from "bchaddrjs";
 
-module.exports = class BitcoinCash extends Bitcoin {
+export default class BitcoinCash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
     super(name, networkVersion, privateKeyPrefix, donate);
   }
@@ -14,16 +14,16 @@ module.exports = class BitcoinCash extends Bitcoin {
       switch (mode || 0) {
         case 0: // compressed
           btcKey.compressed = true;
-          return bitcoin.ECPair.prototype.getAddress.call(btcKey);
+          return ECPair.prototype.getAddress.call(btcKey);
         case 1: // uncompressed
           btcKey.compressed = false;
-          return bitcoin.ECPair.prototype.getAddress.call(btcKey);
+          return ECPair.prototype.getAddress.call(btcKey);
         case 2: // cashaddr (compressed)
           legacy = this.getAddressWith(btcKey, 0);
-          return bchaddrjs.toCashAddress(legacy).split(":")[1];
+          return toCashAddress(legacy).split(":")[1];
         case 3: // cashaddr (uncompressed)
           legacy = this.getAddressWith(btcKey, 1);
-          return bchaddrjs.toCashAddress(legacy).split(":")[1];
+          return toCashAddress(legacy).split(":")[1];
       }
       return this.getAddressWith(btcKey, 0);
     } finally {
@@ -67,4 +67,4 @@ module.exports = class BitcoinCash extends Bitcoin {
       "CashAddress (Uncompressed)"
     ];
   }
-};
+}

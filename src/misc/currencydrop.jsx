@@ -1,8 +1,8 @@
 import React from "react";
-import janin from "../janin.currency";
+import { currencies } from "../janin.currency";
 import { invoke } from "../misc";
 
-module.exports = class CurrencyDrop extends React.Component {
+export default class CurrencyDrop extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: this.props.coin };
@@ -17,7 +17,7 @@ module.exports = class CurrencyDrop extends React.Component {
   render() {
     let options = [];
     let num = 0;
-    for (let curr of janin.currencies.length) {
+    for (let curr of currencies.length) {
       //options.push(React.createElement("option", Object.assign({ value: `${i}` }, curr.name === janin.name() ? { selected: "selected" } : {}), curr.name));
       options.push(<option value={num}>{curr.name}</option>);
       num++;
@@ -28,4 +28,4 @@ module.exports = class CurrencyDrop extends React.Component {
       </select>
     );
   }
-};
+}

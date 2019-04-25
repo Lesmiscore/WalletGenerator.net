@@ -1,8 +1,9 @@
 import React from "react";
-import AddressTypeDrop from "../misc/addresstypedrop";
-import janin from "../janin.currency";
+import AddressTypeDrop from "../misc/addresstypedrop.jsx";
+import { currencies } from "../janin.currency";
+import { invoke } from "../misc";
 
-module.exports = class PaperWallet extends React.Component {
+export default class PaperWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +22,7 @@ module.exports = class PaperWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.props.coin];
+    return currencies[this.props.coin];
   }
 
   onBip38CheckChange(event) {
@@ -36,13 +37,14 @@ module.exports = class PaperWallet extends React.Component {
   pubModeChange(publicMode) {
     this.setState({ publicMode });
   }
-  randomlyGenerate(count) {
+  randomlyGenerate(count, callback) {
     const coin = this.getCoin();
     const keys = [];
     for (let i = 0; i < count; i++) {
       keys.push(coin.getWIFForAddress(coin.makeRandom(), this.state.publicMode));
     }
     this.setState({ keys });
+    setImmediate(() => invoke(callback));
   }
   useSuppliedPrivateKey() {
     this.setState({ keys: [this.state.suppliedPrivateKey] });
@@ -83,7 +85,7 @@ module.exports = class PaperWallet extends React.Component {
             <input type="button" id="papergenerate" value="Apply &raquo;" onClick={this.useSuppliedPrivateKey} />
             <span class="print">
               <input type="button" name="print" value="Print" id="paperprint" onClick={window.print} />
-              <input type="button" name="printmany" value="Print Many" id="singleprint" onClick={() => this.randomlyGenerate(10)} />
+              <input type="button" name="printmany" value="Print Many" id="singleprint" onClick={() => this.randomlyGenerate(10, window.print)} />
             </span>
           </div>
         </div>
@@ -91,4 +93,4 @@ module.exports = class PaperWallet extends React.Component {
       </div>
     );
   }
-};
+}

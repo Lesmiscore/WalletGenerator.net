@@ -1,9 +1,9 @@
 import React from "react";
-import AddressTypeDrop from "../misc/addresstypedrop";
-import translator from "../ninja.translator";
-import janin from "../janin.currency";
+import AddressTypeDrop from "../misc/addresstypedrop.jsx";
+import { get } from "../ninja.translator";
+import { currencies } from "../janin.currency";
 
-module.exports = class BulkWallet extends React.Component {
+export default class BulkWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,7 @@ module.exports = class BulkWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.props.coin];
+    return currencies[this.props.coin];
   }
 
   pubModeChange(bulkPublicMode) {
@@ -46,7 +46,7 @@ module.exports = class BulkWallet extends React.Component {
 
         lines.push(csvRowLimit - csvRowsRemaining + csvStartIndex + ',"' + coin.getAddressWith(key, publicMode) + '","' + coin.getWIFForAddress(key, publicMode) + '"');
 
-        const csv = translator.get("bulkgeneratingaddresses") + csvRowsRemaining;
+        const csv = get("bulkgeneratingaddresses") + csvRowsRemaining;
         this.setState({ csv });
 
         // release thread to browser to render UI
@@ -103,4 +103,4 @@ module.exports = class BulkWallet extends React.Component {
       </div>
     );
   }
-};
+}

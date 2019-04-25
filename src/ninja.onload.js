@@ -1,9 +1,7 @@
-const translator = require("./ninja.translator.js");
-const janin = require("./lazy/janin.currency.js");
-const { getQueryString } = require("./ninja.misc.js");
-const { ev } = require("./misc.js");
+import { translations, staticID } from "./ninja.translator.js";
+import { getQueryString } from "./ninja.misc.js";
 
-let i, a, x;
+let a, x;
 
 // Extract i18n
 if (getQueryString()["i18nextract"]) {
@@ -22,15 +20,15 @@ if (getQueryString()["i18nextract"]) {
   for (x = 0; x < a.length; x++) {
     i18n += "\t";
     i18n += '"' + a[x].id + '": "';
-    if (translator.translations[culture] && translator.translations[culture][a[x].id]) i18n += cleani18n(translator.translations[culture][a[x].id]);
+    if (translations[culture] && translations[culture][a[x].id]) i18n += cleani18n(translations[culture][a[x].id]);
     else i18n += "(ENGLISH)" + cleani18n(a[x].innerHTML);
     i18n += '",\n';
   }
-  for (x = 0; x < translator.staticID.length; x++) {
+  for (x = 0; x < staticID.length; x++) {
     i18n += "\t";
-    i18n += '"' + translator.staticID[x] + '": "';
-    if (translator.translations[culture] && translator.translations[culture][translator.staticID[x]]) i18n += cleani18n(translator.translations[culture][translator.staticID[x]]);
-    else i18n += "(ENGLISH)" + cleani18n(translator.translations["en"][translator.staticID[x]]);
+    i18n += '"' + staticID[x] + '": "';
+    if (translations[culture] && translations[culture][staticID[x]]) i18n += cleani18n(translations[culture][staticID[x]]);
+    else i18n += "(ENGLISH)" + cleani18n(translations["en"][staticID[x]]);
     i18n += '",\n';
   }
 

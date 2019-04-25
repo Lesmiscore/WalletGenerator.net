@@ -1,8 +1,8 @@
 import React from "react";
-import janin from "../janin.currency";
+import { currencies } from "../janin.currency";
 import { invoke } from "../misc";
 
-module.exports = class AddressTypeDrop extends React.Component {
+export default class AddressTypeDrop extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: props.mode, coin: props.coin };
@@ -16,7 +16,7 @@ module.exports = class AddressTypeDrop extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.state.coin];
+    return currencies[this.state.coin];
   }
 
   render() {
@@ -32,4 +32,4 @@ module.exports = class AddressTypeDrop extends React.Component {
       </select>
     );
   }
-};
+}

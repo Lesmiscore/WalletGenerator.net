@@ -1,1 +1,1 @@
-module.exports = require("./var")(() => require("../janin.currency.js"));
+export default require("./var").default(() => require("../janin.currency.js").default);

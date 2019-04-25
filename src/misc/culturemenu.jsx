@@ -1,7 +1,7 @@
 import React from "react";
 import { invoke } from "../misc";
 
-module.exports = class CultureMenu extends React.Component {
+export default class CultureMenu extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -93,4 +93,4 @@ module.exports = class CultureMenu extends React.Component {
       </div>
     );
   }
-};
+}

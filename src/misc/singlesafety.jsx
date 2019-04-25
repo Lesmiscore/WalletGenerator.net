@@ -1,9 +1,9 @@
 import React from "react";
-import FirstHalfSingleSafety from "../static/firsthalfsinglesafety";
-import SecondHalfSingleSafety from "./secondhalfsinglesafety";
-import FAQ from "./faq";
+import FirstHalfSingleSafety from "../static/firsthalfsinglesafety.jsx";
+import SecondHalfSingleSafety from "./secondhalfsinglesafety.jsx";
+import FAQ from "./faq.jsx";
 
-module.exports = class SingleSafety extends React.Component {
+export default class SingleSafety extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,4 +16,4 @@ module.exports = class SingleSafety extends React.Component {
       </div>
     );
   }
-};
+}

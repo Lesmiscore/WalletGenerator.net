@@ -1,141 +1,9 @@
-const translator = require("./ninja.translator.js");
-const Doge = require("./doge.js");
-const _ = require("lodash");
-
-const Bitcoin = require("./coins/bitcoin").default;
-const Zcash = require("./coins/zcash");
-const BitcoinCash = require("./coins/bitcoincash");
-const Ethereum = require("./coins/ethereum");
-const NEM = require("./coins/nem");
-const Ripple = require("./coins/ripple");
-
-let selectedCurrency, doge;
-
-const name = function() {
-  return selectedCurrency.name;
-};
-
-// Switch currency
-const useCurrency = function(index) {
-  selectedCurrency = currencies[index];
-  const lowerCurrency = name().toLowerCase();
-
-  const singlewallet = require("./ninja.singlewallet.js");
-  const paperwallet = require("./ninja.paperwallet.js");
-  const brainwallet = require("./ninja.brainwallet.js");
-
-  const coinImgUrl = selectedCurrency.getCoinImageUrl();
-  document.getElementById("coinLogoImg").src = coinImgUrl;
-
-  // Update title depending on currency
-  document.title = name() + " " + translator.get("title");
-  document.getElementById("siteTitle").alt = name() + " " + translator.get("title");
-
-  // Update i18n link
-  document.getElementById("cultureen").href = "?culture=en&currency=" + lowerCurrency;
-  document.getElementById("culturefr").href = "?culture=fr&currency=" + lowerCurrency;
-  document.getElementById("culturede").href = "?culture=de&currency=" + lowerCurrency;
-  document.getElementById("culturenl").href = "?culture=nl&currency=" + lowerCurrency;
-  document.getElementById("culturept").href = "?culture=pt&currency=" + lowerCurrency;
-  document.getElementById("cultureru").href = "?culture=ru&currency=" + lowerCurrency;
-  document.getElementById("culturees").href = "?culture=es&currency=" + lowerCurrency;
-  document.getElementById("cultureua").href = "?culture=ua&currency=" + lowerCurrency;
-  document.getElementById("culturetr").href = "?culture=tr&currency=" + lowerCurrency;
-  document.getElementById("cultureit").href = "?culture=it&currency=" + lowerCurrency;
-  document.getElementById("culturepl").href = "?culture=pl&currency=" + lowerCurrency;
-  document.getElementById("culturezh").href = "?culture=zh&currency=" + lowerCurrency;
-
-  if (require("./ninja.seeder.js").isDone()) {
-    // Regenerate a new wallet when not expensive
-    singlewallet.generateNewAddressAndKey();
-    paperwallet.build(document.getElementById("paperpassphrase").value);
-    brainwallet.view();
-  }
-
-  // Reset wallet tab when expensive or not applicable
-  document.getElementById("bulktextarea").value = "";
-  document.getElementById("suppliedPrivateKey").value = "";
-
-  // make a table and dropdown from currency instance
-  let publicQrTable = "";
-  let chunkId = 0;
-  for (let [first, second] of _.chunk(selectedCurrency.getAddressTitleNames(), 2)) {
-    publicQrTable += `<tr id="pubqr${chunkId}" class="pubqr">`;
-    const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
-    publicQrTable += `
-<td class="item">
-  <span class="label" id="label${firstStripped}">${first}</span>
-  <div id="detailqrcode${firstStripped}" class="qrcode_public left"></div>
-  <span class="output" id="detailaddress${firstStripped}"></span>
-</td>
-`;
-    if (second) {
-      const secondStripped = second.toLowerCase().replace(/[^a-z0-9]/g, "");
-      publicQrTable += `
-<td class="item right">
-  <span class="label" id="label${secondStripped}">${second}</span>
-  <div id="detailqrcode${secondStripped}" class="qrcode_public right"></div>
-  <span class="output" id="detailaddress${secondStripped}"></span>
-</td>
-`;
-    }
-    publicQrTable += "</tr>";
-    chunkId++;
-  }
-  document.getElementById("pubaddress").innerHTML = publicQrTable;
-
-  let privateQrTable = "";
-  chunkId = 0;
-  for (let [first, second] of _.chunk(selectedCurrency.getWIFTitleNames(), 2)) {
-    privateQrTable += `<tr id="privqr${chunkId}" class="privqr">`;
-    const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
-    privateQrTable += `
-<td class="item">
-  <span class="label" id="label${firstStripped}">${first}</span>
-  <div id="detailqrcode${firstStripped}" class="qrcode_private left"></div>
-  <span class="output" id="detailaddress${firstStripped}"></span>
-</td>
-`;
-    if (second) {
-      const secondStripped = second.toLowerCase().replace(/[^a-z0-9]/g, "");
-      privateQrTable += `
-<td class="item right">
-  <span class="label" id="label${secondStripped}">${second}</span>
-  <div id="detailqrcode${secondStripped}" class="qrcode_private right"></div>
-  <span class="output" id="detailaddress${secondStripped}"></span>
-</td>
-`;
-    }
-    privateQrTable += "</tr>";
-    chunkId++;
-  }
-  document.getElementById("privaddress").innerHTML = privateQrTable;
-
-  const formatNames = selectedCurrency.getAddressFormatNames();
-  let addrTypeDropdown = "";
-  for (let i in formatNames) {
-    if ({}.hasOwnProperty.call(formatNames, i)) {
-      if (!+i) {
-        // i == 0
-        addrTypeDropdown += `<option value="0" selected>${formatNames[i]}</option>`;
-      } else {
-        addrTypeDropdown += `<option value="${i}">${formatNames[i]}</option>`;
-      }
-    }
-  }
-  document.getElementById("addresstype").innerHTML = addrTypeDropdown;
-  document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
-  paperwallet.publicMode = 0;
-  singlewallet.publicMode = 0;
-
-  // easter egg doge ;)
-  if (name() === "Dogecoin") {
-    doge = new Doge(["wow", "so paper wallet", "such random", "very pretty", "much design", "awesome", "much crypto", "such coin", "wow!!", "to da moon"]);
-  } else if (doge) {
-    doge.stop();
-    doge = null;
-  }
-};
+import Bitcoin from "./coins/bitcoin";
+import Zcash from "./coins/zcash";
+import BitcoinCash from "./coins/bitcoincash";
+import Ethereum from "./coins/ethereum";
+import NEM, { mainnet, testnet } from "./coins/nem";
+import Ripple from "./coins/ripple";
 
 let currencies = [
   //          name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp
@@ -276,7 +144,7 @@ let currencies = [
   new Bitcoin("Navcoin", 0x35, 0x96, "NP2wVKjiT1PbpkFMCfkSxR7QsV3iezf4T6"),
   new Bitcoin("NeedleCoin", 0x35, 0xb5, "NYtEDYHNabMqiad5J2tEPFwE9wnhJQpN1W"),
   new Bitcoin("NEETCOIN", 0x35, 0xb5, "NgTALUftFyFk8osvqo5TryBkeNYKvGBssp"),
-  new NEM("NEM", null, NEM.mainnet),
+  new NEM("NEM", null, mainnet),
   new Bitcoin("Neoscoin", 0x35, 0xb1, "NZw6WJPiKYcXxua1VveieihiNJRYanHjrP"),
   new Bitcoin("Nevacoin", 0x35, 0xb1, "NQDJrKGP3TNhKhKzaHMdg1Wk9FWCT4Nx3q"),
   new Bitcoin("Novacoin", 0x08, 0x88, "4EZMrEA5LnmwtcK5b2JfCq9k5YS4ZVZrtT"),
@@ -361,7 +229,7 @@ let currencies = [
   new Bitcoin("Testnet Dogecoin", 0x71, 0xf1, null),
   new Bitcoin("Testnet Monacoin", 111, 239, null, 196, "tmona"),
   new Bitcoin("Testnet MonetaryUnit", 0x26, 0x40, null),
-  new NEM("Testnet NEM", null, NEM.testnet),
+  new NEM("Testnet NEM", null, testnet),
   new Bitcoin("Testnet PIVX", 0x8b, 0xef, null),
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, null)
 ];
@@ -370,16 +238,4 @@ const findCoinIndex = function(_name) {
   return currencies.map(a => a.name.toLowerCase()).indexOf(_name.toLowerCase());
 };
 
-module.exports = {
-  name,
-  useCurrency,
-  currencies,
-  findCoinIndex
-};
-
-Object.defineProperty(module.exports, "selectedCurrency", {
-  get: () => selectedCurrency,
-  set: useCurrency,
-  enumerable: true,
-  configurable: true
-});
+export { currencies, findCoinIndex };

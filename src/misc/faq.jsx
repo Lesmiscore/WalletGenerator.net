@@ -1,6 +1,6 @@
 import React from "react";
 
-module.exports = class FAQ extends React.Component {
+export default class FAQ extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -178,4 +178,4 @@ module.exports = class FAQ extends React.Component {
   toggleDisplay(num) {
     this.setState(s => ({ [`faqDisplay${num}`]: !s[`faqDisplay${num}`] }));
   }
-};
+}

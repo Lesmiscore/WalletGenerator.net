@@ -1,1 +1,1 @@
-module.exports = require("./var")(() => require("../ninja.donatetab.js"));
+export default require("./var").default(() => require("../ninja.donatetab.js"));

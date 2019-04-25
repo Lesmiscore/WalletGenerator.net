@@ -1,6 +1,6 @@
 import { get } from "../ninja.translator.js";
 import React from "react";
-import QRCode from "../misc/qrcode";
+import QRCode from "../misc/qrcode.jsx";
 
 export default class Coin {
   constructor(name, donate) {

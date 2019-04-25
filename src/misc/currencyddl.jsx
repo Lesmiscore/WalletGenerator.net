@@ -1,7 +1,7 @@
 import React from "react";
-import CurrencyDrop from "./currencydrop";
+import CurrencyDrop from "./currencydrop.jsx";
 
-module.exports = class CurrencyDdl extends React.Component {
+export default class CurrencyDdl extends React.Component {
   constructor(props) {
     super(props);
     this.state = { coin: this.props.coin };
@@ -17,4 +17,4 @@ module.exports = class CurrencyDdl extends React.Component {
       </div>
     );
   }
-};
+}

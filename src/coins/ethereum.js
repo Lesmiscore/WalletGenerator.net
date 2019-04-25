@@ -1,20 +1,20 @@
-const ethWallet = require("ethereumjs-wallet");
-const translator = require("../ninja.translator.js");
-const Coin = require("./coin");
+import { fromPrivateKey, fromPublicKey, generate } from "ethereumjs-wallet";
+import { get } from "../ninja.translator.js";
+import Coin from "./coin.jsx";
 
-module.exports = class Ethereum extends Coin {
+export default class Ethereum extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }
 
   create(d, Q, opts) {
     if (d) {
-      return ethWallet.fromPrivateKey(d.toBuffer());
+      return fromPrivateKey(d.toBuffer());
     }
-    return ethWallet.fromPublicKey(Q, true);
+    return fromPublicKey(Q, true);
   }
   makeRandom(opts) {
-    return ethWallet.generate();
+    return generate();
   }
 
   isPrivateKey(key) {
@@ -30,7 +30,7 @@ module.exports = class Ethereum extends Coin {
     if (key.startsWith("0x")) {
       key = key.slice(2);
     }
-    return ethWallet.fromPrivateKey(Buffer.from(key, "hex"));
+    return fromPrivateKey(Buffer.from(key, "hex"));
   }
 
   // correspond to getAddressFormatNames, getAddressTitleNames
@@ -85,7 +85,7 @@ module.exports = class Ethereum extends Coin {
         <div class='${keyelement}' id='${keyelement}${i}'></div>
         <div class='paperWalletText'>
           <img class='backLogo' src='${coinImgUrl}' alt='currency_logo' />
-          ${translator.get("paperwalletback")}
+          ${get("paperwalletback")}
         </div>
       </div>
     `;
@@ -101,4 +101,4 @@ module.exports = class Ethereum extends Coin {
   havePrivateKey(key) {
     return !!key.getPrivateKey();
   }
-};
+}

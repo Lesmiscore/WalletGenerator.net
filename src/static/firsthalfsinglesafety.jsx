@@ -1,6 +1,6 @@
 import React from "react";
 
-module.exports = () => {
+export default () => {
   return (
     <div class="firstHalfSingleSafety">
       <h3 id="securitystep0title" class="i18n">

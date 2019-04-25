@@ -1,27 +1,26 @@
-const translator = require("../ninja.translator.js");
-const keypairs = require("ripple-keypairs");
-const Coin = require("./coin");
+import { generateSeed, deriveKeypair, deriveAddress } from "ripple-keypairs";
+import Coin from "./coin.jsx";
 
-const elliptic = require("elliptic");
-const Ed25519 = elliptic.eddsa("ed25519");
-const Secp256k1 = elliptic.ec("secp256k1");
+import { eddsa, ec } from "elliptic";
+const Ed25519 = eddsa("ed25519");
+const Secp256k1 = ec("secp256k1");
 
-module.exports = class Ripple extends Coin {
+export default class Ripple extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }
 
   create(d, Q, opts) {
-    const seed = keypairs.generateSeed({
+    const seed = generateSeed({
       entropy: d.toBuffer()
     });
-    const kp = keypairs.deriveKeypair(seed);
+    const kp = deriveKeypair(seed);
     kp.seed = seed;
     return kp;
   }
   makeRandom(opts) {
-    const seed = keypairs.generateSeed();
-    const kp = keypairs.deriveKeypair(seed);
+    const seed = generateSeed();
+    const kp = deriveKeypair(seed);
     kp.seed = seed;
     return kp;
   }
@@ -29,7 +28,7 @@ module.exports = class Ripple extends Coin {
   isPrivateKey(key) {
     try {
       // seed
-      keypairs.deriveKeypair(key);
+      deriveKeypair(key);
       return true;
     } catch (e) {}
     key = `${key}`.toLowerCase();
@@ -42,7 +41,7 @@ module.exports = class Ripple extends Coin {
   decodePrivateKey(key) {
     try {
       // seed
-      const kp = keypairs.deriveKeypair(key);
+      const kp = deriveKeypair(key);
       kp.seed = key;
       return kp;
     } catch (e) {}
@@ -60,7 +59,7 @@ module.exports = class Ripple extends Coin {
   getAddressWith(key, mode) {
     switch (mode) {
       default:
-        return keypairs.deriveAddress(key.publicKey);
+        return deriveAddress(key.publicKey);
     }
   }
 
@@ -119,4 +118,4 @@ module.exports = class Ripple extends Coin {
       ).toString("hex");
     }
   }
-};
+}

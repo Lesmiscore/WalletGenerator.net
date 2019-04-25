@@ -1,10 +1,10 @@
 import React from "react";
-import SingleSafety from "../misc/singlesafety";
-import AddressTypeDrop from "../misc/addresstypedrop";
-import QRCode from "../misc/qrcode";
-import janin from "../janin.currency";
+import SingleSafety from "../misc/singlesafety.jsx";
+import AddressTypeDrop from "../misc/addresstypedrop.jsx";
+import QRCode from "../misc/qrcode.jsx";
+import { currencies } from "../janin.currency";
 
-module.exports = class SingleWallet extends React.Component {
+export default class SingleWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ module.exports = class SingleWallet extends React.Component {
   }
 
   getCoin() {
-    return janin.currencies[this.props.coin];
+    return currencies[this.props.coin];
   }
 
   newAddress() {
@@ -93,4 +93,4 @@ module.exports = class SingleWallet extends React.Component {
       <SingleSafety />
     </div>;
   }
-};
+}

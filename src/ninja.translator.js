@@ -73,8 +73,4 @@ const translations = {
   zh: require("../l10n/zh.js")
 };
 
-module.exports = {
-  autodetectTranslation,
-  translate,
-  get
-};
+export { autodetectTranslation, translate, get, translations, staticID };

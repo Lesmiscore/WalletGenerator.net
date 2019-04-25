@@ -1,9 +1,9 @@
 import React from "react";
-import ChangeLog from "../static/changelog";
-import QRCode from "../misc/qrcode";
-import janin from "../janin.currency";
+import ChangeLog from "../static/changelog.jsx";
+import QRCode from "../misc/qrcode.jsx";
+import { currencies } from "../janin.currency";
 
-module.exports = class Donate extends React.Component {
+export default class Donate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,11 +13,9 @@ module.exports = class Donate extends React.Component {
     this.displayQrCode = this.displayQrCode.bind(this);
   }
   displayQrCode(currencyid, e) {
-    const currencies = janin.currencies;
     this.setState({ qrcode: `${currencies[currencyid].name.toLowerCase()}:${currencies[currencyid].donate}`, qrcodeOffsetTop: e.offsetTop + 15 });
   }
   makeDonateList() {
-    const currencies = janin.currencies;
     const list = [];
     for (let i = 0; i < currencies.length; i++) {
       if (!currencies[i].donate) continue;
@@ -55,4 +53,4 @@ module.exports = class Donate extends React.Component {
       </div>
     );
   }
-};
+}

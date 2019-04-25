@@ -103,9 +103,4 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
   }
 };
 
-module.exports = {
-  getTypeNumber,
-  createCanvas,
-  createTableHtml,
-  showQrCode
-};
+export { getTypeNumber, createCanvas, createTableHtml, showQrCode };
