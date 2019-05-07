@@ -2,7 +2,7 @@
 .less { background: url("./images/minus.png") no-repeat left center; width: 17px; height: 17px; display: inline-block; float: right; }
 a { position: relative; z-index: 20; text-decoration: none; color: #d58424; }
 .right { text-align: right; }
-.walletarea { display: none; border: 1px solid #BFBFBF; background-color: white; }
+.walletarea { display: block; border: 1px solid #BFBFBF; background-color: white; }
 hr { margin: 20px 0; border-top: 1px dashed #008000; }
 .keyarea { height: 110px; text-align: left; position: relative; padding: 25px 25px 10px; }
 .keyarea .public { float: left; }
@@ -23,8 +23,8 @@ body { font-family: Arial; background-image: url('images/diamonds.png'); height:
 .faq { border: 0; border-top: 1px solid #BFBFBF; }
 
 #initBanner { position: relative; text-align: left; padding: 15px; background-color: white; border-bottom: 1px solid #bfbfbf; }
-#walletCommands { display: none; }
-#keyarea { display: none; }
+#walletCommands { display: block; }
+#keyarea { display: block; }
 
 #faqZone { text-align: left; padding: 10px 30px 30px 30px; }
 .faqQuestion { margin-left: 15px; }
@@ -33,9 +33,6 @@ body { font-family: Arial; background-image: url('images/diamonds.png'); height:
 .faqLink { cursor: pointer; }
 
 #btcaddress, #btcprivwif, #detailaddress, #detailaddresscomp, #detailprivwif, #detailprivwifcomp { font-family: monospace; font-size: 1.25em; }
-#seedpoolarea { display: none; }
-#seedpooldisplay {  font-family: monospace; font-size: 1em; width: 640px; padding: 15px 5px; word-wrap: break-word; min-height: 98px; }
-.seedpoint { width: 6px; height: 6px; display: block; border-radius: 3px; background-color: #80CF80; position: absolute; z-index: 10; }
 
 #seedSkipper { font-size: 11px; text-align: center; line-height: 14px;}
 #skipMessage { margin-top: 8px; }
@@ -157,7 +154,7 @@ h1 { margin: 0px; height: 91px; }
 
 .backLogo { float: right; width: 50px; height: 50px; }
 
-#paperarea { min-height: 120px; display: none; }
+#paperarea { min-height: 120px; }
 #paperarea .keyarea { border: 1px solid #BFBFBF; border-top: 0; }
 #paperarea .keyarea.art { display: block; height: auto; border: 0; font-family: Ubuntu, Arial; padding: 0; margin: 0; }
 #paperarea .artwallet .papersvg { width: 1004px; height: 426px; border: 0; margin: 0; padding: 0; left: 0; }
@@ -242,15 +239,15 @@ h1 { margin: 0px; height: 91px; }
 #detailarea [id^=detailqrcode].left { position: relative; float: left; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailarea [id^=detailqrcode].right { position: relative; float: right; margin: 0 10px 0 0; padding: 13px 11px 11px 11px; }
 #detailpubkey { width: 590px; }
-#detailbip38commands { display: none; padding-top: 5px; }
-#paperqrscanner { position: absolute; display: none; width: 100%; height: 100%; top: 0; left: 0; z-index: 5000; vertical-align: middle; }
+#detailbip38commands {  padding-top: 5px; }
+#paperqrscanner { position: absolute;  width: 100%; height: 100%; top: 0; left: 0; z-index: 5000; vertical-align: middle; }
 #paperqrscanner.show { display: block; }
 
 .englishjson { text-align: center; padding: 40px 0 20px 0; }
 .unittests { text-align: center; }
 .unittests div { width: 894px; font-family: monospace; text-align: left; margin: auto; padding: 5px; border: 1px solid black; }
-#testnet { display: none; background-color: Orange; color: #000000; border-radius: 5px; font-weight: bold; padding: 10px 0; margin: 0 auto 20px auto; }
-#busyblock { position: fixed; display: none; background: url("./images/busy.gif") #ccc no-repeat center; opacity: 0.4; width: 100%; height: 100%; top: 0; left: 0; z-index: 5000; }
+#testnet {  background-color: Orange; color: #000000; border-radius: 5px; font-weight: bold; padding: 10px 0; margin: 0 auto 20px auto; }
+#busyblock { position: fixed;  background: url("./images/busy.gif") #ccc no-repeat center; opacity: 0.4; width: 100%; height: 100%; top: 0; left: 0; z-index: 5000; }
 #busyblock.busy { display: block; }
 .hide { display: none; }
 .show { display: block; }
@@ -300,7 +297,6 @@ h1 { margin: 0px; height: 91px; }
   #braincommands .notes { font-size: 80%; display: block; padding: 5px 10px; }
   #brainpassphrase { width: 280px; }
   #brainpassphraseconfirm { width: 280px; }
-  #brainwarning {  }
   #detailcommands { padding: 10px 0; }
   #detailcommands span { padding: 0 10px; }
   #detailprivkey { width: 300px; }

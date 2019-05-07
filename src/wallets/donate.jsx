@@ -44,7 +44,7 @@ export default class Donate extends React.Component {
         </div>
         <div id="donatelist">{this.makeDonateList()}</div>
         {this.state.qrcode && (
-          <div id="donateqrcode" style={`top:${this.state.qrcodeOffsetTop};`}>
+          <div id="donateqrcode" style={{ top: this.state.qrcodeOffsetTop }}>
             <QRCode value={this.state.qrcode} size={4} />
           </div>
         )}

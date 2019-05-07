@@ -24,25 +24,25 @@ export default class Coin {
         const bitcoinAddress = self.getAddressWith(keyObj, this.state.mode);
         const privateKeyWif = self.getWIFForAddress(keyObj, this.state.mode);
         return [
-          <div class="coinIcon">
+          <div className="coinIcon">
             <img id="coinImg" src={coinImgUrl} alt="currency_logo" />
           </div>,
-          <div class="artwallet" id={`artwallet${i}`}>
-            <img id={`papersvg${i}`} class="papersvg" src={walletBackgroundUrl} />
-            <div id={`qrcode_public${i}`} class="qrcode_public">
+          <div className="artwallet" id={`artwallet${i}`}>
+            <img id={`papersvg${i}`} className="papersvg" src={walletBackgroundUrl} />
+            <div id={`qrcode_public${i}`} className="qrcode_public">
               <QRCode value={bitcoinAddress} size={3.5} />
             </div>
-            <div id={`qrcode_private${i}`} class="qrcode_private">
+            <div id={`qrcode_private${i}`} className="qrcode_private">
               <QRCode value={privateKeyWif} size={2.8} />
             </div>
-            <div class="btcaddress" id={`btcaddress${i}`}>
+            <div className="btcaddress" id={`btcaddress${i}`}>
               {bitcoinAddress}
             </div>
-            <div class={keyelement} id={`${keyelement}${i}`}>
+            <div className={keyelement} id={`${keyelement}${i}`}>
               {privateKeyWif}
             </div>
-            <div class="paperWalletText">
-              <img class="backLogo" src={coinImgUrl} alt="currency_logo" />
+            <div className="paperWalletText">
+              <img className="backLogo" src={coinImgUrl} alt="currency_logo" />
               {get("paperwalletback")}
             </div>
           </div>
