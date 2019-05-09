@@ -68,30 +68,6 @@ module.exports = class Ethereum extends Coin {
     return ["Private Key"];
   }
 
-  templateArtisticHtml(i) {
-    const keyelement = "btcprivwif";
-    const coinImgUrl = "logos/" + this.name.toLowerCase() + ".png";
-    const walletBackgroundUrl = "wallets/" + this.name.toLowerCase() + ".png";
-
-    const walletHtml = `
-      <div class='coinIcoin'>
-        <img id='coinImg' src='${coinImgUrl}' alt='currency_logo' />
-      </div>
-      <div class='artwallet' id='artwallet${i}'>
-        <img id='papersvg${i}' class='papersvg' src='${walletBackgroundUrl}' />
-        <div id='qrcode_public${i}' class='qrcode_public'></div>
-        <div id='qrcode_private${i}' class='qrcode_private'></div>
-        <div class='btcaddress' id='btcaddress${i}'></div>
-        <div class='${keyelement}' id='${keyelement}${i}'></div>
-        <div class='paperWalletText'>
-          <img class='backLogo' src='${coinImgUrl}' alt='currency_logo' />
-          ${translator.get("paperwalletback")}
-        </div>
-      </div>
-    `;
-    return walletHtml;
-  }
-
   getPublicKey(key, compressed) {
     return key.getPublicKey();
   }

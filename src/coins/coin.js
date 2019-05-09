@@ -1,4 +1,5 @@
 const translator = require("../ninja.translator.js");
+const coindex = require("../autogen/coindex");
 
 module.exports = class Coin {
   constructor(name, donate) {
@@ -31,9 +32,9 @@ module.exports = class Coin {
   }
 
   getWalletBackgroundUrl() {
-    return "wallets/" + this.name.toLowerCase() + ".png";
+    return coindex["wallets/" + this.name.toLowerCase()]();
   }
   getCoinImageUrl() {
-    return "logos/" + this.name.toLowerCase() + ".png";
+    return coindex["logos/" + this.name.toLowerCase()]();
   }
 };
