@@ -1,5 +1,11 @@
 const translator = require("../ninja.translator.js");
-const coindex = require("../autogen/coindex");
+const coindex = (() => {
+  try {
+    return require("../autogen/coindex");
+  } catch (error) {
+    return null;
+  }
+})();
 
 module.exports = class Coin {
   constructor(name, donate) {

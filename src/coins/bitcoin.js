@@ -2,7 +2,6 @@ const bitcoin = require("bitcoinjs-lib");
 const wif = require("wif");
 const bigi = require("bigi");
 const elliptic = require("elliptic");
-const translator = require("../ninja.translator.js");
 const Coin = require("./coin");
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
