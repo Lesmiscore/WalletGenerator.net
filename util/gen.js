@@ -2,6 +2,7 @@
 require("../tests/fakedocument");
 const fs = require("fs");
 
+fs.mkdirSync("./src/autogen/");
 (() => {
   // coindex
   let text = `
