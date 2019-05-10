@@ -1,61 +1,79 @@
-ninja.wallets.brainwallet = {
-	open: function () {
-		document.getElementById("brainarea").style.display = "block";
-		document.getElementById("brainpassphrase").focus();
-		document.getElementById("brainwarning").innerHTML = ninja.translator.get("brainalertpassphrasewarning");
-	},
+const translator = require("./ninja.translator.js");
+const privateKey = require("./ninja.privatekey.js");
+const qrCode = require("./ninja.qrcode.js");
+const bitcoin = require("bitcoinjs-lib");
+const bigi = require("bigi");
 
-	close: function () {
-		document.getElementById("brainarea").style.display = "none";
-	},
+const open = function() {
+  document.getElementById("brainarea").style.display = "block";
+  document.getElementById("brainpassphrase").focus();
+  document.getElementById("brainwarning").innerHTML = translator.get("brainalertpassphrasewarning");
+};
 
-	minPassphraseLength: 15,
+const close = function() {
+  document.getElementById("brainarea").style.display = "none";
+};
 
-	view: function () {
-		document.getElementById("brainerror").innerHTML = "";
+const minPassphraseLength = 15;
 
-		var key = document.getElementById("brainpassphrase").value.toString().replace(/^\s+|\s+$/g, ""); // trim white space
-		document.getElementById("brainpassphrase").value = key;
-		var keyConfirm = document.getElementById("brainpassphraseconfirm").value.toString().replace(/^\s+|\s+$/g, ""); // trim white space
-		document.getElementById("brainpassphraseconfirm").value = keyConfirm;
+const view = function() {
+  document.getElementById("brainerror").innerHTML = "";
 
-		if (key == keyConfirm || document.getElementById("brainpassphraseshow").checked) {
-			// enforce a minimum passphrase length
-			if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
-				var bytes = bitcoin.crypto.sha256(key);
-				var btcKey = ninja.ecpair.create(bigi.fromBuffer(bytes), null);
-				var bitcoinAddress = ninja.privateKey.getAddressWith(btcKey);
-				var privWif = ninja.privateKey.getWIFWith(btcKey);
-				document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
-				document.getElementById("brainbtcprivwif").innerHTML = privWif;
-				ninja.qrCode.showQrCode({
-					"brainqrcodepublic": bitcoinAddress,
-					"brainqrcodeprivate": privWif
-				});
-				document.getElementById("brainkeyarea").style.visibility = "visible";
-			} else {
-				document.getElementById("brainerror").innerHTML = ninja.translator.get("brainalertpassphrasetooshort");
-				ninja.wallets.brainwallet.clear();
-			}
-		} else {
-			document.getElementById("brainerror").innerHTML = ninja.translator.get("brainalertpassphrasedoesnotmatch");
-			ninja.wallets.brainwallet.clear();
-		}
-	},
+  const key = document
+    .getElementById("brainpassphrase")
+    .value.toString()
+    .replace(/^\s+|\s+$/g, ""); // trim white space
+  document.getElementById("brainpassphrase").value = key;
+  const keyConfirm = document
+    .getElementById("brainpassphraseconfirm")
+    .value.toString()
+    .replace(/^\s+|\s+$/g, ""); // trim white space
+  document.getElementById("brainpassphraseconfirm").value = keyConfirm;
 
-	clear: function () {
-		document.getElementById("brainkeyarea").style.visibility = "hidden";
-	},
+  if (key === keyConfirm || document.getElementById("brainpassphraseshow").checked) {
+    // enforce a minimum passphrase length
+    if (key.length >= minPassphraseLength) {
+      const bytes = bitcoin.crypto.sha256(key);
+      const btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
+      const bitcoinAddress = privateKey.getAddressWith(btcKey);
+      const privWif = privateKey.getWIFForAddress(btcKey);
+      document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
+      document.getElementById("brainbtcprivwif").innerHTML = privWif;
+      qrCode.showQrCode({
+        brainqrcodepublic: bitcoinAddress,
+        brainqrcodeprivate: privWif
+      });
+      document.getElementById("brainkeyarea").style.visibility = "visible";
+    } else {
+      document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasetooshort");
+      clear();
+    }
+  } else {
+    document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasedoesnotmatch");
+    clear();
+  }
+};
 
-	showToggle: function (element) {
-		if (element.checked) {
-			document.getElementById("brainpassphrase").setAttribute("type", "text");
-			document.getElementById("brainpassphraseconfirm").style.visibility = "hidden";
-			document.getElementById("brainlabelconfirm").style.visibility = "hidden";
-		} else {
-			document.getElementById("brainpassphrase").setAttribute("type", "password");
-			document.getElementById("brainpassphraseconfirm").style.visibility = "visible";
-			document.getElementById("brainlabelconfirm").style.visibility = "visible";
-		}
-	}
+const clear = function() {
+  document.getElementById("brainkeyarea").style.visibility = "hidden";
+};
+
+const showToggle = function(element) {
+  if (element.checked) {
+    document.getElementById("brainpassphrase").setAttribute("type", "text");
+    document.getElementById("brainpassphraseconfirm").style.visibility = "hidden";
+    document.getElementById("brainlabelconfirm").style.visibility = "hidden";
+  } else {
+    document.getElementById("brainpassphrase").setAttribute("type", "password");
+    document.getElementById("brainpassphraseconfirm").style.visibility = "visible";
+    document.getElementById("brainlabelconfirm").style.visibility = "visible";
+  }
+};
+
+module.exports = {
+  open,
+  close,
+  view,
+  clear,
+  showToggle
 };

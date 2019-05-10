@@ -54,19 +54,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   <title>WalletGenerator.net - Universal Paper wallet generator for Bitcoin and other cryptocurrencies</title>
 
-  <script type="text/javascript">
-    //exported.js;
-    //qrcode.js;
-    //jsqrcode.js;
-    //misc.js
-  </script>
-  <style type="text/css">
-    /*main.css*/
-  </style>
+  <script type="text/javascript" src="./main.js"></script>
 </head>
-<!-- onclick="SecureRandom.seedTime();" -->
 
-<body onmousemove="ninja.seeder.seed(event);">
+<body>
   <div id="busyblock"></div>
   <div id="main">
     <div id="culturemenu">
@@ -86,27 +77,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     <div class="banner">
       <div id="coinLogo">
-        <img id="coinLogoImg" src="logos/bitcoin.png" alt="Universal Open Source Client-Side Wallet Generator" />
+        <img id="coinLogoImg" alt="Universal Open Source Client-Side Wallet Generator" />
       </div>
       <h1>
-        <img id="siteTitle" src="images/banner.png" alt="Bitcoin Paper Wallet Generator" />
+        <img id="siteTitle" alt="Bitcoin Paper Wallet Generator" />
       </h1>
     </div>
 
     <div id="currencyddl" class="hide">
       <span id="choosecurrency" class="i18n">Choose currency</span> :
-      <select id="currency" onchange="janin.currency.useCurrency(this.selectedIndex);"></select>
+      <select id="currency"></select>
     </div>
 
     <div id="seedpoolarea"><textarea rows="16" cols="62" id="seedpool"></textarea></div>
 
     <div class="menu" id="menu">
-      <div class="tab i18n selected" id="singlewallet" onclick="ninja.tabSwitch(this);">Single Wallet</div>
-      <div class="tab i18n" id="paperwallet" onclick="ninja.tabSwitch(this);">Paper Wallet</div>
-      <div class="tab i18n" id="bulkwallet" onclick="ninja.tabSwitch(this);">Bulk Wallet</div>
-      <div class="tab i18n" id="brainwallet" onclick="ninja.tabSwitch(this);">Brain Wallet</div>
-      <div class="tab i18n" id="detailwallet" onclick="ninja.tabSwitch(this);">Wallet Details</div>
-      <div class="tab i18n" id="donate" onclick="ninja.tabSwitch(this);">Support</div>
+      <div class="tab i18n selected" id="singlewallet">Single Wallet</div>
+      <div class="tab i18n" id="paperwallet">Paper Wallet</div>
+      <div class="tab i18n" id="bulkwallet">Bulk Wallet</div>
+      <div class="tab i18n" id="brainwallet">Brain Wallet</div>
+      <div class="tab i18n" id="detailwallet">Wallet Details</div>
+      <div class="tab i18n" id="donate">Support</div>
     </div>
 
     <div id="wallets">
@@ -117,7 +108,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <span id="generatelabelmovemouse" class="i18n">MOVE your mouse around to add some extra randomness... </span><span
             id="mousemovelimit"></span><br />
           <span id="generatelabelkeypress" class="i18n">OR type some random characters into this textbox</span> <input
-            type="text" id="generatekeyinput" onkeypress="ninja.seeder.seedKeyPress(event);" /><br />
+            type="text" id="generatekeyinput" /><br />
           <div id="seedpooldisplay"></div>
 
           <div id="rightArea">
@@ -126,7 +117,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             </div>
 
             <div id="seedSkipper">
-              <a href="#" class="nicerButton 100pxwidth" onClick="ninja.seeder.seedCount = ninja.seeder.seedLimit; ninja.seeder.seed();">Skip
+              <a href="#" class="nicerButton 100pxwidth">Skip
                 &raquo;</a>
               <p id="skipMessage" class="i18n">You may skip this step if you do not plan to use the random key
                 generator.</p>
@@ -136,8 +127,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         <div id="walletCommands" class="commands">
           <div id="singlecommands" class="row">
-            <span><input type="button" id="newaddress" value="Generate New Address" onclick="ninja.wallets.singlewallet.generateNewAddressAndKey();" /></span>
-            <span class="print"><input type="button" name="print" value="Print" id="singleprint" onclick="window.print();" /></span>
+            <span><input type="button" id="newaddress" value="Generate New Address" /></span>
+            <span><select id="singleaddresstype"></select></span>
+            <span class="print"><input type="button" name="print" value="Print" id="singleprint" /></span>
           </div>
         </div>
         <div id="keyarea" class="keyarea">
@@ -186,7 +178,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <h3 id="securitystep3title" class="i18n">Step 3. Fold the Paper Wallet</h3>
             <p id="securitystep3" class="i18n">
               Fold your new Paper wallet following the lines.
-              <img src="images/foldinginstructions.png" alt="Fold in half lengthwise, and then in three widthwise." /><br />
+              <img id="foldingInstructions" alt="Fold in half lengthwise, and then in three widthwise." /><br />
               You can insert one side inside the other to lock the wallet.
             </p>
 
@@ -207,13 +199,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <h3 id="securitystep7title" class="i18n">Consider supporting us</h3>
             <p id="securitystep7" class="i18n">
               This service is free and will stay free, without advertising or tracking of any sort. Please consider <a
-                href="#" onclick="ninja.tabSwitch(document.getElementById('donate'));">making a donation</a> to support
+                href="#">making a donation</a> to support
               us and the people that add support for new currencies.
             </p>
 
           </div>
           <div class="secondHalfSingleSafety">
-            <img class="frontPageImage" src="images/overview.png" alt="Overview image of 4 paper wallet" />
+            <img id="frontPageImage" alt="Overview image of 4 paper wallet" />
 
             <div class="securityChecklist">
               <b id="securitychecktitle" class="i18n">Security Checklist :</b>
@@ -241,7 +233,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <div id="faqZone">
           <h2>Frequently asked questions :</h2>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion1');ninja.toggleFaqQuestion('faqQuestion1.1')">&#8226;
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink1">&#8226;
               Is it safe ?</a></h3>
           <p class="faqAnswer" id="faqQuestion1">
             We try to make it that way ! The core of the tool, that generate the keys is 99% the same as the well
@@ -258,7 +250,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             seen some nasty things when reviewing some wallet generator.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion2');">&#8226; Why
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink2">&#8226; Why
               should I use a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion2">
             Advantages of a paper wallet are multiple:<br /><br />
@@ -268,7 +260,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <span class="faqListBullet">&#8658;</span> You won't lose your coins when your device break
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion3');">&#8226; How to
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink3">&#8226; How to
               use a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion3">
             Once you have generated and printed a wallet, you can send coins to the public address, like for any
@@ -276,7 +268,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             Consider using BIP38 to secure your paper wallet with a password.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion4');">&#8226; How to
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink4">&#8226; How to
               spend the coins stored in a paper wallet ?</a></h3>
           <p class="faqAnswer" id="faqQuestion4">
             You will need to import your private key in a real client, that you can download from the currency website.
@@ -284,7 +276,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             fall back to the debug console and use the command “importprivkey [yourprivatekey]“.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; How
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink5">&#8226; How
               walletgenerator.net is different than another wallet generator ?</a></h3>
           <p class="faqAnswer" id="faqQuestion5">
             It’s not that different. You will find another design for the paper wallet and some improvements here and
@@ -292,9 +284,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             review it and check its safety.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion7');">&#8226; Can you
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink6">&#8226; Can you
               add support for cryptocurrency XYZ ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion7">
+          <p class="faqAnswer" id="faqQuestion6">
             Absolutely ! To help us do that, you can <a href="https://docs.google.com/forms/d/1nPIvukVWxlaveUPEUAEhGKwvEuwJiPSgs5zc5LhDVpk/viewform">fill
               this form</a>. But keep in mind that there is some currency that we cannot support. If the developers
             made some change in the address format, we won’t hack the crypto core of the project and take the risk to
@@ -303,40 +295,40 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
               How-To</a>
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion8');">&#8226; Why
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink7">&#8226; Why
               should I make a donation ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion8">
+          <p class="faqAnswer" id="faqQuestion7">
             Donations money are used to pay our hosting service provider, but it’ll also be used to make
             walletgenerator.net more secure as we plan to organize a CrowdCurity campain as soon as we get enough money
             to pay for it.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion9');">&#8226; I found
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink8">&#8226; I found
               a bug, what shall I do ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion9">
+          <p class="faqAnswer" id="faqQuestion8">
             You can report bugs using GitHub. You can also contact us using our Twitter account (<a href="http://twitter.com/WalletGenerator"
               target="_blank">@WalletGenerator</a>). Just try to explain clearly what is wrong and we will try to fix
             the bug as soon as possible.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion10');">&#8226; Who
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink9">&#8226; Who
               are you ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion10">
+          <p class="faqAnswer" id="faqQuestion9">
             We are just two random guy having fun with a side project.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion11');">&#8226; How
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink10">&#8226; How
               can I help ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion11">
+          <p class="faqAnswer" id="faqQuestion10">
             Donation are always welcome, but you can also help us translate the website. It's really easy. Just add
             "?i18nextract=LANGUAGECODE" in the end of the url (for instance http://walletgenerator.net/?i18nextract=es
             for Spanish). You will see at the end of the page a pre-filled javascript array ready to be translated.
             Translate or correct it, and send it to us the way you prefer. Even partial translation are helpful !
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion12');">&#8226;
+          <h3 class="faqQuestion"><a class="faqLink" id="faqLink11">&#8226;
               Private keys imported to Electrum (and its derivation) seemingly works but it's broken !</a></h3>
-          <p class="faqAnswer" id="faqQuestion12">
+          <p class="faqAnswer" id="faqQuestion11">
             This occurs if you're using uncompressed private key. (in WIF format) Electrum recognizes ALL private keys
             as it is compressed, so importing uncompressed ones breaks the wallet. Use "Wallet Details" tab to convert
             your private keys.
@@ -349,27 +341,21 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <div class="commands">
           <div id="papercommands" class="row">
             <span><label id="paperlabelencrypt" for="paperencrypt" class="i18n">BIP38 Encrypt?</label> <input type="checkbox"
-                id="paperencrypt" onchange="ninja.wallets.paperwallet.toggleEncrypt(this);" /></span>
+                id="paperencrypt" /></span>
             <span><label id="paperlabelBIPpassphrase" for="paperpassphrase" class="i18n">Passphrase:</label> <input
                 type="text" id="paperpassphrase" /></span>
-            <select id="addresstype" onchange="ninja.wallets.paperwallet.publicMode=this.selectedIndex;">
-              <option value="0" selected>Compressed</option>
-              <option value="1">Uncompressed</option>
-              <option value="2" id="selectsegwit">SegWit</option>
-              <option value="3" id="selectsegwitp2sh">SegWit (P2SH-wrapped)</option>
-              <option value="4" id="selectcashaddrcomp">CashAddress (Compressed)</option>
-              <option value="5" id="selectcashaddr">CashAddress (Uncompressed)</option>
+            <select id="addresstype">
             </select>
             <br />
-            <input type="button" id="papergenerate" value="Randomly generate" onclick="ninja.wallets.paperwallet.build(document.getElementById('paperpassphrase').value);" />
+            <input type="button" id="papergenerate" value="Randomly generate" />
             <span>OR</span>
             <input placeholder="Enter your own WIF private key" id="suppliedPrivateKey" name="suppliedPrivateKey"
               spellcheck="false" />&nbsp;
-            <input type="button" id="papergenerate" value="Apply &raquo;" onClick="ninja.wallets.paperwallet.testAndApplyVanityKey();" />
+            <input type="button" id="papergenerate" value="Apply &raquo;" />
 
             <span class="print">
-              <input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" />
-              <input type="button" name="printmany" value="Print Many" id="singleprint" onclick="printMany();" />
+              <input type="button" name="print" value="Print" id="paperprint" />
+              <input type="button" name="printmany" value="Print Many" id="singleprint" />
             </span>
           </div>
 
@@ -386,9 +372,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 type="text" id="bulklimit" value="3" /></span>
             <span><label id="bulklabelcompressed" for="bulkcompressed" class="i18n">Compressed addresses?</label>
               <input type="checkbox" id="bulkcompressed" /></span>
-            <span><input type="button" id="bulkgenerate" value="Generate" onclick="ninja.wallets.bulkwallet.buildCSV(document.getElementById('bulklimit').value * 1, document.getElementById('bulkstartindex').value * 1, document.getElementById('bulkcompressed').checked);" />
+            <span><input type="button" id="bulkgenerate" value="Generate" />
             </span>
-            <span class="print"><input type="button" name="print" id="bulkprint" value="Print" onclick="window.print();" /></span>
+            <span class="print"><input type="button" name="print" id="bulkprint" value="Print" /></span>
           </div>
         </div>
         <div class="body">
@@ -402,17 +388,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <div class="row">
             <span id="brainlabelenterpassphrase" class="label"><label id="brainlabelenterpassphraselbl" class="i18n"
                 for="brainpassphrase">Enter Passphrase: </label></span>
-            <input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
+            <input tabindex="1" type="password" id="brainpassphrase" value="" />
             <span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow"
-                onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
-            <span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
+                /></span>
+            <span class="print"><input type="button" name="print" id="brainprint" value="Print" /></span>
           </div>
           <div class="row extra">
             <span class="label" id="brainlabelconfirm"><label id="brainlabelconfirmlbl" class="i18n" for="brainpassphraseconfirm">Confirm
                 Passphrase: </label></span>
-            <input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();"
-              onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
-            <span><input tabindex="3" type="button" id="brainview" value="View" onclick="ninja.wallets.brainwallet.view();" /></span>
+            <input tabindex="2" type="password" id="brainpassphraseconfirm" value=""
+              />
+            <span><input tabindex="3" type="button" id="brainview" value="View" /></span>
             <span id="brainalgorithm" class="notes right i18n">Algorithm: SHA256(passphrase)</span>
           </div>
           <div class="row extra"><span id="brainwarning"></span></div>
@@ -445,14 +431,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
               <span class="qrcodeinputwrapper">
                 <input type="text" id="detailprivkey" value="" placeholder="Enter a private key, or click the QR icon to scan"
-                  autocomplete="off" onFocus="this.select();" onKeyPress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
-                <img onClick="ninja.wallets.detailwallet.qrscanner.start()" />
+                  autocomplete="off" />
+                <img />
               </span>
 
-              <input type="button" id="detailview" value="View Details" onclick="ninja.wallets.detailwallet.viewDetails();" />
+              <input type="button" id="detailview" value="View Details" />
             </span>
             <span class="print">
-              <input type="button" name="print" id="detailprint" value="Print" onclick="window.print();" />
+              <input type="button" name="print" id="detailprint" value="Print" />
             </span>
           </div>
 
@@ -468,13 +454,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
               </div>
               <div id="paperqrerror" class="redColor"></div>
               <div id="paperqroutput"></div>
-              <button onClick="ninja.wallets.detailwallet.qrscanner.stop()">Cancel</button>
+              <button>Cancel</button>
             </div>
           </div>
           <div id="detailbip38commands">
             <span><label id="detaillabelpassphrase" class="i18n">Enter BIP38 Passphrase</label> <input type="text" id="detailprivkeypassphrase"
-                value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" /></span>
-            <span><input type="button" id="detaildecrypt" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.viewDetails();" /></span>
+                value="" /></span>
+            <span><input type="button" id="detaildecrypt" value="Decrypt BIP38" /></span>
           </div>
         </div>
         <div id="detailkeyarea">
@@ -485,43 +471,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
               WIFC, HEX, B64).</span>
             <br /><br />
           </div>
-          <table class="pubaddress">
-            <tr class="pubqr">
-              <td class="item">
-                <span class="label i18n" id="detaillabelbitcoinaddress">Public Address</span>
-                <div id="detailqrcodepublic" class="qrcode_public"></div>
-                <span class="output" id="detailaddress"></span>
-              </td>
-              <td class="item right">
-                <span class="label i18n" id="detaillabelbitcoinaddresscomp">Public Address Compressed</span>
-                <div id="detailqrcodepubliccomp" class="qrcode_public"></div>
-                <span class="output" id="detailaddresscomp"></span>
-              </td>
-            </tr>
-            <tr id="pubqrsw" class="pubqrsw">
-              <td class="item">
-                <span class="label i18n" id="detaillabelbitcoinaddresssegwit">SegWit Address</span>
-                <div id="detailqrcodesegwit" class="qrcode_public"></div>
-                <span class="output" id="detailaddresssegwit"></span>
-              </td>
-              <td class="item right">
-                <span class="label i18n" id="detaillabelbitcoinaddresssegwitp2sh">SegWit (P2SH-wrapped) Address</span>
-                <div id="detailqrcodesegwitp2sh" class="qrcode_public"></div>
-                <span class="output" id="detailaddresssegwitp2sh"></span>
-              </td>
-            </tr>
-            <tr id="pubqrbch" class="pubqrbch">
-              <td class="item">
-                <span class="label i18n" id="detaillabelbitcoinaddressbch">CashAddress (Uncompressed)</span>
-                <div id="detailqrcodebch" class="qrcode_public"></div>
-                <span class="output" id="detailaddressbch"></span>
-              </td>
-              <td class="item right">
-                <span class="label i18n" id="detaillabelbitcoinaddressbchcomp">CashAddress (Compressed)</span>
-                <div id="detailqrcodebchcomp" class="qrcode_public"></div>
-                <span class="output" id="detailaddressbchcomp"></span>
-              </td>
-            </tr>
+          <table id="pubaddress" class="pubaddress">
           </table>
           <br /><br />
           <div class="item clear">
@@ -533,19 +483,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <span class="output" id="detailpubkeycomp"></span>
           </div>
           <hr />
-          <div class="privqr">
-            <div class="item">
-              <span class="label"><span id="detaillabelprivwif" class="i18n">Private Key WIF<br />51 characters Base58</span></span>
-              <div id="detailqrcodeprivate" class="qrcode_private"></div>
-              <span class="output" id="detailprivwif"></span>
-            </div>
-            <div class="item right">
-              <span class="label"><span id="detaillabelprivwifcomp" class="i18n">Private Key WIF Compressed<br />52
-                  characters Base58</span></span>
-              <div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
-              <span class="output" id="detailprivwifcomp"></span>
-            </div>
-          </div>
+          <table id="privaddress" class="privaddress">
+          </table>
           <br /><br />
           <div class="item clear">
             <span class="label i18n" id="detaillabelprivhex">Private Key Hexadecimal Format (64 characters [0-9A-F]):</span>
@@ -570,7 +509,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         </div>
         <div class="faqs">
           <div id="detailfaq1" class="faq">
-            <div id="detailq1" class="question" onclick="ninja.wallets.detailwallet.openCloseFaq(1);">
+            <div id="detailq1" class="question">
               <span id="detaillabelq1" class="i18n">How do I make a wallet using dice? What is B6?</span>
               <div id="detaile1" class="more"></div>
             </div>
@@ -597,6 +536,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <div id="changelog">
           <hr />
           <h3>Release notes</h3>
+          <p>
+            04.2019 --
+            <ul>
+              <li>Add support for Sugarchain.</li>
+            </ul>
+          </p>
+          <p>
+            03.2019 --
+            <ul>
+              <li>Add support for Ethereum.</li>
+              <li>Add support for NEM and its testnet.</li>
+              <li>Add support for Ripple.</li>
+            </ul>
+          </p>
           <p>
             12.2018 --
             <ul>
@@ -947,7 +900,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     <div id="footer" class="footer">
       <div>
-        <span class="item"><a id="footersupport" href="#" onclick="ninja.tabSwitch(document.getElementById('donate'));"
+        <span class="item"><a id="footersupport" href="#"
             class="i18n">Support WalletGenerator.net</a></span>
         <span class="item"><a href="https://github.com/nao20010128nao/WalletGenerator.net" target="_blank" id="footerlabelgithub"
             class="i18n">Download (GitHub Repository)</a></span>
@@ -959,22 +912,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    //doge.js;
-    //janin.currency.js;
-    //ninja.key.js;
-    //ninja.misc.js;
-    //ninja.translator.js;
-    //ninja.singlewallet.js;
-    //ninja.paperwallet.js;
-    //ninja.bulkwallet.js;
-    //ninja.brainwallet.js;
-    //ninja.detailwallet.js;
-    //ninja.donatetab.js;
-    //ninja.unittests.js;
-    //ninja.onload.js
-  </script>
 </body>
 
 </html>

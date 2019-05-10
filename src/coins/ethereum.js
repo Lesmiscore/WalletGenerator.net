@@ -1,0 +1,80 @@
+const ethWallet = require("ethereumjs-wallet");
+const translator = require("../ninja.translator.js");
+const Coin = require("./coin");
+
+module.exports = class Ethereum extends Coin {
+  constructor(name, donate) {
+    super(name, donate);
+  }
+
+  create(d, Q, opts) {
+    if (d) {
+      return ethWallet.fromPrivateKey(d.toBuffer());
+    }
+    return ethWallet.fromPublicKey(Q, true);
+  }
+  makeRandom(opts) {
+    return ethWallet.generate();
+  }
+
+  isPrivateKey(key) {
+    key = `${key}`.toLowerCase();
+    if (key.startsWith("0x")) {
+      key = key.slice(2);
+    }
+    return /^[0-9a-f]{64}$/.test(key);
+  }
+
+  decodePrivateKey(key) {
+    key = `${key}`.toLowerCase();
+    if (key.startsWith("0x")) {
+      key = key.slice(2);
+    }
+    return ethWallet.fromPrivateKey(Buffer.from(key, "hex"));
+  }
+
+  // correspond to getAddressFormatNames, getAddressTitleNames
+  getAddressWith(key, mode) {
+    switch (mode) {
+      default:
+        return key.getChecksumAddressString();
+    }
+  }
+
+  // correspond to getAddressFormatNames, getAddressTitleNames
+  getWIFForAddress(key, mode) {
+    switch (mode) {
+      default:
+        return "0x" + key.getPrivateKey().toString("hex");
+    }
+  }
+
+  // correspond to getWIFTitleNames
+  getWIFByType(key, mode) {
+    switch (mode) {
+      default:
+        return "0x" + key.getPrivateKey().toString("hex");
+    }
+  }
+
+  getAddressFormatNames() {
+    return ["Normal"];
+  }
+  getAddressTitleNames() {
+    return ["Public Address"];
+  }
+
+  getWIFTitleNames() {
+    return ["Private Key"];
+  }
+
+  getPublicKey(key, compressed) {
+    return key.getPublicKey();
+  }
+  getPrivateKeyBuffer(key) {
+    return key.getPrivateKey();
+  }
+  havePrivateKey(key) {
+    return !!key.getPrivateKey();
+  }
+};
