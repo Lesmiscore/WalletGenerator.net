@@ -7,7 +7,7 @@ const open = function() {
   if (document.getElementById("bulktextarea").value === "") {
     // return control of the thread to the browser to render the tab switch UI then build a default CSV list
     setTimeout(function() {
-      buildCSV(3, 1, document.getElementById("bulkcompressed").checked);
+      buildCSV(3, 1, document.getElementById("bulkcompressed").checked ? 0 : 1);
     }, 200);
   }
 };
@@ -21,15 +21,14 @@ const close = function() {
 // startIndex: add this number to the row index for output purposes
 // returns:
 // index,bitcoinAddress,privateKeyWif
-const buildCSV = function(rowLimit, startIndex, compressedAddrs) {
+const buildCSV = function(rowLimit, startIndex, mode) {
   //const bulkWallet = bulkwallet;
   document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + rowLimit;
   csv = [];
   csvRowLimit = rowLimit;
   csvRowsRemaining = rowLimit;
   csvStartIndex = --startIndex;
-  compressedAddrs = !!compressedAddrs;
-  setTimeout(batchCSV, 0);
+  setTimeout(batchCSV, 0, mode);
 };
 
 let csv = [];
@@ -37,19 +36,17 @@ let csvRowsRemaining = null; // use to keep track of how many rows are left to p
 let csvRowLimit = 0;
 let csvStartIndex = 0;
 
-const batchCSV = function(compressedAddrs) {
+const batchCSV = function(mode) {
   if (csvRowsRemaining > 0) {
     csvRowsRemaining--;
-    const key = privateKey.makeRandom({
-      compressed: compressedAddrs
-    });
+    const key = privateKey.makeRandom();
 
-    csv.push(csvRowLimit - csvRowsRemaining + csvStartIndex + ',"' + privateKey.getAddressWith(key) + '","' + privateKey.getWIFForAddress(key) + '"');
+    csv.push(csvRowLimit - csvRowsRemaining + csvStartIndex + ',"' + privateKey.getAddressWith(key, mode) + '","' + privateKey.getWIFForAddress(key, mode) + '"');
 
     document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + csvRowsRemaining;
 
     // release thread to browser to render UI
-    setTimeout(batchCSV, 0);
+    setTimeout(batchCSV, 0, mode);
   }
   // processing is finished so put CSV in text area
   else if (csvRowsRemaining === 0) {
