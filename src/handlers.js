@@ -96,6 +96,9 @@ ev("#addresstype", "change", function() {
 ev("#singleaddresstype", "change", function() {
   singlewallet.publicMode = this.selectedIndex;
 });
+ev("#bulkaddresstype", "change", function() {
+  bulkwallet.publicMode = this.selectedIndex;
+});
 
 ev("#papergenerate[value='Randomly generate']", "click", function() {
   paperwallet.build(document.getElementById("paperpassphrase").value);
@@ -114,7 +117,7 @@ ev("#singleprint", "click", function() {
 });
 
 ev("#bulkgenerate", "click", function() {
-  bulkwallet.buildCSV(document.getElementById("bulklimit").value * 1, document.getElementById("bulkstartindex").value * 1, document.getElementById("bulkcompressed").checked ? 0 : 1);
+  bulkwallet.buildCSV(document.getElementById("bulklimit").value * 1, document.getElementById("bulkstartindex").value * 1);
 });
 
 ev("#bulkprint", "click", function() {

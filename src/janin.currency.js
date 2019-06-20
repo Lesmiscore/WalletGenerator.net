@@ -23,6 +23,7 @@ const useCurrency = function(index) {
   const singlewallet = require("./ninja.singlewallet.js");
   const paperwallet = require("./ninja.paperwallet.js");
   const brainwallet = require("./ninja.brainwallet.js");
+  const bulkwallet = require("./ninja.bulkwallet.js");
 
   const coinImgUrl = selectedCurrency.getCoinImageUrl();
   document.getElementById("coinLogoImg").src = coinImgUrl;
@@ -125,8 +126,10 @@ const useCurrency = function(index) {
   }
   document.getElementById("addresstype").innerHTML = addrTypeDropdown;
   document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
+  document.getElementById("bulkaddresstype").innerHTML = addrTypeDropdown;
   paperwallet.publicMode = 0;
   singlewallet.publicMode = 0;
+  bulkwallet.publicMode = 0;
 
   // easter egg doge ;)
   if (name() === "Dogecoin") {
