@@ -1,6 +1,6 @@
 const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
-const _ = require("lodash");
+const _ = require("./lodash");
 
 const Bitcoin = require("./coins/bitcoin");
 const Zcash = require("./coins/zcash");

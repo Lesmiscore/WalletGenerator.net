@@ -16,7 +16,6 @@
     "grunt": "~0.4.1",
     "grunt-combine": "~0.8.3",
     "grunt-lineending": "~0.2.4",
-    "lodash": "^4.17.11",
     "minimatch": ">=3.0.2",
     "nem-sdk": "^1.6.7",
     "randombytes": "^2.0.6",
@@ -37,8 +36,8 @@
     "start": "npm run export",
     "export": "node ./util/gen ; rm -rf public ; webpack",
     "public": "npm run start ; cp src/index.html public/",
-    "lint": "cd src ; eslint ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/ lazy/ ../tests/",
-    "pret": "cd src ; prettier --print-width 200 --write ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js lazy/*.js ../tests/*.js ../util/*.js",
+    "lint": "cd src ; eslint ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/ lazy/ lodash/ ../tests/",
+    "pret": "cd src ; prettier --print-width 200 --write ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js lazy/*.js lodash/*.js ../tests/*.js ../util/*.js",
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
     "test": "mocha tests/"
