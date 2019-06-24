@@ -44,7 +44,10 @@ module.exports = class Coin {
     return coindex["logos/" + this.name.toLowerCase()]();
   }
 
-  isVanitygenPossible(pattern) {
+  isVanitygenPossible(pattern, mode) {
+    return false;
+  }
+  testVanitygenMatch(pattern, address, mode) {
     return false;
   }
 };

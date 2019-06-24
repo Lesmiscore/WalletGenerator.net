@@ -29,6 +29,7 @@ const generateNewAddressAndKey = function() {
       qrcode_private: privateKeyWif
     };
     qrCode.showQrCode(keyValuePair, 4);
+    return { address: bitcoinAddress, wif: privateKeyWif };
   } catch (e) {
     // browser does not have sufficient JavaScript support to generate a bitcoin address
     alert(e);
@@ -37,20 +38,41 @@ const generateNewAddressAndKey = function() {
     document.getElementById("btcprivwif").innerHTML = "error";
     document.getElementById("qrcode_public").innerHTML = "";
     document.getElementById("qrcode_private").innerHTML = "";
+    return { address: null, wif: null };
   }
 };
 
+let vanityJob = null;
+
 const startVanitygen = function(pattern) {
-  if (!privateKey.isVanitygenPossible(pattern)) {
+  if (!privateKey.isVanitygenPossible(pattern, publicMode)) {
     alert("Invalid pattern!");
     return;
   }
   document.getElementById("singlevanitygenstart").style.display = "none";
   document.getElementById("singlevanitygenstop").style.display = "";
+  document.getElementById("singlecommands").style.display = "none";
+  vanityJob = pattern;
+  setTimeout(() => {
+    function refresh() {
+      const job = vanityJob;
+      if (!job) {
+        return;
+      }
+      const { address } = generateNewAddressAndKey();
+      if (privateKey.testVanitygenMatch(pattern, address, publicMode)) {
+        stopVanitygen();
+      } else {
+        setTimeout(refresh, 100);
+      }
+    }
+  }, 0);
 };
 const stopVanitygen = function() {
-  document.getElementById("singlevanitygenstart").style.display = "none";
-  document.getElementById("singlevanitygenstop").style.display = "";
+  document.getElementById("singlevanitygenstart").style.display = "";
+  document.getElementById("singlevanitygenstop").style.display = "none";
+  document.getElementById("singlecommands").style.display = "";
+  vanityJob = null;
 };
 
 let publicMode = 0;
