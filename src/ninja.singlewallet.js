@@ -40,9 +40,28 @@ const generateNewAddressAndKey = function() {
   }
 };
 
+const startVanitygen = function(pattern) {
+  if (!privateKey.isVanitygenPossible(pattern)) {
+    alert("Invalid pattern!");
+    return;
+  }
+  document.getElementById("singlevanitygenstart").style.display = "none";
+  document.getElementById("singlevanitygenstop").style.display = "";
+};
+const stopVanitygen = function() {
+  document.getElementById("singlevanitygenstart").style.display = "none";
+  document.getElementById("singlevanitygenstop").style.display = "";
+};
+
 let publicMode = 0;
 
-module.exports = { open, close, generateNewAddressAndKey };
+module.exports = {
+  open,
+  close,
+  generateNewAddressAndKey,
+  startVanitygen,
+  stopVanitygen
+};
 
 Object.defineProperty(module.exports, "publicMode", {
   enumerable: true,

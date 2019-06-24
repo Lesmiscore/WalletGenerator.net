@@ -27,6 +27,9 @@ const getAddressWith = function(btcKey, mode) {
 const getWIFForAddress = function(btcKey, mode) {
   return janin.selectedCurrency.getWIFForAddress(btcKey, mode);
 };
+const isVanitygenPossible = function(p) {
+  return janin.selectedCurrency.isVanitygenPossible(p);
+};
 // 58 base58 characters starting with 6P
 const isBIP38Format = function(key) {
   key = key.toString();
@@ -170,5 +173,6 @@ module.exports = {
   BIP38GenerateIntermediatePointAsync,
   BIP38GenerateECAddressAsync,
   create,
-  makeRandom
+  makeRandom,
+  isVanitygenPossible
 };
