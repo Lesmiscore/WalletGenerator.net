@@ -18,4 +18,8 @@ module.exports = class Zcash extends Bitcoin {
   getAddressTitleNames() {
     return ["Public Address Compressed", "Public Address"];
   }
+
+  isVanitygenPossible(pattern, mode) {
+    return false;
+  }
 };

@@ -203,3 +203,11 @@ ev("#detailq1", "click", function() {
 ev("#footersupport", "click", function() {
   tabSwitch(document.getElementById("donate"));
 });
+
+ev("#singlevanitygenstart", "click", function() {
+  singlewallet.startVanitygen(document.getElementById("singlevanitygenpattern").value);
+});
+
+ev("#singlevanitygenstop", "click", function() {
+  singlewallet.stopVanitygen();
+});

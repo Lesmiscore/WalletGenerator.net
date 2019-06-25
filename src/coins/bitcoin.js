@@ -214,7 +214,8 @@ module.exports = class Bitcoin extends Coin {
   }
 
   isVanitygenPossible(pattern, mode) {
-    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$";
+    if (!pattern) return true;
+    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]*$";
     function testBase58(version) {
       const headRegex = constants.bitcoinB58Leading[version];
       const regex = new RegExp(`^${headRegex}${btcB58}`);

@@ -10,10 +10,13 @@ const open = function() {
   document.getElementById("currencyddl").style.display = "block";
   document.getElementById("singlearea").style.display = "block";
   document.getElementById("initBanner").style.display = "none";
+  document.getElementById("singlevanitygenstart").style.display = "inline";
+  document.getElementById("singlevanitygenstop").style.display = "none";
 };
 
 const close = function() {
   document.getElementById("singlearea").style.display = "none";
+  stopVanitygen();
 };
 
 // generate bitcoin address and private key and update information in the HTML
@@ -45,33 +48,41 @@ const generateNewAddressAndKey = function() {
 let vanityJob = null;
 
 const startVanitygen = function(pattern) {
+  if (typeof vanityJob == "string") {
+    return;
+  }
   if (!privateKey.isVanitygenPossible(pattern, publicMode)) {
-    alert("Invalid pattern!");
+    alert("Invalid or impossible pattern!");
     return;
   }
   document.getElementById("singlevanitygenstart").style.display = "none";
-  document.getElementById("singlevanitygenstop").style.display = "";
+  document.getElementById("singlevanitygenstop").style.display = "inline";
   document.getElementById("singlecommands").style.display = "none";
+  document.getElementById("singlevanitygenpattern").readOnly = true;
   vanityJob = pattern;
-  setTimeout(() => {
-    function refresh() {
-      const job = vanityJob;
-      if (!job) {
-        return;
-      }
-      const { address } = generateNewAddressAndKey();
-      if (privateKey.testVanitygenMatch(pattern, address, publicMode)) {
-        stopVanitygen();
-      } else {
-        setTimeout(refresh, 100);
-      }
+  const refresh = function() {
+    const job = vanityJob;
+    if (typeof job != "string") {
+      return;
     }
-  }, 0);
+    console.log(job);
+    const { address } = generateNewAddressAndKey();
+    if (privateKey.testVanitygenMatch(job, address, publicMode)) {
+      stopVanitygen();
+    } else {
+      setTimeout(refresh, 100);
+    }
+  };
+  refresh();
 };
 const stopVanitygen = function() {
-  document.getElementById("singlevanitygenstart").style.display = "";
+  if (typeof vanityJob != "string") {
+    return;
+  }
+  document.getElementById("singlevanitygenstart").style.display = "inline";
   document.getElementById("singlevanitygenstop").style.display = "none";
-  document.getElementById("singlecommands").style.display = "";
+  document.getElementById("singlecommands").style.display = "block";
+  document.getElementById("singlevanitygenpattern").readOnly = false;
   vanityJob = null;
 };
 
