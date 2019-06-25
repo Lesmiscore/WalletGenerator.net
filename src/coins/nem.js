@@ -1,4 +1,3 @@
-const translator = require("../ninja.translator.js");
 const nem = require("nem-sdk").default;
 const randomBytes = require("randombytes");
 const Coin = require("./coin");
@@ -82,6 +81,19 @@ module.exports = class NEM extends Coin {
   }
   havePrivateKey(key) {
     return true;
+  }
+
+  isVanitygenPossible(pattern, mode) {
+    if (!pattern) return true;
+    pattern = pattern.toUpperCase();
+    const prefix = nem.model.network.id2Char(this.network);
+    const regex = new RegExp(`^${prefix}[ABCDEFGHIJKLMNOPQRSTUVWXYZ234567]{0,39}$`);
+    return regex.test(pattern);
+  }
+  testVanitygenMatch(pattern, address, mode) {
+    pattern = pattern.toUpperCase();
+    address = address.toUpperCase();
+    return address.startsWith(pattern);
   }
 };
 

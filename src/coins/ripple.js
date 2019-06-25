@@ -1,4 +1,3 @@
-const translator = require("../ninja.translator.js");
 const keypairs = require("ripple-keypairs");
 const Coin = require("./coin");
 

@@ -1,5 +1,4 @@
 const ethWallet = require("ethereumjs-wallet");
-const translator = require("../ninja.translator.js");
 const Coin = require("./coin");
 
 module.exports = class Ethereum extends Coin {
