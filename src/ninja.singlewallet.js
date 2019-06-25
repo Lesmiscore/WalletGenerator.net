@@ -70,7 +70,7 @@ const startVanitygen = function(pattern) {
     if (privateKey.testVanitygenMatch(job, address, publicMode)) {
       stopVanitygen();
     } else {
-      setTimeout(refresh, 100);
+      setTimeout(refresh, 0);
     }
   };
   refresh();
