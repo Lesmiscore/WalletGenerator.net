@@ -215,14 +215,15 @@ module.exports = class Bitcoin extends Coin {
 
   isVanitygenPossible(pattern, mode) {
     if (!pattern) return true;
-    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]*$";
+    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";
     function testBase58(version) {
       const headRegex = constants.bitcoinB58Leading[version];
       const regex = new RegExp(`^${headRegex}${btcB58}`);
       return regex.test(pattern);
     }
+    const self = this;
     function testBech32() {
-      const regex = new RegExp(`^${this.network.bech32}1[${"abcdefghijklmnopqrstuvwxyz234567"}]{0,39}$`);
+      const regex = new RegExp(`^${self.network.bech32}(1(q([abcdefghijklmnopqrstuvwxyz234567]{0,38})?)?)?$`);
       return regex.test(pattern);
     }
     switch (mode || 0) {
