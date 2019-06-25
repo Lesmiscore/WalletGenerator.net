@@ -48,6 +48,6 @@ module.exports = class Coin {
     return false;
   }
   testVanitygenMatch(pattern, address, mode) {
-    return false;
+    return address.startsWith(pattern);
   }
 };
