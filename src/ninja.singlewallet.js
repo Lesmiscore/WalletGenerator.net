@@ -65,7 +65,6 @@ const startVanitygen = function(pattern) {
     if (typeof job != "string") {
       return;
     }
-    console.log(job);
     const { address } = generateNewAddressAndKey();
     if (privateKey.testVanitygenMatch(job, address, publicMode)) {
       stopVanitygen();
