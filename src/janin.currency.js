@@ -46,12 +46,10 @@ const useCurrency = function(index) {
   document.getElementById("culturepl").href = "?culture=pl&currency=" + lowerCurrency;
   document.getElementById("culturezh").href = "?culture=zh&currency=" + lowerCurrency;
 
-  if (require("./ninja.seeder.js").isDone()) {
-    // Regenerate a new wallet when not expensive
-    singlewallet.generateNewAddressAndKey();
-    paperwallet.build(document.getElementById("paperpassphrase").value);
-    brainwallet.view();
-  }
+  // Regenerate a new wallet when not expensive
+  singlewallet.generateNewAddressAndKey();
+  paperwallet.build(document.getElementById("paperpassphrase").value);
+  brainwallet.view();
 
   // Reset wallet tab when expensive or not applicable
   document.getElementById("bulktextarea").value = "";

@@ -1,4 +1,3 @@
-const seeder = require("./ninja.seeder.js");
 const singlewallet = require("./ninja.singlewallet.js");
 const paperwallet = require("./ninja.paperwallet.js");
 const bulkwallet = require("./ninja.bulkwallet.js");
@@ -8,25 +7,12 @@ const janin = require("./lazy/janin.currency.js");
 const { tabSwitch, toggleFaqQuestion } = require("./ninja.misc.js");
 const { printMany, ev } = require("./misc.js");
 
-ev("body", "mousemove", function(event) {
-  seeder.seed(event);
-});
-
 ev("#currency", "change", function() {
   janin().useCurrency(this.selectedIndex);
 });
 
 ev("#menu div", "click", function() {
   tabSwitch(this);
-});
-
-ev("#generatekeyinput", "keypress", function(event) {
-  seeder.seedKeyPress(event);
-});
-
-ev("#seedSkipper a", "click", function() {
-  seeder.seedCount = seeder.seedLimit;
-  seeder.seed();
 });
 
 ev("#newaddress", "click", function() {

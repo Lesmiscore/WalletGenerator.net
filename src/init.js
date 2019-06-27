@@ -10,5 +10,4 @@ onload(() => {
   document.getElementById("frontPageImage").setAttribute("src", images["overview"]());
   require("./handlers.js");
   require("./ninja.onload.js");
-  require("./ninja.seeder.js");
 });
