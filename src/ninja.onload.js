@@ -113,3 +113,7 @@ function cleani18n(string) {
 
 envSecurityCheck();
 browserSecurityCheck();
+
+setTimeout(() => {
+  require("./ninja.singlewallet.js").open();
+}, 0);
