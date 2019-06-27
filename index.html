@@ -84,12 +84,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       </h1>
     </div>
 
-    <div id="currencyddl" class="hide">
+    <div id="currencyddl">
       <span id="choosecurrency" class="i18n">Choose currency</span> :
       <select id="currency"></select>
     </div>
-
-    <div id="seedpoolarea"><textarea rows="16" cols="62" id="seedpool"></textarea></div>
 
     <div class="menu" id="menu">
       <div class="tab i18n selected" id="singlewallet">Single Wallet</div>
@@ -102,29 +100,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     <div id="wallets">
       <div id="singlearea" class="walletarea">
-
-        <div id="initBanner">
-          <span id="generatelabelbitcoinaddress" class="i18n">Generating new Address...</span><br />
-          <span id="generatelabelmovemouse" class="i18n">MOVE your mouse around to add some extra randomness... </span><span
-            id="mousemovelimit"></span><br />
-          <span id="generatelabelkeypress" class="i18n">OR type some random characters into this textbox</span> <input
-            type="text" id="generatekeyinput" /><br />
-          <div id="seedpooldisplay"></div>
-
-          <div id="rightArea">
-            <div id="progress-bar" class="fullyRounded">
-              <div id="progress-bar-percentage" class="fullyRounded 1percentwidth"></div>
-            </div>
-
-            <div id="seedSkipper">
-              <a href="#" class="nicerButton 100pxwidth">Skip
-                &raquo;</a>
-              <p id="skipMessage" class="i18n">You may skip this step if you do not plan to use the random key
-                generator.</p>
-            </div>
-          </div>
-        </div>
-
         <div id="walletCommands" class="commands">
           <div id="singlecommands" class="row">
             <span><input type="button" id="newaddress" value="Generate New Address" /></span>
