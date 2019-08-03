@@ -1,6 +1,7 @@
 const Bitcoin = require("./bitcoin");
 const bitcoin = require("bitcoinjs-lib");
 const bchaddrjs = require("bchaddrjs");
+const constants = require("./constants");
 
 module.exports = class BitcoinCash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
@@ -66,5 +67,33 @@ module.exports = class BitcoinCash extends Bitcoin {
       "CashAddress (Compressed)",
       "CashAddress (Uncompressed)"
     ];
+  }
+
+  isVanitygenPossible(pattern, mode) {
+    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$";
+    function testBase58(version) {
+      const headRegex = constants.bitcoinB58Leading[version];
+      const regex = new RegExp(`^${headRegex}${btcB58}`);
+      return regex.test(pattern);
+    }
+    function testBase32() {
+      const regex = /^(?:bitcoincash:)?q[abcdefghijklmnopqrstuvwxyz234567]{0,41}$/;
+      return regex.test(pattern);
+    }
+    switch (mode || 0) {
+      default:
+      case 0: // compressed
+      case 1: // uncompressed
+        return testBase58(this.network.pubKeyHash);
+      case 2: // cashaddr (compressed)
+      case 3: // cashaddr (uncompressed)
+        return testBase32();
+    }
+  }
+
+  testVanitygenMatch(pattern, address, mode) {
+    pattern = pattern.replace(/^bitcoincash:/, "");
+    address = address.replace(/^bitcoincash:/, "");
+    return address.startsWith(pattern);
   }
 };

@@ -10,10 +10,13 @@ const open = function() {
   document.getElementById("currencyddl").style.display = "block";
   document.getElementById("singlearea").style.display = "block";
   document.getElementById("initBanner").style.display = "none";
+  document.getElementById("singlevanitygenstart").style.display = "inline";
+  document.getElementById("singlevanitygenstop").style.display = "none";
 };
 
 const close = function() {
   document.getElementById("singlearea").style.display = "none";
+  stopVanitygen();
 };
 
 // generate bitcoin address and private key and update information in the HTML
@@ -29,6 +32,7 @@ const generateNewAddressAndKey = function() {
       qrcode_private: privateKeyWif
     };
     qrCode.showQrCode(keyValuePair, 4);
+    return { address: bitcoinAddress, wif: privateKeyWif };
   } catch (e) {
     // browser does not have sufficient JavaScript support to generate a bitcoin address
     alert(e);
@@ -37,12 +41,59 @@ const generateNewAddressAndKey = function() {
     document.getElementById("btcprivwif").innerHTML = "error";
     document.getElementById("qrcode_public").innerHTML = "";
     document.getElementById("qrcode_private").innerHTML = "";
+    return { address: null, wif: null };
   }
+};
+
+let vanityJob = null;
+
+const startVanitygen = function(pattern) {
+  if (typeof vanityJob == "string") {
+    return;
+  }
+  if (!privateKey.isVanitygenPossible(pattern, publicMode)) {
+    alert("Invalid or impossible pattern!");
+    return;
+  }
+  document.getElementById("singlevanitygenstart").style.display = "none";
+  document.getElementById("singlevanitygenstop").style.display = "inline";
+  document.getElementById("singlecommands").style.display = "none";
+  document.getElementById("singlevanitygenpattern").readOnly = true;
+  vanityJob = pattern;
+  const refresh = function() {
+    const job = vanityJob;
+    if (typeof job != "string") {
+      return;
+    }
+    const { address } = generateNewAddressAndKey();
+    if (privateKey.testVanitygenMatch(job, address, publicMode)) {
+      stopVanitygen();
+    } else {
+      setTimeout(refresh, 0);
+    }
+  };
+  refresh();
+};
+const stopVanitygen = function() {
+  if (typeof vanityJob != "string") {
+    return;
+  }
+  document.getElementById("singlevanitygenstart").style.display = "inline";
+  document.getElementById("singlevanitygenstop").style.display = "none";
+  document.getElementById("singlecommands").style.display = "block";
+  document.getElementById("singlevanitygenpattern").readOnly = false;
+  vanityJob = null;
 };
 
 let publicMode = 0;
 
-module.exports = { open, close, generateNewAddressAndKey };
+module.exports = {
+  open,
+  close,
+  generateNewAddressAndKey,
+  startVanitygen,
+  stopVanitygen
+};
 
 Object.defineProperty(module.exports, "publicMode", {
   enumerable: true,

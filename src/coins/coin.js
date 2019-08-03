@@ -43,4 +43,11 @@ module.exports = class Coin {
   getCoinImageUrl() {
     return coindex["logos/" + this.name.toLowerCase()]();
   }
+
+  isVanitygenPossible(pattern, mode) {
+    return false;
+  }
+  testVanitygenMatch(pattern, address, mode) {
+    return address.startsWith(pattern);
+  }
 };

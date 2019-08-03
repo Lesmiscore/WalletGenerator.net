@@ -129,6 +129,8 @@ const useCurrency = function(index) {
   singlewallet.publicMode = 0;
   bulkwallet.publicMode = 0;
 
+  singlewallet.stopVanitygen();
+
   // easter egg doge ;)
   if (name() === "Dogecoin") {
     doge = new Doge(["wow", "so paper wallet", "such random", "very pretty", "much design", "awesome", "much crypto", "such coin", "wow!!", "to da moon"]);

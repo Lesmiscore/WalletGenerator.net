@@ -3,6 +3,7 @@ const wif = require("wif");
 const bigi = require("bigi");
 const elliptic = require("elliptic");
 const Coin = require("./coin");
+const constants = require("./constants");
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
 module.exports = class Bitcoin extends Coin {
@@ -210,5 +211,37 @@ module.exports = class Bitcoin extends Coin {
   }
   havePrivateKey(btcKey) {
     return !!btcKey.d;
+  }
+
+  isVanitygenPossible(pattern, mode) {
+    if (!pattern) return true;
+    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";
+    function testBase58(version) {
+      const headRegex = constants.bitcoinB58Leading[version];
+      const regex = new RegExp(`^${headRegex}${btcB58}`);
+      return regex.test(pattern);
+    }
+    const self = this;
+    function testBech32() {
+      const regex = new RegExp(`^${self.network.bech32}(1(q([abcdefghijklmnopqrstuvwxyz234567]{0,38})?)?)?$`);
+      return regex.test(pattern);
+    }
+    switch (mode || 0) {
+      default:
+      case 0: // compressed
+      case 1: // uncompressed
+        return testBase58(this.network.pubKeyHash);
+      case 2: // segwit
+        if (this.network.bech32) {
+          pattern = pattern.toLowerCase();
+          return testBech32();
+        }
+        return false;
+      case 3: // segwit (p2sh)
+        if (this.network.bech32) {
+          return testBase58(this.network.scriptHash);
+        }
+        return false;
+    }
   }
 };

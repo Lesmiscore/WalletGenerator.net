@@ -1,5 +1,4 @@
 const ethWallet = require("ethereumjs-wallet");
-const translator = require("../ninja.translator.js");
 const Coin = require("./coin");
 
 module.exports = class Ethereum extends Coin {
@@ -76,5 +75,16 @@ module.exports = class Ethereum extends Coin {
   }
   havePrivateKey(key) {
     return !!key.getPrivateKey();
+  }
+
+  isVanitygenPossible(pattern, mode) {
+    const regex = /^(?:0[Xx])?[0-9a-fA-F]{0,40}$/;
+    return regex.test(pattern);
+  }
+
+  testVanitygenMatch(pattern, address, mode) {
+    pattern = pattern.toLowerCase().replace(/^0[Xx]/, "");
+    address = address.toLowerCase().replace(/^0[Xx]/, "");
+    return address.startsWith(pattern);
   }
 };
