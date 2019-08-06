@@ -50,4 +50,8 @@ module.exports = class Coin {
   testVanitygenMatch(pattern, address, mode) {
     return address.startsWith(pattern);
   }
+
+  supportsBIP32() {
+    return false;
+  }
 };

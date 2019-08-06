@@ -6,7 +6,9 @@
   "dependencies": {
     "base58": "^2.0.1",
     "bchaddrjs": "^0.3.0",
+    "bip32": "^2.0.4",
     "bip38": "^2.0.2",
+    "bip39": "^3.0.2",
     "bitcoinjs-lib": "^3.3.2",
     "bitcoinjs-lib-zcash": "^3.5.3",
     "bn.js": "^4.11.8",

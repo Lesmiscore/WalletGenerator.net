@@ -9,6 +9,7 @@ const tabSwitch = function(walletTab) {
       detailwallet: require("./ninja.detailwallet.js"),
       paperwallet: require("./ninja.paperwallet.js"),
       singlewallet: require("./ninja.singlewallet.js"),
+      bip32: require("./ninja.bip32.js"),
       donate: require("./ninja.donatetab.js")
     };
     for (const wType in wallets) {

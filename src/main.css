@@ -204,8 +204,6 @@ h1 { margin: 0px; height: 91px; }
 
 .displayNone { display: none; }
 .redColor { color: red; }
-.1percentwidth { width: 1%; }
-.100pxwidth { width: 100px; }
 
 .paperWalletText { bottom: 8px; height: 156px; left: 339px; padding: 15px 15px 17px 37px; position: absolute; width: 265px; font-size: 10px; color: #383838; line-height: 15px; }
 .paperWalletText ul { margin: 0px; padding: 0px; }
@@ -300,6 +298,10 @@ h1 { margin: 0px; height: 91px; }
   #brainpassphrase { width: 280px; }
   #brainpassphraseconfirm { width: 280px; }
   #brainwarning {  }
+  #bip32commands { padding: 10px 0; }
+  #bip32commandsunsup { padding: 10px 0; }
+  .bip32widetext { width: 560px; }
+  .bip32text { width: 280px; }
   #detailcommands { padding: 10px 0; }
   #detailcommands span { padding: 0 10px; }
   #detailprivkey { width: 300px; }

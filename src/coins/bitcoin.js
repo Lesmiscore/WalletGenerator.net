@@ -244,4 +244,8 @@ module.exports = class Bitcoin extends Coin {
         return false;
     }
   }
+
+  supportsBIP32() {
+    return true;
+  }
 };

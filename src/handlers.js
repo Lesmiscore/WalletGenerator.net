@@ -3,6 +3,7 @@ const paperwallet = require("./ninja.paperwallet.js");
 const bulkwallet = require("./ninja.bulkwallet.js");
 const brainwallet = require("./ninja.brainwallet.js");
 const detailwallet = require("./ninja.detailwallet.js");
+const bip32 = require("./ninja.bip32.js");
 const janin = require("./lazy/janin.currency.js");
 const { tabSwitch, toggleFaqQuestion } = require("./ninja.misc.js");
 const { printMany, ev } = require("./misc.js");
@@ -196,4 +197,8 @@ ev("#singlevanitygenstart", "click", function() {
 
 ev("#singlevanitygenstop", "click", function() {
   singlewallet.stopVanitygen();
+});
+
+ev("#bip32view", "click", function() {
+  bip32.view();
 });
