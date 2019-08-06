@@ -202,3 +202,7 @@ ev("#singlevanitygenstop", "click", function() {
 ev("#bip32view", "click", function() {
   bip32.view();
 });
+
+ev(".bip32lang", "click", function() {
+  bip32.switchLang(this);
+});
