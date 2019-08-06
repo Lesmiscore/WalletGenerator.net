@@ -9,7 +9,6 @@ const open = function() {
   document.getElementById("keyarea").style.display = "block";
   document.getElementById("currencyddl").style.display = "block";
   document.getElementById("singlearea").style.display = "block";
-  document.getElementById("initBanner").style.display = "none";
   document.getElementById("singlevanitygenstart").style.display = "inline";
   document.getElementById("singlevanitygenstop").style.display = "none";
 };
