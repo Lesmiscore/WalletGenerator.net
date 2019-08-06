@@ -28,19 +28,24 @@ const view = function() {
   const data = document.getElementById("bip32data").value.trim();
   const password = document.getElementById("bip32password").value.trim();
   const path = document.getElementById("bip32path").value.trim();
-  if (!data || !path) {
-    err("Nothing is specified");
+  if (!data) {
+    err("Key area is blank");
+    clear();
+    return;
+  }
+  if (!path) {
+    err("Specify path");
     clear();
     return;
   }
   try {
     let node;
     try {
-      // bip39 mnemonic
-      node = bip32.fromSeed(bip39.mnemonicToSeedSync(data, password));
-    } catch (e_) {
       // xpub or xpriv
       node = bip32.fromBase58(data);
+    } catch (e_) {
+      // bip39 mnemonic
+      node = bip32.fromSeed(bip39.mnemonicToSeedSync(data, password));
     }
     // sanitize path to derive w/ it
     // input exmaple: m/7'///9H/8h/10/11/
