@@ -326,7 +326,7 @@ let currencies = [
   new Bitcoin("Sprouts", 0x3f, 0x80, ""), // WIF UNKNOWN
   new Bitcoin("StealthCoin", 0x3e, 0xbe, "SJJGGq7UyoUH1TExGJCQ6ee49ztJr2quF8"),
   new Bitcoin("Stratis", 0x3f, 0xbf, "ScMNGH91SpNwbRDeK8vYXXJ3aYpwBr9Pen"),
-  new Bitcoin("Sugarchain", 0x3f, 0x80, ""),
+  new Bitcoin("Sugarchain", 0x3f, 0x80, "", 0x7d, "sugar"),
   new Bitcoin("Susucoin", 0x3f, 0x80, ""),
   new Bitcoin("SwagBucks", 0x3f, 0x99, "SJJGGq7UyoUH1TExGJCQ6ee49ztJr2quF8"),
   new Bitcoin("Syscoin", 0x00, 0x80, "133miKEHohCR5qnbEZ64MFZkCzFM2HpeAd"),
