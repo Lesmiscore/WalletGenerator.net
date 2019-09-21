@@ -366,6 +366,7 @@ let currencies = [
   new Bitcoin("Testnet MonetaryUnit", 0x26, 0x40, null),
   new NEM("Testnet NEM", null, NEM.testnet),
   new Bitcoin("Testnet PIVX", 0x8b, 0xef, null),
+  new Bitcoin("Testnet Sugarchain", 66, 239, null, 128, "tugar"),
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, null)
 ];
 
