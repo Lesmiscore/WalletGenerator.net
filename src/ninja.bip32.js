@@ -102,6 +102,8 @@ const noerr = function() {
   document.getElementById("bip32error").style.visibility = "none";
 };
 
+let publicMode = 0;
+
 module.exports = {
   open,
   close,
@@ -109,3 +111,9 @@ module.exports = {
   switchLang,
   clear
 };
+
+Object.defineProperty(module.exports, "publicMode", {
+  enumerable: true,
+  get: () => publicMode,
+  set: pm => (publicMode = pm)
+});

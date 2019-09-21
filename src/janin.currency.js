@@ -24,6 +24,7 @@ const useCurrency = function(index) {
   const paperwallet = require("./ninja.paperwallet.js");
   const brainwallet = require("./ninja.brainwallet.js");
   const bulkwallet = require("./ninja.bulkwallet.js");
+  const bip32 = require("./ninja.bip32.js");
 
   const coinImgUrl = selectedCurrency.getCoinImageUrl();
   document.getElementById("coinLogoImg").src = coinImgUrl;
@@ -125,9 +126,11 @@ const useCurrency = function(index) {
   document.getElementById("addresstype").innerHTML = addrTypeDropdown;
   document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
   document.getElementById("bulkaddresstype").innerHTML = addrTypeDropdown;
+  document.getElementById("bip32addresstype").innerHTML = addrTypeDropdown;
   paperwallet.publicMode = 0;
   singlewallet.publicMode = 0;
   bulkwallet.publicMode = 0;
+  bip32.publicMode = 0;
 
   singlewallet.stopVanitygen();
 
