@@ -46,6 +46,14 @@ const useCurrency = function(index) {
   document.getElementById("culturepl").href = "?culture=pl&currency=" + lowerCurrency;
   document.getElementById("culturezh").href = "?culture=zh&currency=" + lowerCurrency;
 
+  // set modes and stop vanitygen
+  const coinDefaultMode = selectedCurrency.defaultMode;
+  paperwallet.publicMode = coinDefaultMode;
+  singlewallet.publicMode = coinDefaultMode;
+  bulkwallet.publicMode = coinDefaultMode;
+
+  singlewallet.stopVanitygen();
+
   // Regenerate a new wallet when not expensive
   singlewallet.generateNewAddressAndKey();
   paperwallet.build(document.getElementById("paperpassphrase").value);
@@ -114,8 +122,7 @@ const useCurrency = function(index) {
   let addrTypeDropdown = "";
   for (let i in formatNames) {
     if ({}.hasOwnProperty.call(formatNames, i)) {
-      if (!+i) {
-        // i == 0
+      if (+i == coinDefaultMode) {
         addrTypeDropdown += `<option value="0" selected>${formatNames[i]}</option>`;
       } else {
         addrTypeDropdown += `<option value="${i}">${formatNames[i]}</option>`;
@@ -125,11 +132,6 @@ const useCurrency = function(index) {
   document.getElementById("addresstype").innerHTML = addrTypeDropdown;
   document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
   document.getElementById("bulkaddresstype").innerHTML = addrTypeDropdown;
-  paperwallet.publicMode = 0;
-  singlewallet.publicMode = 0;
-  bulkwallet.publicMode = 0;
-
-  singlewallet.stopVanitygen();
 
   // easter egg doge ;)
   if (name() === "Dogecoin") {
@@ -326,7 +328,7 @@ let currencies = [
   new Bitcoin("Sprouts", 0x3f, 0x80, ""), // WIF UNKNOWN
   new Bitcoin("StealthCoin", 0x3e, 0xbe, "SJJGGq7UyoUH1TExGJCQ6ee49ztJr2quF8"),
   new Bitcoin("Stratis", 0x3f, 0xbf, "ScMNGH91SpNwbRDeK8vYXXJ3aYpwBr9Pen"),
-  new Bitcoin("Sugarchain", 0x3f, 0x80, "", 0x7d, "sugar"),
+  new Bitcoin("Sugarchain", 0x3f, 0x80, "sugar1qjh4ltstwqdpc242ck02duwrwyg2twycpsrhj8z", 0x7d, "sugar").withDefaultMode("segwit"),
   new Bitcoin("Susucoin", 0x3f, 0x80, ""),
   new Bitcoin("SwagBucks", 0x3f, 0x99, "SJJGGq7UyoUH1TExGJCQ6ee49ztJr2quF8"),
   new Bitcoin("Syscoin", 0x00, 0x80, "133miKEHohCR5qnbEZ64MFZkCzFM2HpeAd"),
@@ -366,7 +368,7 @@ let currencies = [
   new Bitcoin("Testnet MonetaryUnit", 0x26, 0x40, null),
   new NEM("Testnet NEM", null, NEM.testnet),
   new Bitcoin("Testnet PIVX", 0x8b, 0xef, null),
-  new Bitcoin("Testnet Sugarchain", 66, 239, null, 128, "tugar"),
+  new Bitcoin("Testnet Sugarchain", 66, 239, null, 128, "tugar").withDefaultMode("segwit"),
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, null)
 ];
 
