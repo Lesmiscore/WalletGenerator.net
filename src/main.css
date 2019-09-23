@@ -4,7 +4,7 @@ a { position: relative; z-index: 20; text-decoration: none; color: #d58424; }
 .right { text-align: right; }
 .walletarea { display: none; border: 1px solid #BFBFBF; background-color: white; }
 hr { margin: 20px 0; border-top: 1px dashed #008000; }
-.keyarea { height: 110px; text-align: left; position: relative; padding: 25px 25px 10px; }
+.keyarea { height: 110px; text-align: left; position: relative; padding: 10px 25px 10px; }
 .keyarea .public { float: left; }
 .keyarea .pubaddress { display: inline-block; height: 40px; padding: 0 0 0 10px; float: left; }
 .keyarea .privwif { margin: 0;  float: right; text-align: right; padding: 0 20px 0 0; position: relative; }
@@ -69,8 +69,10 @@ h1 { margin: 0px; height: 91px; }
 #keyarea .private { width: 30%; display: table-cell; }
 #keyarea .public { width: 30%; display: table-cell; }
 #singlearea { font-size: 90%; display: block; }
-#singlesecret { position: relative; top: -130px; float: right; right: 200px; color: red; font-weight: bolder; font-size: 200%;  }
-#singleshare { position: relative; top: -110px; float: left; left: 160px; color: green; font-weight: bolder; font-size: 200%;  }
+#singlesecret { color: red; font-weight: bolder; font-size: 200%; }
+#singleshare { color: green; font-weight: bolder; font-size: 200%; }
+#singlelabelprivatekey { color: red; }
+#singlelabelbitcoinaddress { color: green; }
 #singlesafety { text-align: left; border-bottom: 1px solid #bfbfbf; position: relative; min-height: 500px; }
 
 #singlesafety p { font-size: 13px; }
