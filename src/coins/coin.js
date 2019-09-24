@@ -58,7 +58,7 @@ module.exports = class Coin {
       mode = mode.toLowerCase();
       const modeNames = names.map(a => a.toLowerCase());
       mode = modeNames.indexOf(mode);
-      if (mode == -1) {
+      if (mode === -1) {
         mode = 0;
       }
     }

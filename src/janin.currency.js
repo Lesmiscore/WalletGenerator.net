@@ -122,7 +122,7 @@ const useCurrency = function(index) {
   let addrTypeDropdown = "";
   for (let i in formatNames) {
     if ({}.hasOwnProperty.call(formatNames, i)) {
-      if (+i == coinDefaultMode) {
+      if (+i === coinDefaultMode) {
         addrTypeDropdown += `<option value="${i}" selected>${formatNames[i]}</option>`;
       } else {
         addrTypeDropdown += `<option value="${i}">${formatNames[i]}</option>`;

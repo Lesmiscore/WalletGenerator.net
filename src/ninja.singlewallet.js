@@ -47,7 +47,7 @@ const generateNewAddressAndKey = function() {
 let vanityJob = null;
 
 const startVanitygen = function(pattern) {
-  if (typeof vanityJob == "string") {
+  if (typeof vanityJob === "string") {
     return;
   }
   if (!privateKey.isVanitygenPossible(pattern, publicMode)) {
@@ -61,7 +61,7 @@ const startVanitygen = function(pattern) {
   vanityJob = pattern;
   const refresh = function() {
     const job = vanityJob;
-    if (typeof job != "string") {
+    if (typeof job !== "string") {
       return;
     }
     const { address } = generateNewAddressAndKey();
@@ -74,7 +74,7 @@ const startVanitygen = function(pattern) {
   refresh();
 };
 const stopVanitygen = function() {
-  if (typeof vanityJob != "string") {
+  if (typeof vanityJob !== "string") {
     return;
   }
   document.getElementById("singlevanitygenstart").style.display = "inline";
