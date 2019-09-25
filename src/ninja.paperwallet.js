@@ -127,7 +127,7 @@ const testAndApplyVanityKey = function() {
 };
 
 const templateArtisticHtml = function(i) {
-  return janin.selectedCurrency.templateArtisticHtml(i);
+  return janin.selectedCurrency.templateArtisticHtml(i, publicMode);
 };
 
 const showArtisticWallet = function(idPostFix, bitcoinAddress, privKey) {

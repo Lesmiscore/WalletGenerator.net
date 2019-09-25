@@ -14,7 +14,7 @@ module.exports = class Coin {
     this.defaultMode = 0;
   }
 
-  templateArtisticHtml(i) {
+  templateArtisticHtml(i, mode) {
     const keyelement = "btcprivwif";
     const coinImgUrl = this.getCoinImageUrl();
     const walletBackgroundUrl = this.getWalletBackgroundUrl();
