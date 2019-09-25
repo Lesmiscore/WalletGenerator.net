@@ -1,4 +1,4 @@
-/* eslint no-undefined:0,no-shadow:0,block-scoped-var:0,no-redeclare:0,
+/* eslint no-shadow:0,block-scoped-var:0,no-redeclare:0,
    no-var:0,eqeqeq:0,no-constant-condition:0,no-eq-null:0 */
 //---------------------------------------------------------------------
 // QRCode for JavaScript

@@ -1,5 +1,4 @@
 /* global describe, it */
-/* eslint no-undefined:0 */
 const assert = require("assert");
 require("./fakedocument");
 

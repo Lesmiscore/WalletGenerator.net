@@ -8,11 +8,11 @@
   "parser": null,
   "rules": {
     "no-console": 0,
-    "no-void": 1,
+    "no-void": 2,
     "no-undef": 2,
     "no-empty": 0,
     "block-spacing": 0,
-    "no-undefined": 2,
+    "no-undefined": 0,
     "eqeqeq": 1,
     "no-extra-bind": 1,
     "no-empty-label": 0,
