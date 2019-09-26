@@ -1,27 +1,29 @@
 const translator = require("./ninja.translator.js");
-const janin = require("./lazy/janin.currency.js");
+const janin = require("./janin.currency.js");
 const { getQueryString, envSecurityCheck, browserSecurityCheck } = require("./ninja.misc.js");
 const { ev } = require("./misc.js");
+
+const query = getQueryString();
 
 let i, a, x;
 
 // change language
-if (getQueryString()["culture"]) {
-  translator.translate(getQueryString()["culture"]);
+if (query["culture"]) {
+  translator.translate(query["culture"]);
 } else {
   translator.autodetectTranslation();
 }
-if (getQueryString()["showseedpool"] === "true" || getQueryString()["showseedpool"] === "1") {
+if (query["showseedpool"] === "true" || query["showseedpool"] === "1") {
   document.getElementById("seedpoolarea").style.display = "block";
 }
 // change currency
-const currency = (getQueryString()["currency"] || "bitcoin").toLowerCase();
+const currency = (query["currency"] || "bitcoin").toLowerCase();
 let coinFound = false,
   bitcoinIdx = -1;
-for (i = 0; i < janin().currencies.length; i++) {
-  const curName = janin().currencies[i].name.toLowerCase();
+for (i = 0; i < janin.currencies.length; i++) {
+  const curName = janin.currencies[i].name.toLowerCase();
   if (curName === currency) {
-    janin().useCurrency(i);
+    janin.useCurrency(i);
     coinFound = true;
   }
   if (curName === "bitcoin") {
@@ -29,20 +31,20 @@ for (i = 0; i < janin().currencies.length; i++) {
   }
 }
 if (!coinFound) {
-  janin().useCurrency(bitcoinIdx);
+  janin.useCurrency(bitcoinIdx);
 }
 // Reset title if no currency is choosen
-if (!getQueryString()["currency"]) {
+if (!query["currency"]) {
   document.title = translator.get("defaultTitle");
   document.getElementById("siteTitle").alt = translator.get("defaultTitle");
 }
 // populate currency dropdown list
 const select = document.getElementById("currency");
 let options = "";
-for (i = 0; i < janin().currencies.length; i++) {
-  const curr = janin().currencies[i];
+for (i = 0; i < janin.currencies.length; i++) {
+  const curr = janin.currencies[i];
   options += "<option value='" + i + "'";
-  if (curr.name === janin().name()) options += " selected='selected'";
+  if (curr.name === janin.name()) options += " selected='selected'";
   options += ">" + curr.name + "</option>";
 }
 select.innerHTML = options;
@@ -50,11 +52,11 @@ select.innerHTML = options;
 const supportedcurrencies = document.getElementById("supportedcurrencies");
 let currencieslist = "";
 let j = 0;
-for (i = 0; i < janin().currencies.length; i++) {
-  const curr = janin().currencies[i];
+for (i = 0; i < janin.currencies.length; i++) {
+  const curr = janin.currencies[i];
   //if (!curr.donate) continue;
   currencieslist += "<a href='?currency=" + curr.name;
-  if (getQueryString()["culture"]) currencieslist += "&culture=" + getQueryString()["culture"];
+  if (query["culture"]) currencieslist += "&culture=" + query["culture"];
   currencieslist += "'>" + curr.name + "</a> ";
   j++;
 }
@@ -64,25 +66,25 @@ document.getElementById("supportedcurrenciescounter").innerHTML = j.toString() +
 document.getElementById("donateqrcode").style.display = "none";
 const donatelist = document.getElementById("donatelist");
 let list = "<table>";
-for (i = 0; i < janin().currencies.length; i++) {
-  if (!janin().currencies[i].donate) continue;
+for (i = 0; i < janin.currencies.length; i++) {
+  if (!janin.currencies[i].donate) continue;
   list += "<tr id='currencydonatelink" + i + "'>";
-  list += "<td class='currencyNameColumn'>" + janin().currencies[i].name + "</td>";
-  list += "<td class='address'><a href='" + janin().currencies[i].name.toLowerCase() + ":" + janin().currencies[i].donate + "'>";
-  list += janin().currencies[i].donate + "</a></td></tr>";
+  list += "<td class='currencyNameColumn'>" + janin.currencies[i].name + "</td>";
+  list += "<td class='address'><a href='" + janin.currencies[i].name.toLowerCase() + ":" + janin.currencies[i].donate + "'>";
+  list += janin.currencies[i].donate + "</a></td></tr>";
 }
 list += "</table>";
 donatelist.innerHTML = list;
-for (i = 0; i < janin().currencies.length; i++) {
-  if (!janin().currencies[i].donate) continue;
+for (i = 0; i < janin.currencies.length; i++) {
+  if (!janin.currencies[i].donate) continue;
   ev("tr#currencydonatelink" + i, "mouseover", function() {
     require("./ninja.donatetab.js").displayQrCode(21, this);
   });
 }
 
 // Extract i18n
-if (getQueryString()["i18nextract"]) {
-  const culture = getQueryString()["i18nextract"];
+if (query["i18nextract"]) {
+  const culture = query["i18nextract"];
   const div = document.createElement("div");
   div.innerHTML = "<h3>i18n</h3>";
   div.setAttribute("style", "text-align: center");
