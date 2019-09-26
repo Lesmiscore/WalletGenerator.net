@@ -134,6 +134,19 @@ const useCurrency = function(index) {
   document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
   document.getElementById("bulkaddresstype").innerHTML = addrTypeDropdown;
 
+  // show banner to ask for help
+  const unsureFlag = selectedCurrency.isUnsure();
+  if (selectedCurrency.isUnsure()) {
+    document.getElementById("unsure").style.display = "block";
+    if (typeof unsureFlag === "boolean") {
+      document.getElementById("unsureHere").setAttribute("href", `https://github.com/nao20010128nao/WalletGenerator.net/blob/master/src/coins/${name().toLowerCase()}.js`);
+    } else {
+      document.getElementById("unsureHere").setAttribute("href", `https://github.com/nao20010128nao/WalletGenerator.net/blob/master/src/coins/${unsureFlag}.js`);
+    }
+  } else {
+    document.getElementById("unsure").style.display = "none";
+  }
+
   // easter egg doge ;)
   if (name() === "Dogecoin") {
     doge = new Doge(["wow", "so paper wallet", "such random", "very pretty", "much design", "awesome", "much crypto", "such coin", "wow!!", "to da moon"]);

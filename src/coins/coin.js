@@ -52,6 +52,12 @@ module.exports = class Coin {
     return address.startsWith(pattern);
   }
 
+  isUnsure() {
+    // return filename if it's "unsure" implementation
+    // false if not
+    return false;
+  }
+
   withDefaultMode(mode) {
     const names = this.getAddressFormatNames();
     if (typeof mode === "string" && isNaN(mode)) {
