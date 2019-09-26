@@ -16,8 +16,20 @@ if (getQueryString()["showseedpool"] === "true" || getQueryString()["showseedpoo
 }
 // change currency
 const currency = (getQueryString()["currency"] || "bitcoin").toLowerCase();
+let coinFound = false,
+  bitcoinIdx = -1;
 for (i = 0; i < janin().currencies.length; i++) {
-  if (janin().currencies[i].name.toLowerCase() === currency) janin().useCurrency(i);
+  const curName = janin().currencies[i].name.toLowerCase();
+  if (curName === currency) {
+    janin().useCurrency(i);
+    coinFound = true;
+  }
+  if (curName === "bitcoin") {
+    bitcoinIdx = i;
+  }
+}
+if (!coinFound) {
+  janin().useCurrency(bitcoinIdx);
 }
 // Reset title if no currency is choosen
 if (!getQueryString()["currency"]) {
