@@ -14,6 +14,7 @@ const close = function() {
   document.getElementById("brainarea").style.display = "none";
 };
 
+let publicMode = 0;
 const minPassphraseLength = 15;
 
 const view = function() {
@@ -35,8 +36,8 @@ const view = function() {
     if (key.length >= minPassphraseLength) {
       const bytes = bitcoin.crypto.sha256(key);
       const btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
-      const bitcoinAddress = privateKey.getAddressWith(btcKey);
-      const privWif = privateKey.getWIFForAddress(btcKey);
+      const bitcoinAddress = privateKey.getAddressWith(btcKey, publicMode);
+      const privWif = privateKey.getWIFForAddress(btcKey, publicMode);
       document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
       document.getElementById("brainbtcprivwif").innerHTML = privWif;
       qrCode.showQrCode({
@@ -77,3 +78,9 @@ module.exports = {
   clear,
   showToggle
 };
+
+Object.defineProperty(module.exports, "publicMode", {
+  enumerable: true,
+  get: () => publicMode,
+  set: pm => (publicMode = pm)
+});

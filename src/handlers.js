@@ -85,6 +85,9 @@ ev("#singleaddresstype", "change", function() {
 ev("#bulkaddresstype", "change", function() {
   bulkwallet.publicMode = this.selectedIndex;
 });
+ev("#brainaddresstype", "change", function() {
+  brainwallet.publicMode = this.selectedIndex;
+});
 
 ev("#papergenerate[value='Randomly generate']", "click", function() {
   paperwallet.build(document.getElementById("paperpassphrase").value);

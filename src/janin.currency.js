@@ -52,6 +52,7 @@ const useCurrency = function(index) {
   paperwallet.publicMode = coinDefaultMode;
   singlewallet.publicMode = coinDefaultMode;
   bulkwallet.publicMode = coinDefaultMode;
+  brainwallet.publicMode = coinDefaultMode;
 
   singlewallet.stopVanitygen();
 
@@ -133,6 +134,7 @@ const useCurrency = function(index) {
   document.getElementById("addresstype").innerHTML = addrTypeDropdown;
   document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
   document.getElementById("bulkaddresstype").innerHTML = addrTypeDropdown;
+  document.getElementById("brainaddresstype").innerHTML = addrTypeDropdown;
 
   // show banner to ask for help
   const unsureFlag = selectedCurrency.isUnsure();
