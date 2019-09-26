@@ -97,7 +97,7 @@ module.exports = class NEM extends Coin {
   }
 
   isUnsure() {
-    return "true";
+    return "nem";
   }
 };
 
