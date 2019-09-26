@@ -8,6 +8,7 @@ const BitcoinCash = require("./coins/bitcoincash");
 const Ethereum = require("./coins/ethereum");
 const NEM = require("./coins/nem");
 const Ripple = require("./coins/ripple");
+const IOTA = require("./coins/iota");
 
 let selectedCurrency, doge;
 
@@ -244,6 +245,7 @@ let currencies = [
   new Bitcoin("IncognitoCoin", 0x00, 0x80, "1BbRmhGKyKshFge9kBMdfJyQr3KZoh5K5t"),
   new Bitcoin("Influxcoin", 0x66, 0xe6, "i83eN9HxFvfsxSwjXiZQZaWf13cWF25K9Y"),
   new Bitcoin("Innox", 0x4b, 0xcb, "XQm6Vy2tTh87ZnWg6cBdZBmYVExbVuScBF"),
+  new IOTA("IOTA", ""),
   new Bitcoin("IridiumCoin", 0x30, 0xb0, "LKTu2strS8zV1mDJxJtgE3HLqChD2m54yN"),
   new Bitcoin("iXcoin", 0x8a, 0x80, "xnF1nshqFLaVdDGBmQ4k2jBQkr8nbuCkLz"),
   new Bitcoin("Judgecoin", 0x2b, 0xab, "JbF9ZnvoFkBdasPEq21jCCTnTUDSiyWrAQ"),
