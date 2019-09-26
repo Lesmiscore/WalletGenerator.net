@@ -3,7 +3,7 @@ const translator = require("./ninja.translator.js");
 const privateKey = require("./ninja.privatekey.js");
 const brainwallet = require("./ninja.brainwallet.js");
 const qrCode = require("./ninja.qrcode.js");
-const janin = require("./lazy/janin.currency.js");
+const janin = require("./janin.currency.js");
 const bitcoin = require("bitcoinjs-lib");
 const bigi = require("bigi");
 
@@ -143,17 +143,17 @@ const viewDetails = function() {
 };
 
 const populateKeyDetails = function(btcKey) {
-  if (janin().selectedCurrency.havePrivateKey(btcKey)) {
-    const privKeyBuffer = janin().selectedCurrency.getPrivateKeyBuffer(btcKey);
+  if (janin.selectedCurrency.havePrivateKey(btcKey)) {
+    const privKeyBuffer = janin.selectedCurrency.getPrivateKeyBuffer(btcKey);
     document.getElementById("detailprivhex").innerHTML = privKeyBuffer.toString("hex").toUpperCase();
     document.getElementById("detailprivb64").innerHTML = privKeyBuffer.toString("base64");
 
-    const privTitles = janin().selectedCurrency.getWIFTitleNames();
+    const privTitles = janin.selectedCurrency.getWIFTitleNames();
     const privQrParams = {};
     for (let i in privTitles) {
       if ({}.hasOwnProperty.call(privTitles, i)) {
         const stripped = privTitles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
-        const address = janin().selectedCurrency.getWIFByType(btcKey, +i);
+        const address = janin.selectedCurrency.getWIFByType(btcKey, +i);
         privQrParams[`detailqrcode${stripped}`] = address;
         document.getElementById(`detailaddress${stripped}`).innerHTML = address;
       }
@@ -161,18 +161,18 @@ const populateKeyDetails = function(btcKey) {
 
     qrCode.showQrCode(privQrParams, 4);
   }
-  const pubKeyCompressed = janin().selectedCurrency.getPublicKey(btcKey, true);
-  const pubKeyUncompressed = janin().selectedCurrency.getPublicKey(btcKey, false);
+  const pubKeyCompressed = janin.selectedCurrency.getPublicKey(btcKey, true);
+  const pubKeyUncompressed = janin.selectedCurrency.getPublicKey(btcKey, false);
 
   document.getElementById("detailpubkey").innerHTML = pubKeyUncompressed.toString("hex").toUpperCase();
   document.getElementById("detailpubkeycomp").innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
 
-  const addrTitles = janin().selectedCurrency.getAddressTitleNames();
+  const addrTitles = janin.selectedCurrency.getAddressTitleNames();
   const addrQrParams = {};
   for (let i in addrTitles) {
     if ({}.hasOwnProperty.call(addrTitles, i)) {
       const stripped = addrTitles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
-      const address = janin().selectedCurrency.getAddressWith(btcKey, +i);
+      const address = janin.selectedCurrency.getAddressWith(btcKey, +i);
       addrQrParams[`detailqrcode${stripped}`] = address;
       document.getElementById(`detailaddress${stripped}`).innerHTML = address;
     }
@@ -194,7 +194,7 @@ const clear = function() {
   document.getElementById("detailbip38commands").style.display = "none";
   document.getElementById("detailbip38").style.display = "none";
 
-  const titles = Array.prototype.concat.call(janin().selectedCurrency.getAddressTitleNames(), janin().selectedCurrency.getWIFTitleNames());
+  const titles = Array.prototype.concat.call(janin.selectedCurrency.getAddressTitleNames(), janin.selectedCurrency.getWIFTitleNames());
   for (let i in titles) {
     if ({}.hasOwnProperty.call(titles, i)) {
       const stripped = titles[i].toLowerCase().replace(/[^a-z0-9]/g, "");

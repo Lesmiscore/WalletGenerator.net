@@ -3,12 +3,12 @@ const paperwallet = require("./ninja.paperwallet.js");
 const bulkwallet = require("./ninja.bulkwallet.js");
 const brainwallet = require("./ninja.brainwallet.js");
 const detailwallet = require("./ninja.detailwallet.js");
-const janin = require("./lazy/janin.currency.js");
+const janin = require("./janin.currency.js");
 const { tabSwitch, toggleFaqQuestion } = require("./ninja.misc.js");
 const { printMany, ev } = require("./misc.js");
 
 ev("#currency", "change", function() {
-  janin().useCurrency(this.selectedIndex);
+  janin.useCurrency(this.selectedIndex);
 });
 
 ev("#menu div", "click", function() {
