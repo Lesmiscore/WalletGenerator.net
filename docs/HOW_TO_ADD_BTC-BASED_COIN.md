@@ -2,7 +2,7 @@
 The steps are easy if you don't wish to do more than other coins.
 
 - `this project` means [nao20010128nao/WalletGenerator.net](https://github.com/nao20010128nao/WalletGenerator.net) or your fork of it.
-- `your coins` means as-is, this doc uses [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin/blob/v0.16.3) for an example.
+- `your coin` means as-is, this doc uses [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin/blob/v0.16.3) for an example.
 
 # Investigate coin parameters and get what this project needs
 To add a coin, you need the following:
@@ -25,7 +25,7 @@ For SegWit support, you need the following in addition:
 - Bech32 human readable part (a.k.a. HRP)
 
 Don't worry, I'll guide you to find them out and add your coin.    
-I'll use [Bitcoin 0.16.3](https://github.com/bitcoin/bitcoin/blob/v0.16.3/src/chainparams.cpp) mainnet for example, replace them for your need.
+I'll use [Bitcoin 0.16.3](https://github.com/bitcoin/bitcoin/tree/v0.16.3/) mainnet for example, replace them for your need.
 
 ## Finding prefix numbers
 First, open [src/chainparams.cpp](https://github.com/bitcoin/bitcoin/blob/v0.16.3/src/chainparams.cpp) in the source code of **your coin**.
@@ -61,7 +61,7 @@ bech32_hrp = "bc";
 Coins lacking this line doesn't have support for SegWit.    
 The string quoted by `"` is what you need. So it is `bc`.
 
-## Adding your coin to the currencies list
+# Adding your coin to the currencies list
 I maintain the list of coins at [src/janin.currency.js](https://github.com/nao20010128nao/WalletGenerator.net/blob/master/src/janin.currency.js) of **this project**.    
 At the tail of this file, there is a long array of currencies.    
 You need to insert your coin at **correct place** at the array.    
@@ -99,14 +99,15 @@ new Bitcoin("Bitcoin", 0, 128, "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", 5, "bc"),
 ```
 
 (This is changed from original to show example)    
+Don't forget to add comma (`,`) at the tail of the line, because it's inside an array.    
 Most of coins use hex for numbers, but it is not required. It can be decimal number as above does.
 
-## Add coin logo and paper wallet background
+# Add coin logo and paper wallet background
 After editing code, you have to add images.    
 All images must be named lowercase `(coin name).png`, like `bitcoin.png`. If there is a space, dont't remove. (Just like testnets do)    
 Copy coin logo to `logos/`, and paper wallet background to `wallets/`.
 
-## Check how it look
+# Check how it look
 After finishing copying, the last step is to check how it look.    
 Please read `BUILDING.md` carefully, then do
 
@@ -116,6 +117,6 @@ npm run browser
 
 After development server is launched, you can change currency by right-top dropdown.
 
-## Finish
+# Finish
 Good news, adding your coin is completed.    
 Send me PR to add your coin at https://nao20010128nao.github.io/WalletGenerator.net/
