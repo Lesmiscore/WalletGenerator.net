@@ -1,10 +1,11 @@
 // https://github.com/iotaledger/iota.js/blob/081e621599ce36d49f54d458131b9b32ab91ace5/packages/core/src/generateAddress.ts
 const Coin = require("./coin");
+const iota = require("@iota/core");
 const baseTrytes = require("base-x")("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 const randomBytes = require("randombytes");
 const trytesRegex = /^[9A-Z]+$/;
 
-module.exports = class Bitcoin extends Coin {
+module.exports = class IOTA extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }
@@ -29,7 +30,9 @@ module.exports = class Bitcoin extends Coin {
   }
 
   // correspond to getAddressFormatNames, getAddressTitleNames
-  getAddressWith(key, mode) {}
+  getAddressWith(key, mode) {
+    return iota.generateAddress(key, mode);
+  }
 
   // correspond to getAddressFormatNames, getAddressTitleNames
   getWIFForAddress(key, mode) {
@@ -42,10 +45,44 @@ module.exports = class Bitcoin extends Coin {
   }
 
   getAddressFormatNames() {
-    return ["Normal"];
+    return [
+      "Normal (Index 0)",
+      "Normal (Index 1)",
+      "Normal (Index 2)",
+      "Normal (Index 3)",
+      "Normal (Index 4)",
+      "Normal (Index 5)",
+      "Normal (Index 6)",
+      "Normal (Index 7)",
+      "Normal (Index 8)",
+      "Normal (Index 9)",
+      "Normal (Index 10)",
+      "Normal (Index 11)",
+      "Normal (Index 12)",
+      "Normal (Index 13)",
+      "Normal (Index 14)",
+      "Normal (Index 15)"
+    ];
   }
   getAddressTitleNames() {
-    return ["Public Address"];
+    return [
+      "Public Address (Index 0)",
+      "Public Address (Index 1)",
+      "Public Address (Index 2)",
+      "Public Address (Index 3)",
+      "Public Address (Index 4)",
+      "Public Address (Index 5)",
+      "Public Address (Index 6)",
+      "Public Address (Index 7)",
+      "Public Address (Index 8)",
+      "Public Address (Index 9)",
+      "Public Address (Index 10)",
+      "Public Address (Index 11)",
+      "Public Address (Index 12)",
+      "Public Address (Index 13)",
+      "Public Address (Index 14)",
+      "Public Address (Index 15)"
+    ];
   }
 
   getWIFTitleNames() {
@@ -69,7 +106,7 @@ module.exports = class Bitcoin extends Coin {
     }
     return draft;
   }
-  _makeTrytesRandom(bytes = 32) {
-    return this._makeTrytesBase(randomBytes(bytes));
+  _makeTrytesRandom(bytes = 47) {
+    return this._makeTrytesBytes(randomBytes(bytes));
   }
 };
