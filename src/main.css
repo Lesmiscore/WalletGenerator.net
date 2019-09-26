@@ -107,6 +107,13 @@ body {
   border-top: 1px solid #bfbfbf;
 }
 
+.unsure {
+  display: none;
+  color: red;
+  font-weight: bolder;
+  font-size: 150%;
+}
+
 #walletCommands {
   display: visible;
 }

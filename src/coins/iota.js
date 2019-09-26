@@ -99,6 +99,10 @@ module.exports = class IOTA extends Coin {
     return true;
   }
 
+  isUnsure() {
+    return true;
+  }
+
   _makeTrytesBytes(bytes) {
     let draft = baseTrytes.encode(bytes);
     while (draft.length % 81 !== 0) {

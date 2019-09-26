@@ -95,6 +95,10 @@ module.exports = class NEM extends Coin {
     address = address.toUpperCase();
     return address.startsWith(pattern);
   }
+
+  isUnsure() {
+    return "true";
+  }
 };
 
 module.exports.mainnet = nem.model.network.data.mainnet.id;

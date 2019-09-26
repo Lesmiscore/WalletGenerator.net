@@ -118,4 +118,8 @@ module.exports = class Ripple extends Coin {
       ).toString("hex");
     }
   }
+
+  isUnsure() {
+    return true;
+  }
 };
