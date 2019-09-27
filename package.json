@@ -39,7 +39,8 @@
     "pret": "cd src ; prettier --print-width 200 --write ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js lazy/*.js lodash/*.js ../tests/*.js ../util/*.js",
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
-    "test": "mocha tests/"
+    "test": "mocha tests/",
+    "postinstall": "node ./util/postinstall.js"
   },
   "author": "MichaelMure",
   "license": "MIT",
