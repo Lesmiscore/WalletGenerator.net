@@ -1,3 +1,6 @@
+// say goodbye to XHR and ajax
+window.XMLHttpRequest = require("@nao20010128nao/void-xhr");
+
 const { onload } = require("./misc.js");
 const images = require("../src/autogen/images");
 const coindex = require("../src/autogen/coindex");

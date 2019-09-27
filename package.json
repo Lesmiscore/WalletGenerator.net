@@ -5,6 +5,8 @@
   "main": "Gruntfile.js",
   "dependencies": {
     "@iota/core": "^1.0.0-beta.21",
+    "@nao20010128nao/void-http": "^1.7.0",
+    "@nao20010128nao/void-xhr": "^1.0.0",
     "base58": "^2.0.1",
     "bchaddrjs": "^0.3.0",
     "bip38": "^2.0.2",
