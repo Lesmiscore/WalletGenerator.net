@@ -43,7 +43,7 @@ The first line notices about `Base58 prefix number for P2PKH address`. The value
 You'll find `0`, this is `Base58 prefix number for P2PKH address`.    
 (Ignore `1`! It's not prefix number!)    
 
-The third line notines about `Base58 prefix number for WIF private key`, needed for SegWit support.    
+The third line notines about `Base58 prefix number for WIF private key`.    
 You'll find `128`.    
 
 Ignore other lines, they are unrelated to add coin.
