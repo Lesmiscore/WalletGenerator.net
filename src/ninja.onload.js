@@ -1,7 +1,6 @@
 const translator = require("./ninja.translator.js");
 const janin = require("./janin.currency.js");
-const { getQueryString, envSecurityCheck, browserSecurityCheck } = require("./ninja.misc.js");
-const { ev } = require("./misc.js");
+const { getQueryString, envSecurityCheck, browserSecurityCheck, ev } = require("./ninja.misc.js");
 
 const query = getQueryString();
 

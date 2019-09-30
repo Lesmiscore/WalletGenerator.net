@@ -1,4 +1,4 @@
-const { onload } = require("./misc.js");
+const { onload } = require("./ninja.misc.js");
 const images = require("../src/autogen/images");
 const coindex = require("../src/autogen/coindex");
 require("./main.css");
