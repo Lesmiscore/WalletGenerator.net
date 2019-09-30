@@ -1,3 +1,7 @@
+// say goodbye to XHR and fetch
+window.XMLHttpRequest = require("@nao20010128nao/void-xhr");
+window.fetch = require("@nao20010128nao/void-fetch");
+
 const { onload } = require("./ninja.misc.js");
 const images = require("../src/autogen/images");
 const coindex = require("../src/autogen/coindex");

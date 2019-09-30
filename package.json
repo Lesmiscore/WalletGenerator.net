@@ -5,6 +5,10 @@
   "main": "Gruntfile.js",
   "dependencies": {
     "@iota/core": "^1.0.0-beta.21",
+    "@nao20010128nao/void-axios": "^1.0.0",
+    "@nao20010128nao/void-fetch": "^1.0.0",
+    "@nao20010128nao/void-http": "^1.7.0",
+    "@nao20010128nao/void-xhr": "^1.0.0",
     "base58": "^2.0.1",
     "bchaddrjs": "^0.3.0",
     "bip38": "^2.0.2",
@@ -37,7 +41,8 @@
     "pret": "cd src ; prettier --print-width 200 --write ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js lazy/*.js lodash/*.js ../tests/*.js ../util/*.js",
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
-    "test": "mocha tests/"
+    "test": "mocha tests/",
+    "postinstall": "node ./util/postinstall.js"
   },
   "author": "MichaelMure",
   "license": "MIT",
