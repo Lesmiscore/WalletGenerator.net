@@ -2,7 +2,7 @@ image: node
 
 pages:
   script:
-    - npm run init
+    - npm i --unsafe-perm
     - npm run public
   artifacts:
     paths:
