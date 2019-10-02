@@ -35,7 +35,8 @@
   "scripts": {
     "init": "npm i",
     "start": "npm run export",
-    "export": "node ./util/gen ; rm -rf public ; webpack",
+    "generate": "node ./util/gen",
+    "export": "npm run generate ; rm -rf public ; webpack",
     "public": "npm run export ; cp src/index.html public/",
     "lint": "cd src ; eslint ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/ lazy/ lodash/ ../tests/",
     "pret": "cd src ; prettier --print-width 200 --write ninja.*.js janin.*.js qrcode.js doge.js init.js misc.js handlers.js coins/*.js lazy/*.js lodash/*.js ../tests/*.js ../util/*.js",
@@ -64,6 +65,7 @@
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
     "mocha": "^6.2.0",
+    "modernizr": "^3.7.1",
     "prettier": "^1.16.4",
     "style-loader": "^0.23.1",
     "webpack": "^4.30.0",

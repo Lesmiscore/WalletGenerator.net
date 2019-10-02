@@ -44,3 +44,8 @@ try {
 
   fs.writeFileSync("./src/autogen/images.js", text);
 })();
+
+const modernizr = require("modernizr");
+modernizr.build(require("../modernizr-config.json"), function(output) {
+  fs.writeFileSync("src/autogen/modernizr.js", output);
+});
