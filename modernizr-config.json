@@ -1,0 +1,6 @@
+{
+  "minify": false,
+  "options": [],
+  "scriptGlobalName": "module.exports",
+  "feature-detects": ["test/canvas", "test/svg"]
+}
