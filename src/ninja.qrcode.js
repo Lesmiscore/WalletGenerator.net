@@ -59,30 +59,40 @@ const createCanvas = function(text, sizeMultiplier) {
   return canvas;
 };
 
-// generate a QRCode and return it's representation as an Html table
-const createTableHtml = function(text) {
+// generate a QRCode and return it's representation as a table
+const createTable = function(text) {
   const typeNumber = getTypeNumber(text);
   const qr = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
   qr.addData(text);
   qr.make();
   const modCount = qr.getModuleCount();
-  let tableHtml = "<table class='qrcodetable'>";
-  for (let r = 0; r < modCount; r++) {
-    tableHtml += "<tr>";
-    for (let c = 0; c < modCount; c++) {
-      if (qr.isDark(r, c)) {
-        tableHtml += "<td class='qrcodetddark'/>";
-      } else {
-        tableHtml += "<td class='qrcodetdlight'/>";
+
+  function getNode(n, v) {
+    n = document.createElement(n);
+    for (const p in v) {
+      if ({}.hasOwnProperty.call(v, p)) {
+        n.setAttribute(null, p, v[p]);
       }
     }
-    tableHtml += "</tr>";
+    return n;
   }
-  tableHtml += "</table>";
-  return tableHtml;
+
+  const root = getNode("table", { class: "qrcodetable" });
+  for (let r = 0; r < modCount; r++) {
+    const tr = getNode("tr");
+    for (let c = 0; c < modCount; c++) {
+      if (qr.isDark(r, c)) {
+        tr.appendChild(getNode("td", { class: "qrcodetddark" }));
+      } else {
+        tr.appendChild(getNode("td", { class: "qrcodetdlight" }));
+      }
+    }
+    root.appendChild(tr);
+  }
+  return root;
 };
 
-// generate a QRCode and return it's representation as an Html table
+// generate a QRCode and return it's representation as a svg
 const createSvg = function(text, sizeMultiplier) {
   // https://stackoverflow.com/questions/20539196/creating-svg-elements-dynamically-with-javascript-inside-html
   const typeNumber = getTypeNumber(text);
@@ -140,15 +150,16 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
   for (const key in keyValuePair) {
     if ({}.hasOwnProperty.call(keyValuePair, key)) {
       const value = keyValuePair[key];
+      document.getElementById(key).innerHTML = "";
       if (Modernizr.svg) {
-        document.getElementById(key).innerHTML = "";
+        // method 1: SVG
         document.getElementById(key).appendChild(createSvg(value, sizeMultiplier));
       } else if (Modernizr.canvas) {
-        document.getElementById(key).innerHTML = "";
+        // method 2: Canvas
         document.getElementById(key).appendChild(createCanvas(value, sizeMultiplier));
       } else {
-        // for browsers that do not support canvas (IE8)
-        document.getElementById(key).innerHTML = createTableHtml(value);
+        // method 3: <table>
+        document.getElementById(key).appendChild(createTable(value));
       }
     }
   }
@@ -157,6 +168,6 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
 module.exports = {
   getTypeNumber,
   createCanvas,
-  createTableHtml,
+  createTable,
   showQrCode
 };
