@@ -35,25 +35,24 @@ const createCanvas = function(text, sizeMultiplier) {
   const qrcode = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
   qrcode.addData(text);
   qrcode.make();
-  const width = qrcode.getModuleCount() * sizeMultiplier;
-  const height = qrcode.getModuleCount() * sizeMultiplier;
+  const modCount = qrcode.getModuleCount();
+  const size = modCount * sizeMultiplier;
   // create canvas element
   const canvas = document.createElement("canvas");
   const scale = 10.0;
-  canvas.width = width * scale;
-  canvas.height = height * scale;
-  canvas.style.width = width + "px";
-  canvas.style.height = height + "px";
+  canvas.width = size * scale;
+  canvas.height = size * scale;
+  canvas.style.width = size + "px";
+  canvas.style.height = size + "px";
   const ctx = canvas.getContext("2d");
   ctx.scale(scale, scale);
   // compute tileW/tileH based on width/height
-  const tileW = width / qrcode.getModuleCount();
-  const tileH = height / qrcode.getModuleCount();
+  const tile = sizeMultiplier;
   // draw in the canvas
-  for (let row = 0; row < qrcode.getModuleCount(); row++) {
-    for (let col = 0; col < qrcode.getModuleCount(); col++) {
+  for (let row = 0; row < modCount; row++) {
+    for (let col = 0; col < modCount; col++) {
       ctx.fillStyle = qrcode.isDark(row, col) ? "#000000" : "#ffffff";
-      ctx.fillRect(col * tileW, row * tileH, tileW, tileH);
+      ctx.fillRect(col * tile, row * tile, tile, tile);
     }
   }
   // return just built canvas
@@ -66,10 +65,11 @@ const createTableHtml = function(text) {
   const qr = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
   qr.addData(text);
   qr.make();
+  const modCount = qr.getModuleCount();
   let tableHtml = "<table class='qrcodetable'>";
-  for (let r = 0; r < qr.getModuleCount(); r++) {
+  for (let r = 0; r < modCount; r++) {
     tableHtml += "<tr>";
-    for (let c = 0; c < qr.getModuleCount(); c++) {
+    for (let c = 0; c < modCount; c++) {
       if (qr.isDark(r, c)) {
         tableHtml += "<td class='qrcodetddark'/>";
       } else {
