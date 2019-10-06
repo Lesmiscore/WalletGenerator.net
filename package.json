@@ -86,7 +86,17 @@
       "eslint",
       "git add"
     ],
-    "*.png": [
+    "images/*.png": [
+      "optipng -strip all -o9",
+      "git add"
+    ],
+    "logos/*.png": [
+      "mogrify -background none -resize 500x500>",
+      "optipng -strip all -o9",
+      "git add"
+    ],
+    "wallets/*.png": [
+      "mogrify -resize 1387x589>",
       "optipng -strip all -o9",
       "git add"
     ]
