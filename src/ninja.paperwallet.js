@@ -1,7 +1,7 @@
 const janin = require("./janin.currency.js");
 const privateKey = require("./ninja.privatekey.js");
 const translator = require("./ninja.translator.js");
-const qrCode = require("./ninja.qrcode.js");
+const qrCode = require("./ninja.qrcode");
 
 const open = function() {
   document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div

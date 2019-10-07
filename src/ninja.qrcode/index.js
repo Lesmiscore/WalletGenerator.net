@@ -1,5 +1,5 @@
-const QRCode = require("./qrcode.js");
-const { Modernizr } = require("./autogen/modernizr");
+const QRCode = require("./../qrcode.js");
+const { Modernizr } = require("./../autogen/modernizr");
 
 // determine which type number is big enough for the input text length
 const getTypeNumber = function(text) {
