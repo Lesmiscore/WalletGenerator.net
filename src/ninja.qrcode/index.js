@@ -28,13 +28,8 @@ const getTypeNumber = function(text) {
   return null;
 };
 
-const createCanvas = function(text, sizeMultiplier) {
+const createCanvas = function(qrcode, sizeMultiplier) {
   sizeMultiplier = !sizeMultiplier ? 2 : sizeMultiplier; // default 2
-  // create the qrcode itself
-  const typeNumber = getTypeNumber(text);
-  const qrcode = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
-  qrcode.addData(text);
-  qrcode.make();
   const modCount = qrcode.getModuleCount();
   const size = modCount * sizeMultiplier;
   // create canvas element
@@ -60,11 +55,7 @@ const createCanvas = function(text, sizeMultiplier) {
 };
 
 // generate a QRCode and return it's representation as a table
-const createTable = function(text) {
-  const typeNumber = getTypeNumber(text);
-  const qr = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
-  qr.addData(text);
-  qr.make();
+const createTable = function(qr) {
   const modCount = qr.getModuleCount();
 
   function getNode(n, v) {
@@ -93,12 +84,8 @@ const createTable = function(text) {
 };
 
 // generate a QRCode and return it's representation as a svg
-const createSvg = function(text, sizeMultiplier) {
+const createSvg = function(qr, sizeMultiplier) {
   // https://stackoverflow.com/questions/20539196/creating-svg-elements-dynamically-with-javascript-inside-html
-  const typeNumber = getTypeNumber(text);
-  const qr = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
-  qr.addData(text);
-  qr.make();
   const modCount = qr.getModuleCount();
   const size = modCount * sizeMultiplier;
   const ns = "http://www.w3.org/2000/svg";
@@ -150,16 +137,20 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
   for (const key in keyValuePair) {
     if ({}.hasOwnProperty.call(keyValuePair, key)) {
       const value = keyValuePair[key];
+      const typeNumber = getTypeNumber(value);
+      const qrcode = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
+      qrcode.addData(value);
+      qrcode.make();
       document.getElementById(key).innerHTML = "";
       if (Modernizr.svg) {
         // method 1: SVG
-        document.getElementById(key).appendChild(createSvg(value, sizeMultiplier));
+        document.getElementById(key).appendChild(createSvg(qrcode, sizeMultiplier));
       } else if (Modernizr.canvas) {
         // method 2: Canvas
-        document.getElementById(key).appendChild(createCanvas(value, sizeMultiplier));
+        document.getElementById(key).appendChild(createCanvas(qrcode, sizeMultiplier));
       } else {
         // method 3: <table>
-        document.getElementById(key).appendChild(createTable(value));
+        document.getElementById(key).appendChild(createTable(qrcode));
       }
     }
   }
