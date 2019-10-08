@@ -46,6 +46,7 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
       for (const { render, available } of renderers) {
         if (available) {
           parent.appendChild(render(qrcode, sizeMultiplier));
+          break;
         }
       }
     }
