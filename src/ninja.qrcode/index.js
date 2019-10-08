@@ -38,7 +38,7 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
     if ({}.hasOwnProperty.call(keyValuePair, key)) {
       const value = keyValuePair[key];
       const typeNumber = getTypeNumber(value);
-      const qrcode = new QRCode(typeNumber, QRCode.ErrorCorrectLevel.H);
+      const qrcode = QRCode(typeNumber, "H");
       qrcode.addData(value);
       qrcode.make();
       const parent = document.getElementById(key);
