@@ -15,7 +15,7 @@ const calculateFinalSizeMultiplier = (sizeMultiplier, moduleCount) => {
     return sizeMultiplier;
   } else if (typeof sizeMultiplier === "object" && sizeMultiplier.mode === "proportional") {
     // proportional
-    return (sizeMultiplier.sizeMultiplier * moduleCount) / sizeMultiplier.moduleCount;
+    return (sizeMultiplier.sizeMultiplier * sizeMultiplier.moduleCount) / moduleCount;
   }
 };
 

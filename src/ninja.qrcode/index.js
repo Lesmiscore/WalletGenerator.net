@@ -1,5 +1,5 @@
 const QRCode = require("./../qrcode.js");
-const sizeMultiplier = require("./sizemultiplier");
+const sizeMultiplier_ = require("./sizemultiplier");
 const renderers = [require("./renderer/svg"), require("./renderer/canvas"), require("./renderer/table")];
 
 // determine which type number is big enough for the input text length
@@ -42,7 +42,7 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
       const qrcode = QRCode(typeNumber, "H");
       qrcode.addData(value);
       qrcode.make();
-      const newSizeMultiplier = sizeMultiplier.calculateFinalSizeMultiplier(sizeMultiplier, qrcode.getModuleCount());
+      const newSizeMultiplier = sizeMultiplier_.calculateFinalSizeMultiplier(sizeMultiplier, qrcode.getModuleCount());
       const parent = document.getElementById(key);
       parent.innerHTML = "";
       for (const { render, available } of renderers) {
@@ -58,5 +58,5 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
 module.exports = {
   getTypeNumber,
   showQrCode,
-  sizeMultiplier
+  sizeMultiplier: sizeMultiplier_
 };

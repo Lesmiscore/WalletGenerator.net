@@ -213,18 +213,6 @@ module.exports = class Bitcoin extends Coin {
     return !!btcKey.d;
   }
 
-  templateArtisticHtml(i, mode) {
-    const template = super.templateArtisticHtml(i, mode);
-    switch (mode || 0) {
-      case 2: // segwit
-        if (this.network.bech32) {
-          return template.replace("class='qrcode_public'", "class='qrcode_public segwit'");
-        }
-        break;
-    }
-    return template;
-  }
-
   isVanitygenPossible(pattern, mode) {
     if (!pattern) return true;
     const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";

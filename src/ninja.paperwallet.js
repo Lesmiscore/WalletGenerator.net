@@ -133,11 +133,11 @@ const templateArtisticHtml = function(i) {
 const showArtisticWallet = function(idPostFix, bitcoinAddress, privKey) {
   let keyValuePair = {};
   keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
-  qrCode.showQrCode(keyValuePair, 3.5);
+  qrCode.showQrCode(keyValuePair, qrCode.sizeMultiplier.proportional(41, 2.8));
 
   keyValuePair = {};
   keyValuePair["qrcode_private" + idPostFix] = privKey;
-  qrCode.showQrCode(keyValuePair, 2.8);
+  qrCode.showQrCode(keyValuePair, qrCode.sizeMultiplier.proportional(41, 2.8));
 
   document.getElementById("btcaddress" + idPostFix).innerHTML = bitcoinAddress;
   document.getElementById("btcprivwif" + idPostFix).innerHTML = privKey;
