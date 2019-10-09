@@ -20,26 +20,31 @@ const render = function(qr, sizeMultiplier) {
     getNode("rect", {
       x: 0,
       y: 0,
-      width: size,
-      height: size,
+      width: "100%",
+      height: "100%",
       fill: "#fff"
     })
   );
-  for (let c = 0; c < modCount; c++) {
-    for (let r = 0; r < modCount; r++) {
+  const margin = 0;
+  const rect = "l" + sizeMultiplier + ",0 0," + sizeMultiplier + " -" + sizeMultiplier + ",0 0,-" + sizeMultiplier + "z ";
+  let path = "";
+  for (let r = 0; r < modCount; r += 1) {
+    const mr = r * sizeMultiplier + margin;
+    for (let c = 0; c < modCount; c += 1) {
       if (qr.isDark(r, c)) {
-        root.appendChild(
-          getNode("rect", {
-            x: c * sizeMultiplier,
-            y: r * sizeMultiplier,
-            width: sizeMultiplier,
-            height: sizeMultiplier,
-            fill: "#000"
-          })
-        );
+        const mc = c * sizeMultiplier + margin;
+        path += "M" + mc + "," + mr + rect;
       }
     }
   }
+
+  root.appendChild(
+    getNode("path", {
+      d: path,
+      stroke: "transparent",
+      fill: "#000"
+    })
+  );
   return root;
 };
 
