@@ -31,27 +31,7 @@ npm run public
 The WalletGenerator.net project, software and embedded resources are copyright WalletGenerator.net.  
 The WalletGenerator.net name and logo are not part of the open source license.
 
-Portions of the all-in-one HTML document contain JavaScript codes that are the copyrights of others. The individual copyrights are included throughout the document along with their licenses.  
-Included JavaScript libraries are combined in a HTML `<script>` tag.
-
-Summary of JavaScript functions with a redistributable license:
-
-| JavaScript function/package   | License             | Notes                              |
-| :---------------------------- | :------------------ | :--------------------------------- |
-| Array.prototype.map           | Public Domain       | referenced by `package-browserify` |
-| jsqrcode                      | Apache License, 2.0 | inherited from original            |
-| `base58` package              | MIT License         | exported by `package-browserify`   |
-| `bchaddrjs` package           | MIT License         | exported by `package-browserify`   |
-| `bip38` package               | MIT License         | exported by `package-browserify`   |
-| `bitcoinjs-lib` package       | MIT License         | exported by `package-browserify`   |
-| `bitcoinjs-lib-zcash` package | MIT License         | exported by `package-browserify`   |
-| `bn.js` package               | MIT License         | exported by `package-browserify`   |
-| `browserify-aes` package      | MIT License         | exported by `package-browserify`   |
-| `elliptic` package            | MIT License         | exported by `package-browserify`   |
-| `randombytes` package         | MIT License         | exported by `package-browserify`   |
-| `safe-buffer` package         | MIT License         | exported by `package-browserify`   |
-| `scryptsy` package            | MIT License         | exported by `package-browserify`   |
-| `wif` package                 | MIT License         | exported by `package-browserify`   |
+See `package.json` for depending packages. You can check licenses for each package at npmjs.com .
 
 ```
 The WalletGenerator.net software is available under The MIT License (MIT)
