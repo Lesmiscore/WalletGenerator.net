@@ -1,5 +1,5 @@
 const privateKey = require("./ninja.privatekey.js");
-const qrCode = require("./ninja.qrcode.js");
+const qrCode = require("./ninja.qrcode");
 
 const open = function() {
   if (!document.getElementById("btcaddress").innerHTML) {

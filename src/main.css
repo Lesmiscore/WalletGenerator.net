@@ -492,10 +492,6 @@ h1 {
   background-color: #ffffff;
   padding: 5px 5px 2px 5px;
 }
-#paperarea .artwallet .qrcode_public.segwit {
-  top: 250px;
-  left: 770px;
-}
 #paperarea .artwallet .qrcode_private {
   top: 37px;
   right: 446px;
@@ -590,12 +586,6 @@ h1 {
 }
 .redColor {
   color: red;
-}
-.1percentwidth {
-  width: 1%;
-}
-.100pxwidth {
-  width: 100px;
 }
 
 .paperWalletText {

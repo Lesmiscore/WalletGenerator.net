@@ -1,7 +1,7 @@
 const janin = require("./janin.currency.js");
 const privateKey = require("./ninja.privatekey.js");
 const translator = require("./ninja.translator.js");
-const qrCode = require("./ninja.qrcode.js");
+const qrCode = require("./ninja.qrcode");
 
 const open = function() {
   document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div
@@ -131,13 +131,10 @@ const templateArtisticHtml = function(i) {
 };
 
 const showArtisticWallet = function(idPostFix, bitcoinAddress, privKey) {
-  let keyValuePair = {};
+  const keyValuePair = {};
   keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
-  qrCode.showQrCode(keyValuePair, 3.5);
-
-  keyValuePair = {};
   keyValuePair["qrcode_private" + idPostFix] = privKey;
-  qrCode.showQrCode(keyValuePair, 2.8);
+  qrCode.showQrCode(keyValuePair, qrCode.sizeMultiplier.proportional(41, 2.8));
 
   document.getElementById("btcaddress" + idPostFix).innerHTML = bitcoinAddress;
   document.getElementById("btcprivwif" + idPostFix).innerHTML = privKey;

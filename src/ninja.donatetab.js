@@ -1,4 +1,4 @@
-const qrCode = require("./ninja.qrcode.js");
+const qrCode = require("./ninja.qrcode");
 const janin = require("./janin.currency.js");
 
 const open = function() {
