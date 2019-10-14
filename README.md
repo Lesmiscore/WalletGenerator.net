@@ -1,4 +1,6 @@
 # LOOKING FOR THE ZIP FILE TO DOWNLOAD ?
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net?ref=badge_shield)
+
 
 It's here: https://github.com/nao20010128nao/WalletGenerator.net/archive/gh-pages.zip
 
@@ -43,3 +45,6 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net?ref=badge_large)
