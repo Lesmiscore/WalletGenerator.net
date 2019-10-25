@@ -11,6 +11,7 @@
     "@nao20010128nao/void-xhr": "^1.0.1",
     "base58": "^2.0.1",
     "bchaddrjs": "^0.3.0",
+    "bignumber.js": "^9.0.0",
     "bip38": "^2.0.2",
     "bitcoinjs-lib": "^3.3.2",
     "bitcoinjs-lib-zcash": "^3.5.3",

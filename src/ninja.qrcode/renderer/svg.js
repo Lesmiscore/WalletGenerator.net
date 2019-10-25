@@ -1,8 +1,10 @@
+const BN = require("bignumber.js");
+
 const { Modernizr } = require("./../../autogen/modernizr");
 const render = function(qr, sizeMultiplier) {
   // https://stackoverflow.com/questions/20539196/creating-svg-elements-dynamically-with-javascript-inside-html
   const modCount = qr.getModuleCount();
-  const size = modCount * sizeMultiplier;
+  const size = +new BN(modCount).times(sizeMultiplier);
   const ns = "http://www.w3.org/2000/svg";
   function getNode(n, v) {
     n = document.createElementNS(ns, n);
@@ -25,14 +27,13 @@ const render = function(qr, sizeMultiplier) {
       fill: "#fff"
     })
   );
-  const margin = 0;
   const rect = "l" + sizeMultiplier + ",0 0," + sizeMultiplier + " -" + sizeMultiplier + ",0 0,-" + sizeMultiplier + "z ";
   let path = "";
   for (let r = 0; r < modCount; r += 1) {
-    const mr = r * sizeMultiplier + margin;
+    const mr = +new BN(r).times(sizeMultiplier);
     for (let c = 0; c < modCount; c += 1) {
       if (qr.isDark(r, c)) {
-        const mc = c * sizeMultiplier + margin;
+        const mc = +new BN(c).times(sizeMultiplier);
         path += "M" + mc + "," + mr + rect;
       }
     }
