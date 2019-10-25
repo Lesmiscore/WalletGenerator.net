@@ -31,7 +31,10 @@ npm run public
 The WalletGenerator.net project, software and embedded resources are copyright WalletGenerator.net.  
 The WalletGenerator.net name and logo are not part of the open source license.
 
-See `package.json` for depending packages. You can check licenses for each package at npmjs.com .
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net?ref=badge_shield)
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnao20010128nao%2FWalletGenerator.net?ref=badge_large)
+
 
 ```
 The WalletGenerator.net software is available under The MIT License (MIT)
