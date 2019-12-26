@@ -17,4 +17,10 @@ fs.writeFileSync("./node_modules/whatwg-fetch/dist/fetch.umd.js", aliasing("@nao
 fs.writeFileSync("./node_modules/axios/index.js", aliasing("@nao20010128nao/void-axios"));
 
 // nullify blake2b-wasm
-fs.writeFileSync("./node_modules/blake2b-wasm/index.js", "module.exports=()=>{};");
+fs.writeFileSync(
+  "./node_modules/blake2b-wasm/index.js",
+  `
+module.exports=()=>{};
+module.exports.ready=module.exports;
+`
+);
