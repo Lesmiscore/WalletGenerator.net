@@ -1,4 +1,4 @@
-const bitcoin = require("bitcoinjs-lib");
+const bitcoin = require("bitgo-utxo-lib");
 const bigi = require("bigi");
 const bip38 = require("bip38");
 const wif = require("wif");
