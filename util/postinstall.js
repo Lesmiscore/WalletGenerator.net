@@ -20,7 +20,41 @@ fs.writeFileSync("./node_modules/axios/index.js", aliasing("@nao20010128nao/void
 fs.writeFileSync(
   "./node_modules/blake2b-wasm/index.js",
   `
-module.exports=()=>{};
-module.exports.ready=module.exports;
-`
+  module.exports=()=>{};
+  module.exports.ready=module.exports;
+  `
 );
+
+// reduce nem-sdk
+{
+  let script = `
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  `;
+  const addDirect = (name, path) => {
+    script += `var ${name} = require('${path}');\n`;
+  };
+  const addIntrDefault = (name, path) => {
+    addDirect(name, path);
+    script += `var ${name}2 = _interopRequireDefault(${name});\n`;
+  };
+  addDirect("keyPair", "./crypto/keyPair");
+  addIntrDefault("network", "./model/network");
+  addIntrDefault("address", "./model/address");
+  script += `
+    exports.default = {
+      crypto: {
+        keyPair,
+      },
+      model: {
+        address: address2.default,
+        network: network2.default
+      }
+    }
+  `;
+  fs.writeFileSync("./node_modules/nem-sdk/build/index.js", script);
+}
