@@ -58,3 +58,13 @@ fs.writeFileSync(
   `;
   fs.writeFileSync("./node_modules/nem-sdk/build/index.js", script);
 }
+
+// reduce @iota/core
+{
+  let script = "";
+  const addExport = (name, path) => {
+    script += `exports.${name} = require("${path}").${name};\n`;
+  };
+  addExport("generateAddress", "./generateAddress");
+  fs.writeFileSync("./node_modules/@iota/core/out/core/src/index.js", script);
+}
