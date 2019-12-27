@@ -68,3 +68,29 @@ fs.writeFileSync(
   addExport("generateAddress", "./generateAddress");
   fs.writeFileSync("./node_modules/@iota/core/out/core/src/index.js", script);
 }
+
+// reduce bitgo-utxo-lib
+{
+  fs.writeFileSync(
+    "./node_modules/bitgo-utxo-lib/src/index.js",
+    `
+var script = require('./script')
+
+var templates = require('./templates')
+for (var key in templates) {
+  script[key] = templates[key]
+}
+
+module.exports = {
+  ECPair: require('./ecpair'),
+  ECSignature: require('./ecsignature'),
+
+  address: require('./address'),
+  coins: require('./coins'),
+  crypto: require('./crypto'),
+  networks: require('./networks'),
+  script: script
+}
+`
+  );
+}
