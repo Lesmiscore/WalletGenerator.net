@@ -1,7 +1,7 @@
 const translator = require("./ninja.translator.js");
 const privateKey = require("./ninja.privatekey.js");
 const qrCode = require("./ninja.qrcode");
-const bitcoin = require("bitcoinjs-lib");
+const bitcoin = require("bitgo-utxo-lib");
 const bigi = require("bigi");
 
 const open = function() {

@@ -4,7 +4,7 @@ const privateKey = require("./ninja.privatekey.js");
 const brainwallet = require("./ninja.brainwallet.js");
 const qrCode = require("./ninja.qrcode");
 const janin = require("./janin.currency.js");
-const bitcoin = require("bitcoinjs-lib");
+const bitcoin = require("bitgo-utxo-lib");
 const bigi = require("bigi");
 
 const qrscanner = {

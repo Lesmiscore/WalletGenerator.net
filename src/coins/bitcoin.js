@@ -1,4 +1,4 @@
-const bitcoin = require("bitcoinjs-lib");
+const bitcoin = require("bitgo-utxo-lib");
 const wif = require("wif");
 const bigi = require("bigi");
 const elliptic = require("elliptic");
@@ -7,9 +7,8 @@ const constants = require("./constants");
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
 module.exports = class Bitcoin extends Coin {
-  constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp) {
+  constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp, coin = bitcoin.coins.BTC) {
     super(name, donate);
-    this.world = bitcoin;
     this.network = {
       messagePrefix: "\x18Bitcoin Signed Message:\n",
       bech32: b32hrp,
@@ -19,7 +18,8 @@ module.exports = class Bitcoin extends Coin {
       },
       pubKeyHash: networkVersion & 0xffff,
       scriptHash: scriptHash || 0x05,
-      wif: privateKeyPrefix
+      wif: privateKeyPrefix,
+      coin
     };
   }
 
@@ -27,13 +27,13 @@ module.exports = class Bitcoin extends Coin {
     opts = Object.assign({}, opts || {}, {
       network: this.network
     });
-    return new this.world.ECPair(d, Q, opts);
+    return new bitcoin.ECPair(d, Q, opts);
   }
   makeRandom(opts) {
     opts = Object.assign({}, opts || {}, {
       network: this.network
     });
-    return this.world.ECPair.makeRandom(opts);
+    return bitcoin.ECPair.makeRandom(opts);
   }
 
   isPrivateKey(key) {
@@ -67,7 +67,7 @@ module.exports = class Bitcoin extends Coin {
     }
     // WIF/CWIF
     try {
-      return this.world.ECPair.fromWIF(key, this.network);
+      return bitcoin.ECPair.fromWIF(key, this.network);
     } catch (error) {}
     // Base64/Hex
     function tryBy(enc) {
@@ -100,23 +100,23 @@ module.exports = class Bitcoin extends Coin {
         default:
         case 0: // compressed
           btcKey.compressed = true;
-          return this.world.ECPair.prototype.getAddress.call(btcKey);
+          return bitcoin.ECPair.prototype.getAddress.call(btcKey);
         case 1: // uncompressed
           btcKey.compressed = false;
-          return this.world.ECPair.prototype.getAddress.call(btcKey);
+          return bitcoin.ECPair.prototype.getAddress.call(btcKey);
         case 2: // segwit
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
-            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
-            return this.world.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
+            const redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+            return bitcoin.address.toBech32(bitcoin.script.compile(redeemScript).slice(2, 22), 0, btcKey.network.bech32);
           }
           return this.getAddressWith(btcKey, 0);
         case 3: // segwit (p2sh)
           if (btcKey.network.bech32) {
             const pubKeyCompressed = btcKey.Q.getEncoded(true);
-            const redeemScript = this.world.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
+            const redeemScript = bitcoin.script.witnessPubKeyHash.output.encode(bitcoin.crypto.hash160(pubKeyCompressed));
             const scriptPubKey = bitcoin.crypto.hash160(redeemScript);
-            return this.world.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
+            return bitcoin.address.toBase58Check(scriptPubKey, btcKey.network.scriptHash);
           }
           return this.getAddressWith(btcKey, 0);
       }

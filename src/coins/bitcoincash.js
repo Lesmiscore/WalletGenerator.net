@@ -1,11 +1,11 @@
 const Bitcoin = require("./bitcoin");
-const bitcoin = require("bitcoinjs-lib");
+const bitcoin = require("bitgo-utxo-lib");
 const bchaddrjs = require("bchaddrjs");
 const constants = require("./constants");
 
 module.exports = class BitcoinCash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
-    super(name, networkVersion, privateKeyPrefix, donate);
+    super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, bitcoin.coins.BCH);
   }
 
   getAddressWith(btcKey, mode) {
