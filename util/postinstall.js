@@ -83,7 +83,6 @@ for (var key in templates) {
 
 module.exports = {
   ECPair: require('./ecpair'),
-  ECSignature: require('./ecsignature'),
 
   address: require('./address'),
   coins: require('./coins'),

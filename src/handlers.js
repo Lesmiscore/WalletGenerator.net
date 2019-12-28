@@ -26,50 +26,11 @@ ev("#securitystep7 a", "click", function() {
   tabSwitch(document.getElementById("donate"));
 });
 
-ev("#faqLink1", "click", function() {
-  toggleFaqQuestion("faqQuestion1");
-  toggleFaqQuestion("faqQuestion1.1");
-});
-
-ev("#faqLink2", "click", function() {
-  toggleFaqQuestion("faqQuestion2");
-});
-
-ev("#faqLink3", "click", function() {
-  toggleFaqQuestion("faqQuestion3");
-});
-
-ev("#faqLink4", "click", function() {
-  toggleFaqQuestion("faqQuestion4");
-});
-
-ev("#faqLink5", "click", function() {
-  toggleFaqQuestion("faqQuestion5");
-});
-
-ev("#faqLink6", "click", function() {
-  toggleFaqQuestion("faqQuestion6");
-});
-
-ev("#faqLink7", "click", function() {
-  toggleFaqQuestion("faqQuestion7");
-});
-
-ev("#faqLink8", "click", function() {
-  toggleFaqQuestion("faqQuestion8");
-});
-
-ev("#faqLink9", "click", function() {
-  toggleFaqQuestion("faqQuestion9");
-});
-
-ev("#faqLink10", "click", function() {
-  toggleFaqQuestion("faqQuestion10");
-});
-
-ev("#faqLink11", "click", function() {
-  toggleFaqQuestion("faqQuestion11");
-});
+for (let i = 1; i <= 11; i++) {
+  ev(`#faqLink${i}`, "click", function() {
+    toggleFaqQuestion(`faqQuestion${i}`);
+  });
+}
 
 ev("#paperencrypt", "change", function() {
   paperwallet.toggleEncrypt(this);
