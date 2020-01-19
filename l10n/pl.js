@@ -1,26 +1,22 @@
 module.exports = {
   choosecurrency: "Wybierz walutę",
+  unsure: "WARNING: The developer thinks that support for this coin is not safe or not correct.<br />Please help the developer by auditing and validating coin implementation here!",
   singlewallet: "Pojedynczy portfel",
   paperwallet: "Portfel papierowy",
   bulkwallet: "Wiele portfeli",
   brainwallet: "Brain Wallet",
   detailwallet: "Szczegóły portfela",
   donate: "Wsparcie",
-  generatelabelbitcoinaddress: "Generowanie nowego adresu...",
-  generatelabelmovemouse: "Losowo ruszaj myszką, aby zaszyfrować portfel...",
-  generatelabelkeypress: "lub wpisz losowe znaki w to pole",
-  skipMessage:
-    "Możesz pominąć ten krok, jeżeli nie planujesz używać losowego generatora kluczy.",
-  singlelabelbitcoinaddress: "Adres publiczny",
+  singlevanitygen: "Vanitygen Pattern:",
   singleshare: "UDOSTĘPNIJ",
-  singlelabelprivatekey: "Klucz prywatny (format WIF)",
+  singlelabelbitcoinaddress: "Adres publiczny",
   singlesecret: "TAJNE",
+  singlelabelprivatekey: "Klucz prywatny (format WIF)",
   securitystep0title: "Krok 0. Sprawdź listę zaleceń bezpieczeństwa.",
   securitystep0:
     'Po pierwsze - <strong>pobierz</strong> tę stronę z <a href="https://github.com/MichaelMure/WalletGenerator.net/archive/master.zip">Githuba</a> i otwórz plik index.html bezpośrednio ze swojego komputera. Wprowadzenie złośliwego kodu do strony, która zawiera ponad 6000 linijek kodu javascript jest dość proste i może skutkować wyciekiem Twojego klucza prywatnego, a co za tym idzie, utratą wszystkich środków z portfela. Aby zapewnić dodatkowe bezpieczeństwo, należy <strong>odłączyć się od Internetu</strong> podczas generowania portfela dla bezpieczeństwa.',
   securitystep1title: "Krok 1. Wygeneruj nowy adres",
-  securitystep1:
-    'Wybierz swoją walutę i naciśnij przycisk "Generate new address".',
+  securitystep1: 'Wybierz swoją walutę i naciśnij przycisk "Generate new address".',
   securitystep2title: "Krok 2. Wydrukuj papierowy portfel.",
   securitystep2:
     "Kliknij zakładkę ”Portfel papierowy” i wydrukuj stronę z ustawieniami wysokiej jakości druku. <strong>Nigdy nie zapisuj strony jako PDF. Zdecydowanie łatwiej jest zhakować plik, niż kartkę papieru</strong>",
@@ -28,27 +24,22 @@ module.exports = {
   securitystep3:
     'Złóż swój nowy portfel papierowy, zgodnie z liniami.\n<img src="images/foldinginstructions.png" alt="Zegnij w pół w długości, a później na trzy w szerokości."><br>\nMożesz włożyć jeden bok do drugiego, aby dodatkowo zabezpieczyć portfel.',
   securitystep4title: "Krok 4. Udostępnij swój adres publiczny",
-  securitystep4:
-    "Użyj swojego adresu publicznego, aby otrzymać pieniądze od innych użytkowników kryptowalut. Możesz udostępniać swój adres publiczny bez ograniczeń.",
+  securitystep4: "Użyj swojego adresu publicznego, aby otrzymać pieniądze od innych użytkowników kryptowalut. Możesz udostępniać swój adres publiczny bez ograniczeń.",
   securitystep5title: "Krok 5. Trzymaj swój klucz prywatny w tajemnicy",
   securitystep5:
     "Klucz prywatny to dosłownie klucz do Twoich środków. Jeżeli ktoś go zdobędzie, będzie w stanie wypłacić wszystkie środki znajdujące się obecnie w portfelu oraz przejąć wszystkie środki, które zostaną na niego przelane w przyszłości.",
-  securitystep6:
-    "Przed otrzymaniem pokaźnej ilości środków, przetestuj swój portfel, transferując na niego niewielką kwotę.",
+  securitystep6: "Przed otrzymaniem pokaźnej ilości środków, przetestuj swój portfel, transferując na niego niewielką kwotę.",
   securitystep7title: "Proszę rozważyć wspieranie nas.",
   securitystep7:
     'Ten serwis jest darmowy i pozostanie darmowy bez reklam, ani skryptów śledzących, w jakiejkolwiek postaci. Rozważ proszę <a href="#" onclick="ninja.tabSwitch(document.getElementById(\'donate\'));">złożenie darowizny,</a> aby wspomóc nas i ludzi, którzy dodają wsparcie dla nowych walut.',
   securitychecktitle: "Lista zaleceń bezpieczeństwa :",
-  securitychecklivecd:
-    "Czy korzystasz z bezpiecznego systemu operacyjnego, który jest wolny od oprogramowania szpiegującego i wirusów, na przykład Ubuntu LiveCD?",
+  securitychecklivecd: "Czy korzystasz z bezpiecznego systemu operacyjnego, który jest wolny od oprogramowania szpiegującego i wirusów, na przykład Ubuntu LiveCD?",
   supportedcurrencylbl: "Wspierane waluty !",
   paperlabelencrypt: "Szyfrowanie BIP38?",
   paperlabelBIPpassphrase: "Hasło:",
   bulklabelstartindex: "Zacznij od numeru indeksu:",
   bulklabelrowstogenerate: "Ilość rzędów:",
-  bulklabelcompressed: "Skompresowane adresy?",
-  bulklabelcsv:
-    "Wartości oddzielone przecinkami: numer indeksu,adres,klucz prywatny (WIF)",
+  bulklabelcsv: "Wartości oddzielone przecinkami: numer indeksu,adres,klucz prywatny (WIF)",
   brainlabelenterpassphraselbl: "Podaj hasło:",
   brainlabelconfirmlbl: "Potwierdź hasło:",
   brainalgorithm: "Algorytm: SHA256(hasło)",
@@ -56,22 +47,14 @@ module.exports = {
   brainlabelprivatekey: "Klucz prywatny (format WIF):",
   detaillabelenterprivatekey: "Wprowadź klucz prywatny",
   qrcaminstructiontitle: "Zeskanuj kod QR, używając kamerki",
-  paperqrnotsupported:
-    "Niestety, Twoja przeglądarka nie wspiera obsługi kamerki za pomocą HTML5. Użyj najnowszej wersji Firefoksa (zalecane), lub Chrome’a albo Opery.",
-  paperqrpermissiondenied:
-    "<p>Odmowa dostępu. Twoja przeglądarka powinna wyświetlić komunikat z prośbą o dostęp do kamerki. Naciśnij przycisk ”Zezwól”, aby aktywować kamerkę.</p>",
+  paperqrnotsupported: "Niestety, Twoja przeglądarka nie wspiera obsługi kamerki za pomocą HTML5. Użyj najnowszej wersji Firefoksa (zalecane), lub Chrome’a albo Opery.",
+  paperqrpermissiondenied: "<p>Odmowa dostępu. Twoja przeglądarka powinna wyświetlić komunikat z prośbą o dostęp do kamerki. Naciśnij przycisk ”Zezwól”, aby aktywować kamerkę.</p>",
   detaillabelpassphrase: "Wprowadź hasło BIP38",
   detaillabelnote1:
     "Twój klucz prywatny jest unikalnym tajnym numerem, który znasz tylko Ty. Może on zostać zaszyfrowany w różnych formatach. Poniżej przedstawiamy adres publiczny i klucz publiczny, odpowiadający Twojemu kluczowi prywatnemu, oraz Twój klucz prywatny w najpopularniejszych metodach szyfrowania (WIF, WIFC, HEX, B64).",
-  detaillabelbitcoinaddress: "Adres publiczny",
-  detaillabelbitcoinaddresscomp: "Skompresowany adres publiczny",
   detaillabelpublickey: "Klucz publiczny (130 znaków [0-9A-F]):",
-  detaillabelpublickeycomp:
-    "Klucz publiczny (skompresowany, 66 znaków [0-9A-F]):",
-  detaillabelprivwif: "Klucz prywatny WIF<br>51 znaków Base58",
-  detaillabelprivwifcomp: "Skompresowany klucz prywatny WIF<br>52 znaki Base58",
-  detaillabelprivhex:
-    "Klucz prywatny w systemie szesnastkowym (64 znaki [0-9A-F]):",
+  detaillabelpublickeycomp: "Klucz publiczny (skompresowany, 66 znaków [0-9A-F]):",
+  detaillabelprivhex: "Klucz prywatny w systemie szesnastkowym (64 znaki [0-9A-F]):",
   detaillabelprivb64: "Klucz prywatny Base64 (44 znaki):",
   detaillabelprivmini: "Klucz prywatny w formacie Mini (22, 26 lub 30 znaków):",
   detaillabelprivb6: "Klucz prywatny w formacie Base6 (99 znaków [0-5]):",
@@ -85,11 +68,18 @@ module.exports = {
   footerlabelgithub: "Pobierz (GitHub Repository)",
   footerlabelcopyright2: "Prawa autorskie JavaScript są umieszczone w źródle",
   footerlabelnowarranty: "Bez gwarancji.",
-  defaultTitle:
-    "WalletGenerator.net – uniwersalny generator portfeli papierowych dla Bitcoina i innych kryptowalut",
+  generatelabelbitcoinaddress: "Generowanie nowego adresu...",
+  generatelabelmovemouse: "Losowo ruszaj myszką, aby zaszyfrować portfel...",
+  generatelabelkeypress: "lub wpisz losowe znaki w to pole",
+  skipMessage: "Możesz pominąć ten krok, jeżeli nie planujesz używać losowego generatora kluczy.",
+  bulklabelcompressed: "Skompresowane adresy?",
+  detaillabelbitcoinaddress: "Adres publiczny",
+  detaillabelbitcoinaddresscomp: "Skompresowany adres publiczny",
+  detaillabelprivwif: "Klucz prywatny WIF<br>51 znaków Base58",
+  detaillabelprivwifcomp: "Skompresowany klucz prywatny WIF<br>52 znaki Base58",
+  defaultTitle: "WalletGenerator.net – uniwersalny generator portfeli papierowych dla Bitcoina i innych kryptowalut",
   title: "Generator portfeli papierowych",
-  brainalertpassphrasewarning:
-    "Uwaga: użycie mocnego hasła jest istotne, aby zapobiec próbom odgadnięcia hasła poprzez metodę brute force, a co za tym idzie kradzieży Twoich środków.",
+  brainalertpassphrasewarning: "Uwaga: użycie mocnego hasła jest istotne, aby zapobiec próbom odgadnięcia hasła poprzez metodę brute force, a co za tym idzie kradzieży Twoich środków.",
   brainalertpassphrasetooshort: "Hasło, które wpisałeś jest zbyt krótkie.",
   brainalertpassphrasedoesnotmatch: "Hasła różnią się.",
   bulkgeneratingaddresses: "Generowanie adresów...",
@@ -97,10 +87,8 @@ module.exports = {
   bip38alertpassphraserequired: "Wymagane hasło dla klucza BIP38",
   detailconfirmsha256:
     "Wprowadzony tekst nie jest prawidłowym kluczem prywatnym!\nCzy chciałbyś użyć wprowadzonego tekstu, jako hasła i stworzyć klucz prywatny, używając hasha SHA256 dla danego hasła?\nUwaga: użycie mocnego hasła jest istotne, aby zapobiec próbom odgadnięcia hasła poprzez metodę brute force, a co za tym idzie kradzieży Twoich środków.",
-  detailalertnotvalidprivatekey:
-    "Wprowadzony tekst nie jest prawidłowym kluczem prywatnym",
-  securitychecklistrandomOK:
-    "Twoja przeglądarka jest w stanie generować kryptograficznie losowe klucze, używając window.crypto.getRandomValues",
+  detailalertnotvalidprivatekey: "Wprowadzony tekst nie jest prawidłowym kluczem prywatnym",
+  securitychecklistrandomOK: "Twoja przeglądarka jest w stanie generować kryptograficznie losowe klucze, używając window.crypto.getRandomValues",
   securitychecklistrandomNOK:
     "Twoja przeglądarka NIE wspiera window.crypto.getRandomValues(). Jest to istotne dla generowania możliwie najbezpieczniejszych losowych liczb. Prosimy o użycie nowoczesnej przeglądarki.",
   securitychecklistofflineNOK:
