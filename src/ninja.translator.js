@@ -59,18 +59,18 @@ const staticID = [
 ];
 
 const translations = {
-  en: require("../l10n/en.js"),
-  fr: require("../l10n/fr.js"),
-  de: require("../l10n/de.js"),
-  nl: require("../l10n/nl.js"),
-  pt: require("../l10n/pt.js"),
-  ru: require("../l10n/ru.js"),
-  es: require("../l10n/es.js"),
-  it: require("../l10n/it.js"),
-  ua: require("../l10n/ua.js"),
-  tr: require("../l10n/tr.js"),
-  pl: require("../l10n/pl.js"),
-  zh: require("../l10n/zh.js")
+  en: require("../l10n/en.json"),
+  fr: require("../l10n/fr.json"),
+  de: require("../l10n/de.json"),
+  nl: require("../l10n/nl.json"),
+  pt: require("../l10n/pt.json"),
+  ru: require("../l10n/ru.json"),
+  es: require("../l10n/es.json"),
+  it: require("../l10n/it.json"),
+  ua: require("../l10n/ua.json"),
+  tr: require("../l10n/tr.json"),
+  pl: require("../l10n/pl.json"),
+  zh: require("../l10n/zh.json")
 };
 
 module.exports = {
