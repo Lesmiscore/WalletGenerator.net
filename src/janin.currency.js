@@ -205,6 +205,7 @@ let currencies = [
   new Bitcoin("Copico", 0x1c, 0x90, "CKWBhVUwQP4fRw6xJk4nxCqKYCMz74bPKr"),
   new Bitcoin("CopperCoin", 0x1c, 0x9c, "CXh8p64WqmEwTkQSDk9azaZUqrnXE9WESV"),
   new Bitcoin("Corgicoin", 0x1c, 0x9c, "CNwV11TaKrfB3TnBS8vQjNbWT6CNxV8GBi"),
+  //new Bitcoin("CPUchain", 0x1c, 0x80, "CPUchainWKQfyNBHz5gYPX6J4a5ea9rjWG", 0x1e, "cpu"),
   new Bitcoin("CryptoBullion", 0x0b, 0x8b, "Cd9CgzTChm9yJQZ3SL3PUSsMkEEN8LGwCF"),
   new Bitcoin("CryptoClub", 0x23, 0xa3, "FKPFTw5LjoeGTZP1d3zHLfZNm91FktgPWY"),
   new Bitcoin("Cryptoescudo", 0x1c, 0x9c, "Cd9CgzTChm9yJQZ3SL3PUSsMkEEN8LGwCF"),
