@@ -1,5 +1,5 @@
-This project will not add listed coins or tokens as follows.    
-Similar ones will not be too. (like Monaparty)
+This project will not add coins or tokens listed below.    
+Includes similar ones too. (like Monaparty)
 
 # `ETH` tokens
 For ETH tokens, they use ETH address for transferring.   
@@ -19,8 +19,9 @@ Note that you can't use SegWit addresses for Counterparty.
 Because they are forked from Bitcoin Cash, please use [BCH](https://nao20010128nao.github.io/WalletGenerator.net/?currency=BitcoinCash) for now.    
 When they added new form of address, I'll split them.
 
-# CPUchain
-![reason](https://archive.is/BjLbz/1187fcd0eb9915e882c762c58ddc6bc8d6c7c4b8.jpg)
+# `CPUchain`
+![reason](https://archive.is/BjLbz/1187fcd0eb9915e882c762c58ddc6bc8d6c7c4b8.jpg)     
+See #14 or [archive](http://archive.is/wZQxy).
 
 # Coins already added
 There is no meaning to add coin that is already available.    
