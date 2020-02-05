@@ -1,3 +1,7 @@
+require("@babel/register")({
+  plugins: ["@babel/plugin-proposal-optional-chaining"]
+});
+
 // Generate necessary require()s for all coins
 require("../tests/fakedocument");
 const fs = require("fs");

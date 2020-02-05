@@ -152,8 +152,8 @@ const useCurrency = function(index) {
   // easter egg doge ;)
   if (name() === "Dogecoin") {
     doge = new Doge(["wow", "so paper wallet", "such random", "very pretty", "much design", "awesome", "much crypto", "such coin", "wow!!", "to da moon"]);
-  } else if (doge) {
-    doge.stop();
+  } else {
+    doge?.stop();
     doge = null;
   }
 };
@@ -204,6 +204,7 @@ let currencies = [
   new Bitcoin("Condensate", 0x3c, 0xbc, "RRZZMHaYZXCeUWRVeRvttKCNcvTRCxBfqD"),
   new Bitcoin("Copico", 0x1c, 0x90, "CKWBhVUwQP4fRw6xJk4nxCqKYCMz74bPKr"),
   new Bitcoin("CopperCoin", 0x1c, 0x9c, "CXh8p64WqmEwTkQSDk9azaZUqrnXE9WESV"),
+  // Any PRs that uncomment below line will result in immediate rejection.
   //new Bitcoin("CPUchain", 0x1c, 0x80, "CPUchainreallyneedstojustgitgudtbh", 0x1e, "cpu"),
   new Bitcoin("Corgicoin", 0x1c, 0x9c, "CNwV11TaKrfB3TnBS8vQjNbWT6CNxV8GBi"),
   new Bitcoin("CryptoBullion", 0x0b, 0x8b, "Cd9CgzTChm9yJQZ3SL3PUSsMkEEN8LGwCF"),
