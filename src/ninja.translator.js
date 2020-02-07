@@ -70,7 +70,8 @@ const translations = {
   ua: require("./l10n/ua.json"),
   tr: require("./l10n/tr.json"),
   pl: require("./l10n/pl.json"),
-  zh: require("./l10n/zh.json")
+  zh: require("./l10n/zh.json"),
+  ja: require("./l10n/ja.json")
 };
 
 module.exports = {
