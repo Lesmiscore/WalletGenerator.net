@@ -1,6 +1,9 @@
 /* global describe, it */
 const assert = require("assert");
 require("./fakedocument");
+require("@babel/register")({
+  plugins: ["@babel/plugin-proposal-optional-chaining"]
+});
 
 const bitcoinCurrency = require("../src/janin.currency").currencies.find(curr => curr.name === "Bitcoin");
 describe("bitcoin", function() {
