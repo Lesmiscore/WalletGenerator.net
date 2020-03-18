@@ -13,7 +13,7 @@
     "bchaddrjs": "^0.3.0",
     "bignumber.js": "^9.0.0",
     "bip38": "^2.0.2",
-    "bitgo-utxo-lib": "^1.7.0",
+    "bitgo-utxo-lib": "^1.8.0",
     "bn.js": "^4.11.8",
     "browserify-aes": "^1.2.0",
     "elliptic": "^6.4.1",
