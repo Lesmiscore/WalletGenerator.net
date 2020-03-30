@@ -4,7 +4,7 @@
   "description": "Open Source JavaScript Client-Side Bitcoin Wallet Generator",
   "main": "Gruntfile.js",
   "dependencies": {
-    "@iota/core": "^1.0.0-beta.21",
+    "@iota/core": "^1.0.0-beta",
     "@nao20010128nao/void-axios": "^1.0.0",
     "@nao20010128nao/void-fetch": "^1.0.0",
     "@nao20010128nao/void-http": "^1.7.0",
