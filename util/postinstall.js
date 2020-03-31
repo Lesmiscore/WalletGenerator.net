@@ -11,7 +11,6 @@ fs.writeFileSync("./node_modules/node-libs-browser/mock/https.js", aliasing("@na
 // bury fetches
 fs.writeFileSync("./node_modules/node-fetch/browser.js", aliasing("@nao20010128nao/void-fetch"));
 fs.writeFileSync("./node_modules/whatwg-fetch/fetch.js", aliasing("@nao20010128nao/void-fetch"));
-fs.writeFileSync("./node_modules/whatwg-fetch/dist/fetch.umd.js", aliasing("@nao20010128nao/void-fetch"));
 
 // bury axios
 fs.writeFileSync("./node_modules/axios/index.js", aliasing("@nao20010128nao/void-axios"));
