@@ -3,6 +3,7 @@ node_js:
 - stable
 before_script:
 - npm run init
+- npm dedupe
 - npm run public
 deploy:
   local_dir: public
