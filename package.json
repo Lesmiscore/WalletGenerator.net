@@ -70,7 +70,7 @@
     "modernizr": "3.10.0",
     "node-dir": "0.1.17",
     "prettier": "2.0.5",
-    "style-loader": "1.1.4",
+    "style-loader": "1.2.0",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11"
   },
