@@ -52,7 +52,7 @@
     "url": "https://github.com/MichaelMure/WalletGenerator.net/issues"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
+    "@babel/core": "7.9.6",
     "@babel/plugin-proposal-optional-chaining": "7.9.0",
     "@babel/register": "7.9.0",
     "assert": "2.0.0",
