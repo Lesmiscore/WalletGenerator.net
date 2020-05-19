@@ -67,7 +67,7 @@
     "husky": "4.2.5",
     "lint-staged": "10.2.4",
     "mocha": "7.1.2",
-    "modernizr": "3.11.1",
+    "modernizr": "3.11.2",
     "node-dir": "0.1.17",
     "prettier": "2.0.5",
     "style-loader": "1.2.1",
