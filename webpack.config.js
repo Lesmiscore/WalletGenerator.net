@@ -5,7 +5,7 @@ module.exports = {
   mode: "production",
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "main.js"
+    filename: "main.js",
   },
   module: {
     rules: [
@@ -15,22 +15,31 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            plugins: ["transform-react-jsx", "@babel/plugin-proposal-optional-chaining"]
-          }
-        }
+            plugins: ["transform-react-jsx", "@babel/plugin-proposal-optional-chaining"],
+          },
+        },
       },
       { test: /\.css$/, loaders: ["style-loader", "css-loader"], exclude: /node_modules/ },
       {
         test: /\.(jpg|png|gif)$/,
-        loaders: ["file-loader"]
-      }
-    ]
+        loaders: ["file-loader"],
+      },
+    ],
   },
   node: {
     fs: "empty",
     net: "empty",
     tls: "empty",
     http: "mock",
-    https: "mock"
-  }
+    https: "mock",
+  },
+  resolve: {
+    alias: {
+      http: "@nao20010128nao/void-http",
+      https: "@nao20010128nao/void-http",
+      "node-fetch": "@nao20010128nao/void-fetch",
+      "whatwg-fetch": "@nao20010128nao/void-fetch",
+      axios: "@nao20010128nao/void-axios",
+    },
+  },
 };

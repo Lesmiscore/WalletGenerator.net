@@ -1,23 +1,24 @@
 const fs = require("fs");
+const path = require("path");
 
 function aliasing(pkg) {
   return `module.exports = require("${pkg}");`;
 }
 
 // add mock to void http* modules
-fs.writeFileSync("./node_modules/node-libs-browser/mock/http.js", aliasing("@nao20010128nao/void-http"));
-fs.writeFileSync("./node_modules/node-libs-browser/mock/https.js", aliasing("@nao20010128nao/void-http"));
+fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/http.js", aliasing("@nao20010128nao/void-http"));
+fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/https.js", aliasing("@nao20010128nao/void-http"));
 
 // bury fetches
-fs.writeFileSync("./node_modules/node-fetch/browser.js", aliasing("@nao20010128nao/void-fetch"));
-fs.writeFileSync("./node_modules/whatwg-fetch/fetch.js", aliasing("@nao20010128nao/void-fetch"));
+fs.writeFileSync(require.resolve("node-fetch/browser.js"), aliasing("@nao20010128nao/void-fetch"));
+fs.writeFileSync(require.resolve("whatwg-fetch/fetch.js"), aliasing("@nao20010128nao/void-fetch"));
 
 // bury axios
-fs.writeFileSync("./node_modules/axios/index.js", aliasing("@nao20010128nao/void-axios"));
+fs.writeFileSync(require.resolve("axios/index.js"), aliasing("@nao20010128nao/void-axios"));
 
 // nullify blake2b-wasm
 fs.writeFileSync(
-  "./node_modules/blake2b-wasm/index.js",
+  require.resolve("blake2b-wasm/index.js"),
   `
   module.exports=()=>{};
   module.exports.ready=module.exports;
@@ -55,7 +56,7 @@ fs.writeFileSync(
       }
     }
   `;
-  fs.writeFileSync("./node_modules/nem-sdk/build/index.js", script);
+  fs.writeFileSync(require.resolve("nem-sdk/build/index.js"), script);
 }
 
 // reduce @iota/core
@@ -65,13 +66,13 @@ fs.writeFileSync(
     script += `exports.${name} = require("${path}").${name};\n`;
   };
   addExport("generateAddress", "./generateAddress");
-  fs.writeFileSync("./node_modules/@iota/core/out/core/src/index.js", script);
+  fs.writeFileSync(require.resolve("@iota/core/out/core/src/index.js"), script);
 }
 
 // reduce bitgo-utxo-lib
 {
   fs.writeFileSync(
-    "./node_modules/bitgo-utxo-lib/src/index.js",
+    require.resolve("bitgo-utxo-lib/src/index.js"),
     `
 var script = require('./script')
 

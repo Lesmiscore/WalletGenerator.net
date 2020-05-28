@@ -17,7 +17,6 @@ You can help us support more currency by following this non-developer How-To: ht
 # Available hosted sites
 
 - https://nao20010128nao.github.io/WalletGenerator.net/
-- https://lm27.gitlab.io/WalletGenerator-net/
 
 # Steps to build
 
