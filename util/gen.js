@@ -1,5 +1,5 @@
 require("@babel/register")({
-  plugins: ["@babel/plugin-proposal-optional-chaining"]
+  plugins: ["@babel/plugin-proposal-optional-chaining"],
 });
 
 // Generate necessary require()s for all coins
@@ -21,8 +21,8 @@ try {
   for (let i of currencies) {
     const name = i.name.toLowerCase();
     text += `
-    "logos/${name}": lazy(() => require("./../../logos/${name}.png")),
-    "wallets/${name}": lazy(() => require("./../../wallets/${name}.png")),
+    "logos/${name}": lazy(() => require("./../../logos/${name}.png")["default"]),
+    "wallets/${name}": lazy(() => require("./../../wallets/${name}.png")["default"]),
     `;
   }
 
@@ -40,7 +40,7 @@ try {
   const names = fs.readdirSync("images/");
   for (let name of names) {
     text += `
-    "${`${name}`.replace(/\.(png|gif)$/i, "")}": lazy(() => require("./../../images/${name}")),
+    "${`${name}`.replace(/\.(png|gif)$/i, "")}": lazy(() => require("./../../images/${name}")["default"]),
     `;
   }
 
@@ -50,6 +50,6 @@ try {
 })();
 
 const modernizr = require("modernizr");
-modernizr.build(require("../modernizr-config.json"), function(output) {
+modernizr.build(require("../modernizr-config.json"), function (output) {
   fs.writeFileSync("src/autogen/modernizr.js", output);
 });
