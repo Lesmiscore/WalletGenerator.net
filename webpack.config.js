@@ -19,7 +19,7 @@ module.exports = {
           },
         },
       },
-      { test: /\.css$/, loaders: ["style-loader", "css-loader"], exclude: /node_modules/ },
+      { test: /\.styl$/, loaders: ["style-loader", "css-loader", "stylus-loader"], exclude: /node_modules/ },
       {
         test: /\.(jpg|png|gif)$/,
         loaders: ["file-loader"],

@@ -5,7 +5,7 @@ window.fetch = require("@nao20010128nao/void-fetch");
 const { onload } = require("./ninja.misc.js");
 const images = require("../src/autogen/images");
 const coindex = require("../src/autogen/coindex");
-require("./main.css");
+require("./main.styl");
 
 onload(() => {
   //document.getElementById("coinLogoImg").setAttribute("src", coindex["logos/bitcoin"]());
