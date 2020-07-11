@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Please check the following:**
-- [ ] I swear that this coin is not ETH token, NEM mosaic, Counterparty token, or anything else.
+- [ ] I swear that I read docs/COINS_NOT_TO_BE_ADDED.md .
 - [ ] I can provide format details for address and private key. (Not applicable for BTC-based coin)
 - [ ] This is not bug report
 
