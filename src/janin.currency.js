@@ -12,12 +12,12 @@ const IOTA = require("./coins/iota");
 
 let selectedCurrency, doge;
 
-const name = function() {
+const name = function () {
   return selectedCurrency.name;
 };
 
 // Switch currency
-const useCurrency = function(index) {
+const useCurrency = function (index) {
   selectedCurrency = currencies[index];
   const lowerCurrency = name().toLowerCase();
 
@@ -389,18 +389,18 @@ let currencies = [
   new NEM("Testnet NEM", null, NEM.testnet),
   new Bitcoin("Testnet PIVX", 0x8b, 0xef, null),
   new Bitcoin("Testnet Sugarchain", 66, 239, null, 128, "tugar").withDefaultMode("segwit"),
-  new Bitcoin("Testnet WACoins", 0x51, 0xd1, null)
+  new Bitcoin("Testnet WACoins", 0x51, 0xd1, null),
 ];
 
 module.exports = {
   name,
   useCurrency,
-  currencies
+  currencies,
 };
 
 Object.defineProperty(module.exports, "selectedCurrency", {
   get: () => selectedCurrency,
   set: useCurrency,
   enumerable: true,
-  configurable: true
+  configurable: true,
 });

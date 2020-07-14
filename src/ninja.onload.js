@@ -76,7 +76,7 @@ list += "</table>";
 donatelist.innerHTML = list;
 for (i = 0; i < janin.currencies.length; i++) {
   if (!janin.currencies[i].donate) continue;
-  ev("tr#currencydonatelink" + i, "mouseover", function() {
+  ev("tr#currencydonatelink" + i, "mouseover", function () {
     require("./ninja.donatetab.js").displayQrCode(21, this);
   });
 }

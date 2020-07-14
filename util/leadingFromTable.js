@@ -473,7 +473,7 @@ z2
 35
 `
   .split("\n")
-  .filter(a => a && a !== "-");
+  .filter((a) => a && a !== "-");
 
 //console.log(txt);
 
@@ -500,7 +500,7 @@ console.log(JSON.stringify(kv));
 const actualBitcoinB58Leading = new Array(256);
 for (let key in kv) {
   let value = kv[key];
-  if (value.length != 1) {
+  if (value.length !== 1) {
     // char range
     value = `[${value}]`;
   }

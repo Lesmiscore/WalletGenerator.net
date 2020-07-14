@@ -20,6 +20,7 @@ module.exports = {
         },
       },
       { test: /\.styl$/, loaders: ["style-loader", "css-loader", "stylus-loader"], exclude: /node_modules/ },
+      { test: /\.css$/, loaders: ["style-loader", "css-loader"] },
       {
         test: /\.(jpg|png|gif)$/,
         loaders: ["file-loader"],

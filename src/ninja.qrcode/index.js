@@ -3,7 +3,7 @@ const sizeMultiplier_ = require("./sizemultiplier");
 const renderers = [require("./renderer/svg"), require("./renderer/canvas"), require("./renderer/table")];
 
 // determine which type number is big enough for the input text length
-const getTypeNumber = function(text) {
+const getTypeNumber = function (text) {
   const lengthCalculation = text.length * 8 + 12; // length as calculated by the QRCode
   if (lengthCalculation < 72) {
     return 1;
@@ -34,7 +34,7 @@ const getTypeNumber = function(text) {
 // example: { "id1": "string1", "id2": "string2"}
 //		"id1" is the id of a div element where you want a QRCode inserted.
 //		"string1" is the string you want encoded into the QRCode.
-const showQrCode = function(keyValuePair, sizeMultiplier) {
+const showQrCode = function (keyValuePair, sizeMultiplier) {
   for (const key in keyValuePair) {
     if ({}.hasOwnProperty.call(keyValuePair, key)) {
       const value = keyValuePair[key];
@@ -58,5 +58,5 @@ const showQrCode = function(keyValuePair, sizeMultiplier) {
 module.exports = {
   getTypeNumber,
   showQrCode,
-  sizeMultiplier: sizeMultiplier_
+  sizeMultiplier: sizeMultiplier_,
 };

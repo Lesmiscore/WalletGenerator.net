@@ -1,7 +1,7 @@
 const privateKey = require("./ninja.privatekey.js");
 const qrCode = require("./ninja.qrcode");
 
-const open = function() {
+const open = function () {
   if (!document.getElementById("btcaddress").innerHTML) {
     generateNewAddressAndKey();
   }
@@ -13,13 +13,13 @@ const open = function() {
   document.getElementById("singlevanitygenstop").style.display = "none";
 };
 
-const close = function() {
+const close = function () {
   document.getElementById("singlearea").style.display = "none";
   stopVanitygen();
 };
 
 // generate bitcoin address and private key and update information in the HTML
-const generateNewAddressAndKey = function() {
+const generateNewAddressAndKey = function () {
   try {
     const key = privateKey.makeRandom();
     const bitcoinAddress = privateKey.getAddressWith(key, publicMode);
@@ -28,7 +28,7 @@ const generateNewAddressAndKey = function() {
     document.getElementById("btcprivwif").innerHTML = privateKeyWif;
     const keyValuePair = {
       qrcode_public: bitcoinAddress,
-      qrcode_private: privateKeyWif
+      qrcode_private: privateKeyWif,
     };
     qrCode.showQrCode(keyValuePair, 4);
     return { address: bitcoinAddress, wif: privateKeyWif };
@@ -46,7 +46,7 @@ const generateNewAddressAndKey = function() {
 
 let vanityJob = null;
 
-const startVanitygen = function(pattern) {
+const startVanitygen = function (pattern) {
   if (typeof vanityJob === "string") {
     return;
   }
@@ -59,7 +59,7 @@ const startVanitygen = function(pattern) {
   document.getElementById("singlecommands").style.display = "none";
   document.getElementById("singlevanitygenpattern").readOnly = true;
   vanityJob = pattern;
-  const refresh = function() {
+  const refresh = function () {
     const job = vanityJob;
     if (typeof job !== "string") {
       return;
@@ -73,7 +73,7 @@ const startVanitygen = function(pattern) {
   };
   refresh();
 };
-const stopVanitygen = function() {
+const stopVanitygen = function () {
   if (typeof vanityJob !== "string") {
     return;
   }
@@ -91,11 +91,13 @@ module.exports = {
   close,
   generateNewAddressAndKey,
   startVanitygen,
-  stopVanitygen
+  stopVanitygen,
 };
 
 Object.defineProperty(module.exports, "publicMode", {
   enumerable: true,
   get: () => publicMode,
-  set: pm => (publicMode = pm)
+  set: (pm) => {
+    publicMode = pm;
+  },
 });

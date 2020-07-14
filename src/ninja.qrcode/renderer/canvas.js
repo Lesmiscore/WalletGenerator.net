@@ -1,5 +1,5 @@
 const { Modernizr } = require("./../../autogen/modernizr");
-const render = function(qrcode, sizeMultiplier) {
+const render = function (qrcode, sizeMultiplier) {
   const modCount = qrcode.getModuleCount();
   const size = modCount * sizeMultiplier;
   // create canvas element
