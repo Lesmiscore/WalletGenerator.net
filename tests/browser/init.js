@@ -41,7 +41,7 @@ async function load() {
     });
   }
 
-  await import("./coinimage.js");
+  await import("./images.js");
   await import("../bitcoin.js");
 
   onload(() => {
