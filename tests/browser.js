@@ -2,9 +2,10 @@
 const puppeteer = require("puppeteer");
 const { spawn } = require("child_process");
 const { EventEmitter } = require("events");
+const browserSync = require("browser-sync");
 
 describe("browser", function () {
-  let browser, page, proc;
+  let browser, page, bs;
   const events = new EventEmitter();
   before(function (done) {
     console.log("building debug website");
@@ -15,13 +16,20 @@ describe("browser", function () {
         return done(code);
       }
       console.log("starting server");
-      proc = spawn("npm", ["run", "test-browser"], { stdio: "inherit" });
-      return done();
+      bs = browserSync.create("browsertest");
+      bs.init(
+        Object.assign({}, require("../bs-config.js"), {
+          files: undefined,
+          server: "./test-public",
+          open: false,
+        }),
+        done
+      );
     });
   });
   before(async function () {
     console.log("launching browser");
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({ args: ["--no-sandbox"] });
     page = await browser.newPage();
 
     await page.exposeFunction("reportTestStatus", (status, name, additional) => {
@@ -37,7 +45,9 @@ describe("browser", function () {
         failures.push(name);
       }
     });
-    await page.goto("http://localhost:3000/");
+    const port = bs.getOption("port");
+    console.log(port);
+    await page.goto(`http://localhost:${port}/`);
     await new Promise((resolve, reject) => {
       function realEnd() {
         if (!failures.length) {
@@ -59,8 +69,8 @@ describe("browser", function () {
     if (browser) {
       await browser.close();
     }
-    if (proc) {
-      proc.kill();
+    if (bs) {
+      bs.exit();
     }
   });
 });
