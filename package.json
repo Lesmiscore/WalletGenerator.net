@@ -2,7 +2,7 @@
   "name": "walletgenerator.net",
   "version": "3.3.0",
   "description": "Open Source JavaScript Client-Side Bitcoin Wallet Generator",
-  "main": "Gruntfile.js",
+  "main": "src/init.js",
   "dependencies": {
     "@iota/core": "^1.0.0-beta",
     "@nao20010128nao/void-axios": "^1.0.0",
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/MichaelMure/WalletGenerator.net.git"
+    "url": "git@github.com:nao20010128nao/WalletGenerator.net.git"
   },
   "keywords": [
     "bitcoin address wallet generator"
@@ -49,11 +49,12 @@
     "test-browser": "cd test-public ; browser-sync start --config ../bs-config.js",
     "test-reload": "npm run test-public ; browser-sync reload"
   },
-  "author": "MichaelMure",
+  "author": "nao20010128nao",
+  "originalAuthor": "MichaelMure",
   "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/MichaelMure/WalletGenerator.net/issues"
+    "url": "https://github.com/nao20010128nao/WalletGenerator.net/issues"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
