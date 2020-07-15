@@ -46,7 +46,6 @@ describe("browser", function () {
       }
     });
     const port = bs.getOption("port");
-    console.log(port);
     await page.goto(`http://localhost:${port}/`);
     await new Promise((resolve, reject) => {
       function realEnd() {
