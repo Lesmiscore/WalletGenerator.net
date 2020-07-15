@@ -255,7 +255,7 @@ const bitcoinB58Leading = [
   "2",
   "2",
   "2",
-  "2"
+  "2",
 ];
 
 const upperValue = Buffer.alloc(20, 0xff);
@@ -264,5 +264,5 @@ const lowerValue = Buffer.alloc(20, 0x00);
 module.exports = {
   bitcoinB58Leading,
   upperValue,
-  lowerValue
+  lowerValue,
 };

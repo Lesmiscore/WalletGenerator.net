@@ -62,7 +62,7 @@ module.exports = class Coin {
     const names = this.getAddressFormatNames();
     if (typeof mode === "string" && isNaN(mode)) {
       mode = mode.toLowerCase();
-      const modeNames = names.map(a => a.toLowerCase());
+      const modeNames = names.map((a) => a.toLowerCase());
       mode = modeNames.indexOf(mode);
       if (mode === -1) {
         mode = 0;

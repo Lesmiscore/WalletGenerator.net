@@ -42,8 +42,12 @@
     "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
-    "test": "mocha tests/",
-    "postinstall": "node ./util/postinstall.js"
+    "test": "mocha tests/ --no-timeout",
+    "postinstall": "node ./util/postinstall.js",
+    "test-export": "npm run generate ; rm -rf test-public ; webpack --config webpack.config.browsertest.js",
+    "test-public": "npm run test-export ; cp src/index.html test-public/",
+    "test-browser": "cd test-public ; browser-sync start --config ../bs-config.js",
+    "test-reload": "npm run test-public ; browser-sync reload"
   },
   "author": "MichaelMure",
   "license": "MIT",
@@ -70,6 +74,7 @@
     "modernizr": "3.11.3",
     "node-dir": "0.1.17",
     "prettier": "2.0.5",
+    "puppeteer": "^5.1.0",
     "style-loader": "1.2.1",
     "stylus": "0.54.7",
     "stylus-loader": "3.0.2",

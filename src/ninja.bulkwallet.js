@@ -1,18 +1,18 @@
 const translator = require("./ninja.translator.js");
 const privateKey = require("./ninja.privatekey.js");
 
-const open = function() {
+const open = function () {
   document.getElementById("bulkarea").style.display = "block";
   // show a default CSV list if the text area is empty
   if (document.getElementById("bulktextarea").value === "") {
     // return control of the thread to the browser to render the tab switch UI then build a default CSV list
-    setTimeout(function() {
+    setTimeout(function () {
       buildCSV(3, 1);
     }, 50);
   }
 };
 
-const close = function() {
+const close = function () {
   document.getElementById("bulkarea").style.display = "none";
 };
 
@@ -21,7 +21,7 @@ const close = function() {
 // startIndex: add this number to the row index for output purposes
 // returns:
 // index,bitcoinAddress,privateKeyWif
-const buildCSV = function(rowLimit, startIndex) {
+const buildCSV = function (rowLimit, startIndex) {
   //const bulkWallet = bulkwallet;
   document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + rowLimit;
   csv = [];
@@ -37,7 +37,7 @@ let csvRowLimit = 0;
 let csvStartIndex = 0;
 let publicMode = 0;
 
-const batchCSV = function() {
+const batchCSV = function () {
   if (csvRowsRemaining > 0) {
     csvRowsRemaining--;
     const key = privateKey.makeRandom();
@@ -55,7 +55,7 @@ const batchCSV = function() {
   }
 };
 
-const openCloseFaq = function(faqNum) {
+const openCloseFaq = function (faqNum) {
   // do close
   if (document.getElementById("bulka" + faqNum).style.display === "block") {
     document.getElementById("bulka" + faqNum).style.display = "none";
@@ -73,11 +73,13 @@ module.exports = {
   close,
   buildCSV,
   batchCSV,
-  openCloseFaq
+  openCloseFaq,
 };
 
 Object.defineProperty(module.exports, "publicMode", {
   enumerable: true,
   get: () => publicMode,
-  set: pm => (publicMode = pm)
+  set: (pm) => {
+    publicMode = pm;
+  },
 });

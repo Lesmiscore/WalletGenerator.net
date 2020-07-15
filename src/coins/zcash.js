@@ -10,7 +10,7 @@ module.exports = class Zcash extends Bitcoin {
   getAddressFormatNames() {
     return [
       "Compressed",
-      "Uncompressed"
+      "Uncompressed",
       // no segwit
       // no cashaddress
     ];

@@ -1,6 +1,6 @@
 const translator = require("./ninja.translator.js");
 
-const tabSwitch = function(walletTab) {
+const tabSwitch = function (walletTab) {
   if (walletTab.className.indexOf("selected") === -1) {
     // unselect all tabs
     const wallets = {
@@ -9,7 +9,7 @@ const tabSwitch = function(walletTab) {
       detailwallet: require("./ninja.detailwallet.js"),
       paperwallet: require("./ninja.paperwallet.js"),
       singlewallet: require("./ninja.singlewallet.js"),
-      donate: require("./ninja.donatetab.js")
+      donate: require("./ninja.donatetab.js"),
     };
     for (const wType in wallets) {
       if ({}.hasOwnProperty.call(wallets, wType)) {
@@ -22,7 +22,7 @@ const tabSwitch = function(walletTab) {
   }
 };
 
-const envSecurityCheck = function() {
+const envSecurityCheck = function () {
   let innerHTML = "";
   switch (window.location.protocol) {
     case "http:":
@@ -37,7 +37,7 @@ const envSecurityCheck = function() {
   document.getElementById("envSecurityCheck").innerHTML = innerHTML;
 };
 
-const browserSecurityCheck = function() {
+const browserSecurityCheck = function () {
   let innerHTML = "";
   if (window.crypto && window.crypto.getRandomValues) {
     innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistrandomOK") + "</span>";
@@ -47,7 +47,7 @@ const browserSecurityCheck = function() {
   document.getElementById("browserSecurityCheck").innerHTML = innerHTML;
 };
 
-const getQueryString = function() {
+const getQueryString = function () {
   const result = {},
     queryString = location.search.substring(1),
     re = /([^&=]+)=([^&]*)/g;
@@ -58,35 +58,35 @@ const getQueryString = function() {
   return result;
 };
 
-const toggleFaqQuestion = function(elementId) {
+const toggleFaqQuestion = function (elementId) {
   const answerDiv = document.getElementById(elementId);
   answerDiv.style.display = answerDiv.style.display === "block" ? "none" : "block";
 };
 
-const printMany = function() {
+const printMany = function () {
   const paperwallet = require("./ninja.paperwallet.js");
-  paperwallet.build(document.getElementById("paperpassphrase").value, 10, function() {
+  paperwallet.build(document.getElementById("paperpassphrase").value, 10, function () {
     window.print();
   });
 };
 
-const escapeRegExp = function(string) {
+const escapeRegExp = function (string) {
   return string.replace(/[.*+?^=!:${}()|[\]/\\]/g, Buffer.from("5c2426", "hex").toString("utf8"));
 };
 
-const ev = function(selector, name, func) {
+const ev = function (selector, name, func) {
   const list = document.querySelectorAll(selector);
-  Array.prototype.forEach.call(list, function(element) {
+  Array.prototype.forEach.call(list, function (element) {
     element.addEventListener(name, func, false);
   });
 };
 
-const onload = function(func) {
+const onload = function (func) {
   if (window.attachEvent) {
     window.attachEvent("onload", func);
   } else if (window.onload) {
     let curronload = window.onload;
-    let newonload = function(evt) {
+    let newonload = function (evt) {
       curronload(evt);
       func(evt);
     };
@@ -105,5 +105,5 @@ module.exports = {
   printMany,
   escapeRegExp,
   ev,
-  onload
+  onload,
 };

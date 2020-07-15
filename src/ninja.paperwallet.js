@@ -3,7 +3,7 @@ const privateKey = require("./ninja.privatekey.js");
 const translator = require("./ninja.translator.js");
 const qrCode = require("./ninja.qrcode");
 
-const open = function() {
+const open = function () {
   document.getElementById("main").setAttribute("class", "paper"); // add 'paper' class to main div
   const paperArea = document.getElementById("paperarea");
   paperArea.style.display = "block";
@@ -18,7 +18,7 @@ const open = function() {
   }
 };
 
-const close = function() {
+const close = function () {
   document.getElementById("paperarea").style.display = "none";
   document.getElementById("main").setAttribute("class", ""); // remove 'paper' class from main div
 };
@@ -33,7 +33,7 @@ let publicMode = 0; // compressed
 let encrypt = false;
 let intermediatePoint = null;
 
-const build = function(passphrase, numWallets, _batchComplete) {
+const build = function (passphrase, numWallets, _batchComplete) {
   numWallets = numWallets || 1;
   pageBreakAt = 1;
   remaining = numWallets;
@@ -46,7 +46,7 @@ const build = function(passphrase, numWallets, _batchComplete) {
       return;
     }
     document.getElementById("busyblock").className = "busy";
-    privateKey.BIP38GenerateIntermediatePointAsync(passphrase, null, null, function(intermediate) {
+    privateKey.BIP38GenerateIntermediatePointAsync(passphrase, null, null, function (intermediate) {
       intermediatePoint = intermediate;
       document.getElementById("busyblock").className = "";
       setTimeout(batch, 0);
@@ -56,7 +56,7 @@ const build = function(passphrase, numWallets, _batchComplete) {
   }
 };
 
-const batch = function() {
+const batch = function () {
   if (remaining > 0) {
     const paperArea = document.getElementById("paperkeyarea");
     count++;
@@ -88,9 +88,9 @@ const batch = function() {
 
 // generate bitcoin address, private key, QR Code and update information in the HTML
 // idPostFix: 1, 2, 3, etc.
-const generateNewWallet = function(idPostFix) {
+const generateNewWallet = function (idPostFix) {
   if (encrypt) {
-    privateKey.BIP38GenerateECAddressAsync(intermediatePoint, false, function(address, encryptedKey) {
+    privateKey.BIP38GenerateECAddressAsync(intermediatePoint, false, function (address, encryptedKey) {
       showArtisticWallet(idPostFix, address, encryptedKey);
     });
   } else {
@@ -104,7 +104,7 @@ const generateNewWallet = function(idPostFix) {
 
 // Verify that a self-entered key is valid, and compute the corresponding
 // public address, render the wallet.
-const testAndApplyVanityKey = function() {
+const testAndApplyVanityKey = function () {
   let suppliedKey = document.getElementById("suppliedPrivateKey").value;
   suppliedKey = suppliedKey.trim(); // in case any spaces or whitespace got pasted in
   document.getElementById("suppliedPrivateKey").value = suppliedKey;
@@ -116,7 +116,7 @@ const testAndApplyVanityKey = function() {
     suppliedKey = privateKey.getWIFForAddress(parsedKey, publicMode);
     if (encrypt) {
       document.getElementById("busyblock").className = "busy";
-      privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey, document.getElementById("paperpassphrase").value, false, function(encodedKey) {
+      privateKey.BIP38PrivateKeyToEncryptedKeyAsync(suppliedKey, document.getElementById("paperpassphrase").value, false, function (encodedKey) {
         document.getElementById("busyblock").className = "";
         showArtisticWallet(1, computedPublicAddress, encodedKey);
       });
@@ -126,11 +126,11 @@ const testAndApplyVanityKey = function() {
   }
 };
 
-const templateArtisticHtml = function(i) {
+const templateArtisticHtml = function (i) {
   return janin.selectedCurrency.templateArtisticHtml(i, publicMode);
 };
 
-const showArtisticWallet = function(idPostFix, bitcoinAddress, privKey) {
+const showArtisticWallet = function (idPostFix, bitcoinAddress, privKey) {
   const keyValuePair = {};
   keyValuePair["qrcode_public" + idPostFix] = bitcoinAddress;
   keyValuePair["qrcode_private" + idPostFix] = privKey;
@@ -140,14 +140,14 @@ const showArtisticWallet = function(idPostFix, bitcoinAddress, privKey) {
   document.getElementById("btcprivwif" + idPostFix).innerHTML = privKey;
 };
 
-const toggleEncrypt = function(element) {
+const toggleEncrypt = function (element) {
   // enable/disable passphrase textbox
   document.getElementById("paperpassphrase").disabled = !element.checked;
   encrypt = element.checked;
   resetLimits();
 };
 
-const resetLimits = function() {
+const resetLimits = function () {
   const paperEncrypt = document.getElementById("paperencrypt");
 
   document.getElementById("paperkeyarea").style.fontSize = "100%";
@@ -167,11 +167,13 @@ module.exports = {
   templateArtisticHtml,
   showArtisticWallet,
   toggleEncrypt,
-  resetLimits
+  resetLimits,
 };
 
 Object.defineProperty(module.exports, "publicMode", {
   enumerable: true,
   get: () => publicMode,
-  set: pm => (publicMode = pm)
+  set: (pm) => {
+    publicMode = pm;
+  },
 });
