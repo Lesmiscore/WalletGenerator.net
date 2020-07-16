@@ -1,6 +1,6 @@
 let currentCulture = "en";
 
-const autodetectTranslation = function() {
+const autodetectTranslation = function () {
   // window.navigator.language for Firefox / Chrome / Opera Safari
   // window.navigator.userLanguage for IE
   let language = window.navigator.language || window.navigator.userLanguage;
@@ -11,7 +11,7 @@ const autodetectTranslation = function() {
   }
 };
 
-const translate = function(culture) {
+const translate = function (culture) {
   const dict = translations[culture];
   if (dict) {
     // set current culture
@@ -36,7 +36,7 @@ const translate = function(culture) {
   return false;
 };
 
-const get = function(id) {
+const get = function (id) {
   return translations[currentCulture][id];
 };
 
@@ -55,7 +55,7 @@ const staticID = [
   "securitychecklistrandomNOK",
   "securitychecklistofflineNOK",
   "securitychecklistofflineOK",
-  "paperwalletback"
+  "paperwalletback",
 ];
 
 const translations = {
@@ -70,11 +70,11 @@ const translations = {
   ua: require("./l10n/ua.json"),
   tr: require("./l10n/tr.json"),
   pl: require("./l10n/pl.json"),
-  zh: require("./l10n/zh.json")
+  zh: require("./l10n/zh.json"),
 };
 
 module.exports = {
   autodetectTranslation,
   translate,
-  get
+  get,
 };

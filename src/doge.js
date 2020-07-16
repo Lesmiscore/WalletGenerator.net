@@ -22,7 +22,7 @@ function placeWord(word) {
 
 function muchWords() {
   muchPlay = true;
-  suchInterval = setInterval(function() {
+  suchInterval = setInterval(function () {
     if (muchIndex === wowLength - 1) {
       muchIndex = 0;
     } else {

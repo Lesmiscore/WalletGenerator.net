@@ -12,7 +12,7 @@ module.exports = class Ripple extends Coin {
 
   create(d, Q, opts) {
     const seed = keypairs.generateSeed({
-      entropy: d.toBuffer()
+      entropy: d.toBuffer(),
     });
     const kp = keypairs.deriveKeypair(seed);
     kp.seed = seed;
@@ -49,7 +49,7 @@ module.exports = class Ripple extends Coin {
     if (/(?:00|ed)[0-9a-f]{64}/.test(key)) {
       return {
         privateKey: key,
-        publicKey: this.privateToPublic(key)
+        publicKey: this.privateToPublic(key),
       };
     }
     return false;
@@ -105,17 +105,9 @@ module.exports = class Ripple extends Coin {
   privateToPublic(privateKey) {
     privateKey = `${privateKey}`.toLowerCase();
     if (privateKey.startsWith("00")) {
-      return Buffer.from(
-        Secp256k1.keyFromPrivate(privateKey.slice(2))
-          .getPublic()
-          .encodeCompressed()
-      ).toString("hex");
+      return Buffer.from(Secp256k1.keyFromPrivate(privateKey.slice(2)).getPublic().encodeCompressed()).toString("hex");
     } else if (privateKey.startsWith("ed")) {
-      return Buffer.from(
-        Ed25519.keyFromPrivate(privateKey.slice(2))
-          .getPublic()
-          .encodeCompressed()
-      ).toString("hex");
+      return Buffer.from(Ed25519.keyFromPrivate(privateKey.slice(2)).getPublic().encodeCompressed()).toString("hex");
     }
   }
 

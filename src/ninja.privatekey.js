@@ -12,36 +12,36 @@ const aes = require("browserify-aes");
 const janin = require("./janin.currency.js");
 const translator = require("./ninja.translator.js");
 
-const isPrivateKey = function(key) {
+const isPrivateKey = function (key) {
   return janin.selectedCurrency.isPrivateKey(key);
 };
-const decodePrivateKey = function(key) {
+const decodePrivateKey = function (key) {
   if (!isPrivateKey(key)) {
     return null;
   }
   return janin.selectedCurrency.decodePrivateKey(key);
 };
-const getAddressWith = function(btcKey, mode) {
+const getAddressWith = function (btcKey, mode) {
   return janin.selectedCurrency.getAddressWith(btcKey, mode);
 };
-const getWIFForAddress = function(btcKey, mode) {
+const getWIFForAddress = function (btcKey, mode) {
   return janin.selectedCurrency.getWIFForAddress(btcKey, mode);
 };
-const isVanitygenPossible = function(p, m) {
+const isVanitygenPossible = function (p, m) {
   return janin.selectedCurrency.isVanitygenPossible(p, m);
 };
-const testVanitygenMatch = function(p, a, m) {
+const testVanitygenMatch = function (p, a, m) {
   return janin.selectedCurrency.testVanitygenMatch(p, a, m);
 };
 // 58 base58 characters starting with 6P
-const isBIP38Format = function(key) {
+const isBIP38Format = function (key) {
   key = key.toString();
   return /^6P[1-9A-HJ-NP-Za-km-z]{56}$/.test(key);
 };
-const BIP38EncryptedKeyToByteArrayAsync = function(base58Encrypted, passphrase, callback) {
+const BIP38EncryptedKeyToByteArrayAsync = function (base58Encrypted, passphrase, callback) {
   // we're decrypting BIP38-encryped key
   try {
-    const decryptedKey = bip38.decrypt(base58Encrypted, passphrase, function(status) {
+    const decryptedKey = bip38.decrypt(base58Encrypted, passphrase, function (status) {
       console.log(status.percent);
     });
     callback(decryptedKey.privateKey);
@@ -49,13 +49,13 @@ const BIP38EncryptedKeyToByteArrayAsync = function(base58Encrypted, passphrase, 
     callback(new Error(translator.get("detailalertnotvalidprivatekey")));
   }
 };
-const BIP38PrivateKeyToEncryptedKeyAsync = function(base58Key, passphrase, compressed, callback) {
+const BIP38PrivateKeyToEncryptedKeyAsync = function (base58Key, passphrase, compressed, callback) {
   // encrypt
   const decoded = wif.decode(base58Key);
   let encryptedKey = bip38.encrypt(decoded.privateKey, compressed, passphrase);
   callback(encryptedKey);
 };
-const BIP38GenerateIntermediatePointAsync = function(passphrase, lotNum, sequenceNum, callback) {
+const BIP38GenerateIntermediatePointAsync = function (passphrase, lotNum, sequenceNum, callback) {
   const noNumbers = lotNum === null || sequenceNum === null;
   let ownerEntropy, ownerSalt;
 
@@ -94,7 +94,7 @@ const BIP38GenerateIntermediatePointAsync = function(passphrase, lotNum, sequenc
   intermediate = intermediate.concat(bitcoin.crypto.hash256(intermediate).slice(0, 4));
   callback(base58.encode(intermediate));
 };
-const BIP38GenerateECAddressAsync = function(intermediate, compressed, callback) {
+const BIP38GenerateECAddressAsync = function (intermediate, compressed, callback) {
   // decode IPS
   const x = base58.decode(intermediate);
   //if(x.slice(49, 4) !== bitcoin.crypto.hash256(x.slice(0,49)).slice(0,4)) {
@@ -148,20 +148,16 @@ const BIP38GenerateECAddressAsync = function(intermediate, compressed, callback)
   const encryptedSeedB = decipher2.read();
 
   // 0x01 0x43 + flagbyte + addresshash + ownerentropy + encryptedpart1[0...7] + encryptedpart2
-  let encryptedKey = [0x01, 0x43, flagByte]
-    .concat(addressHash)
-    .concat(ownerEntropy)
-    .concat(encryptedPart1.slice(0, 8))
-    .concat(encryptedSeedB);
+  let encryptedKey = [0x01, 0x43, flagByte].concat(addressHash).concat(ownerEntropy).concat(encryptedPart1.slice(0, 8)).concat(encryptedSeedB);
 
   // base58check encode
   encryptedKey = encryptedKey.concat(bitcoin.crypto.hash256(encryptedKey).slice(0, 4));
   callback(generatedAddress, base58.encode(encryptedKey));
 };
-const create = function(d, Q, opts) {
+const create = function (d, Q, opts) {
   return janin.selectedCurrency.create(d, Q, opts);
 };
-const makeRandom = function(opts) {
+const makeRandom = function (opts) {
   return janin.selectedCurrency.makeRandom(opts);
 };
 
@@ -178,5 +174,5 @@ module.exports = {
   create,
   makeRandom,
   isVanitygenPossible,
-  testVanitygenMatch
+  testVanitygenMatch,
 };

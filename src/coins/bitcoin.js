@@ -14,24 +14,24 @@ module.exports = class Bitcoin extends Coin {
       bech32: b32hrp,
       bip32: {
         public: 0x0488b21e,
-        private: 0x0488ade4
+        private: 0x0488ade4,
       },
       pubKeyHash: networkVersion & 0xffff,
       scriptHash: scriptHash || 0x05,
       wif: privateKeyPrefix,
-      coin
+      coin,
     };
   }
 
   create(d, Q, opts) {
     opts = Object.assign({}, opts || {}, {
-      network: this.network
+      network: this.network,
     });
     return new bitcoin.ECPair(d, Q, opts);
   }
   makeRandom(opts) {
     opts = Object.assign({}, opts || {}, {
-      network: this.network
+      network: this.network,
     });
     return bitcoin.ECPair.makeRandom(opts);
   }
@@ -43,7 +43,7 @@ module.exports = class Bitcoin extends Coin {
       return true;
     } catch (e) {}
     // Hex/Base64
-    const testValue = function(buffer) {
+    const testValue = function (buffer) {
       if (buffer.length !== 32) return false;
       const n = bigi.fromByteArrayUnsigned(elliptic.curves.secp256k1.curve.n.toArray());
       const scalar = bigi.fromByteArrayUnsigned(buffer);
@@ -75,7 +75,7 @@ module.exports = class Bitcoin extends Coin {
         const hex = Buffer.from(key, enc).toString("hex");
         if (hex.length === 64) {
           return this.create(bigi.fromHex(hex), null, {
-            compressed: true
+            compressed: true,
           });
         }
       } catch (error) {}
@@ -87,7 +87,7 @@ module.exports = class Bitcoin extends Coin {
     if (/^S[1-9A-HJ-NP-Za-km-z]{29}$/.test(key)) {
       const sha256 = bitcoin.crypto.sha256(key).toString("hex");
       return this.create(bigi.fromHex(sha256), null, {
-        compressed: true
+        compressed: true,
       });
     }
   }
@@ -168,13 +168,13 @@ module.exports = class Bitcoin extends Coin {
         "Compressed",
         "Uncompressed",
         "SegWit",
-        "SegWit (P2SH-wrapped)"
+        "SegWit (P2SH-wrapped)",
         // no cashaddress
       ];
     } else {
       return [
         "Compressed",
-        "Uncompressed"
+        "Uncompressed",
         // no segwit
         // no cashaddress
       ];
@@ -186,13 +186,13 @@ module.exports = class Bitcoin extends Coin {
         "Public Address Compressed",
         "Public Address",
         "SegWit Address",
-        "SegWit Address (P2SH-wrapped)"
+        "SegWit Address (P2SH-wrapped)",
         // no cashaddress
       ];
     } else {
       return [
         "Public Address Compressed",
-        "Public Address"
+        "Public Address",
         // no segwit
         // no cashaddress
       ];

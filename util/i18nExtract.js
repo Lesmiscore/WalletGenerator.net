@@ -11,16 +11,12 @@ const htmlLang = {};
 {
   const data = fs.readFileSync("src/index.html", "utf8");
   const $ = cheerio.load(data);
-  $(".i18n").each(function() {
+  $(".i18n").each(function () {
     const elem = $(this);
     const id = elem.attr("id");
     let value = "";
     if (elem.prop("tagName") !== "INPUT") {
-      value = elem
-        .text()
-        .trim()
-        .replace(/\n\s*/g, "\n")
-        .replace(/\n/gm, "<br />");
+      value = elem.text().trim().replace(/\n\s*/g, "\n").replace(/\n/gm, "<br />");
     }
     htmlLang[id] = value;
   });
@@ -31,9 +27,9 @@ const jsLang = {};
 const extractorRegex = /translator\.get("([a-zA-Z0-9]+)")/g;
 let files = [];
 ndir.files("./src/", (err, res) => {
-  files = res.filter(a => a.match(/\.js$/));
+  files = res.filter((a) => a.match(/\.js$/));
 });
-files.forEach(file => {
+files.forEach((file) => {
   const text = fs.readFileSync(file, "utf8");
   let m;
   do {

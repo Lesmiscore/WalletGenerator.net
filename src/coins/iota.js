@@ -61,7 +61,7 @@ module.exports = class IOTA extends Coin {
       "Normal (Index 12)",
       "Normal (Index 13)",
       "Normal (Index 14)",
-      "Normal (Index 15)"
+      "Normal (Index 15)",
     ];
   }
   getAddressTitleNames() {
@@ -81,7 +81,7 @@ module.exports = class IOTA extends Coin {
       "Public Address (Index 12)",
       "Public Address (Index 13)",
       "Public Address (Index 14)",
-      "Public Address (Index 15)"
+      "Public Address (Index 15)",
     ];
   }
 

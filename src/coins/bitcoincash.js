@@ -56,7 +56,7 @@ module.exports = class BitcoinCash extends Bitcoin {
       "Uncompressed",
       // no segwit
       "CashAddress (Compressed)",
-      "CashAddress (Uncompressed)"
+      "CashAddress (Uncompressed)",
     ];
   }
   getAddressTitleNames() {
@@ -65,7 +65,7 @@ module.exports = class BitcoinCash extends Bitcoin {
       "Public Address",
       // no segwit
       "CashAddress (Compressed)",
-      "CashAddress (Uncompressed)"
+      "CashAddress (Uncompressed)",
     ];
   }
 

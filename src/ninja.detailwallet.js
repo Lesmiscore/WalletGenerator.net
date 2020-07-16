@@ -10,7 +10,7 @@ const bigi = require("bigi");
 const qrscanner = {
   scanner: null,
 
-  start: function() {
+  start: function () {
     document.getElementById("paperqrscanner").className = "show";
     qrscanner.showError(null);
     const supported = qrscanner.scanner.isSupported();
@@ -21,12 +21,12 @@ const qrscanner = {
     }
   },
 
-  stop: function() {
+  stop: function () {
     qrscanner.scanner.stop();
     document.getElementById("paperqrscanner").className = "";
   },
 
-  showError: function(error) {
+  showError: function (error) {
     if (error) {
       if (error === "PERMISSION_DENIED" || error === "PermissionDeniedError") {
         document.getElementById("paperqrerror").innerHTML = "";
@@ -39,10 +39,10 @@ const qrscanner = {
       document.getElementById("paperqrerror").innerHTML = "";
       document.getElementById("paperqrpermissiondenied").className = "hide";
     }
-  }
+  },
 };
 
-const open = function() {
+const open = function () {
   document.getElementById("detailarea").style.display = "block";
   document.getElementById("detailprivkey").focus();
   if (!qrscanner.scanner) {
@@ -50,23 +50,23 @@ const open = function() {
       320,
       240,
       "paperqroutput",
-      function(data) {
+      function (data) {
         document.getElementById("detailprivkey").value = data;
         document.getElementById("paperqrscanner").className = "";
         viewDetails();
       },
-      function(error) {
+      function (error) {
         qrscanner.showError(error);
       }
     );
   }
 };
 
-const close = function() {
+const close = function () {
   document.getElementById("detailarea").style.display = "none";
 };
 
-const openCloseFaq = function(faqNum) {
+const openCloseFaq = function (faqNum) {
   // do close
   if (document.getElementById("detaila" + faqNum).style.display === "block") {
     document.getElementById("detaila" + faqNum).style.display = "none";
@@ -79,7 +79,7 @@ const openCloseFaq = function(faqNum) {
   }
 };
 
-const viewDetails = function() {
+const viewDetails = function () {
   const bip38 = false;
   const key = document
     .getElementById("detailprivkey")
@@ -110,7 +110,7 @@ const viewDetails = function() {
     // show Private Key BIP38 Format
     document.getElementById("detailprivbip38").innerHTML = key;
     document.getElementById("detailbip38").style.display = "block";
-    privateKey.BIP38EncryptedKeyToByteArrayAsync(key, passphrase, function(btcKeyOrError) {
+    privateKey.BIP38EncryptedKeyToByteArrayAsync(key, passphrase, function (btcKeyOrError) {
       document.getElementById("busyblock").className = "";
       if (btcKeyOrError.message) {
         alert(btcKeyOrError.message);
@@ -142,7 +142,7 @@ const viewDetails = function() {
   }
 };
 
-const populateKeyDetails = function(btcKey) {
+const populateKeyDetails = function (btcKey) {
   if (janin.selectedCurrency.havePrivateKey(btcKey)) {
     const privKeyBuffer = janin.selectedCurrency.getPrivateKeyBuffer(btcKey);
     document.getElementById("detailprivhex").innerHTML = privKeyBuffer.toString("hex").toUpperCase();
@@ -181,7 +181,7 @@ const populateKeyDetails = function(btcKey) {
   qrCode.showQrCode(addrQrParams, 4);
 };
 
-const clear = function() {
+const clear = function () {
   document.getElementById("detailpubkey").innerHTML = "";
   document.getElementById("detailpubkeycomp").innerHTML = "";
   document.getElementById("detailprivhex").innerHTML = "";
@@ -211,5 +211,5 @@ module.exports = {
   openCloseFaq,
   viewDetails,
   populateKeyDetails,
-  clear
+  clear,
 };

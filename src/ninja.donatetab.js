@@ -1,15 +1,15 @@
 const qrCode = require("./ninja.qrcode");
 const janin = require("./janin.currency.js");
 
-const open = function() {
+const open = function () {
   document.getElementById("donatearea").style.display = "block";
 };
 
-const close = function() {
+const close = function () {
   document.getElementById("donatearea").style.display = "none";
 };
 
-const displayQrCode = function(currencyid, e) {
+const displayQrCode = function (currencyid, e) {
   const keyValuePair = {};
   keyValuePair["donateqrcode"] = janin.currencies[currencyid].donate;
   qrCode.showQrCode(keyValuePair, 4);

@@ -10,13 +10,13 @@ const type = realArgs[1] || "c";
 
 Object.assign(network, {
   pubKeyHash: header,
-  wif: header
+  wif: header,
 });
 
 for (let i = 0; i < 10; i++) {
   const pair = bitcoin.ECPair.makeRandom({
     compressed: type !== "u",
-    network
+    network,
   });
   switch (type) {
     case "c":

@@ -4,20 +4,20 @@ const qrCode = require("./ninja.qrcode");
 const bitcoin = require("bitgo-utxo-lib");
 const bigi = require("bigi");
 
-const open = function() {
+const open = function () {
   document.getElementById("brainarea").style.display = "block";
   document.getElementById("brainpassphrase").focus();
   document.getElementById("brainwarning").innerHTML = translator.get("brainalertpassphrasewarning");
 };
 
-const close = function() {
+const close = function () {
   document.getElementById("brainarea").style.display = "none";
 };
 
 let publicMode = 0;
 const minPassphraseLength = 15;
 
-const view = function() {
+const view = function () {
   document.getElementById("brainerror").innerHTML = "";
 
   const key = document
@@ -42,7 +42,7 @@ const view = function() {
       document.getElementById("brainbtcprivwif").innerHTML = privWif;
       qrCode.showQrCode({
         brainqrcodepublic: bitcoinAddress,
-        brainqrcodeprivate: privWif
+        brainqrcodeprivate: privWif,
       });
       document.getElementById("brainkeyarea").style.visibility = "visible";
     } else {
@@ -55,11 +55,11 @@ const view = function() {
   }
 };
 
-const clear = function() {
+const clear = function () {
   document.getElementById("brainkeyarea").style.visibility = "hidden";
 };
 
-const showToggle = function(element) {
+const showToggle = function (element) {
   if (element.checked) {
     document.getElementById("brainpassphrase").setAttribute("type", "text");
     document.getElementById("brainpassphraseconfirm").style.visibility = "hidden";
@@ -76,11 +76,13 @@ module.exports = {
   close,
   view,
   clear,
-  showToggle
+  showToggle,
 };
 
 Object.defineProperty(module.exports, "publicMode", {
   enumerable: true,
   get: () => publicMode,
-  set: pm => (publicMode = pm)
+  set: (pm) => {
+    publicMode = pm;
+  },
 });

@@ -1,4 +1,4 @@
-const render = function(qr) {
+const render = function (qr) {
   const modCount = qr.getModuleCount();
 
   function getNode(n, v) {
