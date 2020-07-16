@@ -62,7 +62,7 @@
     "babel-plugin-transform-react-jsx": "6.24.1",
     "browser-sync": "2.26.7",
     "cheerio": "1.0.0-rc.3",
-    "clean-webpack-plugin": "^3.0.0",
+    "clean-webpack-plugin": "3.0.0",
     "css-loader": "3.6.0",
     "eslint": "7.4.0",
     "file-loader": "6.0.0",
