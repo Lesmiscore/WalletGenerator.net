@@ -13,6 +13,7 @@ describe("browser", function () {
   before(async function () {
     console.log("building debug website");
     // equivalent to "webpack --config webpack.config.browsertest.js"
+    // https://webpack.js.org/api/node/#error-handling
     /**
      * @type {webpack.Stats}
      */
