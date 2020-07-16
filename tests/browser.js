@@ -1,33 +1,40 @@
 /* global describe, it, before, after */
 const puppeteer = require("puppeteer");
-const { spawn } = require("child_process");
 const { EventEmitter } = require("events");
 const browserSync = require("browser-sync");
+const webpack = require("webpack");
+const fs = require("fs");
+const util = require("util");
 
 describe("browser", function () {
   let browser, page, bs;
   const events = new EventEmitter();
-  before(function (done) {
-    console.log("building debug website");
-    const build = spawn("npm", ["run", "test-public"], { stdio: "inherit" });
-    build.on("exit", (code) => {
-      if (code !== 0) {
-        console.log("there was an error on building the website");
-        return done(code);
-      }
-      console.log("starting server");
-      bs = browserSync.create("browsertest");
-      bs.init(
-        Object.assign({}, require("../bs-config.js"), {
-          files: undefined,
-          server: "./test-public",
-          open: false,
-        }),
-        done
-      );
-    });
-  });
+  // this replaces old "npm run" based scripts
   before(async function () {
+    console.log("building debug website");
+    // equivalent to "webpack --config webpack.config.browsertest.js"
+    /**
+     * @type {webpack.Stats}
+     */
+    const webpackResult = await util.promisify(webpack)(require("../webpack.config.browsertest.js"));
+    if (webpackResult.hasErrors()) {
+      throw webpackResult.toJson();
+    }
+
+    // equivalent to "cp src/index.html test-public/"
+    await util.promisify(fs.copyFile)("src/index.html", "test-public/index.html");
+
+    // equivalent to "browser-sync start --config ../bs-config.js" with some changes to config
+    console.log("starting server");
+    bs = browserSync.create("browsertest");
+    await util.promisify(bs.init)(
+      Object.assign({}, require("../bs-config.js"), {
+        files: undefined,
+        server: "./test-public",
+        open: false,
+      })
+    );
+
     console.log("launching browser");
     browser = await puppeteer.launch({ args: ["--no-sandbox"] });
     page = await browser.newPage();

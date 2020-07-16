@@ -49,6 +49,4 @@ async function load() {
   });
 }
 
-load()
-  .then(() => {})
-  .catch(console.err);
+load().catch(console.error);
