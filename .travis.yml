@@ -1,15 +1,15 @@
 language: node_js
 node_js:
 - stable
-before_script:
-- npm run init
-- npm dedupe
-- npm run public
-deploy:
-  local_dir: public
-  provider: pages
-  skip-cleanup: true
-  github-token: "$GITHUB_TOKEN"
-  keep-history: true
-  on:
+# before_script:
+# - npm run init
+# - npm dedupe
+# - npm run public
+# deploy:
+#   local_dir: public
+#   provider: pages
+#   skip-cleanup: true
+#   github-token: "$GITHUB_TOKEN"
+#   keep-history: true
+#   on:
 branch: master
