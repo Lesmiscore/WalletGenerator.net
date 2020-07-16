@@ -5,6 +5,7 @@ const browserSync = require("browser-sync");
 const webpack = require("webpack");
 const fs = require("fs");
 const util = require("util");
+const { fork } = require("child_process");
 
 describe("browser", function () {
   let browser, page, bs;
@@ -12,6 +13,21 @@ describe("browser", function () {
   // this replaces old "npm run" based scripts
   before(async function () {
     console.log("building debug website");
+    // equivalent to "node ./util/gen.js"
+    await new Promise((resolve, reject) => {
+      fork("./util/gen.js")
+        .on("error", function (err) {
+          reject(err);
+        })
+        .on("exit", function (code) {
+          if (code === 0) {
+            resolve();
+          } else {
+            reject(code);
+          }
+        });
+    });
+
     // equivalent to "webpack --config webpack.config.browsertest.js"
     // https://webpack.js.org/api/node/
     /**
@@ -19,7 +35,7 @@ describe("browser", function () {
      */
     const webpackResult = await util.promisify(webpack)(require("../webpack.config.browsertest.js"));
     if (webpackResult.hasErrors()) {
-      throw webpackResult.toJson().errors;
+      throw webpackResult.toJson().errors.join("\n");
     }
 
     // equivalent to "cp src/index.html test-public/"
