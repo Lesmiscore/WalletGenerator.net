@@ -13,13 +13,13 @@ describe("browser", function () {
   before(async function () {
     console.log("building debug website");
     // equivalent to "webpack --config webpack.config.browsertest.js"
-    // https://webpack.js.org/api/node/#error-handling
+    // https://webpack.js.org/api/node/
     /**
      * @type {webpack.Stats}
      */
     const webpackResult = await util.promisify(webpack)(require("../webpack.config.browsertest.js"));
     if (webpackResult.hasErrors()) {
-      throw webpackResult.toJson();
+      throw webpackResult.toJson().errors;
     }
 
     // equivalent to "cp src/index.html test-public/"
