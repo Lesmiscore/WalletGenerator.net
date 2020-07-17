@@ -1,13 +1,12 @@
 /* global describe, it */
 const assert = require("assert");
 const fs = require("fs");
+const testMisc = require("./misc");
 require("./fakedocument");
 
 describe("coin image", function () {
-  const janin = require("../src/janin.currency");
-  const currencies = janin.currencies;
-  for (let i of currencies) {
-    const name = i.name.toLowerCase();
+  for (let i of testMisc.grabAllCoinNames()) {
+    const name = i.toLowerCase();
     it(`${name} has a valid logo`, function () {
       fs.statSync(`logos/${name}.png`);
     });

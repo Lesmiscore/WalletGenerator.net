@@ -1,13 +1,7 @@
 /* global describe, it */
 const assert = require("assert");
-require("./fakedocument");
-if (global.__fakeDocument) {
-  require("@babel/register")({
-    plugins: ["@babel/plugin-proposal-optional-chaining"],
-  });
-}
 
-const bitcoinCurrency = require("../src/janin.currency").currencies.find((curr) => curr.name === "Bitcoin");
+const bitcoinCurrency = require("../../src/janin.currency").currencies.find((curr) => curr.name === "Bitcoin");
 describe("bitcoin", function () {
   ["L5JywexZwWuN9rM2Hs9zwudmwLBHNqqjcAh1xFhv6g413mufdXFG", "5KFBSucisZhx7mY3ocLLkaysWFZPirEF3N3yD5G7MRdqp5EGa93"].forEach((item, index) => {
     it(`can load ordinary WIF ${index}`, function () {

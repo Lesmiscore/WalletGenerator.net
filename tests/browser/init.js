@@ -42,7 +42,7 @@ async function load() {
   }
 
   await import("./images.js");
-  await import("../bitcoin.js");
+  await import("./bitcoin.js");
 
   onload(() => {
     mocha.run();
