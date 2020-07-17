@@ -1,7 +1,7 @@
 // DO NOT EDIT WHEN YOU ADD A NEW COIN
-const Coin = require("./coin");
+import Coin from "./coin.js";
 
-module.exports = class Template extends Coin {
+export default class Template extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }

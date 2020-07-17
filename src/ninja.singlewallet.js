@@ -1,7 +1,7 @@
-const privateKey = require("./ninja.privatekey.js");
-const qrCode = require("./ninja.qrcode");
+import * as privateKey from "./ninja.privatekey.js";
+import qrCode from "./ninja.qrcode/index.js";
 
-const open = function () {
+export const open = function () {
   if (!document.getElementById("btcaddress").innerHTML) {
     generateNewAddressAndKey();
   }
@@ -13,13 +13,13 @@ const open = function () {
   document.getElementById("singlevanitygenstop").style.display = "none";
 };
 
-const close = function () {
+export const close = function () {
   document.getElementById("singlearea").style.display = "none";
   stopVanitygen();
 };
 
 // generate bitcoin address and private key and update information in the HTML
-const generateNewAddressAndKey = function () {
+export const generateNewAddressAndKey = function () {
   try {
     const key = privateKey.makeRandom();
     const bitcoinAddress = privateKey.getAddressWith(key, publicMode);
@@ -46,7 +46,7 @@ const generateNewAddressAndKey = function () {
 
 let vanityJob = null;
 
-const startVanitygen = function (pattern) {
+export const startVanitygen = function (pattern) {
   if (typeof vanityJob === "string") {
     return;
   }
@@ -73,7 +73,7 @@ const startVanitygen = function (pattern) {
   };
   refresh();
 };
-const stopVanitygen = function () {
+export const stopVanitygen = function () {
   if (typeof vanityJob !== "string") {
     return;
   }
@@ -84,20 +84,4 @@ const stopVanitygen = function () {
   vanityJob = null;
 };
 
-let publicMode = 0;
-
-module.exports = {
-  open,
-  close,
-  generateNewAddressAndKey,
-  startVanitygen,
-  stopVanitygen,
-};
-
-Object.defineProperty(module.exports, "publicMode", {
-  enumerable: true,
-  get: () => publicMode,
-  set: (pm) => {
-    publicMode = pm;
-  },
-});
+export let publicMode = 0;

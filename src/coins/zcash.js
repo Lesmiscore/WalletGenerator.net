@@ -1,8 +1,8 @@
-const zcash = require("bitgo-utxo-lib");
-const Bitcoin = require("./bitcoin");
-const { upperValue, lowerValue } = require("./constants");
+const {default:zcash} = await import("bitgo-utxo-lib");
+import Bitcoin from "./bitcoin.js";
+import { upperValue, lowerValue } from "./constants.js";
 
-module.exports = class Zcash extends Bitcoin {
+export default class Zcash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
     super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, zcash.coins.ZEC);
   }

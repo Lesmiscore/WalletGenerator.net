@@ -1,30 +1,31 @@
-const translator = require("./ninja.translator.js");
-const Doge = require("./doge.js");
-const _ = require("./lodash");
+import translator from "./ninja.translator.js";
+import Doge from "./doge.js";
+import chunk from "./lodash/chunk.js";
 
-const Bitcoin = require("./coins/bitcoin");
-const Zcash = require("./coins/zcash");
-const BitcoinCash = require("./coins/bitcoincash");
-const Ethereum = require("./coins/ethereum");
-const NEM = require("./coins/nem");
-const Ripple = require("./coins/ripple");
-const IOTA = require("./coins/iota");
+import Bitcoin from "./coins/bitcoin.js";
+import Zcash from "./coins/zcash.js";
+import BitcoinCash from "./coins/bitcoincash.js";
+import Ethereum from "./coins/ethereum.js";
+import NEM from "./coins/nem.js";
+import Ripple from "./coins/ripple.js";
+import IOTA from "./coins/iota.js";
 
-let selectedCurrency, doge;
+import * as singlewallet from "./ninja.singlewallet.js";
+import * as paperwallet from "./ninja.paperwallet.js";
+import * as brainwallet from "./ninja.brainwallet.js";
+import * as bulkwallet from "./ninja.bulkwallet.js";
 
-const name = function () {
+export let selectedCurrency;
+let doge;
+
+export const name = function () {
   return selectedCurrency.name;
 };
 
 // Switch currency
-const useCurrency = function (index) {
+export const useCurrency = function (index) {
   selectedCurrency = currencies[index];
   const lowerCurrency = name().toLowerCase();
-
-  const singlewallet = require("./ninja.singlewallet.js");
-  const paperwallet = require("./ninja.paperwallet.js");
-  const brainwallet = require("./ninja.brainwallet.js");
-  const bulkwallet = require("./ninja.bulkwallet.js");
 
   const coinImgUrl = selectedCurrency.getCoinImageUrl();
   document.getElementById("coinLogoImg").src = coinImgUrl;
@@ -68,7 +69,7 @@ const useCurrency = function (index) {
   // make a table and dropdown from currency instance
   let publicQrTable = "";
   let chunkId = 0;
-  for (let [first, second] of _.chunk(selectedCurrency.getAddressTitleNames(), 2)) {
+  for (let [first, second] of chunk(selectedCurrency.getAddressTitleNames(), 2)) {
     publicQrTable += `<tr id="pubqr${chunkId}" class="pubqr">`;
     const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
     publicQrTable += `
@@ -95,7 +96,7 @@ const useCurrency = function (index) {
 
   let privateQrTable = "";
   chunkId = 0;
-  for (let [first, second] of _.chunk(selectedCurrency.getWIFTitleNames(), 2)) {
+  for (let [first, second] of chunk(selectedCurrency.getWIFTitleNames(), 2)) {
     privateQrTable += `<tr id="privqr${chunkId}" class="privqr">`;
     const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
     privateQrTable += `
@@ -158,7 +159,7 @@ const useCurrency = function (index) {
   }
 };
 
-let currencies = [
+export const currencies = [
   //          name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate, scriptHash, b32hrp
   new Bitcoin("2GIVE", 0x27, 0xa7, "Givewmf4yv8uuHZG6Eb7sm17fJS2Trf6U8"),
   new Bitcoin("42coin", 0x08, 0x88, "4Fs42jYtLYrUMfKEXc6arojuhRsnYnerxN"),
@@ -391,16 +392,3 @@ let currencies = [
   new Bitcoin("Testnet Sugarchain", 66, 239, null, 128, "tugar").withDefaultMode("segwit"),
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, null),
 ];
-
-module.exports = {
-  name,
-  useCurrency,
-  currencies,
-};
-
-Object.defineProperty(module.exports, "selectedCurrency", {
-  get: () => selectedCurrency,
-  set: useCurrency,
-  enumerable: true,
-  configurable: true,
-});

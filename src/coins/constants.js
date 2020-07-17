@@ -1,5 +1,5 @@
 // make this table via ./util/leadingFromTable.js
-const bitcoinB58Leading = [
+export const bitcoinB58Leading = [
   "1",
   "[Q-Za-km-o]",
   "[o-z2]",
@@ -258,10 +258,10 @@ const bitcoinB58Leading = [
   "2",
 ];
 
-const upperValue = Buffer.alloc(20, 0xff);
-const lowerValue = Buffer.alloc(20, 0x00);
+export const upperValue = Buffer.alloc(20, 0xff);
+export const lowerValue = Buffer.alloc(20, 0x00);
 
-module.exports = {
+export default {
   bitcoinB58Leading,
   upperValue,
   lowerValue,

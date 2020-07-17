@@ -1,12 +1,12 @@
-const bitcoin = require("bitgo-utxo-lib");
-const wif = require("wif");
-const bigi = require("bigi");
-const elliptic = require("elliptic");
-const Coin = require("./coin");
-const constants = require("./constants");
+const {default:bitcoin} = await import("bitgo-utxo-lib");
+const {default:wif} = await import("wif");
+const {default:bigi} = await import("bigi");
+const {default:elliptic} = await import("elliptic");
+import Coin from "./coin.js";
+import bitcoinB58Leading from "./constants.js";
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
-module.exports = class Bitcoin extends Coin {
+export default class Bitcoin extends Coin {
   constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp, coin = bitcoin.coins.BTC) {
     super(name, donate);
     this.network = {
@@ -217,7 +217,7 @@ module.exports = class Bitcoin extends Coin {
     if (!pattern) return true;
     const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";
     function testBase58(version) {
-      const headRegex = constants.bitcoinB58Leading[version];
+      const headRegex = bitcoinB58Leading[version];
       const regex = new RegExp(`^${headRegex}${btcB58}`);
       return regex.test(pattern);
     }

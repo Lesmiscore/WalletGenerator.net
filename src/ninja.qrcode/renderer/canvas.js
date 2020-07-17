@@ -1,4 +1,5 @@
-const { Modernizr } = require("./../../autogen/modernizr");
+import * as  Modernizr  from "./../../autogen/modernizr.js";
+
 const render = function (qrcode, sizeMultiplier) {
   const modCount = qrcode.getModuleCount();
   const size = modCount * sizeMultiplier;
@@ -24,4 +25,4 @@ const render = function (qrcode, sizeMultiplier) {
   return canvas;
 };
 
-module.exports = { render, available: Modernizr.canvas };
+export default { render, available: Modernizr.canvas };

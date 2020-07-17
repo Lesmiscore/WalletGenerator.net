@@ -18,7 +18,7 @@
  * _.slice(array, 2)
  * // => [3, 4]
  */
-function slice(array, start, end) {
+export default function slice(array, start, end) {
   let length = array === null ? 0 : array.length;
   if (!length) {
     return [];
@@ -43,5 +43,3 @@ function slice(array, start, end) {
   }
   return result;
 }
-
-module.exports = slice;

@@ -33,7 +33,7 @@ function muchWords() {
   }, 6000);
 }
 
-module.exports = class Doge {
+export default class Doge {
   constructor(words) {
     if (!Array.isArray(words)) {
       return console.error("Wow. Words is not array. Much Error.");

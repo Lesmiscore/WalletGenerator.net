@@ -21,7 +21,7 @@
     "nem-sdk": "^1.6.7",
     "randombytes": "^2.0.6",
     "ripple-keypairs": "^1.0.0",
-    "safe-buffer": "^5.1.2",
+    "safe-buffer": "^5.2.1",
     "scryptsy": "^2.0.0",
     "wif": "^2.0.6"
   },
@@ -35,16 +35,17 @@
   "scripts": {
     "init": "npm i",
     "start": "npm run export",
-    "generate": "node ./util/gen",
+    "generate": "node --experimental-top-level-await --experimental-json-modules ./util/gen",
     "export": "npm run generate ; rm -rf public ; webpack",
     "public": "npm run export ; cp src/index.html public/",
     "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
     "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
-    "test": "mocha tests/ --no-timeout",
+    "test": "node --experimental-top-level-await --harmony node_modules/.bin/mocha tests/ --no-timeout",
     "postinstall": "node ./util/postinstall.js"
   },
+  "type": "module",
   "author": "nao20010128nao",
   "originalAuthor": "MichaelMure",
   "license": "MIT",
@@ -55,6 +56,7 @@
   "devDependencies": {
     "@babel/core": "7.10.5",
     "@babel/plugin-proposal-optional-chaining": "7.10.4",
+    "@babel/plugin-syntax-top-level-await": "^7.10.4",
     "@babel/register": "7.10.5",
     "assert": "2.0.0",
     "babel-eslint": "10.1.0",
@@ -76,7 +78,7 @@
     "stylus": "0.54.8",
     "stylus-loader": "3.0.2",
     "stylus-supremacy": "2.14.5",
-    "webpack": "4.43.0",
+    "webpack": "^5.0.0-beta.22",
     "webpack-cli": "3.3.12"
   },
   "husky": {

@@ -1,15 +1,15 @@
-const translator = require("./ninja.translator.js");
+import { get } from "./ninja.translator.js";
 
 const tabSwitch = function (walletTab) {
   if (walletTab.className.indexOf("selected") === -1) {
     // unselect all tabs
     const wallets = {
-      brainwallet: require("./ninja.brainwallet.js"),
-      bulkwallet: require("./ninja.bulkwallet.js"),
+      brainwallet: require("./ninja.brainwallet.js").default,
+      bulkwallet: require("./ninja.bulkwallet.js").default,
       detailwallet: require("./ninja.detailwallet.js"),
-      paperwallet: require("./ninja.paperwallet.js"),
-      singlewallet: require("./ninja.singlewallet.js"),
-      donate: require("./ninja.donatetab.js"),
+      paperwallet: require("./ninja.paperwallet.js").default,
+      singlewallet: require("./ninja.singlewallet.js").default,
+      donate: require("./ninja.donatetab.js").default,
     };
     for (const wType in wallets) {
       if ({}.hasOwnProperty.call(wallets, wType)) {
@@ -27,10 +27,10 @@ const envSecurityCheck = function () {
   switch (window.location.protocol) {
     case "http:":
     case "https:":
-      innerHTML = '<span style="color: #990000;">' + translator.get("securitychecklistofflineNOK") + "</span>";
+      innerHTML = '<span style="color: #990000;">' + get("securitychecklistofflineNOK") + "</span>";
       break;
     case "file:":
-      innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistofflineOK") + "</span>";
+      innerHTML = '<span style="color: #009900;">' + get("securitychecklistofflineOK") + "</span>";
       break;
     default:
   }
@@ -40,9 +40,9 @@ const envSecurityCheck = function () {
 const browserSecurityCheck = function () {
   let innerHTML = "";
   if (window.crypto && window.crypto.getRandomValues) {
-    innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistrandomOK") + "</span>";
+    innerHTML = '<span style="color: #009900;">' + get("securitychecklistrandomOK") + "</span>";
   } else {
-    innerHTML = '<span style="color: #990000;">' + translator.get("securitychecklistrandomNOK") + "</span>";
+    innerHTML = '<span style="color: #990000;">' + get("securitychecklistrandomNOK") + "</span>";
   }
   document.getElementById("browserSecurityCheck").innerHTML = innerHTML;
 };
@@ -64,7 +64,7 @@ const toggleFaqQuestion = function (elementId) {
 };
 
 const printMany = function () {
-  const paperwallet = require("./ninja.paperwallet.js");
+  const paperwallet = require("./ninja.paperwallet.js").default;
   paperwallet.build(document.getElementById("paperpassphrase").value, 10, function () {
     window.print();
   });
@@ -96,7 +96,7 @@ const onload = function (func) {
   }
 };
 
-module.exports = {
+export default {
   tabSwitch,
   envSecurityCheck,
   browserSecurityCheck,

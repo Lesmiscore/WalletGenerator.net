@@ -1,13 +1,13 @@
-const translator = require("./ninja.translator.js");
-const privateKey = require("./ninja.privatekey.js");
-const qrCode = require("./ninja.qrcode");
-const bitcoin = require("bitgo-utxo-lib");
-const bigi = require("bigi");
+import { get as _get } from "./ninja.translator.js";
+import { create, getAddressWith, getWIFForAddress } from "./ninja.privatekey.js";
+import qrCode from "./ninja.qrcode/index.js";
+import { sha256 } from "./hashing.js";
+import * as bigi from "bigi";
 
 const open = function () {
   document.getElementById("brainarea").style.display = "block";
   document.getElementById("brainpassphrase").focus();
-  document.getElementById("brainwarning").innerHTML = translator.get("brainalertpassphrasewarning");
+  document.getElementById("brainwarning").innerHTML = _get("brainalertpassphrasewarning");
 };
 
 const close = function () {
@@ -34,10 +34,10 @@ const view = function () {
   if (key === keyConfirm || document.getElementById("brainpassphraseshow").checked) {
     // enforce a minimum passphrase length
     if (key.length >= minPassphraseLength) {
-      const bytes = bitcoin.crypto.sha256(key);
-      const btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
-      const bitcoinAddress = privateKey.getAddressWith(btcKey, publicMode);
-      const privWif = privateKey.getWIFForAddress(btcKey, publicMode);
+      const bytes = sha256(key);
+      const btcKey = create(bigi.fromBuffer(bytes), null);
+      const bitcoinAddress = getAddressWith(btcKey, publicMode);
+      const privWif = getWIFForAddress(btcKey, publicMode);
       document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
       document.getElementById("brainbtcprivwif").innerHTML = privWif;
       qrCode.showQrCode({
@@ -46,11 +46,11 @@ const view = function () {
       });
       document.getElementById("brainkeyarea").style.visibility = "visible";
     } else {
-      document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasetooshort");
+      document.getElementById("brainerror").innerHTML = _get("brainalertpassphrasetooshort");
       clear();
     }
   } else {
-    document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasedoesnotmatch");
+    document.getElementById("brainerror").innerHTML = _get("brainalertpassphrasedoesnotmatch");
     clear();
   }
 };
@@ -71,7 +71,7 @@ const showToggle = function (element) {
   }
 };
 
-module.exports = {
+export default {
   open,
   close,
   view,

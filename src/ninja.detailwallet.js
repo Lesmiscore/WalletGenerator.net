@@ -1,11 +1,11 @@
-const { QRCodeScanner } = require("./jsqrcode.js");
-const translator = require("./ninja.translator.js");
-const privateKey = require("./ninja.privatekey.js");
-const brainwallet = require("./ninja.brainwallet.js");
-const qrCode = require("./ninja.qrcode");
-const janin = require("./janin.currency.js");
-const bitcoin = require("bitgo-utxo-lib");
-const bigi = require("bigi");
+import * as qrcode from "./jsqrcode.js";
+import translator from "./ninja.translator.js";
+import privateKey from "./ninja.privatekey.js";
+import brainwallet from "./ninja.brainwallet.js";
+import qrCode from "./ninja.qrcode";
+import janin from "./janin.currency.js";
+import { sha256 } from "./hashing.js";
+import * as bigi from "bigi";
 
 const qrscanner = {
   scanner: null,
@@ -46,7 +46,7 @@ const open = function () {
   document.getElementById("detailarea").style.display = "block";
   document.getElementById("detailprivkey").focus();
   if (!qrscanner.scanner) {
-    qrscanner.scanner = new QRCodeScanner(
+    qrscanner.scanner = new qrcode.QRCodeScanner(
       320,
       240,
       "paperqroutput",
@@ -127,7 +127,7 @@ const viewDetails = function () {
         // Deterministic Wallet confirm box to ask if user wants to SHA256 the input to get a private key
         const usePassphrase = confirm(translator.get("detailconfirmsha256"));
         if (usePassphrase) {
-          const bytes = bitcoin.crypto.sha256(key);
+          const bytes = sha256(key);
           btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
         } else {
           clear();
@@ -204,7 +204,7 @@ const clear = function () {
   }
 };
 
-module.exports = {
+export default {
   qrscanner,
   open,
   close,

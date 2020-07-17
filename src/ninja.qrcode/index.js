@@ -1,9 +1,13 @@
-const QRCode = require("./../qrcode.js");
-const sizeMultiplier_ = require("./sizemultiplier");
-const renderers = [require("./renderer/svg"), require("./renderer/canvas"), require("./renderer/table")];
+import QRCode from "./../qrcode.js";
+import sizeMultiplier_, { calculateFinalSizeMultiplier } from "./sizemultiplier.js";
+import svgRenderer from "./renderer/svg.js";
+import canvasRenderer from "./renderer/canvas.js";
+import tableRenderer from "./renderer/table.js";
+
+const renderers = [svgRenderer, canvasRenderer, tableRenderer];
 
 // determine which type number is big enough for the input text length
-const getTypeNumber = function (text) {
+export const getTypeNumber = function (text) {
   const lengthCalculation = text.length * 8 + 12; // length as calculated by the QRCode
   if (lengthCalculation < 72) {
     return 1;
@@ -34,7 +38,7 @@ const getTypeNumber = function (text) {
 // example: { "id1": "string1", "id2": "string2"}
 //		"id1" is the id of a div element where you want a QRCode inserted.
 //		"string1" is the string you want encoded into the QRCode.
-const showQrCode = function (keyValuePair, sizeMultiplier) {
+export const showQrCode = function (keyValuePair, sizeMultiplier) {
   for (const key in keyValuePair) {
     if ({}.hasOwnProperty.call(keyValuePair, key)) {
       const value = keyValuePair[key];
@@ -42,7 +46,7 @@ const showQrCode = function (keyValuePair, sizeMultiplier) {
       const qrcode = QRCode(typeNumber, "H");
       qrcode.addData(value);
       qrcode.make();
-      const newSizeMultiplier = sizeMultiplier_.calculateFinalSizeMultiplier(sizeMultiplier, qrcode.getModuleCount());
+      const newSizeMultiplier = calculateFinalSizeMultiplier(sizeMultiplier, qrcode.getModuleCount());
       const parent = document.getElementById(key);
       parent.innerHTML = "";
       for (const { render, available } of renderers) {
@@ -55,7 +59,7 @@ const showQrCode = function (keyValuePair, sizeMultiplier) {
   }
 };
 
-module.exports = {
+export default {
   getTypeNumber,
   showQrCode,
   sizeMultiplier: sizeMultiplier_,

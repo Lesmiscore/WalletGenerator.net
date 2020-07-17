@@ -1,12 +1,12 @@
-const constant = (sm) => sm;
+export const constant = (sm) => sm;
 
-const proportional = (moduleCount, sizeMultiplier) => ({
+export const proportional = (moduleCount, sizeMultiplier) => ({
   mode: "proportional",
   moduleCount,
   sizeMultiplier,
 });
 
-const calculateFinalSizeMultiplier = (sizeMultiplier, moduleCount) => {
+export const calculateFinalSizeMultiplier = (sizeMultiplier, moduleCount) => {
   if (sizeMultiplier === null || sizeMultiplier === undefined) {
     // default
     return 2;
@@ -19,7 +19,7 @@ const calculateFinalSizeMultiplier = (sizeMultiplier, moduleCount) => {
   }
 };
 
-module.exports = {
+export default {
   constant,
   proportional,
   calculateFinalSizeMultiplier,

@@ -1,9 +1,9 @@
 /* global describe, it */
-const assert = require("assert");
+import assert from "assert";
 
 describe("coin image on browser", function () {
-  const janin = require("../../src/janin.currency");
-  const coindex = require("../../src/autogen/coindex");
+  const janin = require("../../src/janin.currency").default;
+  const coindex = require("../../src/autogen/coindex").default;
   const currencies = janin.currencies;
   for (let i of currencies) {
     const name = i.name.toLowerCase();

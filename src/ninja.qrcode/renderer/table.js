@@ -26,4 +26,4 @@ const render = function (qr) {
   return root;
 };
 
-module.exports = { render, available: true };
+export default { render, available: true };

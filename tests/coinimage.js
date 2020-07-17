@@ -4,7 +4,7 @@ const fs = require("fs");
 require("./fakedocument");
 
 describe("coin image", function () {
-  const janin = require("../src/janin.currency");
+  const janin = require("../src/janin.currency").default;
   const currencies = janin.currencies;
   for (let i of currencies) {
     const name = i.name.toLowerCase();

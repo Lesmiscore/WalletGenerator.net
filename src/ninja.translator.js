@@ -1,6 +1,6 @@
-let currentCulture = "en";
+export let currentCulture = "en";
 
-const autodetectTranslation = function () {
+export const autodetectTranslation = function () {
   // window.navigator.language for Firefox / Chrome / Opera Safari
   // window.navigator.userLanguage for IE
   let language = window.navigator.language || window.navigator.userLanguage;
@@ -11,7 +11,7 @@ const autodetectTranslation = function () {
   }
 };
 
-const translate = function (culture) {
+export const translate = function (culture) {
   const dict = translations[culture];
   if (dict) {
     // set current culture
@@ -36,11 +36,11 @@ const translate = function (culture) {
   return false;
 };
 
-const get = function (id) {
+export const get = function (id) {
   return translations[currentCulture][id];
 };
 
-const staticID = [
+export const staticID = [
   "defaultTitle",
   "title",
   "brainalertpassphrasewarning",
@@ -58,22 +58,22 @@ const staticID = [
   "paperwalletback",
 ];
 
-const translations = {
-  en: require("./l10n/en.json"),
-  fr: require("./l10n/fr.json"),
-  de: require("./l10n/de.json"),
-  nl: require("./l10n/nl.json"),
-  pt: require("./l10n/pt.json"),
-  ru: require("./l10n/ru.json"),
-  es: require("./l10n/es.json"),
-  it: require("./l10n/it.json"),
-  ua: require("./l10n/ua.json"),
-  tr: require("./l10n/tr.json"),
-  pl: require("./l10n/pl.json"),
-  zh: require("./l10n/zh.json"),
+export const translations = {
+  en: await import("./l10n/en.json"),
+  fr: await import("./l10n/fr.json"),
+  de: await import("./l10n/de.json"),
+  nl: await import("./l10n/nl.json"),
+  pt: await import("./l10n/pt.json"),
+  ru: await import("./l10n/ru.json"),
+  es: await import("./l10n/es.json"),
+  it: await import("./l10n/it.json"),
+  ua: await import("./l10n/ua.json"),
+  tr: await import("./l10n/tr.json"),
+  pl: await import("./l10n/pl.json"),
+  zh: await import("./l10n/zh.json"),
 };
 
-module.exports = {
+export default {
   autodetectTranslation,
   translate,
   get,

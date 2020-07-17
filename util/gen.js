@@ -1,23 +1,29 @@
-require("@babel/register")({
-  plugins: ["@babel/plugin-proposal-optional-chaining"],
-});
+/*require("@babel/register")({
+  plugins: [
+    "@babel/plugin-syntax-top-level-await",
+    "@babel/plugin-proposal-optional-chaining"
+  ],
+});*/
 
 // Generate necessary require()s for all coins
-require("../tests/fakedocument");
-const fs = require("fs");
+import "../tests/fakedocument.js";
+import { mkdirSync, writeFileSync, readdirSync } from "fs";
+import { currencies } from '../src/janin.currency.js';
+//const { currencies } = pkg;
+import pkg2 from 'modernizr';
+const { build } = pkg2;
+import modernizrConfig from "../modernizr-config.json";
 
 try {
-  fs.mkdirSync("./src/autogen/");
+  mkdirSync("./src/autogen/");
 } catch (e) {}
 (() => {
   // coindex
   let text = `
-    const lazy=require("../lazy/var");
-    module.exports={
+    import lazy from "../lazy/var.js";
+    export default{
     `;
 
-  const janin = require("../src/janin.currency");
-  const currencies = janin.currencies;
   for (let i of currencies) {
     const name = i.name.toLowerCase();
     text += `
@@ -28,16 +34,16 @@ try {
 
   text += "}";
 
-  fs.writeFileSync("./src/autogen/coindex.js", text);
+  writeFileSync("./src/autogen/coindex.js", text);
 })();
 (() => {
   // images
   let text = `
-    const lazy=require("../lazy/var");
-    module.exports={
+    import lazy from "../lazy/var.js";
+    export default{
     `;
 
-  const names = fs.readdirSync("images/");
+  const names = readdirSync("images/");
   for (let name of names) {
     text += `
     "${`${name}`.replace(/\.(png|gif)$/i, "")}": lazy(() => require("./../../images/${name}")["default"]),
@@ -46,10 +52,9 @@ try {
 
   text += "}";
 
-  fs.writeFileSync("./src/autogen/images.js", text);
+  writeFileSync("./src/autogen/images.js", text);
 })();
 
-const modernizr = require("modernizr");
-modernizr.build(require("../modernizr-config.json"), function (output) {
-  fs.writeFileSync("src/autogen/modernizr.js", output);
+build(modernizrConfig, function (output) {
+  writeFileSync("src/autogen/modernizr.js", "export const tempM={};"+output+"\nexport const Modernizr = tempM;");
 });

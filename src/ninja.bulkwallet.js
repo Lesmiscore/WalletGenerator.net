@@ -1,5 +1,5 @@
-const translator = require("./ninja.translator.js");
-const privateKey = require("./ninja.privatekey.js");
+import { get as _get } from "./ninja.translator.js";
+import { makeRandom, getAddressWith, getWIFForAddress } from "./ninja.privatekey.js";
 
 const open = function () {
   document.getElementById("bulkarea").style.display = "block";
@@ -23,7 +23,7 @@ const close = function () {
 // index,bitcoinAddress,privateKeyWif
 const buildCSV = function (rowLimit, startIndex) {
   //const bulkWallet = bulkwallet;
-  document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + rowLimit;
+  document.getElementById("bulktextarea").value = _get("bulkgeneratingaddresses") + rowLimit;
   csv = [];
   csvRowLimit = rowLimit;
   csvRowsRemaining = rowLimit;
@@ -40,11 +40,11 @@ let publicMode = 0;
 const batchCSV = function () {
   if (csvRowsRemaining > 0) {
     csvRowsRemaining--;
-    const key = privateKey.makeRandom();
+    const key = makeRandom();
 
-    csv.push(csvRowLimit - csvRowsRemaining + csvStartIndex + ',"' + privateKey.getAddressWith(key, publicMode) + '","' + privateKey.getWIFForAddress(key, publicMode) + '"');
+    csv.push(csvRowLimit - csvRowsRemaining + csvStartIndex + ',"' + getAddressWith(key, publicMode) + '","' + getWIFForAddress(key, publicMode) + '"');
 
-    document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + csvRowsRemaining;
+    document.getElementById("bulktextarea").value = _get("bulkgeneratingaddresses") + csvRowsRemaining;
 
     // release thread to browser to render UI
     setTimeout(batchCSV, 0, publicMode);
@@ -68,7 +68,7 @@ const openCloseFaq = function (faqNum) {
   }
 };
 
-module.exports = {
+export default {
   open,
   close,
   buildCSV,

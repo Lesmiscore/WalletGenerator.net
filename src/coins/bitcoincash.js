@@ -1,9 +1,9 @@
-const Bitcoin = require("./bitcoin");
-const bitcoin = require("bitgo-utxo-lib");
-const bchaddrjs = require("bchaddrjs");
-const constants = require("./constants");
+import Bitcoin from "./bitcoin.js";
+const {default:bitcoin} = await import("bitgo-utxo-lib");
+const {default:bchaddrjs} = await import("bchaddrjs");
+import { bitcoinB58Leading } from "./constants.js";
 
-module.exports = class BitcoinCash extends Bitcoin {
+export default class BitcoinCash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
     super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, bitcoin.coins.BCH);
   }
@@ -72,7 +72,7 @@ module.exports = class BitcoinCash extends Bitcoin {
   isVanitygenPossible(pattern, mode) {
     const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$";
     function testBase58(version) {
-      const headRegex = constants.bitcoinB58Leading[version];
+      const headRegex = bitcoinB58Leading[version];
       const regex = new RegExp(`^${headRegex}${btcB58}`);
       return regex.test(pattern);
     }

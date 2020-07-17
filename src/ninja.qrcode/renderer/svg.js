@@ -1,6 +1,6 @@
-const BN = require("bignumber.js");
+import BN from "bignumber.js";
+import * as Modernizr from "./../../autogen/modernizr.js";
 
-const { Modernizr } = require("./../../autogen/modernizr");
 const render = function (qr, sizeMultiplier) {
   // https://stackoverflow.com/questions/20539196/creating-svg-elements-dynamically-with-javascript-inside-html
   const modCount = qr.getModuleCount();
@@ -49,4 +49,4 @@ const render = function (qr, sizeMultiplier) {
   return root;
 };
 
-module.exports = { render, available: Modernizr.svg };
+export default { render, available: Modernizr.svg };

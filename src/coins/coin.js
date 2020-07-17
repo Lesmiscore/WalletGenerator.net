@@ -1,13 +1,7 @@
-const translator = require("../ninja.translator.js");
-const coindex = (() => {
-  try {
-    return require("../autogen/coindex");
-  } catch (error) {
-    return null;
-  }
-})();
+import { get } from "../ninja.translator.js";
+import * as coindex from "../autogen/coindex.js";
 
-module.exports = class Coin {
+export default class Coin {
   constructor(name, donate) {
     this.name = name;
     this.donate = donate;
@@ -31,7 +25,7 @@ module.exports = class Coin {
         <div class='${keyelement}' id='${keyelement}${i}'></div>
         <div class='paperWalletText'>
           <img class='backLogo' src='${coinImgUrl}' alt='currency_logo' />
-          ${translator.get("paperwalletback")}
+          ${get("paperwalletback")}
         </div>
       </div>
     `;

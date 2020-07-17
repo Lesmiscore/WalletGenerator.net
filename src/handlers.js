@@ -1,10 +1,10 @@
-const singlewallet = require("./ninja.singlewallet.js");
-const paperwallet = require("./ninja.paperwallet.js");
-const bulkwallet = require("./ninja.bulkwallet.js");
-const brainwallet = require("./ninja.brainwallet.js");
+const singlewallet = require("./ninja.singlewallet.js").default;
+const paperwallet = require("./ninja.paperwallet.js").default;
+const bulkwallet = require("./ninja.bulkwallet.js").default;
+const brainwallet = require("./ninja.brainwallet.js").default;
 const detailwallet = require("./ninja.detailwallet.js");
-const janin = require("./janin.currency.js");
-const { tabSwitch, toggleFaqQuestion, printMany, ev } = require("./ninja.misc.js");
+const janin = require("./janin.currency.js").default;
+const { tabSwitch, toggleFaqQuestion, printMany, ev } = require("./ninja.misc.js").default;
 
 ev("#currency", "change", function () {
   janin.useCurrency(this.selectedIndex);

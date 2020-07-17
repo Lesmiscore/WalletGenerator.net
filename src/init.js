@@ -2,9 +2,8 @@
 window.XMLHttpRequest = require("@nao20010128nao/void-xhr");
 window.fetch = require("@nao20010128nao/void-fetch");
 
-const { onload } = require("./ninja.misc.js");
+const { onload } = require("./ninja.misc.js").default;
 const images = require("../src/autogen/images");
-const coindex = require("../src/autogen/coindex");
 require("./main.styl");
 
 onload(() => {
