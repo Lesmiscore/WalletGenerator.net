@@ -11,12 +11,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            plugins: ["transform-react-jsx", "@babel/plugin-proposal-optional-chaining"],
+            plugins: ["@babel/plugin-proposal-optional-chaining"],
           },
         },
       },
