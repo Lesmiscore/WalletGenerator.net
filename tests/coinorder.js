@@ -5,7 +5,7 @@ const testMisc = require("./misc");
 
 describe("coin order", function () {
   it("keeps correct order", function () {
-    const names = testMisc.grabAllCoinNames().map((a) => a.name);
+    const names = testMisc.grabAllCoinNames();
     const mainnets = names.filter((a) => !a.toLowerCase().startsWith("testnet "));
     const testnets = names.filter((a) => a.toLowerCase().startsWith("testnet "));
     mainnets.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
