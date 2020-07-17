@@ -11,29 +11,22 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            plugins: ["@babel/plugin-proposal-optional-chaining"],
+            plugins: ["@babel/plugin-syntax-top-level-await", "@babel/plugin-proposal-optional-chaining"],
           },
         },
       },
-      { test: /\.styl$/, loaders: ["style-loader", "css-loader", "stylus-loader"], exclude: /node_modules/ },
-      { test: /\.css$/, loaders: ["style-loader", "css-loader"] },
+      { test: /\.styl$/, use: ["style-loader", "css-loader", "stylus-loader"] },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
       {
         test: /\.(jpg|png|gif)$/,
-        loaders: ["file-loader"],
+        use: ["file-loader"],
       },
     ],
-  },
-  node: {
-    fs: "empty",
-    net: "empty",
-    tls: "empty",
-    http: "mock",
-    https: "mock",
   },
   resolve: {
     alias: {
@@ -42,7 +35,13 @@ module.exports = {
       "node-fetch": "@nao20010128nao/void-fetch",
       "whatwg-fetch": "@nao20010128nao/void-fetch",
       axios: "@nao20010128nao/void-axios",
+      crypto: "crypto-browserify",
+      stream: "stream-browserify",
+      vm: "vm-browserify",
     },
+  },
+  experiments: {
+    topLevelAwait: true,
   },
   plugins: [new CleanWebpackPlugin()],
 };
