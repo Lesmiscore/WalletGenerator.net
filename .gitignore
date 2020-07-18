@@ -8,6 +8,7 @@ robots.txt
 sitemap.xml
 /.idea
 /node_modules
+*.swp
 
 index.html
 exported.js
