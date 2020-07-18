@@ -16,10 +16,9 @@ try {
     module.exports={
     `;
 
-  const janin = require("../src/janin.currency");
-  const currencies = janin.currencies;
-  for (let i of currencies) {
-    const name = i.name.toLowerCase();
+  const misc = require("../tests/misc.js");
+  for (const i of misc.grabAllCoinNames()) {
+    const name = i.toLowerCase();
     text += `
     "logos/${name}": lazy(() => require("./../../logos/${name}.png")["default"]),
     "wallets/${name}": lazy(() => require("./../../wallets/${name}.png")["default"]),

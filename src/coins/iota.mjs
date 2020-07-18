@@ -1,11 +1,12 @@
 // https://github.com/iotaledger/iota.js/blob/081e621599ce36d49f54d458131b9b32ab91ace5/packages/core/src/generateAddress.ts
-const Coin = require("./coin");
-const iota = require("@iota/core");
-const baseTrytes = require("base-x")("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-const randomBytes = require("randombytes");
+import * as Coin from "./coin.js";
+import * as baseX from "base-x";
+import * as randomBytes from "randombytes";
+const iota = await import("@iota/core");
+const baseTrytes = baseX("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 const trytesRegex = /^[9A-Z]+$/;
 
-module.exports = class IOTA extends Coin {
+export class IOTA extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }

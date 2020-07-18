@@ -35,7 +35,13 @@ describe("browser", function () {
      */
     const webpackResult = await util.promisify(webpack)(require("../webpack.config.browsertest.js"));
     if (webpackResult.hasErrors()) {
-      throw webpackResult.toJson().errors.join("\n");
+      console.log(
+        webpackResult
+          .toJson()
+          .errors.map((a) => a.stack)
+          .join("\n")
+      );
+      throw new Error();
     }
 
     // equivalent to "cp src/index.html test-public/"
@@ -62,6 +68,18 @@ describe("browser", function () {
   });
   it("tests should pass", async function () {
     const failures = [];
+    page.on("pageerror", function (err) {
+      console.log(err);
+      failures.push(err);
+    });
+    page.on("console", function (msg) {
+      for (const arg of msg.args()) {
+        page
+          .evaluate((a) => a.toString(), arg)
+          .catch((a) => a)
+          .then(console.log);
+      }
+    });
     events.on("completed", (name, additional) => {
       const subject = additional ? "OK" : "ERR";
       console.log(`${name}: ${subject}`);

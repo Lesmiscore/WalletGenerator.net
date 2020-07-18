@@ -1,8 +1,9 @@
-const zcash = require("bitgo-utxo-lib");
-const Bitcoin = require("./bitcoin");
-const { upperValue, lowerValue } = require("./constants");
+import {Bitcoin} from "./bitcoin.mjs";
+import * as constants from "./constants.js";
 
-module.exports = class Zcash extends Bitcoin {
+const zcash = await import("bitgo-utxo-lib");
+
+export class Zcash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
     super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, zcash.coins.ZEC);
   }
@@ -24,8 +25,8 @@ module.exports = class Zcash extends Bitcoin {
     const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";
     const self = this;
     function testBase58(pkh) {
-      const begin = zcash.address.toBase58Check(upperValue, pkh).slice(0, 2);
-      const final = zcash.address.toBase58Check(lowerValue, pkh).slice(0, 2);
+      const begin = zcash.address.toBase58Check(constants.upperValue, pkh).slice(0, 2);
+      const final = zcash.address.toBase58Check(constants.lowerValue, pkh).slice(0, 2);
       const regex = new RegExp(`^(?:${begin}|${final})${btcB58}`);
       return regex.test(pattern);
     }

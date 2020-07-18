@@ -1,8 +1,8 @@
-const nem = require("nem-sdk").default;
-const randomBytes = require("randombytes");
-const Coin = require("./coin");
+import * as randomBytes from "randombytes";
+import * as Coin from "./coin.js";
+const nem = (await import("nem-sdk")).default;
 
-module.exports = class NEM extends Coin {
+export class NEM extends Coin {
   constructor(name, donate, network) {
     super(name, donate);
     this.network = network || nem.model.network.data.mainnet.id;
@@ -101,6 +101,6 @@ module.exports = class NEM extends Coin {
   }
 };
 
-module.exports.mainnet = nem.model.network.data.mainnet.id;
-module.exports.testnet = nem.model.network.data.testnet.id;
-module.exports.mijin = nem.model.network.data.mijin.id;
+export const mainnet = nem.model.network.data.mainnet.id;
+export const testnet = nem.model.network.data.testnet.id;
+export const mijin = nem.model.network.data.mijin.id;

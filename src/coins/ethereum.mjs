@@ -1,7 +1,7 @@
-const ethWallet = require("ethereumjs-wallet");
-const Coin = require("./coin");
+const ethWallet = await import("ethereumjs-wallet");
+import * as Coin from "./coin.js";
 
-module.exports = class Ethereum extends Coin {
+export class Ethereum extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }

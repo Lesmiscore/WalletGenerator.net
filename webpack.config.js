@@ -42,6 +42,7 @@ module.exports = {
   },
   experiments: {
     topLevelAwait: true,
+    importAsync: true,
   },
   plugins: [new CleanWebpackPlugin()],
 };

@@ -1,9 +1,9 @@
-const Bitcoin = require("./bitcoin");
-const bitcoin = require("bitgo-utxo-lib");
-const bchaddrjs = require("bchaddrjs");
-const constants = require("./constants");
+import {Bitcoin} from "./bitcoin.mjs";
+import * as constants from "./constants";
+const bitcoin = await import("bitgo-utxo-lib");
+const bchaddrjs = await import("bchaddrjs");
 
-module.exports = class BitcoinCash extends Bitcoin {
+export class BitcoinCash extends Bitcoin {
   constructor(name, networkVersion, privateKeyPrefix, donate) {
     super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, bitcoin.coins.BCH);
   }

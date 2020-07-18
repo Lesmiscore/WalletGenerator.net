@@ -1,12 +1,12 @@
-const bitcoin = require("bitgo-utxo-lib");
-const wif = require("wif");
-const bigi = require("bigi");
-const elliptic = require("elliptic");
-const Coin = require("./coin");
-const constants = require("./constants");
+import * as bigi from "bigi";
+import * as Coin from "./coin.js";
+import * as constants from "./constants.js";
+const bitcoin = await import("bitgo-utxo-lib");
+const wif = await import("wif");
+const elliptic = await import("elliptic");
 
 // "([0-9]|\[[0-9]{2}\])", "([a-zA-Z]|\[[a-zA-Z]{2}\])",
-module.exports = class Bitcoin extends Coin {
+export class Bitcoin extends Coin {
   constructor(name, networkVersion, privateKeyPrefix, donate, scriptHash, b32hrp, coin = bitcoin.coins.BTC) {
     super(name, donate);
     this.network = {

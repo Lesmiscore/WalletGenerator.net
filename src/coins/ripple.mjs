@@ -1,11 +1,12 @@
-const keypairs = require("ripple-keypairs");
-const Coin = require("./coin");
+import * as Coin from "./coin.js";
 
-const elliptic = require("elliptic");
+const keypairs = await import("ripple-keypairs");
+
+const elliptic = await import("elliptic");
 const Ed25519 = elliptic.eddsa("ed25519");
 const Secp256k1 = elliptic.ec("secp256k1");
 
-module.exports = class Ripple extends Coin {
+export class Ripple extends Coin {
   constructor(name, donate) {
     super(name, donate);
   }

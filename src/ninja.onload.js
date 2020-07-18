@@ -4,6 +4,8 @@ const { getQueryString, envSecurityCheck, browserSecurityCheck, ev } = require("
 
 const query = getQueryString();
 
+console.log(janin.useCurrency);
+
 let i, a, x;
 
 // change language

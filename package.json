@@ -21,6 +21,7 @@
     "elliptic": "^6.4.1",
     "ethereumjs-wallet": "^1.0.0",
     "nem-sdk": "^1.6.7",
+    "process": "^0.11.10",
     "randombytes": "^2.0.6",
     "ripple-keypairs": "^1.0.0",
     "safe-buffer": "^5.1.2",
@@ -81,6 +82,8 @@
     "stylus": "0.54.8",
     "stylus-loader": "3.0.2",
     "stylus-supremacy": "2.14.5",
+    "url": "^0.11.0",
+    "util": "^0.12.3",
     "webpack": "^5.0.0-beta.22",
     "webpack-cli": "3.3.12"
   },
