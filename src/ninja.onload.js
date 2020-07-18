@@ -4,7 +4,7 @@ const { getQueryString, envSecurityCheck, browserSecurityCheck, ev } = require("
 
 const query = getQueryString();
 
-console.log(janin.useCurrency);
+console.log(JSON.stringify(janin));
 
 let i, a, x;
 
@@ -21,7 +21,7 @@ if (query["showseedpool"] === "true" || query["showseedpool"] === "1") {
 const currency = (query["currency"] || "bitcoin").toLowerCase();
 let coinFound = false,
   bitcoinIdx = -1;
-for (i = 0; i < janin.currencies.length; i++) {
+for (const i in janin.currencies) {
   const curName = janin.currencies[i].name.toLowerCase();
   if (curName === currency) {
     janin.useCurrency(i);
@@ -42,7 +42,7 @@ if (!query["currency"]) {
 // populate currency dropdown list
 const select = document.getElementById("currency");
 let options = "";
-for (i = 0; i < janin.currencies.length; i++) {
+for (const i in janin.currencies) {
   const curr = janin.currencies[i];
   options += "<option value='" + i + "'";
   if (curr.name === janin.name()) options += " selected='selected'";
@@ -52,17 +52,15 @@ select.innerHTML = options;
 // populate supported currency list
 const supportedcurrencies = document.getElementById("supportedcurrencies");
 let currencieslist = "";
-let j = 0;
-for (i = 0; i < janin.currencies.length; i++) {
+for (const i in janin.currencies) {
   const curr = janin.currencies[i];
   //if (!curr.donate) continue;
   currencieslist += "<a href='?currency=" + curr.name;
   if (query["culture"]) currencieslist += "&culture=" + query["culture"];
   currencieslist += "'>" + curr.name + "</a> ";
-  j++;
 }
 supportedcurrencies.innerHTML = currencieslist;
-document.getElementById("supportedcurrenciescounter").innerHTML = j.toString() + " ";
+document.getElementById("supportedcurrenciescounter").innerHTML = janin.currencies.length.toString() + " ";
 // populate donate list
 document.getElementById("donateqrcode").style.display = "none";
 const donatelist = document.getElementById("donatelist");

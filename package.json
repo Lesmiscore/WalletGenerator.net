@@ -43,8 +43,8 @@
     "generate": "node ./util/gen",
     "export": "npm run generate ; rm -rf public ; webpack",
     "public": "npm run export ; cp src/index.html public/",
-    "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
-    "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
+    "lint": "cd src ; find . ../tests/          -type f -name '*.js' -name '*.mjs' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
+    "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' -name '*.mjs' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
     "test": "mocha tests/ --no-timeout",
@@ -97,7 +97,7 @@
       "prettier --print-width 200 --write",
       "git add"
     ],
-    "*.js": [
+    "*.{,m}js": [
       "prettier --print-width 200 --write",
       "eslint",
       "git add"

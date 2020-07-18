@@ -2,13 +2,15 @@ const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
 const _ = require("./lodash");
 
-const Bitcoin = require("./coins/bitcoin.mjs").default;
-const Zcash = require("./coins/zcash.mjs").default;
-const BitcoinCash = require("./coins/bitcoincash.mjs").default;
-const Ethereum = require("./coins/ethereum.mjs").default;
-const NEM = require("./coins/nem.mjs").default;
-const Ripple = require("./coins/ripple.mjs").default;
-const IOTA = require("./coins/iota.mjs").default;
+const Bitcoin = require("./coins/bitcoin.mjs");
+const Zcash = require("./coins/zcash.mjs");
+const BitcoinCash = require("./coins/bitcoincash.mjs");
+const Ethereum = require("./coins/ethereum.mjs");
+const NEM = require("./coins/nem.mjs");
+const Ripple = require("./coins/ripple.mjs");
+const IOTA = require("./coins/iota.mjs");
+
+console.log(Bitcoin);
 
 let selectedCurrency, doge;
 
@@ -391,7 +393,6 @@ let currencies = [
   new Bitcoin("Testnet Sugarchain", 66, 239, null, 128, "tugar").withDefaultMode("segwit"),
   new Bitcoin("Testnet WACoins", 0x51, 0xd1, null),
 ];
-console.log(currencies);
 
 module.exports = {
   name,
@@ -405,3 +406,5 @@ Object.defineProperty(module.exports, "selectedCurrency", {
   enumerable: true,
   configurable: true,
 });
+
+console.log(module.exports);

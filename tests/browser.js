@@ -75,7 +75,7 @@ describe("browser", function () {
     page.on("console", function (msg) {
       for (const arg of msg.args()) {
         page
-          .evaluate((a) => a.toString(), arg)
+          .evaluate((a) => `${a}`, arg)
           .catch((a) => a)
           .then(console.log);
       }
