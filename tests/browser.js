@@ -35,7 +35,8 @@ describe("browser", function () {
      */
     const webpackResult = await util.promisify(webpack)(require("../webpack.config.browsertest.js"));
     if (webpackResult.hasErrors()) {
-      throw webpackResult.toJson().errors.join("\n");
+      console.log(webpackResult.toJson().errors.join("\n"));
+      throw new Error();
     }
 
     // equivalent to "cp src/index.html test-public/"

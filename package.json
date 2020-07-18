@@ -91,7 +91,7 @@
       "prettier --print-width 200 --write",
       "git add"
     ],
-    "*.js": [
+    "*.{j,t}s": [
       "prettier --print-width 200 --write",
       "eslint",
       "git add"
