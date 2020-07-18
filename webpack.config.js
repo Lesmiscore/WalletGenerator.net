@@ -2,7 +2,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-  entry: "./src/init.js",
+  entry: "./src/init.ts",
   mode: "production",
   output: {
     path: path.resolve(__dirname, "public"),
@@ -20,7 +20,16 @@ module.exports = {
           },
         },
       },
-      { test: /\.styl$/, loaders: ["style-loader", "css-loader", "stylus-loader"], exclude: /node_modules/ },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loaders: ["ts-loader"],
+      },
+      {
+        test: /\.styl$/,
+        loaders: ["style-loader", "css-loader", "stylus-loader"],
+        exclude: /node_modules/,
+      },
       { test: /\.css$/, loaders: ["style-loader", "css-loader"] },
       {
         test: /\.(jpg|png|gif)$/,
