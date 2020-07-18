@@ -2,11 +2,11 @@ name: Test WalletGenerator
 
 on: 
  push:
-   branches:
-     - master
+   branches-ignore:
+     - gh-pages
  pull_request:
-   branches:
-     - master
+   branches-ignore:
+     - gh-pages
 
 jobs:
   build:
