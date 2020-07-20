@@ -1,3 +1,5 @@
+export {};
+
 const translator = require("./ninja.translator.js");
 const Doge = require("./doge.js");
 const _ = require("./lodash");

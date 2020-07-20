@@ -1,14 +1,14 @@
-const render = function (qr) {
+const render = function (qr: any): HTMLElement {
   const modCount = qr.getModuleCount();
 
-  function getNode(n, v) {
-    n = document.createElement(n);
+  function getNode(n: string, v?: any): HTMLElement {
+    const e: HTMLElement = document.createElement(n);
     for (const p in v) {
       if ({}.hasOwnProperty.call(v, p)) {
-        n.setAttribute(null, p, v[p]);
+        e.setAttribute(p, v[p]);
       }
     }
-    return n;
+    return e;
   }
 
   const root = getNode("table", { class: "qrcodetable" });

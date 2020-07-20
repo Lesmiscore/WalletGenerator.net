@@ -1,10 +1,10 @@
+export {};
 // say goodbye to XHR and fetch
 window.XMLHttpRequest = require("@nao20010128nao/void-xhr");
 window.fetch = require("@nao20010128nao/void-fetch");
 
-const { onload } :{onload:(func:()=>void)=>void}= require("./ninja.misc.js");
-const images:object = require("../src/autogen/images");
-const coindex:object = require("../src/autogen/coindex");
+const { onload }: { onload: (func: () => void) => void } = require("./ninja.misc.js");
+const images: any = require("../src/autogen/images");
 require("./main.styl");
 
 onload(() => {

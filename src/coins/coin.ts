@@ -1,3 +1,4 @@
+export {};
 const translator = require("../ninja.translator.js");
 const coindex = (() => {
   try {

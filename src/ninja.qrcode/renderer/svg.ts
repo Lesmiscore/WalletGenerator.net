@@ -1,19 +1,19 @@
 const BN = require("bignumber.js");
 
 const { Modernizr } = require("./../../autogen/modernizr");
-const render = function (qr, sizeMultiplier) {
+const render = function (qr: any, sizeMultiplier): SVGElement {
   // https://stackoverflow.com/questions/20539196/creating-svg-elements-dynamically-with-javascript-inside-html
   const modCount = qr.getModuleCount();
   const size = +new BN(modCount).times(sizeMultiplier);
   const ns = "http://www.w3.org/2000/svg";
-  function getNode(n, v) {
-    n = document.createElementNS(ns, n);
+  function getNode(n: string, v?: any): SVGElement {
+    const e: SVGElement = document.createElementNS(ns, n);
     for (const p in v) {
       if ({}.hasOwnProperty.call(v, p)) {
-        n.setAttributeNS(null, p, v[p]);
+        e.setAttributeNS(p, v[p]);
       }
     }
-    return n;
+    return e;
   }
   let root = getNode("svg");
   root.style.width = size + "px";

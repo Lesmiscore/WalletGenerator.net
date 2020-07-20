@@ -52,6 +52,7 @@ module.exports = {
       "whatwg-fetch": "@nao20010128nao/void-fetch",
       axios: "@nao20010128nao/void-axios",
     },
+    extensions: [".ts", ".js"],
   },
   plugins: [new CleanWebpackPlugin()],
 };
