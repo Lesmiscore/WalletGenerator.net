@@ -71,7 +71,7 @@
     "modernizr": "3.11.3",
     "node-dir": "0.1.17",
     "prettier": "2.0.5",
-    "puppeteer": "5.2.0",
+    "puppeteer": "5.2.1",
     "style-loader": "1.2.1",
     "stylus": "0.54.8",
     "stylus-loader": "3.0.2",
