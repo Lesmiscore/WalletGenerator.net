@@ -63,7 +63,7 @@
     "cheerio": "1.0.0-rc.3",
     "clean-webpack-plugin": "3.0.0",
     "css-loader": "4.2.0",
-    "eslint": "7.5.0",
+    "eslint": "7.6.0",
     "file-loader": "6.0.0",
     "husky": "4.2.5",
     "lint-staged": "10.2.11",
