@@ -67,7 +67,7 @@
     "file-loader": "6.0.0",
     "husky": "4.2.5",
     "lint-staged": "10.2.11",
-    "mocha": "8.0.1",
+    "mocha": "8.1.0",
     "modernizr": "3.11.3",
     "node-dir": "0.1.17",
     "prettier": "2.0.5",
