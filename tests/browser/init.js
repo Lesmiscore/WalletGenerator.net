@@ -5,7 +5,7 @@ async function load() {
   const mochaDiv = document.createElement("div");
   mochaDiv.id = "mocha";
   document.body.appendChild(mochaDiv);
-  await Promise.all([import("mocha/mocha.css"), import("mocha")]);
+  const [_, mocha] = await Promise.all([import("mocha/mocha.css"), import("mocha")]);
   mocha.setup("bdd");
   mocha.checkLeaks();
 
