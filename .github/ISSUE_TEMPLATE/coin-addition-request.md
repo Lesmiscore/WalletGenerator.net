@@ -23,4 +23,4 @@ You have to disclose following documents or repositories:
   - Coin logo must be square and PNG format. Any image that don't meet them will be rejected.
   - If you want to use another layout for paper wallet, you must send PR instead of this issue.
 - If you want to add Testnets, write about it too.
-- If you also need SegWit support, you need 5MONA (Monacoin). This doesn't billed if you send PR instead of this. (Applicable for BTC-based coins)
+- If you also need SegWit support, you need 5MONA (Monacoin). This won't be billed if you create PR instead of this. (Applicable for BTC-based coins)
