@@ -12,7 +12,7 @@ The WalletGenerator.net project provides an all-in-one HTML document with embedd
 
 Please send DONATIONS for this project using the crypto-currency addresses available on the 'Donate' tab of the website.
 
-You can help us support more currency by following this non-developer How-To: https://github.com/MichaelMure/WalletGenerator.net/wiki/How-to-add-a-new-currency
+You can help us support more currency by following this non-developer How-To: https://github.com/nao20010128nao/WalletGenerator.net/blob/master/docs/HOW_TO_ADD_BTC-BASED_COIN.md
 
 # Available hosted sites
 
@@ -21,7 +21,7 @@ You can help us support more currency by following this non-developer How-To: ht
 # Steps to build
 
 ```bash
-npm i -g grunt
+npm i
 npm run public
 ```
 
