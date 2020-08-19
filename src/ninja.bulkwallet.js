@@ -1,6 +1,12 @@
 const translator = require("./ninja.translator.js");
 const privateKey = require("./ninja.privatekey.js");
 
+let csv = [];
+let csvRowsRemaining = null; // use to keep track of how many rows are left to process when building a large CSV array
+let csvRowLimit = 0;
+let csvStartIndex = 0;
+let publicMode = 0;
+
 const open = function () {
   document.getElementById("bulkarea").style.display = "block";
   // show a default CSV list if the text area is empty
@@ -30,12 +36,6 @@ const buildCSV = function (rowLimit, startIndex) {
   csvStartIndex = --startIndex;
   setTimeout(batchCSV, 0, publicMode);
 };
-
-let csv = [];
-let csvRowsRemaining = null; // use to keep track of how many rows are left to process when building a large CSV array
-let csvRowLimit = 0;
-let csvStartIndex = 0;
-let publicMode = 0;
 
 const batchCSV = function () {
   if (csvRowsRemaining > 0) {
@@ -68,7 +68,7 @@ const openCloseFaq = function (faqNum) {
   }
 };
 
-module.exports = {
+const result = {
   open,
   close,
   buildCSV,
@@ -76,10 +76,12 @@ module.exports = {
   openCloseFaq,
 };
 
-Object.defineProperty(module.exports, "publicMode", {
+Object.defineProperty(result, "publicMode", {
   enumerable: true,
   get: () => publicMode,
   set: (pm) => {
     publicMode = pm;
   },
 });
+
+module.exports = result;

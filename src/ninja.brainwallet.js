@@ -71,7 +71,7 @@ const showToggle = function (element) {
   }
 };
 
-module.exports = {
+const result = {
   open,
   close,
   view,
@@ -79,10 +79,12 @@ module.exports = {
   showToggle,
 };
 
-Object.defineProperty(module.exports, "publicMode", {
+Object.defineProperty(result, "publicMode", {
   enumerable: true,
   get: () => publicMode,
   set: (pm) => {
     publicMode = pm;
   },
 });
+
+module.exports = result;

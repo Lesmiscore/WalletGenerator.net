@@ -86,7 +86,7 @@ const stopVanitygen = function () {
 
 let publicMode = 0;
 
-module.exports = {
+const result = {
   open,
   close,
   generateNewAddressAndKey,
@@ -94,10 +94,12 @@ module.exports = {
   stopVanitygen,
 };
 
-Object.defineProperty(module.exports, "publicMode", {
+Object.defineProperty(result, "publicMode", {
   enumerable: true,
   get: () => publicMode,
   set: (pm) => {
     publicMode = pm;
   },
 });
+
+module.exports = result;

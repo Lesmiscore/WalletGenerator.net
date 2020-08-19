@@ -26,8 +26,7 @@ const close = function () {
 let remaining = null; // use to keep track of how many addresses are left to process when building the paper wallet
 let count = 0;
 let batchComplete = null;
-let pageBreakAtDefault = 1;
-let pageBreakAtArtisticDefault = 1;
+const pageBreakAtArtisticDefault = 1;
 let pageBreakAt = null;
 let publicMode = 0; // compressed
 let encrypt = false;
@@ -157,7 +156,7 @@ const resetLimits = function () {
   }
 };
 
-module.exports = {
+const result = {
   open,
   close,
   build,
@@ -170,10 +169,12 @@ module.exports = {
   resetLimits,
 };
 
-Object.defineProperty(module.exports, "publicMode", {
+Object.defineProperty(result, "publicMode", {
   enumerable: true,
   get: () => publicMode,
   set: (pm) => {
     publicMode = pm;
   },
 });
+
+module.exports = result;
