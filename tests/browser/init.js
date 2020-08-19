@@ -1,7 +1,7 @@
 /* global mocha, before, beforeEach, afterEach, after */
 async function load() {
   await import("../../src/init.js");
-  const { onload } = await import("../../src/ninja.misc");
+  const onload = (await import("../../src/ninja.misc.onload")).default;
   const mochaDiv = document.createElement("div");
   mochaDiv.id = "mocha";
   document.body.appendChild(mochaDiv);

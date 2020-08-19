@@ -1,15 +1,15 @@
 const translator = require("./ninja.translator.js");
 
-const tabSwitch = function (walletTab) {
+const tabSwitch = async function (walletTab) {
   if (walletTab.className.indexOf("selected") === -1) {
     // unselect all tabs
     const wallets = {
-      brainwallet: require("./ninja.brainwallet.js"),
-      bulkwallet: require("./ninja.bulkwallet.js"),
-      detailwallet: require("./ninja.detailwallet.js"),
-      paperwallet: require("./ninja.paperwallet.js"),
-      singlewallet: require("./ninja.singlewallet.js"),
-      donate: require("./ninja.donatetab.js"),
+      brainwallet: await import("./ninja.brainwallet.js"),
+      bulkwallet: await import("./ninja.bulkwallet.js"),
+      detailwallet: await import("./ninja.detailwallet.js"),
+      paperwallet: await import("./ninja.paperwallet.js"),
+      singlewallet: await import("./ninja.singlewallet.js"),
+      donate: await import("./ninja.donatetab.js"),
     };
     for (const wType in wallets) {
       if ({}.hasOwnProperty.call(wallets, wType)) {
@@ -63,8 +63,8 @@ const toggleFaqQuestion = function (elementId) {
   answerDiv.style.display = answerDiv.style.display === "block" ? "none" : "block";
 };
 
-const printMany = function () {
-  const paperwallet = require("./ninja.paperwallet.js");
+const printMany = async function () {
+  const paperwallet = await import("./ninja.paperwallet.js");
   paperwallet.build(document.getElementById("paperpassphrase").value, 10, function () {
     window.print();
   });
@@ -81,21 +81,6 @@ const ev = function (selector, name, func) {
   });
 };
 
-const onload = function (func) {
-  if (window.attachEvent) {
-    window.attachEvent("onload", func);
-  } else if (window.onload) {
-    let curronload = window.onload;
-    let newonload = function (evt) {
-      curronload(evt);
-      func(evt);
-    };
-    window.onload = newonload;
-  } else {
-    window.onload = func;
-  }
-};
-
 module.exports = {
   tabSwitch,
   envSecurityCheck,
@@ -105,5 +90,4 @@ module.exports = {
   printMany,
   escapeRegExp,
   ev,
-  onload,
 };
