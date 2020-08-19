@@ -17,14 +17,14 @@ const name = function () {
 };
 
 // Switch currency
-const useCurrency = function (index) {
+const useCurrency = async function (index) {
   selectedCurrency = currencies[index];
   const lowerCurrency = name().toLowerCase();
 
-  const singlewallet = require("./ninja.singlewallet.js");
-  const paperwallet = require("./ninja.paperwallet.js");
-  const brainwallet = require("./ninja.brainwallet.js");
-  const bulkwallet = require("./ninja.bulkwallet.js");
+  const singlewallet = await import("./ninja.singlewallet.js");
+  const paperwallet = await import("./ninja.paperwallet.js");
+  const brainwallet = await import("./ninja.brainwallet.js");
+  const bulkwallet = await import("./ninja.bulkwallet.js");
 
   const coinImgUrl = selectedCurrency.getCoinImageUrl();
   document.getElementById("coinLogoImg").src = coinImgUrl;

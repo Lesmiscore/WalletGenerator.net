@@ -7,8 +7,8 @@ module.exports = (async function () {
   const janin = await import("./janin.currency.js");
   const { tabSwitch, toggleFaqQuestion, printMany, ev } = await import("./ninja.misc.js");
 
-  ev("#currency", "change", function () {
-    janin.useCurrency(this.selectedIndex);
+  ev("#currency", "change", async function () {
+    await janin.useCurrency(this.selectedIndex);
   });
 
   ev("#menu div", "click", function () {

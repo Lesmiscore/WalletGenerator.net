@@ -22,7 +22,7 @@ module.exports = (async function () {
   for (i = 0; i < janin.currencies.length; i++) {
     const curName = janin.currencies[i].name.toLowerCase();
     if (curName === currency) {
-      janin.useCurrency(i);
+      await janin.useCurrency(i);
       coinFound = true;
     }
     if (curName === "bitcoin") {
@@ -30,7 +30,7 @@ module.exports = (async function () {
     }
   }
   if (!coinFound) {
-    janin.useCurrency(bitcoinIdx);
+    await janin.useCurrency(bitcoinIdx);
   }
   // Reset title if no currency is choosen
   if (!query["currency"]) {
@@ -124,8 +124,9 @@ module.exports = (async function () {
       .replace(/"/g, '\\"');
   }
 
-  await envSecurityCheck();
-  await browserSecurityCheck();
+  envSecurityCheck();
+  browserSecurityCheck();
 
   (await import("./ninja.singlewallet.js")).open();
 })();
+module.exports.__esModule = true;
