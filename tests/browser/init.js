@@ -19,7 +19,7 @@ async function load() {
       function inspectSuite(suite) {
         global.reportTestStatus("report-describe", suite.title);
 
-        suite.suites.forEach((suite) => inspectSuite(suite));
+        suite.suites.forEach((child) => inspectSuite(child));
         suite.tests.forEach((test) => inspectTest(test));
       }
 

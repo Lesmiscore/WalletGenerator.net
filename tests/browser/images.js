@@ -23,10 +23,12 @@ describe("coin image on browser", function () {
 describe("image resources on browser", function () {
   const images = require("../../src/autogen/images");
   for (let i in images) {
-    it(`${i} has a valid url`, function () {
-      const url = images[i]();
-      assert(typeof url === "string", `URL for ${i} is not string`);
-      assert(url.endsWith(".png") || url.endsWith(".gif") || url.startsWith("data:"), `URL for ${i} does not have valid postfix or is not data-scheme URL`);
-    });
+    if ({}.hasOwnProperty.call(images, i)) {
+      it(`${i} has a valid url`, function () {
+        const url = images[i]();
+        assert(typeof url === "string", `URL for ${i} is not string`);
+        assert(url.endsWith(".png") || url.endsWith(".gif") || url.startsWith("data:"), `URL for ${i} does not have valid postfix or is not data-scheme URL`);
+      });
+    }
   }
 });
