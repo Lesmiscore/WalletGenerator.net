@@ -20,7 +20,7 @@ module.exports = (async function () {
      * @param {object} opts Options to be passed
      *  */
     create(d, Q, opts) {
-      return zWallet.createSpendingKeyFromBuffer(this.network);
+      return zWallet.createSpendingKeyFromBuffer(this.network, d.toBuffer());
     }
     /**
      * Create a random keypair
