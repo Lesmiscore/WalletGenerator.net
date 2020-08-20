@@ -1,8 +1,8 @@
 /* global describe, it */
 const assert = require("assert");
 
-describe("coin image on browser", function () {
-  const janin = require("../../src/janin.currency");
+describe("coin image on browser", async function () {
+  const janin = await import("../../src/janin.currency");
   const coindex = require("../../src/autogen/coindex");
   const currencies = janin.currencies;
   for (let i of currencies) {

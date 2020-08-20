@@ -1,90 +1,93 @@
-const ethWallet = require("ethereumjs-wallet");
-const Coin = require("./coin");
+module.exports = (async function () {
+  const ethWallet = (await import("ethereumjs-wallet")).default;
+  const Coin = await import("./coin");
 
-module.exports = class Ethereum extends Coin {
-  constructor(name, donate) {
-    super(name, donate);
-  }
-
-  create(d, Q, opts) {
-    if (d) {
-      return ethWallet.fromPrivateKey(d.toBuffer());
+  return class Ethereum extends Coin {
+    constructor(name, donate) {
+      super(name, donate);
     }
-    return ethWallet.fromPublicKey(Q, true);
-  }
-  makeRandom(opts) {
-    return ethWallet.generate();
-  }
 
-  isPrivateKey(key) {
-    key = `${key}`.toLowerCase();
-    if (key.startsWith("0x")) {
-      key = key.slice(2);
+    create(d, Q, opts) {
+      if (d) {
+        return ethWallet.fromPrivateKey(d.toBuffer());
+      }
+      return ethWallet.fromPublicKey(Q, true);
     }
-    return /^[0-9a-f]{64}$/.test(key);
-  }
-
-  decodePrivateKey(key) {
-    key = `${key}`.toLowerCase();
-    if (key.startsWith("0x")) {
-      key = key.slice(2);
+    makeRandom(opts) {
+      return ethWallet.generate();
     }
-    return ethWallet.fromPrivateKey(Buffer.from(key, "hex"));
-  }
 
-  // correspond to getAddressFormatNames, getAddressTitleNames
-  getAddressWith(key, mode) {
-    switch (mode) {
-      default:
-        return key.getChecksumAddressString();
+    isPrivateKey(key) {
+      key = `${key}`.toLowerCase();
+      if (key.startsWith("0x")) {
+        key = key.slice(2);
+      }
+      return /^[0-9a-f]{64}$/.test(key);
     }
-  }
 
-  // correspond to getAddressFormatNames, getAddressTitleNames
-  getWIFForAddress(key, mode) {
-    switch (mode) {
-      default:
-        return "0x" + key.getPrivateKey().toString("hex");
+    decodePrivateKey(key) {
+      key = `${key}`.toLowerCase();
+      if (key.startsWith("0x")) {
+        key = key.slice(2);
+      }
+      return ethWallet.fromPrivateKey(Buffer.from(key, "hex"));
     }
-  }
 
-  // correspond to getWIFTitleNames
-  getWIFByType(key, mode) {
-    switch (mode) {
-      default:
-        return "0x" + key.getPrivateKey().toString("hex");
+    // correspond to getAddressFormatNames, getAddressTitleNames
+    getAddressWith(key, mode) {
+      switch (mode) {
+        default:
+          return key.getChecksumAddressString();
+      }
     }
-  }
 
-  getAddressFormatNames() {
-    return ["Normal"];
-  }
-  getAddressTitleNames() {
-    return ["Public Address"];
-  }
+    // correspond to getAddressFormatNames, getAddressTitleNames
+    getWIFForAddress(key, mode) {
+      switch (mode) {
+        default:
+          return "0x" + key.getPrivateKey().toString("hex");
+      }
+    }
 
-  getWIFTitleNames() {
-    return ["Private Key"];
-  }
+    // correspond to getWIFTitleNames
+    getWIFByType(key, mode) {
+      switch (mode) {
+        default:
+          return "0x" + key.getPrivateKey().toString("hex");
+      }
+    }
 
-  getPublicKey(key, compressed) {
-    return key.getPublicKey();
-  }
-  getPrivateKeyBuffer(key) {
-    return key.getPrivateKey();
-  }
-  havePrivateKey(key) {
-    return !!key.getPrivateKey();
-  }
+    getAddressFormatNames() {
+      return ["Normal"];
+    }
+    getAddressTitleNames() {
+      return ["Public Address"];
+    }
 
-  isVanitygenPossible(pattern, mode) {
-    const regex = /^(?:0[Xx])?[0-9a-fA-F]{0,40}$/;
-    return regex.test(pattern);
-  }
+    getWIFTitleNames() {
+      return ["Private Key"];
+    }
 
-  testVanitygenMatch(pattern, address, mode) {
-    pattern = pattern.toLowerCase().replace(/^0[Xx]/, "");
-    address = address.toLowerCase().replace(/^0[Xx]/, "");
-    return address.startsWith(pattern);
-  }
-};
+    getPublicKey(key, compressed) {
+      return key.getPublicKey();
+    }
+    getPrivateKeyBuffer(key) {
+      return key.getPrivateKey();
+    }
+    havePrivateKey(key) {
+      return !!key.getPrivateKey();
+    }
+
+    isVanitygenPossible(pattern, mode) {
+      const regex = /^(?:0[Xx])?[0-9a-fA-F]{0,40}$/;
+      return regex.test(pattern);
+    }
+
+    testVanitygenMatch(pattern, address, mode) {
+      pattern = pattern.toLowerCase().replace(/^0[Xx]/, "");
+      address = address.toLowerCase().replace(/^0[Xx]/, "");
+      return address.startsWith(pattern);
+    }
+  };
+})();
+module.exports.__esModule = true;

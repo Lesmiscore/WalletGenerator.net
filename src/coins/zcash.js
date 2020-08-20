@@ -1,39 +1,41 @@
-const zcash = require("bitgo-utxo-lib");
-const Bitcoin = require("./bitcoin");
-const { upperValue, lowerValue } = require("./constants");
+module.exports = (async function () {
+  const zcash = await import("bitgo-utxo-lib");
+  const Bitcoin = await import("./bitcoin");
+  const { upperValue, lowerValue } = await import("./constants");
 
-module.exports = class Zcash extends Bitcoin {
-  constructor(name, networkVersion, privateKeyPrefix, donate) {
-    super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, zcash.coins.ZEC);
-  }
-
-  getAddressFormatNames() {
-    return [
-      "Compressed",
-      "Uncompressed",
-      // no segwit
-      // no cashaddress
-    ];
-  }
-  getAddressTitleNames() {
-    return ["Public Address Compressed", "Public Address"];
-  }
-
-  isVanitygenPossible(pattern, mode) {
-    if (!pattern) return true;
-    const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";
-    const self = this;
-    function testBase58(pkh) {
-      const begin = zcash.address.toBase58Check(upperValue, pkh).slice(0, 2);
-      const final = zcash.address.toBase58Check(lowerValue, pkh).slice(0, 2);
-      const regex = new RegExp(`^(?:${begin}|${final})${btcB58}`);
-      return regex.test(pattern);
+  return class Zcash extends Bitcoin {
+    constructor(name, networkVersion, privateKeyPrefix, donate) {
+      super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, zcash.coins.ZEC);
     }
-    switch (mode || 0) {
-      default:
-      case 0: // compressed
-      case 1: // uncompressed
-        return testBase58(this.network.pubKeyHash);
+
+    getAddressFormatNames() {
+      return [
+        "Compressed",
+        "Uncompressed",
+        // no segwit
+        // no cashaddress
+      ];
     }
-  }
-};
+    getAddressTitleNames() {
+      return ["Public Address Compressed", "Public Address"];
+    }
+
+    isVanitygenPossible(pattern, mode) {
+      if (!pattern) return true;
+      const btcB58 = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{0,34}$";
+      function testBase58(pkh) {
+        const begin = zcash.address.toBase58Check(upperValue, pkh).slice(0, 2);
+        const final = zcash.address.toBase58Check(lowerValue, pkh).slice(0, 2);
+        const regex = new RegExp(`^(?:${begin}|${final})${btcB58}`);
+        return regex.test(pattern);
+      }
+      switch (mode || 0) {
+        default:
+        case 0: // compressed
+        case 1: // uncompressed
+          return testBase58(this.network.pubKeyHash);
+      }
+    }
+  };
+})();
+module.exports.__esModule = true;
