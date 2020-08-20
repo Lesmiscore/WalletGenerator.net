@@ -4,7 +4,9 @@ module.exports = (async function () {
   const _ = await import("./lodash");
 
   const Bitcoin = await import("./coins/bitcoin");
-  const Zcash = await import("./coins/zcash");
+  const ZcashT = await import("./coins/zcash/t-address");
+  const ZcashZ = await import("./coins/zcash/z-address");
+  const ZcashSapling = await import("./coins/zcash/sapling");
   const BitcoinCash = await import("./coins/bitcoincash");
   const Ethereum = await import("./coins/ethereum");
   const NEM = await import("./coins/nem");
@@ -272,7 +274,7 @@ module.exports = (async function () {
     new Bitcoin("Kagonmacoin", 0x2d, 0x80, ""), // WIF UNKNOWN
     new Bitcoin("KHcoin", 0x30, 0xb0, "LZWM2nptWZpSDZna5k96Rk1uqN8NDTigvK"),
     new Bitcoin("KittehCoin", 0x2d, 0xad, "KQkaGcgZvbKXoNWaPh5upwUMvEVvvEY5tY"),
-    new Zcash("Koto", 0x1836, 0x80, "k1CgSBTwDC79jm1Kucox2DdCakCd2Z9HarJ"),
+    new ZcashT("Koto", 0x1836, 0x80, "k1CgSBTwDC79jm1Kucox2DdCakCd2Z9HarJ"),
     new Bitcoin("Lanacoin", 0x30, 0xb0, "LhqrrTHtfNMn8rZi7QesFbbpJYeGWX7319"),
     new Bitcoin("Latium", 0x17, 0x80, "ASz2EgegeXfKyHaY1SbJ6nCDK6sxd7BpXg"),
     new Bitcoin("LBRY Credits", 0x55, 0x80, "bTLCuxhV5m6DK9yPmADz9H23PyoaQo84KP"),
@@ -379,7 +381,8 @@ module.exports = (async function () {
     new Bitcoin("XPChain", 0x4c, 0x80, ""),
     new Bitcoin("Yajucoin", 0x4e, 0x80, ""), // WIF UNKNOWN
     new Bitcoin("Yenten", 0x4e, 0x7b, "YStuCpv1U9iT3L1VqBr52B9nBxrNgt4Fpj"),
-    new Zcash("Zcash", 0x1cb8, 0x80, "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
+    new ZcashT("Zcash Transparent Address", 0x1cb8, 0x80, "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
+    new ZcashZ("Zcash Private Address", [0xab, 0x36], [0xa8, 0xab, 0xd3], [0x16, 0x9a], "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
     new Bitcoin("Zetacoin", 0x50, 0xe0, "ZRU6TP8NLzoyey4DPPaa3uCCgDNDc96PXJ"),
 
     new Bitcoin("Testnet Bitcoin", 0x6f, 0xef, null, 0xc4, "tb"),
