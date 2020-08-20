@@ -381,7 +381,7 @@ module.exports = (async function () {
     new Bitcoin("XPChain", 0x4c, 0x80, ""),
     new Bitcoin("Yajucoin", 0x4e, 0x80, ""), // WIF UNKNOWN
     new Bitcoin("Yenten", 0x4e, 0x7b, "YStuCpv1U9iT3L1VqBr52B9nBxrNgt4Fpj"),
-    new ZcashT("Zcash Transparent Address", 0x1cb8, 0x80, "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
+    new ZcashT("Zcash", 0x1cb8, 0x80, "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
     new ZcashZ("Zcash Private Address", [0xab, 0x36], [0xa8, 0xab, 0xd3], [0x16, 0x9a], "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
     new Bitcoin("Zetacoin", 0x50, 0xe0, "ZRU6TP8NLzoyey4DPPaa3uCCgDNDc96PXJ"),
 
