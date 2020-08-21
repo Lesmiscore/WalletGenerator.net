@@ -103,6 +103,10 @@ module.exports = (async function () {
      * @param {number} mode Mode number corresponding to index of arrays returned from getAddressFormatNames and getAddressTitleNames
      * */
     isVanitygenPossible(pattern, mode) {}
+
+    shouldAddCoinList() {
+      return false;
+    }
   };
 })();
 module.exports.__esModule = true;

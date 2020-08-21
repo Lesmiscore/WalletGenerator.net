@@ -89,14 +89,14 @@ module.exports = (async function () {
      * Used at address mode dropdown
      * */
     getAddressFormatNames() {
-      return ["Address", "Viewing Key"];
+      return ["Payment Address", "Viewing Key"];
     }
 
     /**
      * Used at Single Wallet tab and public part of Detail Wallet tab
      * */
     getAddressTitleNames() {
-      return ["Address", "Viewing Key"];
+      return ["Payment Address", "Viewing Key"];
     }
 
     /**
@@ -135,6 +135,10 @@ module.exports = (async function () {
      * @param {number} mode Mode number corresponding to index of arrays returned from getAddressFormatNames and getAddressTitleNames
      * */
     isVanitygenPossible(pattern, mode) {
+      return false;
+    }
+
+    shouldAddCoinList() {
       return false;
     }
   };
