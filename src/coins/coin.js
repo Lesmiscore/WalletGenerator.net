@@ -66,6 +66,10 @@ module.exports = (async function () {
       this.defaultMode = +mode;
       return this;
     }
+
+    shouldAddCoinList() {
+      return true;
+    }
   };
 })();
 module.exports.__esModule = true;

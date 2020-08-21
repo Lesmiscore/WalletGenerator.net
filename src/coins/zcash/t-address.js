@@ -1,9 +1,9 @@
 module.exports = (async function () {
   const zcash = await import("bitgo-utxo-lib");
-  const Bitcoin = await import("./bitcoin");
-  const { upperValue, lowerValue } = await import("./constants");
+  const Bitcoin = await import("../bitcoin");
+  const { upperValue, lowerValue } = await import("../constants");
 
-  return class Zcash extends Bitcoin {
+  return class ZcashT extends Bitcoin {
     constructor(name, networkVersion, privateKeyPrefix, donate) {
       super(name, networkVersion, privateKeyPrefix, donate, undefined, undefined, zcash.coins.ZEC);
     }

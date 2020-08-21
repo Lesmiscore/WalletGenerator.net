@@ -16,6 +16,8 @@
     "bitgo-utxo-lib": "^1.8.0",
     "bn.js": "^5.0.0",
     "browserify-aes": "^1.2.0",
+    "convert-hex": "^0.1.0",
+    "convert-string": "^0.1.0",
     "elliptic": "^6.4.1",
     "ethereumjs-wallet": "^1.0.0",
     "nem-sdk": "^1.6.7",
@@ -23,6 +25,7 @@
     "ripple-keypairs": "^1.0.0",
     "safe-buffer": "^5.1.2",
     "scryptsy": "^2.0.0",
+    "tweetnacl": "^1.0.3",
     "wif": "^2.0.6"
   },
   "repository": {
