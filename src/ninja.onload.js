@@ -53,7 +53,7 @@ module.exports = (async function () {
   let j = 0;
   for (i = 0; i < janin.currencies.length; i++) {
     const curr = janin.currencies[i];
-    //if (!curr.donate) continue;
+    if (!curr.shouldAddCoinList()) continue;
     currencieslist += "<a href='?currency=" + curr.name;
     if (query["culture"]) currencieslist += "&culture=" + query["culture"];
     currencieslist += "'>" + curr.name + "</a> ";
