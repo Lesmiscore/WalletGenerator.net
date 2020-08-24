@@ -73,7 +73,7 @@
     "mocha": "8.1.1",
     "modernizr": "3.11.3",
     "node-dir": "0.1.17",
-    "prettier": "2.0.5",
+    "prettier": "2.1.0",
     "puppeteer": "5.2.1",
     "style-loader": "1.2.1",
     "stylus": "0.54.8",
