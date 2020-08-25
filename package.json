@@ -69,7 +69,7 @@
     "eslint": "7.7.0",
     "file-loader": "6.0.0",
     "husky": "4.2.5",
-    "lint-staged": "10.2.12",
+    "lint-staged": "10.2.13",
     "mocha": "8.1.1",
     "modernizr": "3.11.3",
     "node-dir": "0.1.17",
