@@ -46,7 +46,8 @@
     "browser": "npm run public ; cd public ; browser-sync start --config ../bs-config.js",
     "reload": "npm run public ; browser-sync reload",
     "test": "mocha tests/ --no-timeout",
-    "postinstall": "node ./util/postinstall.js"
+    "postinstall": "node ./util/postinstall.js",
+    "wpack": "webpack"
   },
   "author": "nao20010128nao",
   "originalAuthor": "MichaelMure",
