@@ -1,5 +1,6 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   entry: "./src/init.js",
@@ -44,5 +45,11 @@ module.exports = {
       axios: "@nao20010128nao/void-axios",
     },
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    // (effectively) show loading screen
+    new webpack.DefinePlugin({
+      BEGIN_AFTER_ONLOAD: JSON.stringify(false),
+    }),
+  ],
 };

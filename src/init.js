@@ -1,8 +1,10 @@
+/* global BEGIN_AFTER_ONLOAD */
 // say goodbye to XHR and fetch
 window.XMLHttpRequest = require("@nao20010128nao/void-xhr");
 window.fetch = require("@nao20010128nao/void-fetch");
 
 Promise.resolve()
+  .then(() => (BEGIN_AFTER_ONLOAD ? new Promise(require("./ninja.misc.onload")) : Promise.resolve()))
   .then(() => import("./main.styl"))
   .then(() => import("./autogen/images"))
   .then((images) => {

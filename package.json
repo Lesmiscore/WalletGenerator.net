@@ -47,7 +47,8 @@
     "reload": "npm run public ; browser-sync reload",
     "test": "mocha tests/ --no-timeout",
     "postinstall": "node ./util/postinstall.js",
-    "wpack": "webpack"
+    "wpack": "webpack",
+    "standalone": "node ./util/standalone.js"
   },
   "author": "nao20010128nao",
   "originalAuthor": "MichaelMure",

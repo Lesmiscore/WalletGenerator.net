@@ -2,6 +2,7 @@
 async function load() {
   await import("../../src/init.js");
   const onload = (await import("../../src/ninja.misc.onload")).default;
+  console.log(onload);
   const mochaDiv = document.createElement("div");
   mochaDiv.id = "mocha";
   document.body.appendChild(mochaDiv);
