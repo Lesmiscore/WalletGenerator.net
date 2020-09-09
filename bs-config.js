@@ -13,17 +13,16 @@
  */
 module.exports = {
   ui: {
-    port: 3001
+    port: 3001,
   },
-  files: ["public/**"],
+  server: "./public",
   watchEvents: ["change"],
   watch: false,
   ignore: [],
   single: false,
   watchOptions: {
-    ignoreInitial: true
+    ignoreInitial: true,
   },
-  server: true,
   proxy: false,
   port: 3000,
   middleware: false,
@@ -35,8 +34,8 @@ module.exports = {
     forms: {
       submit: true,
       inputs: true,
-      toggles: true
-    }
+      toggles: true,
+    },
   },
   logLevel: "info",
   logPrefix: "Browsersync",
@@ -70,17 +69,17 @@ module.exports = {
   clientEvents: ["scroll", "scroll:element", "input:text", "input:toggles", "form:submit", "form:reset", "click"],
   socket: {
     socketIoOptions: {
-      log: false
+      log: false,
     },
     socketIoClientConfig: {
-      reconnectionAttempts: 50
+      reconnectionAttempts: 50,
     },
     path: "/browser-sync/socket.io",
     clientPath: "/browser-sync",
     namespace: "/browser-sync",
     clients: {
-      heartbeatTimeout: 5000
-    }
+      heartbeatTimeout: 5000,
+    },
   },
   tagNames: {
     less: "link",
@@ -91,12 +90,12 @@ module.exports = {
     png: "img",
     svg: "img",
     gif: "img",
-    js: "script"
+    js: "script",
   },
   injectNotification: false,
   callbacks: {
-    ready: function(err, bs) {
+    ready: function (err, bs) {
       bs.utils.serveStatic.mime.define({ "text/css": ["css"] });
-    }
-  }
+    },
+  },
 };

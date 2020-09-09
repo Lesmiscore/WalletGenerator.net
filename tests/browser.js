@@ -16,16 +16,8 @@ describe("browser", function () {
     // equivalent to "node ./util/gen.js"
     await new Promise((resolve, reject) => {
       fork("./util/gen.js")
-        .on("error", function (err) {
-          reject(err);
-        })
-        .on("exit", function (code) {
-          if (code === 0) {
-            resolve();
-          } else {
-            reject(code);
-          }
-        });
+        .on("error", reject)
+        .on("exit", (code) => (code === 0 ? resolve() : reject(code)));
     });
 
     // equivalent to "webpack --config webpack.config.browsertest.js"
@@ -46,7 +38,6 @@ describe("browser", function () {
     bs = browserSync.create("browsertest");
     await util.promisify(bs.init)(
       Object.assign({}, require("../bs-config.js"), {
-        files: undefined,
         server: "./test-public",
         open: false,
       })

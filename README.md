@@ -25,6 +25,12 @@ npm i
 npm run public
 ```
 
+## Build a standalone HTML
+
+```bash
+npm run standalone
+```
+
 # Notice of Copyrights and Licenses
 
 The WalletGenerator.net project, software and embedded resources are copyright WalletGenerator.net.  

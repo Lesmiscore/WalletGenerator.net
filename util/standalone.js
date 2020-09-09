@@ -12,16 +12,8 @@ const writeFile = util.promisify(fs.writeFile);
   // equivalent to "node ./util/gen.js"
   await new Promise((resolve, reject) => {
     fork("./util/gen.js")
-      .on("error", function (err) {
-        reject(err);
-      })
-      .on("exit", function (code) {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(code);
-        }
-      });
+      .on("error", reject)
+      .on("exit", (code) => (code === 0 ? resolve() : reject(code)));
   });
 
   // equivalent to "webpack --config webpack.config.browsertest.js"
