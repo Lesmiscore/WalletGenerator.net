@@ -40,4 +40,4 @@ jobs:
     - name: Build website
       continue-on-error: true
       run: |
-        npm run webp -- --config webpack.config.singlefile.js
+        npm run wpack -- --config webpack.config.singlefile.js
