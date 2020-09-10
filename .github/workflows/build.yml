@@ -26,3 +26,18 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
         FOLDER: public
+  singlefile:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: "14.4.0"
+    - name: Set up libraries
+      run: |
+        npm ci
+    - name: Build website
+      continue-on-error: true
+      run: |
+        npm run webp -- --config webpack.config.singlefile.js
