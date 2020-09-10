@@ -1,3 +1,4 @@
+// special webpack configuration for embedding images inside JS
 const base = require("./webpack.config.js");
 const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");

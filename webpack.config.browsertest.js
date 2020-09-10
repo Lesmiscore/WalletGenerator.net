@@ -1,3 +1,4 @@
+// special webpack configuration for running in-browser tests
 const path = require("path");
 const base = require("./webpack.config.js");
 
