@@ -18,6 +18,7 @@ const { fork } = require("child_process");
    * @type {webpack.Stats}
    */
   const webpackResult = await util.promisify(webpack)(require("../webpack.config.js"));
+  console.log(webpackResult.toString({ colors: true }));
   if (webpackResult.hasErrors()) {
     throw webpackResult.toJson().errors.join("\n");
   }

@@ -22,6 +22,7 @@ const writeFile = util.promisify(fs.writeFile);
    * @type {webpack.Stats}
    */
   const webpackResult = await util.promisify(webpack)(require("../webpack.config.singlescript.js"));
+  console.log(webpackResult.toString({ colors: true }));
   if (webpackResult.hasErrors()) {
     throw webpackResult.toJson().errors.join("\n");
   }
@@ -32,6 +33,7 @@ const writeFile = util.promisify(fs.writeFile);
     const src = $_.attr("src");
     console.log(`reading ${src}`);
     $_.removeAttr("src");
+    $_.removeAttr("defer");
     const script = fs.readFileSync(path.resolve("public/", src));
     $_.text(script);
   });
