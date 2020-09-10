@@ -40,4 +40,6 @@ jobs:
     - name: Build website
       continue-on-error: true
       run: |
+        node ./util/postinstall.js
+        node ./util/gen.js
         npm run wpack -- --config webpack.config.singlefile.js
