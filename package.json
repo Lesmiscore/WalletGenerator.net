@@ -80,7 +80,7 @@
     "stylus-loader": "3.0.2",
     "stylus-supremacy": "2.14.5",
     "url-loader": "4.1.0",
-    "webpack": "4.44.1",
+    "webpack": "4.44.2",
     "webpack-cli": "3.3.12"
   },
   "husky": {
