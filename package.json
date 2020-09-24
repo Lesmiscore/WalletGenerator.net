@@ -2,7 +2,56 @@
   "name": "walletgenerator.net",
   "version": "3.3.0",
   "description": "Open Source JavaScript Client-Side Bitcoin Wallet Generator",
+  "keywords": [
+    "bitcoin address wallet generator"
+  ],
+  "bugs": {
+    "url": "https://github.com/nao20010128nao/WalletGenerator.net/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nao20010128nao/WalletGenerator.net.git"
+  },
+  "license": "MIT",
+  "author": "nao20010128nao",
   "main": "src/init.js",
+  "scripts": {
+    "browser": "npm run public ; browser-sync start --config ./bs-config.js",
+    "init": "npm i",
+    "postinstall": "node ./util/postinstall.js",
+    "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
+    "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
+    "public": "node ./util/build.js",
+    "reload": "npm run public ; browser-sync reload",
+    "standalone": "node ./util/standalone.js",
+    "start": "npm run browser",
+    "test": "mocha tests/ --no-timeout",
+    "wpack": "webpack"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --print-width 200 --write",
+      "eslint",
+      "git add"
+    ],
+    "*.png": [
+      "optipng -strip all -o9",
+      "git add"
+    ],
+    "*.styl": [
+      "stylus-supremacy format  --replace",
+      "git add"
+    ],
+    "*.{json,css}": [
+      "prettier --print-width 200 --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@iota/core": "^1.0.0-beta",
     "@nao20010128nao/void-axios": "^1.0.0",
@@ -27,33 +76,6 @@
     "scryptsy": "^2.0.0",
     "tweetnacl": "^1.0.3",
     "wif": "^2.0.6"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:nao20010128nao/WalletGenerator.net.git"
-  },
-  "keywords": [
-    "bitcoin address wallet generator"
-  ],
-  "scripts": {
-    "init": "npm i",
-    "start": "npm run browser",
-    "public": "node ./util/build.js",
-    "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
-    "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
-    "browser": "npm run public ; browser-sync start --config ./bs-config.js",
-    "reload": "npm run public ; browser-sync reload",
-    "test": "mocha tests/ --no-timeout",
-    "postinstall": "node ./util/postinstall.js",
-    "wpack": "webpack",
-    "standalone": "node ./util/standalone.js"
-  },
-  "author": "nao20010128nao",
-  "originalAuthor": "MichaelMure",
-  "license": "MIT",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/nao20010128nao/WalletGenerator.net/issues"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
@@ -83,28 +105,6 @@
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{json,css}": [
-      "prettier --print-width 200 --write",
-      "git add"
-    ],
-    "*.js": [
-      "prettier --print-width 200 --write",
-      "eslint",
-      "git add"
-    ],
-    "*.styl": [
-      "stylus-supremacy format  --replace",
-      "git add"
-    ],
-    "*.png": [
-      "optipng -strip all -o9",
-      "git add"
-    ]
-  }
+  "originalAuthor": "MichaelMure",
+  "readmeFilename": "README.md"
 }
