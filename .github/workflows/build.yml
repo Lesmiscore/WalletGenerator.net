@@ -42,4 +42,4 @@ jobs:
       run: |
         node ./util/postinstall.js
         node ./util/gen.js
-        npm run wpack -- --config webpack.config.singlefile.js
+        NODE_OPTIONS=--max-old-space-size=7000 npm run wpack -- --config webpack.config.singlefile.js
