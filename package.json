@@ -91,7 +91,7 @@
     "cheerio": "1.0.0-rc.3",
     "clean-webpack-plugin": "3.0.0",
     "css-loader": "4.3.0",
-    "eslint": "7.10.0",
+    "eslint": "7.11.0",
     "file-loader": "6.1.1",
     "husky": "4.3.0",
     "lint-staged": "10.4.0",
