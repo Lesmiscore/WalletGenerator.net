@@ -40,7 +40,7 @@
       "git add"
     ],
     "*.png": [
-      "optipng -strip all -o9",
+      "optipng -strip all -zc1-9 -zm1-9 -zs0-3 -f0-5",
       "git add"
     ],
     "*.styl": [
