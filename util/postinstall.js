@@ -6,8 +6,8 @@ function aliasing(pkg) {
 }
 
 // add mock to void http* modules
-fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/http.js", aliasing("@nao20010128nao/void-http"));
-fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/https.js", aliasing("@nao20010128nao/void-http"));
+//fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/http.js", aliasing("@nao20010128nao/void-http"));
+//fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/https.js", aliasing("@nao20010128nao/void-http"));
 
 // bury fetches
 fs.writeFileSync(require.resolve("node-fetch/browser.js"), aliasing("@nao20010128nao/void-fetch"));
