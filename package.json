@@ -78,7 +78,7 @@
     "wif": "^2.0.6"
   },
   "devDependencies": {
-    "@babel/core": "7.12.1",
+    "@babel/core": "7.12.3",
     "@babel/plugin-proposal-optional-chaining": "7.12.1",
     "@babel/register": "7.12.1",
     "acorn": "8.0.4",
