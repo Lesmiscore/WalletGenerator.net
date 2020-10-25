@@ -11,7 +11,6 @@ fs.writeFileSync(path.dirname(require.resolve("node-libs-browser")) + "/mock/htt
 
 // bury fetches
 fs.writeFileSync(require.resolve("node-fetch/browser.js"), aliasing("@nao20010128nao/void-fetch"));
-fs.writeFileSync(require.resolve("whatwg-fetch/fetch.js"), aliasing("@nao20010128nao/void-fetch"));
 
 // bury axios
 fs.writeFileSync(require.resolve("axios/index.js"), aliasing("@nao20010128nao/void-axios"));
