@@ -7,8 +7,12 @@ function aliasing(pkg) {
 
 // add mock to void http* modules
 try {
-  fs.writeFileSync(require.resolve("node-libs-browser/mock/http.js"), aliasing("@nao20010128nao/void-http"));
-  fs.writeFileSync(require.resolve("node-libs-browser/mock/https.js"), aliasing("@nao20010128nao/void-http"));
+  let partialDirectory = require.resolve("node-libs-browser");
+  if (partialDirectory.endsWith("/index.js")) {
+    partialDirectory = path.normalize(require.resolve("node-libs-browser") + "/../");
+  }
+  fs.writeFileSync(path.normalize(partialDirectory + "/mock/http.js"), aliasing("@nao20010128nao/void-http"));
+  fs.writeFileSync(path.normalize(partialDirectory + "/mock/https.js"), aliasing("@nao20010128nao/void-http"));
 } catch (e) {
   // this fails in travis
 }
