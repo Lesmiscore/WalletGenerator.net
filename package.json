@@ -99,6 +99,7 @@
     "mocha": "8.2.0",
     "modernizr": "3.11.3",
     "node-dir": "0.1.17",
+    "node-libs-browser": "^2.2.1",
     "prettier": "2.1.2",
     "puppeteer": "5.4.0",
     "style-loader": "2.0.0",
