@@ -81,7 +81,6 @@ module.exports = (async function () {
   };
 
   const viewDetails = function () {
-    const bip38 = false;
     const key = document
       .getElementById("detailprivkey")
       .value.toString()

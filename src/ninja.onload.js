@@ -94,25 +94,20 @@ module.exports = (async function () {
 
     a = document.getElementsByClassName("i18n");
 
-    let i18n = '"' + culture + '": {\n';
+    const obj = Object.create(null);
+    const cultureData = (obj[culture] = Object.create(null));
+
     for (x = 0; x < a.length; x++) {
-      i18n += "\t";
-      i18n += '"' + a[x].id + '": "';
-      if (translator.translations[culture] && translator.translations[culture][a[x].id]) i18n += cleani18n(translator.translations[culture][a[x].id]);
-      else i18n += "(ENGLISH)" + cleani18n(a[x].innerHTML);
-      i18n += '",\n';
+      cultureData[a[x].id] = "(ENGLISH)" + cleani18n(a[x].innerHTML);
     }
     for (x = 0; x < translator.staticID.length; x++) {
-      i18n += "\t";
-      i18n += '"' + translator.staticID[x] + '": "';
-      if (translator.translations[culture] && translator.translations[culture][translator.staticID[x]]) i18n += cleani18n(translator.translations[culture][translator.staticID[x]]);
-      else i18n += "(ENGLISH)" + cleani18n(translator.translations["en"][translator.staticID[x]]);
-      i18n += '",\n';
+      let value = "";
+      if (translator.translations[culture] && translator.translations[culture][translator.staticID[x]]) value += cleani18n(translator.translations[culture][translator.staticID[x]]);
+      else value += "(ENGLISH)" + cleani18n(translator.translations["en"][translator.staticID[x]]);
+      cultureData[translator.staticID[x]] = value;
     }
 
-    i18n += "},";
-
-    elem.innerHTML = i18n;
+    elem.innerHTML = JSON.stringify(obj);
     div.appendChild(elem);
     document.body.appendChild(div);
   }
