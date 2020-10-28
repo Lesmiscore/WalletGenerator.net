@@ -101,7 +101,7 @@
     "node-dir": "0.1.17",
     "node-libs-browser": "2.2.1",
     "prettier": "2.1.2",
-    "puppeteer": "5.4.0",
+    "puppeteer": "5.4.1",
     "style-loader": "2.0.0",
     "stylus": "0.54.8",
     "stylus-loader": "4.1.1",
