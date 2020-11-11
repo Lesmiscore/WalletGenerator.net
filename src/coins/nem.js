@@ -1,12 +1,12 @@
 module.exports = (async function () {
-  const nem = (await import("nem-sdk")).default;
+  const nem = (await import("./nem-sdk")).default;
   const randomBytes = (await import("randombytes")).default;
   const Coin = await import("./coin");
 
   const result = class NEM extends Coin {
     constructor(name, donate, network) {
       super(name, donate);
-      this.network = network || nem.model.network.data.mainnet.id;
+      this.network = network || nem.network.data.mainnet.id;
     }
 
     _create(pk) {
@@ -43,7 +43,7 @@ module.exports = (async function () {
     getAddressWith(key, mode) {
       switch (mode) {
         default:
-          return nem.model.address.toAddress(key.publicKey.toString(), this.network);
+          return nem.address.toAddress(key.publicKey.toString(), this.network);
       }
     }
 
@@ -87,7 +87,7 @@ module.exports = (async function () {
     isVanitygenPossible(pattern, mode) {
       if (!pattern) return true;
       pattern = pattern.toUpperCase();
-      const prefix = nem.model.network.id2Char(this.network);
+      const prefix = nem.network.id2Char(this.network);
       const regex = new RegExp(`^${prefix}[ABCDEFGHIJKLMNOPQRSTUVWXYZ234567]{0,39}$`);
       return regex.test(pattern);
     }
@@ -102,9 +102,9 @@ module.exports = (async function () {
     }
   };
 
-  result.mainnet = nem.model.network.data.mainnet.id;
-  result.testnet = nem.model.network.data.testnet.id;
-  result.mijin = nem.model.network.data.mijin.id;
+  result.mainnet = nem.network.data.mainnet.id;
+  result.testnet = nem.network.data.testnet.id;
+  result.mijin = nem.network.data.mijin.id;
   return result;
 })();
 module.exports.__esModule = true;

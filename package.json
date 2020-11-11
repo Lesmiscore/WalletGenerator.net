@@ -69,7 +69,6 @@
     "convert-string": "^0.1.0",
     "elliptic": "^6.4.1",
     "ethereumjs-wallet": "^1.0.0",
-    "nem-sdk": "^1.6.7",
     "randombytes": "^2.0.6",
     "ripple-keypairs": "^1.0.0",
     "safe-buffer": "^5.1.2",
