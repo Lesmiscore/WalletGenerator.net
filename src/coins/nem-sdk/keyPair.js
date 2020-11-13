@@ -10,7 +10,7 @@ const ed25519 = new elliptic.eddsa("ed25519");
 // https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/crypto/ed25519/Ed25519KeyGenerator.java
 // https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/model/Address.java
 function cryptoSignKeypairHash(sk) {
-  const d = new Keccak(512).update(sk).digest().reverse().slice(0, 32);
+  const d = new Keccak(512).update(sk).digest().slice(0, 32);
   d[0] &= 248;
   d[31] &= 127;
   d[31] |= 64;
