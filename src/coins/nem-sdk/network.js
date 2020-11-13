@@ -1,3 +1,5 @@
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+
 /**
  * Networks info data
  */
@@ -27,13 +29,7 @@ const data = {
  * @return {string} - The network prefix
  */
 let id2Prefix = function (id) {
-  if (id === 104) {
-    return "68";
-  } else if (id === -104) {
-    return "98";
-  } else {
-    return "60";
-  }
+  return (id & 0xff).toString(16);
 };
 
 /**
@@ -44,13 +40,8 @@ let id2Prefix = function (id) {
  * @return {string} - The starting char of addresses
  */
 let id2Char = function (id) {
-  if (id === 104) {
-    return "N";
-  } else if (id === -104) {
-    return "T";
-  } else {
-    return "M";
-  }
+  // it works with -104 or 152 to get "T" for an example
+  return alphabet[(id & 0xf8) >> 3];
 };
 
 /**
@@ -61,13 +52,9 @@ let id2Char = function (id) {
  * @return {number} - The network id
  */
 let char2Id = function (startChar) {
-  if (startChar === "N") {
-    return 104;
-  } else if (startChar === "T") {
-    return -104;
-  } else {
-    return 96;
-  }
+  // NOTE: it returns 152 for input "T", but it's essentially same
+  //      (whether it is signed or not in 8-bit integer)
+  return alphabet.indexOf(startChar) << 3;
 };
 
 /**
@@ -79,12 +66,7 @@ let char2Id = function (startChar) {
  * @return {number} - A network version
  */
 let getVersion = function (val, network) {
-  if (network === data.mainnet.id) {
-    return 0x68000000 | val;
-  } else if (network === data.testnet.id) {
-    return 0x98000000 | val;
-  }
-  return 0x60000000 | val;
+  return ((network & 0xff) << 24) | val;
 };
 
 module.exports = {
