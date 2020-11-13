@@ -2,18 +2,21 @@ const Helpers = require("./helpers");
 
 const elliptic = require("elliptic");
 const { Keccak } = require("sha3");
-
+const BN = require("bn.js");
 const ed25519 = new elliptic.eddsa("ed25519");
-ed25519.hash = () => new Keccak(512);
 
 // port of crypto_sign_keypair_hash with hashfunc inlined
+// https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/crypto/ed25519/Ed25519Utils.java
+// https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/crypto/ed25519/Ed25519KeyGenerator.java
+// https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/model/Address.java
 function cryptoSignKeypairHash(sk) {
-  const d = new Keccak(512).update(sk).digest();
+  const d = new Keccak(512).update(sk).digest().reverse().slice(0, 32);
   d[0] &= 248;
   d[31] &= 127;
   d[31] |= 64;
 
-  const pk = ed25519.keyFromSecret(d).getPublic();
+  const point = ed25519.g.mul(new BN(d));
+  const pk = ed25519.encodePoint(point);
   return Buffer.from(pk);
 }
 
@@ -23,7 +26,7 @@ function cryptoSignKeypairHash(sk) {
  * @param {string} privkey - An hex private key
  */
 let KeyPair = function (privkey) {
-  this.secretKey = Buffer.from(privkey, "hex").reverse();
+  this.secretKey = Buffer.from(privkey, "hex").slice(0, 32);
   this.publicKey = cryptoSignKeypairHash(this.secretKey);
 };
 

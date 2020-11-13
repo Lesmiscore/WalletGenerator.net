@@ -10,9 +10,7 @@ module.exports = (async function () {
     }
 
     _create(pk) {
-      const privBytes = Buffer.from(pk, "hex");
       const kp = nem.keyPair.create(pk);
-      kp.privateKeyBuffer = privBytes;
       return kp;
     }
 
@@ -52,7 +50,7 @@ module.exports = (async function () {
     getWIFForAddress(key, mode) {
       switch (mode) {
         default:
-          return key.privateKeyBuffer.toString("hex");
+          return key.secretKey.toString("hex");
       }
     }
 
@@ -60,7 +58,7 @@ module.exports = (async function () {
     getWIFByType(key, mode) {
       switch (mode) {
         default:
-          return key.privateKeyBuffer.toString("hex");
+          return key.secretKey.toString("hex");
       }
     }
 
@@ -79,7 +77,7 @@ module.exports = (async function () {
       return key.publicKey;
     }
     getPrivateKeyBuffer(key) {
-      return Buffer.from(key.privateKeyBuffer);
+      return key.secretKey;
     }
     havePrivateKey(key) {
       return true;
