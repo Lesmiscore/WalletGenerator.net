@@ -11,7 +11,7 @@ module.exports = (async function () {
 
     _create(pk) {
       const privBytes = Buffer.from(pk, "hex");
-      const kp = nem.crypto.keyPair.create(pk);
+      const kp = nem.keyPair.create(pk);
       kp.privateKeyBuffer = privBytes;
       return kp;
     }
@@ -43,7 +43,8 @@ module.exports = (async function () {
     getAddressWith(key, mode) {
       switch (mode) {
         default:
-          return nem.address.toAddress(key.publicKey.toString(), this.network);
+          //console.log(nem.address.toAddress(Buffer.from("9DBF2EF1AA678759CFF2F2C4D57BEAA8E7DA198A7E14B68F2A22ABBB5675AF8A","hex"), this.network));
+          return nem.address.toAddress(key.publicKey, this.network);
       }
     }
 

@@ -1,7 +1,5 @@
 /**
  * Networks info data
- *
- * @type {object}
  */
 const data = {
   mainnet: {
