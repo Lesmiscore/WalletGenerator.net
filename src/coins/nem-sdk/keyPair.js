@@ -26,7 +26,7 @@ function cryptoSignKeypairHash(sk) {
  *
  * @param {string} privkey - An hex private key
  */
-let KeyPair = function (privkey) {
+const KeyPair = function (privkey) {
   this.secretKey = Buffer.from(privkey, "hex").slice(0, 32);
   this.publicKey = cryptoSignKeypairHash(this.secretKey);
 };
@@ -38,12 +38,12 @@ let KeyPair = function (privkey) {
  *
  * @return {object} - The NEM KeyPair object
  */
-let create = function (hexdata) {
+const create = function (hexdata) {
   // Errors
   if (!hexdata) throw new Error("Missing argument !");
   if (!Helpers.isPrivateKeyValid(hexdata)) throw new Error("Private key is not valid !");
   // Processing
-  let r = new KeyPair(hexdata);
+  const r = new KeyPair(hexdata);
   // Result
   return r;
 };

@@ -1,8 +1,8 @@
-let isHexadecimal = function (str) {
+const isHexadecimal = function (str) {
   return str.match("^(0x|0X)?[a-fA-F0-9]+$") !== null;
 };
 
-let isPrivateKeyValid = function (privateKey) {
+const isPrivateKeyValid = function (privateKey) {
   if (privateKey.length !== 64 && privateKey.length !== 66) {
     return false;
   } else if (!isHexadecimal(privateKey)) {
@@ -12,7 +12,7 @@ let isPrivateKeyValid = function (privateKey) {
   }
 };
 
-let isPublicKeyValid = function (publicKey) {
+const isPublicKeyValid = function (publicKey) {
   if (publicKey.length !== 64) {
     return false;
   } else if (!isHexadecimal(publicKey)) {

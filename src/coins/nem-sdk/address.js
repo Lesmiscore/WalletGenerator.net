@@ -15,7 +15,7 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
  *
  * @return {string} - The encoded string
  */
-let b32encode = function (s) {
+const b32encode = function (s) {
   let result = "";
   for (const word of bech32.toWords(s)) {
     result += alphabet[word];
@@ -31,7 +31,7 @@ let b32encode = function (s) {
  *
  * @return {Buffer} - The decoded string
  */
-let b32decode = function (s) {
+const b32decode = function (s) {
   const words = [];
   for (let idx = 0; idx < s.length; idx++) {
     words.push(alphabet.indexOf(s.charAt(idx)));
@@ -47,16 +47,16 @@ let b32decode = function (s) {
  *
  * @return {string} - The NEM address
  */
-let toAddress = function (publicKey, networkId) {
-  let hash = Keccak("keccak256").update(publicKey).digest();
-  let hash2 = bitcoinjsCrypto.ripemd160(hash);
+const toAddress = function (publicKey, networkId) {
+  const hash = Keccak("keccak256").update(publicKey).digest();
+  const hash2 = bitcoinjsCrypto.ripemd160(hash);
   // 98 is for testnet
-  let networkPrefix = Buffer.from([networkId]);
-  let versionPrefixedRipemd160Hash = Buffer.concat([networkPrefix, hash2], 21);
-  let tempHash = Keccak("keccak256").update(versionPrefixedRipemd160Hash).digest();
-  let stepThreeChecksum = tempHash.slice(0, 4);
-  let concatStepThreeAndStepSix = Buffer.concat([versionPrefixedRipemd160Hash, stepThreeChecksum]);
-  let ret = b32encode(concatStepThreeAndStepSix);
+  const networkPrefix = Buffer.from([networkId]);
+  const versionPrefixedRipemd160Hash = Buffer.concat([networkPrefix, hash2], 21);
+  const tempHash = Keccak("keccak256").update(versionPrefixedRipemd160Hash).digest();
+  const stepThreeChecksum = tempHash.slice(0, 4);
+  const concatStepThreeAndStepSix = Buffer.concat([versionPrefixedRipemd160Hash, stepThreeChecksum]);
+  const ret = b32encode(concatStepThreeAndStepSix);
   return ret;
 };
 
@@ -68,9 +68,9 @@ let toAddress = function (publicKey, networkId) {
  *
  * @return {boolean} - True if address is from network, false otherwise
  */
-let isFromNetwork = function (_address, networkId) {
-  let address = _address.toString().toUpperCase().replace(/-/g, "");
-  let a = address[0];
+const isFromNetwork = function (_address, networkId) {
+  const address = _address.toString().toUpperCase().replace(/-/g, "");
+  const a = address[0];
   return Network.id2Char(networkId) === a;
 };
 
@@ -81,15 +81,15 @@ let isFromNetwork = function (_address, networkId) {
  *
  * @return {boolean} - True if address is valid, false otherwise
  */
-let isValid = function (_address) {
-  let address = _address.toString().toUpperCase().replace(/-/g, "");
+const isValid = function (_address) {
+  const address = _address.toString().toUpperCase().replace(/-/g, "");
   if (!address || address.length !== 40) {
     return false;
   }
-  let decoded = b32decode(address);
-  let versionPrefixedRipemd160Hash = decoded.slice(0, 21);
-  let tempHash = Keccak("keccak256").update(versionPrefixedRipemd160Hash).digest();
-  let stepThreeChecksum = tempHash.slice(0, 4);
+  const decoded = b32decode(address);
+  const versionPrefixedRipemd160Hash = decoded.slice(0, 21);
+  const tempHash = Keccak("keccak256").update(versionPrefixedRipemd160Hash).digest();
+  const stepThreeChecksum = tempHash.slice(0, 4);
 
   return stepThreeChecksum.equals(decoded.slice(21));
 };
@@ -101,7 +101,7 @@ let isValid = function (_address) {
  *
  * @return {string} - A clean address
  */
-let clean = function (_address) {
+const clean = function (_address) {
   return _address.toUpperCase().replace(/-|\s/g, "");
 };
 

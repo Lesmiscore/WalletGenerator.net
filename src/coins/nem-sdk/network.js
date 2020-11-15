@@ -28,7 +28,7 @@ const data = {
  *
  * @return {string} - The network prefix
  */
-let id2Prefix = function (id) {
+const id2Prefix = function (id) {
   return (id & 0xff).toString(16);
 };
 
@@ -39,7 +39,7 @@ let id2Prefix = function (id) {
  *
  * @return {string} - The starting char of addresses
  */
-let id2Char = function (id) {
+const id2Char = function (id) {
   // it works with -104 or 152 to get "T" for an example
   return alphabet[(id & 0xf8) >> 3];
 };
@@ -51,7 +51,7 @@ let id2Char = function (id) {
  *
  * @return {number} - The network id
  */
-let char2Id = function (startChar) {
+const char2Id = function (startChar) {
   // NOTE: it returns 152 for input "T", but it's essentially same
   //      (whether it is signed or not in 8-bit integer)
   return alphabet.indexOf(startChar) << 3;
@@ -65,7 +65,7 @@ let char2Id = function (startChar) {
  *
  * @return {number} - A network version
  */
-let getVersion = function (val, network) {
+const getVersion = function (val, network) {
   return ((network & 0xff) << 24) | val;
 };
 
