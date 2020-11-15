@@ -4,7 +4,7 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: "./src/init.js",
-  mode: "production",
+  mode: "development",
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "main.js",

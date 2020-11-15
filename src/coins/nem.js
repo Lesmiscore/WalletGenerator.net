@@ -1,18 +1,16 @@
 module.exports = (async function () {
-  const nem = (await import("nem-sdk")).default;
+  const nem = (await import("./nem-sdk")).default;
   const randomBytes = (await import("randombytes")).default;
   const Coin = await import("./coin");
 
   const result = class NEM extends Coin {
     constructor(name, donate, network) {
       super(name, donate);
-      this.network = network || nem.model.network.data.mainnet.id;
+      this.network = network || nem.network.data.mainnet.id;
     }
 
     _create(pk) {
-      const privBytes = Buffer.from(pk, "hex");
-      const kp = nem.crypto.keyPair.create(pk);
-      kp.privateKeyBuffer = privBytes;
+      const kp = nem.keyPair.create(pk);
       return kp;
     }
 
@@ -43,7 +41,8 @@ module.exports = (async function () {
     getAddressWith(key, mode) {
       switch (mode) {
         default:
-          return nem.model.address.toAddress(key.publicKey.toString(), this.network);
+          //console.log(nem.address.toAddress(Buffer.from("9DBF2EF1AA678759CFF2F2C4D57BEAA8E7DA198A7E14B68F2A22ABBB5675AF8A","hex"), this.network));
+          return nem.address.toAddress(key.publicKey, this.network);
       }
     }
 
@@ -51,7 +50,7 @@ module.exports = (async function () {
     getWIFForAddress(key, mode) {
       switch (mode) {
         default:
-          return key.privateKeyBuffer.toString("hex");
+          return key.secretKey.toString("hex");
       }
     }
 
@@ -59,7 +58,7 @@ module.exports = (async function () {
     getWIFByType(key, mode) {
       switch (mode) {
         default:
-          return key.privateKeyBuffer.toString("hex");
+          return key.secretKey.toString("hex");
       }
     }
 
@@ -78,7 +77,7 @@ module.exports = (async function () {
       return key.publicKey;
     }
     getPrivateKeyBuffer(key) {
-      return Buffer.from(key.privateKeyBuffer);
+      return key.secretKey;
     }
     havePrivateKey(key) {
       return true;
@@ -87,7 +86,7 @@ module.exports = (async function () {
     isVanitygenPossible(pattern, mode) {
       if (!pattern) return true;
       pattern = pattern.toUpperCase();
-      const prefix = nem.model.network.id2Char(this.network);
+      const prefix = nem.network.id2Char(this.network);
       const regex = new RegExp(`^${prefix}[ABCDEFGHIJKLMNOPQRSTUVWXYZ234567]{0,39}$`);
       return regex.test(pattern);
     }
@@ -102,9 +101,9 @@ module.exports = (async function () {
     }
   };
 
-  result.mainnet = nem.model.network.data.mainnet.id;
-  result.testnet = nem.model.network.data.testnet.id;
-  result.mijin = nem.model.network.data.mijin.id;
+  result.mainnet = nem.network.data.mainnet.id;
+  result.testnet = nem.network.data.testnet.id;
+  result.mijin = nem.network.data.mijin.id;
   return result;
 })();
 module.exports.__esModule = true;
