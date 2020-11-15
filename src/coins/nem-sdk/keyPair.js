@@ -1,7 +1,7 @@
 const Helpers = require("./helpers");
 
 const elliptic = require("elliptic");
-const { Keccak } = require("sha3");
+const Keccak = require("keccak");
 const BN = require("bn.js");
 const ed25519 = new elliptic.eddsa("ed25519");
 
@@ -10,12 +10,13 @@ const ed25519 = new elliptic.eddsa("ed25519");
 // https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/crypto/ed25519/Ed25519KeyGenerator.java
 // https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/model/Address.java
 function cryptoSignKeypairHash(sk) {
-  const d = new Keccak(512).update(sk).digest().slice(0, 32);
+  const rSK = Buffer.from(sk).reverse();
+  const d = Keccak("keccak512").update(rSK).digest().slice(0, 32);
   d[0] &= 248;
   d[31] &= 127;
   d[31] |= 64;
 
-  const point = ed25519.g.mul(new BN(d));
+  const point = ed25519.g.mul(new BN(d.reverse()));
   const pk = ed25519.encodePoint(point);
   return Buffer.from(pk);
 }

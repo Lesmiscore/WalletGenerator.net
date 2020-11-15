@@ -1,7 +1,7 @@
 const Network = require("./network");
 // https://stackoverflow.com/questions/36657354/cryptojs-sha3-and-php-sha3
 // CryptoJS's "SHA3" is now called "Keccak"
-const { Keccak } = require("sha3");
+const Keccak = require("keccak");
 const bitcoinjsCrypto = require("bitgo-utxo-lib").crypto;
 // NEM doesn't use bech32, but toWords/fromWords
 const bech32 = require("bech32");
@@ -48,12 +48,12 @@ let b32decode = function (s) {
  * @return {string} - The NEM address
  */
 let toAddress = function (publicKey, networkId) {
-  let hash = new Keccak(256).update(publicKey).digest();
+  let hash = Keccak("keccak256").update(publicKey).digest();
   let hash2 = bitcoinjsCrypto.ripemd160(hash);
   // 98 is for testnet
   let networkPrefix = Buffer.from([networkId]);
   let versionPrefixedRipemd160Hash = Buffer.concat([networkPrefix, hash2], 21);
-  let tempHash = new Keccak(256).update(versionPrefixedRipemd160Hash).digest();
+  let tempHash = Keccak("keccak256").update(versionPrefixedRipemd160Hash).digest();
   let stepThreeChecksum = tempHash.slice(0, 4);
   let concatStepThreeAndStepSix = Buffer.concat([versionPrefixedRipemd160Hash, stepThreeChecksum]);
   let ret = b32encode(concatStepThreeAndStepSix);
@@ -88,7 +88,7 @@ let isValid = function (_address) {
   }
   let decoded = b32decode(address);
   let versionPrefixedRipemd160Hash = decoded.slice(0, 21);
-  let tempHash = new Keccak(256).update(versionPrefixedRipemd160Hash).digest();
+  let tempHash = Keccak("keccak256").update(versionPrefixedRipemd160Hash).digest();
   let stepThreeChecksum = tempHash.slice(0, 4);
 
   return stepThreeChecksum.equals(decoded.slice(21));
