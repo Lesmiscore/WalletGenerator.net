@@ -27,14 +27,14 @@ function grabAllCoinNames2() {
   // ];
   const result = [];
   walk.simple(rawTree, {
-    VariableDeclarator(node) {
-      if (node.id.name == "currencies") {
+    VariableDeclarator(varNode) {
+      if (varNode.id.name === "currencies") {
         walk.simple(rawTree, {
-          NewExpression(node) {
-            if (!node.arguments[0].value) {
+          NewExpression(newExprNode) {
+            if (!newExprNode.arguments[0].value) {
               return;
             }
-            result.push(node.arguments[0].value);
+            result.push(newExprNode.arguments[0].value);
           },
         });
       }
