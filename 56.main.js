@@ -1,1 +1,25 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[56],{368:function(e,n){let o=0,t=0,r=null,l=null,i=!1,s=document.createElement("div"),a=["#FF0000","#00FF00","#0000FF"];function c(e){return Math.floor(Math.random()*e)}function d(){i=!0,l=setInterval((function(){o===t-1?o=0:o++,function(e){let n=window.innerWidth-200,o=window.innerHeight-26;s.textContent=e,s.style.left=c(n)+"px",s.style.top=c(o)+"px",s.style.color=a[c(a.length)]}(r[o])}),6e3)}e.exports=class{constructor(e){return Array.isArray(e)?e.length<1?console.error("Much dumb. Very fail. No words in array. Wow"):(t=e.length,r=e,s.className="dogeTag",s.style.position="fixed",s.style.fontSize="26px",s.style.fontFamily='"Comic Sans MS"',s.style.zIndex=10000001,document.body.appendChild(s),void d()):console.error("Wow. Words is not array. Much Error.")}stop(){i&&(i=!1,clearInterval(l)),s&&s.parentNode.removeChild(s)}}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[56],{
+
+/***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\tmodule.deprecate = function() {};\n\t\tmodule.paths = [];\n\t\t// module.parent = undefined by default\n\t\tif (!module.children) module.children = [];\n\t\tObject.defineProperty(module, \"loaded\", {\n\t\t\tenumerable: true,\n\t\t\tget: function() {\n\t\t\t\treturn module.l;\n\t\t\t}\n\t\t});\n\t\tObject.defineProperty(module, \"id\", {\n\t\t\tenumerable: true,\n\t\t\tget: function() {\n\t\t\t\treturn module.i;\n\t\t\t}\n\t\t});\n\t\tmodule.webpackPolyfill = 1;\n\t}\n\treturn module;\n};\n\n\n//# sourceURL=webpack:///(webpack)/buildin/module.js?");
+
+/***/ }),
+
+/***/ 9:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ })
+
+}]);

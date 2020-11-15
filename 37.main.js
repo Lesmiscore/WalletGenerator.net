@@ -1,1 +1,212 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[37,43],{138:function(e,t,r){var i=r(56),n=r(78),c=r(8).Buffer,a=r(79),h=r(21),o=r(39),s=r(46);function p(e,t,r){h.call(this),this._cache=new f,this._cipher=new o.AES(t),this._prev=c.from(r),this._mode=e,this._autopadding=!0}r(9)(p,h),p.prototype._update=function(e){var t,r;this._cache.add(e);for(var i=[];t=this._cache.get();)r=this._mode.encrypt(this,t),i.push(r);return c.concat(i)};var u=c.alloc(16,16);function f(){this.cache=c.allocUnsafe(0)}function l(e,t,r){var h=i[e.toLowerCase()];if(!h)throw new TypeError("invalid suite type");if("string"==typeof t&&(t=c.from(t)),t.length!==h.key/8)throw new TypeError("invalid key length "+t.length);if("string"==typeof r&&(r=c.from(r)),"GCM"!==h.mode&&r.length!==h.iv)throw new TypeError("invalid iv length "+r.length);return"stream"===h.type?new a(h.module,t,r):"auth"===h.type?new n(h.module,t,r):new p(h.module,t,r)}p.prototype._final=function(){var e=this._cache.flush();if(this._autopadding)return e=this._mode.encrypt(this,e),this._cipher.scrub(),e;if(!e.equals(u))throw this._cipher.scrub(),new Error("data not multiple of block length")},p.prototype.setAutoPadding=function(e){return this._autopadding=!!e,this},f.prototype.add=function(e){this.cache=c.concat([this.cache,e])},f.prototype.get=function(){if(this.cache.length>15){var e=this.cache.slice(0,16);return this.cache=this.cache.slice(16),e}return null},f.prototype.flush=function(){for(var e=16-this.cache.length,t=c.allocUnsafe(e),r=-1;++r<e;)t.writeUInt8(e,r);return c.concat([this.cache,t])},t.createCipheriv=l,t.createCipher=function(e,t){var r=i[e.toLowerCase()];if(!r)throw new TypeError("invalid suite type");var n=s(t,!1,r.key,r.iv);return l(e,n.key,n.iv)}},139:function(e,t){t.encrypt=function(e,t){return e._cipher.encryptBlock(t)},t.decrypt=function(e,t){return e._cipher.decryptBlock(t)}},140:function(e,t,r){var i=r(31);t.encrypt=function(e,t){var r=i(t,e._prev);return e._prev=e._cipher.encryptBlock(r),e._prev},t.decrypt=function(e,t){var r=e._prev;e._prev=t;var n=e._cipher.decryptBlock(t);return i(n,r)}},141:function(e,t,r){var i=r(8).Buffer,n=r(31);function c(e,t,r){var c=t.length,a=n(t,e._cache);return e._cache=e._cache.slice(c),e._prev=i.concat([e._prev,r?t:a]),a}t.encrypt=function(e,t,r){for(var n,a=i.allocUnsafe(0);t.length;){if(0===e._cache.length&&(e._cache=e._cipher.encryptBlock(e._prev),e._prev=i.allocUnsafe(0)),!(e._cache.length<=t.length)){a=i.concat([a,c(e,t,r)]);break}n=e._cache.length,a=i.concat([a,c(e,t.slice(0,n),r)]),t=t.slice(n)}return a}},142:function(e,t,r){var i=r(8).Buffer;function n(e,t,r){var n=e._cipher.encryptBlock(e._prev)[0]^t;return e._prev=i.concat([e._prev.slice(1),i.from([r?t:n])]),n}t.encrypt=function(e,t,r){for(var c=t.length,a=i.allocUnsafe(c),h=-1;++h<c;)a[h]=n(e,t[h],r);return a}},143:function(e,t,r){var i=r(8).Buffer;function n(e,t,r){for(var i,n,a=-1,h=0;++a<8;)i=t&1<<7-a?128:0,h+=(128&(n=e._cipher.encryptBlock(e._prev)[0]^i))>>a%8,e._prev=c(e._prev,r?i:n);return h}function c(e,t){var r=e.length,n=-1,c=i.allocUnsafe(e.length);for(e=i.concat([e,i.from([t])]);++n<r;)c[n]=e[n]<<1|e[n+1]>>7;return c}t.encrypt=function(e,t,r){for(var c=t.length,a=i.allocUnsafe(c),h=-1;++h<c;)a[h]=n(e,t[h],r);return a}},144:function(e,t,r){(function(e){var i=r(31);function n(e){return e._prev=e._cipher.encryptBlock(e._prev),e._prev}t.encrypt=function(t,r){for(;t._cache.length<r.length;)t._cache=e.concat([t._cache,n(t)]);var c=t._cache.slice(0,r.length);return t._cache=t._cache.slice(r.length),i(r,c)}}).call(this,r(10).Buffer)},145:function(e,t,r){var i=r(8).Buffer,n=i.alloc(16,0);function c(e){var t=i.allocUnsafe(16);return t.writeUInt32BE(e[0]>>>0,0),t.writeUInt32BE(e[1]>>>0,4),t.writeUInt32BE(e[2]>>>0,8),t.writeUInt32BE(e[3]>>>0,12),t}function a(e){this.h=e,this.state=i.alloc(16,0),this.cache=i.allocUnsafe(0)}a.prototype.ghash=function(e){for(var t=-1;++t<e.length;)this.state[t]^=e[t];this._multiply()},a.prototype._multiply=function(){for(var e,t,r,i=[(e=this.h).readUInt32BE(0),e.readUInt32BE(4),e.readUInt32BE(8),e.readUInt32BE(12)],n=[0,0,0,0],a=-1;++a<128;){for(0!=(this.state[~~(a/8)]&1<<7-a%8)&&(n[0]^=i[0],n[1]^=i[1],n[2]^=i[2],n[3]^=i[3]),r=0!=(1&i[3]),t=3;t>0;t--)i[t]=i[t]>>>1|(1&i[t-1])<<31;i[0]=i[0]>>>1,r&&(i[0]=i[0]^225<<24)}this.state=c(n)},a.prototype.update=function(e){var t;for(this.cache=i.concat([this.cache,e]);this.cache.length>=16;)t=this.cache.slice(0,16),this.cache=this.cache.slice(16),this.ghash(t)},a.prototype.final=function(e,t){return this.cache.length&&this.ghash(i.concat([this.cache,n],16)),this.ghash(c([0,e,0,t])),this.state},e.exports=a},146:function(e,t,r){var i=r(78),n=r(8).Buffer,c=r(56),a=r(79),h=r(21),o=r(39),s=r(46);function p(e,t,r){h.call(this),this._cache=new u,this._last=void 0,this._cipher=new o.AES(t),this._prev=n.from(r),this._mode=e,this._autopadding=!0}function u(){this.cache=n.allocUnsafe(0)}function f(e,t,r){var h=c[e.toLowerCase()];if(!h)throw new TypeError("invalid suite type");if("string"==typeof r&&(r=n.from(r)),"GCM"!==h.mode&&r.length!==h.iv)throw new TypeError("invalid iv length "+r.length);if("string"==typeof t&&(t=n.from(t)),t.length!==h.key/8)throw new TypeError("invalid key length "+t.length);return"stream"===h.type?new a(h.module,t,r,!0):"auth"===h.type?new i(h.module,t,r,!0):new p(h.module,t,r)}r(9)(p,h),p.prototype._update=function(e){var t,r;this._cache.add(e);for(var i=[];t=this._cache.get(this._autopadding);)r=this._mode.decrypt(this,t),i.push(r);return n.concat(i)},p.prototype._final=function(){var e=this._cache.flush();if(this._autopadding)return function(e){var t=e[15];if(t<1||t>16)throw new Error("unable to decrypt data");var r=-1;for(;++r<t;)if(e[r+(16-t)]!==t)throw new Error("unable to decrypt data");if(16===t)return;return e.slice(0,16-t)}(this._mode.decrypt(this,e));if(e)throw new Error("data not multiple of block length")},p.prototype.setAutoPadding=function(e){return this._autopadding=!!e,this},u.prototype.add=function(e){this.cache=n.concat([this.cache,e])},u.prototype.get=function(e){var t;if(e){if(this.cache.length>16)return t=this.cache.slice(0,16),this.cache=this.cache.slice(16),t}else if(this.cache.length>=16)return t=this.cache.slice(0,16),this.cache=this.cache.slice(16),t;return null},u.prototype.flush=function(){if(this.cache.length)return this.cache},t.createDecipher=function(e,t){var r=c[e.toLowerCase()];if(!r)throw new TypeError("invalid suite type");var i=s(t,!1,r.key,r.iv);return f(e,i.key,i.iv)},t.createDecipheriv=f},31:function(e,t,r){(function(t){e.exports=function(e,r){for(var i=Math.min(e.length,r.length),n=new t(i),c=0;c<i;++c)n[c]=e[c]^r[c];return n}}).call(this,r(10).Buffer)},39:function(e,t,r){var i=r(8).Buffer;function n(e){i.isBuffer(e)||(e=i.from(e));for(var t=e.length/4|0,r=new Array(t),n=0;n<t;n++)r[n]=e.readUInt32BE(4*n);return r}function c(e){for(;0<e.length;e++)e[0]=0}function a(e,t,r,i,n){for(var c,a,h,o,s=r[0],p=r[1],u=r[2],f=r[3],l=e[0]^t[0],y=e[1]^t[1],_=e[2]^t[2],v=e[3]^t[3],d=4,g=1;g<n;g++)c=s[l>>>24]^p[y>>>16&255]^u[_>>>8&255]^f[255&v]^t[d++],a=s[y>>>24]^p[_>>>16&255]^u[v>>>8&255]^f[255&l]^t[d++],h=s[_>>>24]^p[v>>>16&255]^u[l>>>8&255]^f[255&y]^t[d++],o=s[v>>>24]^p[l>>>16&255]^u[y>>>8&255]^f[255&_]^t[d++],l=c,y=a,_=h,v=o;return c=(i[l>>>24]<<24|i[y>>>16&255]<<16|i[_>>>8&255]<<8|i[255&v])^t[d++],a=(i[y>>>24]<<24|i[_>>>16&255]<<16|i[v>>>8&255]<<8|i[255&l])^t[d++],h=(i[_>>>24]<<24|i[v>>>16&255]<<16|i[l>>>8&255]<<8|i[255&y])^t[d++],o=(i[v>>>24]<<24|i[l>>>16&255]<<16|i[y>>>8&255]<<8|i[255&_])^t[d++],[c>>>=0,a>>>=0,h>>>=0,o>>>=0]}var h=[0,1,2,4,8,16,32,64,128,27,54],o=function(){for(var e=new Array(256),t=0;t<256;t++)e[t]=t<128?t<<1:t<<1^283;for(var r=[],i=[],n=[[],[],[],[]],c=[[],[],[],[]],a=0,h=0,o=0;o<256;++o){var s=h^h<<1^h<<2^h<<3^h<<4;s=s>>>8^255&s^99,r[a]=s,i[s]=a;var p=e[a],u=e[p],f=e[u],l=257*e[s]^16843008*s;n[0][a]=l<<24|l>>>8,n[1][a]=l<<16|l>>>16,n[2][a]=l<<8|l>>>24,n[3][a]=l,l=16843009*f^65537*u^257*p^16843008*a,c[0][s]=l<<24|l>>>8,c[1][s]=l<<16|l>>>16,c[2][s]=l<<8|l>>>24,c[3][s]=l,0===a?a=h=1:(a=p^e[e[e[f^p]]],h^=e[e[h]])}return{SBOX:r,INV_SBOX:i,SUB_MIX:n,INV_SUB_MIX:c}}();function s(e){this._key=n(e),this._reset()}s.blockSize=16,s.keySize=32,s.prototype.blockSize=s.blockSize,s.prototype.keySize=s.keySize,s.prototype._reset=function(){for(var e=this._key,t=e.length,r=t+6,i=4*(r+1),n=[],c=0;c<t;c++)n[c]=e[c];for(c=t;c<i;c++){var a=n[c-1];c%t==0?(a=a<<8|a>>>24,a=o.SBOX[a>>>24]<<24|o.SBOX[a>>>16&255]<<16|o.SBOX[a>>>8&255]<<8|o.SBOX[255&a],a^=h[c/t|0]<<24):t>6&&c%t==4&&(a=o.SBOX[a>>>24]<<24|o.SBOX[a>>>16&255]<<16|o.SBOX[a>>>8&255]<<8|o.SBOX[255&a]),n[c]=n[c-t]^a}for(var s=[],p=0;p<i;p++){var u=i-p,f=n[u-(p%4?0:4)];s[p]=p<4||u<=4?f:o.INV_SUB_MIX[0][o.SBOX[f>>>24]]^o.INV_SUB_MIX[1][o.SBOX[f>>>16&255]]^o.INV_SUB_MIX[2][o.SBOX[f>>>8&255]]^o.INV_SUB_MIX[3][o.SBOX[255&f]]}this._nRounds=r,this._keySchedule=n,this._invKeySchedule=s},s.prototype.encryptBlockRaw=function(e){return a(e=n(e),this._keySchedule,o.SUB_MIX,o.SBOX,this._nRounds)},s.prototype.encryptBlock=function(e){var t=this.encryptBlockRaw(e),r=i.allocUnsafe(16);return r.writeUInt32BE(t[0],0),r.writeUInt32BE(t[1],4),r.writeUInt32BE(t[2],8),r.writeUInt32BE(t[3],12),r},s.prototype.decryptBlock=function(e){var t=(e=n(e))[1];e[1]=e[3],e[3]=t;var r=a(e,this._invKeySchedule,o.INV_SUB_MIX,o.INV_SBOX,this._nRounds),c=i.allocUnsafe(16);return c.writeUInt32BE(r[0],0),c.writeUInt32BE(r[3],4),c.writeUInt32BE(r[2],8),c.writeUInt32BE(r[1],12),c},s.prototype.scrub=function(){c(this._keySchedule),c(this._invKeySchedule),c(this._key)},e.exports.AES=s},41:function(e,t){},42:function(e,t){},43:function(e,t){},44:function(e,t){},46:function(e,t,r){var i=r(8).Buffer,n=r(48);e.exports=function(e,t,r,c){if(i.isBuffer(e)||(e=i.from(e,"binary")),t&&(i.isBuffer(t)||(t=i.from(t,"binary")),8!==t.length))throw new RangeError("salt should be Buffer with 8 byte length");for(var a=r/8,h=i.alloc(a),o=i.alloc(c||0),s=i.alloc(0);a>0||c>0;){var p=new n;p.update(s),p.update(e),t&&p.update(t),s=p.digest();var u=0;if(a>0){var f=h.length-a;u=Math.min(a,s.length),s.copy(h,f,0,u),a-=u}if(u<s.length&&c>0){var l=o.length-c,y=Math.min(c,s.length-u);s.copy(o,l,u,u+y),c-=y}}return s.fill(0),{key:h,iv:o}}},55:function(e,t,r){var i=r(138),n=r(146),c=r(77);t.createCipher=t.Cipher=i.createCipher,t.createCipheriv=t.Cipheriv=i.createCipheriv,t.createDecipher=t.Decipher=n.createDecipher,t.createDecipheriv=t.Decipheriv=n.createDecipheriv,t.listCiphers=t.getCiphers=function(){return Object.keys(c)}},56:function(e,t,r){var i={ECB:r(139),CBC:r(140),CFB:r(141),CFB8:r(142),CFB1:r(143),OFB:r(144),CTR:r(75),GCM:r(75)},n=r(77);for(var c in n)n[c].module=i[n[c].mode];e.exports=n},75:function(e,t,r){var i=r(31),n=r(8).Buffer,c=r(76);function a(e){var t=e._cipher.encryptBlockRaw(e._prev);return c(e._prev),t}t.encrypt=function(e,t){var r=Math.ceil(t.length/16),c=e._cache.length;e._cache=n.concat([e._cache,n.allocUnsafe(16*r)]);for(var h=0;h<r;h++){var o=a(e),s=c+16*h;e._cache.writeUInt32BE(o[0],s+0),e._cache.writeUInt32BE(o[1],s+4),e._cache.writeUInt32BE(o[2],s+8),e._cache.writeUInt32BE(o[3],s+12)}var p=e._cache.slice(0,t.length);return e._cache=e._cache.slice(t.length),i(t,p)}},76:function(e,t){e.exports=function(e){for(var t,r=e.length;r--;){if(255!==(t=e.readUInt8(r))){t++,e.writeUInt8(t,r);break}e.writeUInt8(0,r)}}},77:function(e){e.exports=JSON.parse('{"aes-128-ecb":{"cipher":"AES","key":128,"iv":0,"mode":"ECB","type":"block"},"aes-192-ecb":{"cipher":"AES","key":192,"iv":0,"mode":"ECB","type":"block"},"aes-256-ecb":{"cipher":"AES","key":256,"iv":0,"mode":"ECB","type":"block"},"aes-128-cbc":{"cipher":"AES","key":128,"iv":16,"mode":"CBC","type":"block"},"aes-192-cbc":{"cipher":"AES","key":192,"iv":16,"mode":"CBC","type":"block"},"aes-256-cbc":{"cipher":"AES","key":256,"iv":16,"mode":"CBC","type":"block"},"aes128":{"cipher":"AES","key":128,"iv":16,"mode":"CBC","type":"block"},"aes192":{"cipher":"AES","key":192,"iv":16,"mode":"CBC","type":"block"},"aes256":{"cipher":"AES","key":256,"iv":16,"mode":"CBC","type":"block"},"aes-128-cfb":{"cipher":"AES","key":128,"iv":16,"mode":"CFB","type":"stream"},"aes-192-cfb":{"cipher":"AES","key":192,"iv":16,"mode":"CFB","type":"stream"},"aes-256-cfb":{"cipher":"AES","key":256,"iv":16,"mode":"CFB","type":"stream"},"aes-128-cfb8":{"cipher":"AES","key":128,"iv":16,"mode":"CFB8","type":"stream"},"aes-192-cfb8":{"cipher":"AES","key":192,"iv":16,"mode":"CFB8","type":"stream"},"aes-256-cfb8":{"cipher":"AES","key":256,"iv":16,"mode":"CFB8","type":"stream"},"aes-128-cfb1":{"cipher":"AES","key":128,"iv":16,"mode":"CFB1","type":"stream"},"aes-192-cfb1":{"cipher":"AES","key":192,"iv":16,"mode":"CFB1","type":"stream"},"aes-256-cfb1":{"cipher":"AES","key":256,"iv":16,"mode":"CFB1","type":"stream"},"aes-128-ofb":{"cipher":"AES","key":128,"iv":16,"mode":"OFB","type":"stream"},"aes-192-ofb":{"cipher":"AES","key":192,"iv":16,"mode":"OFB","type":"stream"},"aes-256-ofb":{"cipher":"AES","key":256,"iv":16,"mode":"OFB","type":"stream"},"aes-128-ctr":{"cipher":"AES","key":128,"iv":16,"mode":"CTR","type":"stream"},"aes-192-ctr":{"cipher":"AES","key":192,"iv":16,"mode":"CTR","type":"stream"},"aes-256-ctr":{"cipher":"AES","key":256,"iv":16,"mode":"CTR","type":"stream"},"aes-128-gcm":{"cipher":"AES","key":128,"iv":12,"mode":"GCM","type":"auth"},"aes-192-gcm":{"cipher":"AES","key":192,"iv":12,"mode":"GCM","type":"auth"},"aes-256-gcm":{"cipher":"AES","key":256,"iv":12,"mode":"GCM","type":"auth"}}')},78:function(e,t,r){var i=r(39),n=r(8).Buffer,c=r(21),a=r(9),h=r(145),o=r(31),s=r(76);function p(e,t,r,a){c.call(this);var o=n.alloc(4,0);this._cipher=new i.AES(t);var p=this._cipher.encryptBlock(o);this._ghash=new h(p),r=function(e,t,r){if(12===t.length)return e._finID=n.concat([t,n.from([0,0,0,1])]),n.concat([t,n.from([0,0,0,2])]);var i=new h(r),c=t.length,a=c%16;i.update(t),a&&(a=16-a,i.update(n.alloc(a,0))),i.update(n.alloc(8,0));var o=8*c,p=n.alloc(8);p.writeUIntBE(o,0,8),i.update(p),e._finID=i.state;var u=n.from(e._finID);return s(u),u}(this,r,p),this._prev=n.from(r),this._cache=n.allocUnsafe(0),this._secCache=n.allocUnsafe(0),this._decrypt=a,this._alen=0,this._len=0,this._mode=e,this._authTag=null,this._called=!1}a(p,c),p.prototype._update=function(e){if(!this._called&&this._alen){var t=16-this._alen%16;t<16&&(t=n.alloc(t,0),this._ghash.update(t))}this._called=!0;var r=this._mode.encrypt(this,e);return this._decrypt?this._ghash.update(e):this._ghash.update(r),this._len+=e.length,r},p.prototype._final=function(){if(this._decrypt&&!this._authTag)throw new Error("Unsupported state or unable to authenticate data");var e=o(this._ghash.final(8*this._alen,8*this._len),this._cipher.encryptBlock(this._finID));if(this._decrypt&&function(e,t){var r=0;e.length!==t.length&&r++;for(var i=Math.min(e.length,t.length),n=0;n<i;++n)r+=e[n]^t[n];return r}(e,this._authTag))throw new Error("Unsupported state or unable to authenticate data");this._authTag=e,this._cipher.scrub()},p.prototype.getAuthTag=function(){if(this._decrypt||!n.isBuffer(this._authTag))throw new Error("Attempting to get auth tag in unsupported state");return this._authTag},p.prototype.setAuthTag=function(e){if(!this._decrypt)throw new Error("Attempting to set auth tag in unsupported state");this._authTag=e},p.prototype.setAAD=function(e){if(this._called)throw new Error("Attempting to set AAD in unsupported state");this._ghash.update(e),this._alen+=e.length},e.exports=p},79:function(e,t,r){var i=r(39),n=r(8).Buffer,c=r(21);function a(e,t,r,a){c.call(this),this._cipher=new i.AES(t),this._prev=n.from(r),this._cache=n.allocUnsafe(0),this._secCache=n.allocUnsafe(0),this._decrypt=a,this._mode=e}r(9)(a,c),a.prototype._update=function(e){return this._mode.encrypt(this,e,this._decrypt)},a.prototype._final=function(){this._cipher.scrub()},e.exports=a}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
+
+/***/ "./src/coins/nem-sdk/address.js":
+/*!**************************************!*\
+  !*** ./src/coins/nem-sdk/address.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(Buffer) {const Network = __webpack_require__(/*! ./network */ \"./src/coins/nem-sdk/network.js\"); // https://stackoverflow.com/questions/36657354/cryptojs-sha3-and-php-sha3\n// CryptoJS's \"SHA3\" is now called \"Keccak\"\n\n\nconst Keccak = __webpack_require__(/*! keccak */ \"./node_modules/keccak/js.js\");\n\nconst bitcoinjsCrypto = __webpack_require__(/*! bitgo-utxo-lib */ \"./node_modules/bitgo-utxo-lib/src/index.js\").crypto; // NEM doesn't use bech32, but toWords/fromWords\n\n\nconst bech32 = __webpack_require__(/*! bech32 */ \"./node_modules/bech32/index.js\");\n\nconst alphabet = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567\";\n/**\n * Encode a Buffer to base32\n *\n * @param {Buffer} s - A buffer\n *\n * @return {string} - The encoded string\n */\n\nlet b32encode = function (s) {\n  let result = \"\";\n\n  for (const word of bech32.toWords(s)) {\n    result += alphabet[word];\n  }\n\n  return result;\n};\n/**\n * Decode a base32 string.\n * This is made specifically for our use, deals only with proper strings\n *\n * @param {string} s - A base32 string\n *\n * @return {Buffer} - The decoded string\n */\n\n\nlet b32decode = function (s) {\n  const words = [];\n\n  for (let idx = 0; idx < s.length; idx++) {\n    words.push(alphabet.indexOf(s.charAt(idx)));\n  }\n\n  return Buffer.from(bech32.fromWords(words));\n};\n/**\n * Convert a public key to a NEM address\n *\n * @param {Buffer} publicKey - A public key\n * @param {number} networkId - A network id\n *\n * @return {string} - The NEM address\n */\n\n\nlet toAddress = function (publicKey, networkId) {\n  let hash = Keccak(\"keccak256\").update(publicKey).digest();\n  let hash2 = bitcoinjsCrypto.ripemd160(hash); // 98 is for testnet\n\n  let networkPrefix = Buffer.from([networkId]);\n  let versionPrefixedRipemd160Hash = Buffer.concat([networkPrefix, hash2], 21);\n  let tempHash = Keccak(\"keccak256\").update(versionPrefixedRipemd160Hash).digest();\n  let stepThreeChecksum = tempHash.slice(0, 4);\n  let concatStepThreeAndStepSix = Buffer.concat([versionPrefixedRipemd160Hash, stepThreeChecksum]);\n  let ret = b32encode(concatStepThreeAndStepSix);\n  return ret;\n};\n/**\n * Check if an address is from a specified network\n *\n * @param {string} _address - An address\n * @param {number} networkId - A network id\n *\n * @return {boolean} - True if address is from network, false otherwise\n */\n\n\nlet isFromNetwork = function (_address, networkId) {\n  let address = _address.toString().toUpperCase().replace(/-/g, \"\");\n\n  let a = address[0];\n  return Network.id2Char(networkId) === a;\n};\n/**\n * Check if an address is valid\n *\n * @param {string} _address - An address\n *\n * @return {boolean} - True if address is valid, false otherwise\n */\n\n\nlet isValid = function (_address) {\n  let address = _address.toString().toUpperCase().replace(/-/g, \"\");\n\n  if (!address || address.length !== 40) {\n    return false;\n  }\n\n  let decoded = b32decode(address);\n  let versionPrefixedRipemd160Hash = decoded.slice(0, 21);\n  let tempHash = Keccak(\"keccak256\").update(versionPrefixedRipemd160Hash).digest();\n  let stepThreeChecksum = tempHash.slice(0, 4);\n  return stepThreeChecksum.equals(decoded.slice(21));\n};\n/**\n * Remove hyphens from an address\n *\n * @param {string} _address - An address\n *\n * @return {string} - A clean address\n */\n\n\nlet clean = function (_address) {\n  return _address.toUpperCase().replace(/-|\\s/g, \"\");\n};\n\nmodule.exports = {\n  b32encode,\n  b32decode,\n  toAddress,\n  isFromNetwork,\n  isValid,\n  clean\n};\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/node-libs-browser/node_modules/buffer/index.js */ \"./node_modules/node-libs-browser/node_modules/buffer/index.js\").Buffer))\n\n//# sourceURL=webpack:///./src/coins/nem-sdk/address.js?");
+
+/***/ }),
+
+/***/ "./src/coins/nem-sdk/helpers.js":
+/*!**************************************!*\
+  !*** ./src/coins/nem-sdk/helpers.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("let isHexadecimal = function (str) {\n  return str.match(\"^(0x|0X)?[a-fA-F0-9]+$\") !== null;\n};\n\nlet isPrivateKeyValid = function (privateKey) {\n  if (privateKey.length !== 64 && privateKey.length !== 66) {\n    return false;\n  } else if (!isHexadecimal(privateKey)) {\n    return false;\n  } else {\n    return true;\n  }\n};\n\nlet isPublicKeyValid = function (publicKey) {\n  if (publicKey.length !== 64) {\n    return false;\n  } else if (!isHexadecimal(publicKey)) {\n    return false;\n  } else {\n    return true;\n  }\n};\n\nmodule.exports = {\n  isHexadecimal,\n  isPrivateKeyValid,\n  isPublicKeyValid\n};\n\n//# sourceURL=webpack:///./src/coins/nem-sdk/helpers.js?");
+
+/***/ }),
+
+/***/ "./src/coins/nem-sdk/index.js":
+/*!************************************!*\
+  !*** ./src/coins/nem-sdk/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = {\n  address: __webpack_require__(/*! ./address */ \"./src/coins/nem-sdk/address.js\"),\n  network: __webpack_require__(/*! ./network */ \"./src/coins/nem-sdk/network.js\"),\n  keyPair: __webpack_require__(/*! ./keyPair */ \"./src/coins/nem-sdk/keyPair.js\")\n};\n\n//# sourceURL=webpack:///./src/coins/nem-sdk/index.js?");
+
+/***/ }),
+
+/***/ "./src/coins/nem-sdk/keyPair.js":
+/*!**************************************!*\
+  !*** ./src/coins/nem-sdk/keyPair.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(Buffer) {const Helpers = __webpack_require__(/*! ./helpers */ \"./src/coins/nem-sdk/helpers.js\");\n\nconst elliptic = __webpack_require__(/*! elliptic */ \"./node_modules/elliptic/lib/elliptic.js\");\n\nconst Keccak = __webpack_require__(/*! keccak */ \"./node_modules/keccak/js.js\");\n\nconst BN = __webpack_require__(/*! bn.js */ \"./node_modules/bn.js/lib/bn.js\");\n\nconst ed25519 = new elliptic.eddsa(\"ed25519\"); // port of crypto_sign_keypair_hash with hashfunc inlined\n// https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/crypto/ed25519/Ed25519Utils.java\n// https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/crypto/ed25519/Ed25519KeyGenerator.java\n// https://github.com/NemProject/nem.core/blob/master/src/main/java/org/nem/core/model/Address.java\n\nfunction cryptoSignKeypairHash(sk) {\n  const rSK = Buffer.from(sk).reverse();\n  const d = Keccak(\"keccak512\").update(rSK).digest().slice(0, 32);\n  d[0] &= 248;\n  d[31] &= 127;\n  d[31] |= 64;\n  const point = ed25519.g.mul(new BN(d.reverse()));\n  const pk = ed25519.encodePoint(point);\n  return Buffer.from(pk);\n}\n/***\n * Create a KeyPair Object\n *\n * @param {string} privkey - An hex private key\n */\n\n\nlet KeyPair = function (privkey) {\n  this.secretKey = Buffer.from(privkey, \"hex\").slice(0, 32);\n  this.publicKey = cryptoSignKeypairHash(this.secretKey);\n};\n/**\n * Create a NEM KeyPair\n *\n * @param {string} hexdata - An hex private key\n *\n * @return {object} - The NEM KeyPair object\n */\n\n\nlet create = function (hexdata) {\n  // Errors\n  if (!hexdata) throw new Error(\"Missing argument !\");\n  if (!Helpers.isPrivateKeyValid(hexdata)) throw new Error(\"Private key is not valid !\"); // Processing\n\n  let r = new KeyPair(hexdata); // Result\n\n  return r;\n};\n\nmodule.exports = {\n  create\n};\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/node-libs-browser/node_modules/buffer/index.js */ \"./node_modules/node-libs-browser/node_modules/buffer/index.js\").Buffer))\n\n//# sourceURL=webpack:///./src/coins/nem-sdk/keyPair.js?");
+
+/***/ }),
+
+/***/ "./src/coins/nem-sdk/network.js":
+/*!**************************************!*\
+  !*** ./src/coins/nem-sdk/network.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const alphabet = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567\";\n/**\n * Networks info data\n */\n\nconst data = {\n  mainnet: {\n    id: 104,\n    prefix: \"68\",\n    char: \"N\"\n  },\n  testnet: {\n    id: -104,\n    prefix: \"98\",\n    char: \"T\"\n  },\n  mijin: {\n    id: 96,\n    prefix: \"60\",\n    char: \"M\"\n  }\n};\n/**\n * Gets a network prefix from network id\n *\n * @param {number} id - A network id\n *\n * @return {string} - The network prefix\n */\n\nlet id2Prefix = function (id) {\n  return (id & 0xff).toString(16);\n};\n/**\n * Gets the starting char of the addresses of a network id\n *\n * @param {number} id - A network id\n *\n * @return {string} - The starting char of addresses\n */\n\n\nlet id2Char = function (id) {\n  // it works with -104 or 152 to get \"T\" for an example\n  return alphabet[(id & 0xf8) >> 3];\n};\n/**\n * Gets the network id from the starting char of an address\n *\n * @param {string} startChar - A starting char from an address\n *\n * @return {number} - The network id\n */\n\n\nlet char2Id = function (startChar) {\n  // NOTE: it returns 152 for input \"T\", but it's essentially same\n  //      (whether it is signed or not in 8-bit integer)\n  return alphabet.indexOf(startChar) << 3;\n};\n/**\n * Gets the network version\n *\n * @param {number} val - A version number (1 or 2)\n * @param {number} network - A network id\n *\n * @return {number} - A network version\n */\n\n\nlet getVersion = function (val, network) {\n  return (network & 0xff) << 24 | val;\n};\n\nmodule.exports = {\n  data,\n  id2Prefix,\n  id2Char,\n  char2Id,\n  getVersion\n};\n\n//# sourceURL=webpack:///./src/coins/nem-sdk/network.js?");
+
+/***/ }),
+
+/***/ 0:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
+
+/***/ }),
+
+/***/ 1:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
+
+/***/ }),
+
+/***/ 10:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 11:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 12:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 13:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 2:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
+
+/***/ }),
+
+/***/ 3:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
+
+/***/ }),
+
+/***/ 4:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 5:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 6:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///crypto_(ignored)?");
+
+/***/ }),
+
+/***/ 7:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 8:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+
+/***/ 9:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ })
+
+}]);
