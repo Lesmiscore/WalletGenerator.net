@@ -15,13 +15,13 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
  *
  * @return {string} - The encoded string
  */
-const b32encode = function (s) {
+function b32encode(s) {
   let result = "";
   for (const word of bech32.toWords(s)) {
     result += alphabet[word];
   }
   return result;
-};
+}
 
 /**
  * Decode a base32 string.
@@ -31,13 +31,13 @@ const b32encode = function (s) {
  *
  * @return {Buffer} - The decoded string
  */
-const b32decode = function (s) {
+function b32decode(s) {
   const words = [];
   for (let idx = 0; idx < s.length; idx++) {
     words.push(alphabet.indexOf(s.charAt(idx)));
   }
   return Buffer.from(bech32.fromWords(words));
-};
+}
 
 /**
  * Convert a public key to a NEM address
@@ -47,7 +47,7 @@ const b32decode = function (s) {
  *
  * @return {string} - The NEM address
  */
-const toAddress = function (publicKey, networkId) {
+function toAddress(publicKey, networkId) {
   const hash = Keccak("keccak256").update(publicKey).digest();
   const hash2 = bitcoinjsCrypto.ripemd160(hash);
   // 98 is for testnet
@@ -58,7 +58,7 @@ const toAddress = function (publicKey, networkId) {
   const concatStepThreeAndStepSix = Buffer.concat([versionPrefixedRipemd160Hash, stepThreeChecksum]);
   const ret = b32encode(concatStepThreeAndStepSix);
   return ret;
-};
+}
 
 /**
  * Check if an address is from a specified network
@@ -68,11 +68,11 @@ const toAddress = function (publicKey, networkId) {
  *
  * @return {boolean} - True if address is from network, false otherwise
  */
-const isFromNetwork = function (_address, networkId) {
+function isFromNetwork(_address, networkId) {
   const address = _address.toString().toUpperCase().replace(/-/g, "");
   const a = address[0];
   return Network.id2Char(networkId) === a;
-};
+}
 
 /**
  * Check if an address is valid
@@ -81,7 +81,7 @@ const isFromNetwork = function (_address, networkId) {
  *
  * @return {boolean} - True if address is valid, false otherwise
  */
-const isValid = function (_address) {
+function isValid(_address) {
   const address = _address.toString().toUpperCase().replace(/-/g, "");
   if (!address || address.length !== 40) {
     return false;
@@ -92,7 +92,7 @@ const isValid = function (_address) {
   const stepThreeChecksum = tempHash.slice(0, 4);
 
   return stepThreeChecksum.equals(decoded.slice(21));
-};
+}
 
 /**
  * Remove hyphens from an address
@@ -101,9 +101,9 @@ const isValid = function (_address) {
  *
  * @return {string} - A clean address
  */
-const clean = function (_address) {
+function clean(_address) {
   return _address.toUpperCase().replace(/-|\s/g, "");
-};
+}
 
 module.exports = {
   b32encode,

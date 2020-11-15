@@ -26,10 +26,10 @@ function cryptoSignKeypairHash(sk) {
  *
  * @param {string} privkey - An hex private key
  */
-const KeyPair = function (privkey) {
+function KeyPair(privkey) {
   this.secretKey = Buffer.from(privkey, "hex").slice(0, 32);
   this.publicKey = cryptoSignKeypairHash(this.secretKey);
-};
+}
 
 /**
  * Create a NEM KeyPair
@@ -38,7 +38,7 @@ const KeyPair = function (privkey) {
  *
  * @return {object} - The NEM KeyPair object
  */
-const create = function (hexdata) {
+function create(hexdata) {
   // Errors
   if (!hexdata) throw new Error("Missing argument !");
   if (!Helpers.isPrivateKeyValid(hexdata)) throw new Error("Private key is not valid !");
@@ -46,7 +46,7 @@ const create = function (hexdata) {
   const r = new KeyPair(hexdata);
   // Result
   return r;
-};
+}
 
 module.exports = {
   create,

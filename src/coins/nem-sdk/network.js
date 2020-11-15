@@ -28,9 +28,9 @@ const data = {
  *
  * @return {string} - The network prefix
  */
-const id2Prefix = function (id) {
+function id2Prefix(id) {
   return (id & 0xff).toString(16);
-};
+}
 
 /**
  * Gets the starting char of the addresses of a network id
@@ -39,10 +39,10 @@ const id2Prefix = function (id) {
  *
  * @return {string} - The starting char of addresses
  */
-const id2Char = function (id) {
+function id2Char(id) {
   // it works with -104 or 152 to get "T" for an example
   return alphabet[(id & 0xf8) >> 3];
-};
+}
 
 /**
  * Gets the network id from the starting char of an address
@@ -51,11 +51,11 @@ const id2Char = function (id) {
  *
  * @return {number} - The network id
  */
-const char2Id = function (startChar) {
+function char2Id(startChar) {
   // NOTE: it returns 152 for input "T", but it's essentially same
   //      (whether it is signed or not in 8-bit integer)
   return alphabet.indexOf(startChar) << 3;
-};
+}
 
 /**
  * Gets the network version
@@ -65,9 +65,9 @@ const char2Id = function (startChar) {
  *
  * @return {number} - A network version
  */
-const getVersion = function (val, network) {
+function getVersion(val, network) {
   return ((network & 0xff) << 24) | val;
-};
+}
 
 module.exports = {
   data,

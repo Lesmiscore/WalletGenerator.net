@@ -1,8 +1,8 @@
-const isHexadecimal = function (str) {
+function isHexadecimal(str) {
   return str.match("^(0x|0X)?[a-fA-F0-9]+$") !== null;
-};
+}
 
-const isPrivateKeyValid = function (privateKey) {
+function isPrivateKeyValid(privateKey) {
   if (privateKey.length !== 64 && privateKey.length !== 66) {
     return false;
   } else if (!isHexadecimal(privateKey)) {
@@ -10,9 +10,9 @@ const isPrivateKeyValid = function (privateKey) {
   } else {
     return true;
   }
-};
+}
 
-const isPublicKeyValid = function (publicKey) {
+function isPublicKeyValid(publicKey) {
   if (publicKey.length !== 64) {
     return false;
   } else if (!isHexadecimal(publicKey)) {
@@ -20,7 +20,7 @@ const isPublicKeyValid = function (publicKey) {
   } else {
     return true;
   }
-};
+}
 
 module.exports = {
   isHexadecimal,
