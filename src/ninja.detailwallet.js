@@ -108,7 +108,7 @@ module.exports = (async function () {
       }
       document.getElementById("busyblock").className = "busy";
       // show Private Key BIP38 Format
-      document.getElementById("detailprivbip38").innerHTML = key;
+      document.getElementById("detailprivbip38").textContent = key;
       document.getElementById("detailbip38").style.display = "block";
       privateKey.BIP38EncryptedKeyToByteArrayAsync(key, passphrase, function (btcKeyOrError) {
         document.getElementById("busyblock").className = "";
