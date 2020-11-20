@@ -5,7 +5,7 @@ const render = function (qr) {
     n = document.createElement(n);
     for (const p in v) {
       if ({}.hasOwnProperty.call(v, p)) {
-        n.setAttribute(null, p, v[p]);
+        n.setAttribute(p, v[p]);
       }
     }
     return n;

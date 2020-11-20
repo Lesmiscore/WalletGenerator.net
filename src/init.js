@@ -19,4 +19,5 @@ Promise.resolve()
   .catch((err) => {
     document.getElementById("message1").innerHTML = "Error has occured while loading";
     document.getElementById("message2").innerHTML = ("" + (err.stack ? err.stack : err)).replace(/\n/g, "<br />");
+    console.error(err);
   });

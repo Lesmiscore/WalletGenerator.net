@@ -81,6 +81,23 @@ const ev = function (selector, name, func) {
   });
 };
 
+const createElement = function (n, v, content) {
+  const el = document.createElement(n);
+  for (const p in v) {
+    if ({}.hasOwnProperty.call(v, p) && v[p] !== undefined) {
+      el.setAttribute(p, v[p]);
+    }
+  }
+  if (Array.isArray(content)) {
+    for (const c of content) {
+      el.appendChild(c);
+    }
+  } else if (content) {
+    el.textContent = content;
+  }
+  return el;
+};
+
 module.exports = {
   tabSwitch,
   envSecurityCheck,
@@ -90,4 +107,5 @@ module.exports = {
   printMany,
   escapeRegExp,
   ev,
+  createElement,
 };

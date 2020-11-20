@@ -1,7 +1,7 @@
 module.exports = (async function () {
   const translator = await import("./ninja.translator.js");
   const janin = await import("./janin.currency.js");
-  const { getQueryString, envSecurityCheck, browserSecurityCheck, ev } = await import("./ninja.misc.js");
+  const { getQueryString, envSecurityCheck, browserSecurityCheck, ev, createElement } = await import("./ninja.misc.js");
   const query = getQueryString();
 
   let i, a, x;
@@ -39,41 +39,46 @@ module.exports = (async function () {
   }
   // populate currency dropdown list
   const select = document.getElementById("currency");
-  let options = "";
   for (i = 0; i < janin.currencies.length; i++) {
     const curr = janin.currencies[i];
-    options += "<option value='" + i + "'";
-    if (curr.name === janin.name()) options += " selected='selected'";
-    options += ">" + curr.name + "</option>";
+    select.appendChild(
+      createElement(
+        "option",
+        {
+          value: i,
+          selected: curr.name === janin.name() ? "selected" : undefined,
+        },
+        curr.name
+      )
+    );
   }
-  select.innerHTML = options;
   // populate supported currency list
   const supportedcurrencies = document.getElementById("supportedcurrencies");
-  let currencieslist = "";
   let j = 0;
   for (i = 0; i < janin.currencies.length; i++) {
     const curr = janin.currencies[i];
     if (!curr.shouldAddCoinList()) continue;
-    currencieslist += "<a href='?currency=" + curr.name;
-    if (query["culture"]) currencieslist += "&culture=" + query["culture"];
-    currencieslist += "'>" + curr.name + "</a> ";
+    let href = "?currency=" + curr.name;
+    if (query["culture"]) href += "&culture=" + query["culture"];
+    supportedcurrencies.appendChild(createElement("a", { href }, curr.name));
+    // this is needed to reproduce same behavior as old string-concatenation method
+    supportedcurrencies.appendChild(document.createTextNode(" "));
     j++;
   }
-  supportedcurrencies.innerHTML = currencieslist;
-  document.getElementById("supportedcurrenciescounter").innerHTML = j.toString() + " ";
+  document.getElementById("supportedcurrenciescounter").textContent = j.toString() + " ";
   // populate donate list
   document.getElementById("donateqrcode").style.display = "none";
-  const donatelist = document.getElementById("donatelist");
-  let list = "<table>";
+  const donateList = document.getElementById("donateqrcode");
+  const donateTable = document.createElement("table");
   for (i = 0; i < janin.currencies.length; i++) {
     if (!janin.currencies[i].donate) continue;
-    list += "<tr id='currencydonatelink" + i + "'>";
-    list += "<td class='currencyNameColumn'>" + janin.currencies[i].name + "</td>";
-    list += "<td class='address'><a href='" + janin.currencies[i].name.toLowerCase() + ":" + janin.currencies[i].donate + "'>";
-    list += janin.currencies[i].donate + "</a></td></tr>";
+    const donateLink = createElement("tr", { id: "currencydonatelink" + i }, [
+      createElement("td", { class: "currencyNameColumn" }, janin.currencies[i].name),
+      createElement("td", { class: "address" }, [createElement("a", { href: janin.currencies[i].name.toLowerCase() + ":" + janin.currencies[i].donate }, janin.currencies[i].donate)]),
+    ]);
+    donateTable.appendChild(donateLink);
   }
-  list += "</table>";
-  donatelist.innerHTML = list;
+  donateList.appendChild(donateTable);
   for (i = 0; i < janin.currencies.length; i++) {
     if (!janin.currencies[i].donate) continue;
     ev("tr#currencydonatelink" + i, "mouseover", async function () {
@@ -84,13 +89,6 @@ module.exports = (async function () {
   // Extract i18n
   if (query["i18nextract"]) {
     const culture = query["i18nextract"];
-    const div = document.createElement("div");
-    div.innerHTML = "<h3>i18n</h3>";
-    div.setAttribute("style", "text-align: center");
-    const elem = document.createElement("textarea");
-    elem.setAttribute("rows", "30");
-    elem.setAttribute("style", "width: 99%");
-    elem.setAttribute("wrap", "off");
 
     a = document.getElementsByClassName("i18n");
 
@@ -106,9 +104,25 @@ module.exports = (async function () {
       else value += "(ENGLISH)" + cleani18n(translator.translations["en"][translator.staticID[x]]);
       cultureData[translator.staticID[x]] = value;
     }
+    const div = createElement(
+      "div",
+      {
+        style: "text-align: center",
+      },
+      [
+        createElement("h3", {}, "i18n"),
+        createElement(
+          "textarea",
+          {
+            rows: "30",
+            style: "width: 99%",
+            wrap: "off",
+          },
+          JSON.stringify(obj, null, "  ")
+        ),
+      ]
+    );
 
-    elem.innerHTML = JSON.stringify(obj);
-    div.appendChild(elem);
     document.body.appendChild(div);
   }
   function cleani18n(string) {

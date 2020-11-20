@@ -77,4 +77,6 @@ module.exports = {
   autodetectTranslation,
   translate,
   get,
+  staticID,
+  translations,
 };
