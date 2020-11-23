@@ -1,68 +1,104 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[26],{
 
-/***/ "./node_modules/keccak/js.js":
+/***/ "./node_modules/base-x/src/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/base-x/src/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n// base-x encoding / decoding\n// Copyright (c) 2018 base-x contributors\n// Copyright (c) 2014-2018 The Bitcoin Core developers (base58.cpp)\n// Distributed under the MIT software license, see the accompanying\n// file LICENSE or http://www.opensource.org/licenses/mit-license.php.\n// @ts-ignore\nvar _Buffer = __webpack_require__(/*! safe-buffer */ \"./node_modules/safe-buffer/index.js\").Buffer\nfunction base (ALPHABET) {\n  if (ALPHABET.length >= 255) { throw new TypeError('Alphabet too long') }\n  var BASE_MAP = new Uint8Array(256)\n  for (var j = 0; j < BASE_MAP.length; j++) {\n    BASE_MAP[j] = 255\n  }\n  for (var i = 0; i < ALPHABET.length; i++) {\n    var x = ALPHABET.charAt(i)\n    var xc = x.charCodeAt(0)\n    if (BASE_MAP[xc] !== 255) { throw new TypeError(x + ' is ambiguous') }\n    BASE_MAP[xc] = i\n  }\n  var BASE = ALPHABET.length\n  var LEADER = ALPHABET.charAt(0)\n  var FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up\n  var iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up\n  function encode (source) {\n    if (Array.isArray(source) || source instanceof Uint8Array) { source = _Buffer.from(source) }\n    if (!_Buffer.isBuffer(source)) { throw new TypeError('Expected Buffer') }\n    if (source.length === 0) { return '' }\n        // Skip & count leading zeroes.\n    var zeroes = 0\n    var length = 0\n    var pbegin = 0\n    var pend = source.length\n    while (pbegin !== pend && source[pbegin] === 0) {\n      pbegin++\n      zeroes++\n    }\n        // Allocate enough space in big-endian base58 representation.\n    var size = ((pend - pbegin) * iFACTOR + 1) >>> 0\n    var b58 = new Uint8Array(size)\n        // Process the bytes.\n    while (pbegin !== pend) {\n      var carry = source[pbegin]\n            // Apply \"b58 = b58 * 256 + ch\".\n      var i = 0\n      for (var it1 = size - 1; (carry !== 0 || i < length) && (it1 !== -1); it1--, i++) {\n        carry += (256 * b58[it1]) >>> 0\n        b58[it1] = (carry % BASE) >>> 0\n        carry = (carry / BASE) >>> 0\n      }\n      if (carry !== 0) { throw new Error('Non-zero carry') }\n      length = i\n      pbegin++\n    }\n        // Skip leading zeroes in base58 result.\n    var it2 = size - length\n    while (it2 !== size && b58[it2] === 0) {\n      it2++\n    }\n        // Translate the result into a string.\n    var str = LEADER.repeat(zeroes)\n    for (; it2 < size; ++it2) { str += ALPHABET.charAt(b58[it2]) }\n    return str\n  }\n  function decodeUnsafe (source) {\n    if (typeof source !== 'string') { throw new TypeError('Expected String') }\n    if (source.length === 0) { return _Buffer.alloc(0) }\n    var psz = 0\n        // Skip leading spaces.\n    if (source[psz] === ' ') { return }\n        // Skip and count leading '1's.\n    var zeroes = 0\n    var length = 0\n    while (source[psz] === LEADER) {\n      zeroes++\n      psz++\n    }\n        // Allocate enough space in big-endian base256 representation.\n    var size = (((source.length - psz) * FACTOR) + 1) >>> 0 // log(58) / log(256), rounded up.\n    var b256 = new Uint8Array(size)\n        // Process the characters.\n    while (source[psz]) {\n            // Decode character\n      var carry = BASE_MAP[source.charCodeAt(psz)]\n            // Invalid character\n      if (carry === 255) { return }\n      var i = 0\n      for (var it3 = size - 1; (carry !== 0 || i < length) && (it3 !== -1); it3--, i++) {\n        carry += (BASE * b256[it3]) >>> 0\n        b256[it3] = (carry % 256) >>> 0\n        carry = (carry / 256) >>> 0\n      }\n      if (carry !== 0) { throw new Error('Non-zero carry') }\n      length = i\n      psz++\n    }\n        // Skip trailing spaces.\n    if (source[psz] === ' ') { return }\n        // Skip leading zeroes in b256.\n    var it4 = size - length\n    while (it4 !== size && b256[it4] === 0) {\n      it4++\n    }\n    var vch = _Buffer.allocUnsafe(zeroes + (size - it4))\n    vch.fill(0x00, 0, zeroes)\n    var j = zeroes\n    while (it4 !== size) {\n      vch[j++] = b256[it4++]\n    }\n    return vch\n  }\n  function decode (string) {\n    var buffer = decodeUnsafe(string)\n    if (buffer) { return buffer }\n    throw new Error('Non-base' + BASE + ' character')\n  }\n  return {\n    encode: encode,\n    decodeUnsafe: decodeUnsafe,\n    decode: decode\n  }\n}\nmodule.exports = base\n\n\n//# sourceURL=webpack:///./node_modules/base-x/src/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/bs58/index.js":
+/*!************************************!*\
+  !*** ./node_modules/bs58/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var basex = __webpack_require__(/*! base-x */ \"./node_modules/base-x/src/index.js\")\nvar ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'\n\nmodule.exports = basex(ALPHABET)\n\n\n//# sourceURL=webpack:///./node_modules/bs58/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/bs58check/base.js":
+/*!****************************************!*\
+  !*** ./node_modules/bs58check/base.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar base58 = __webpack_require__(/*! bs58 */ \"./node_modules/bs58/index.js\")\nvar Buffer = __webpack_require__(/*! safe-buffer */ \"./node_modules/safe-buffer/index.js\").Buffer\n\nmodule.exports = function (checksumFn) {\n  // Encode a buffer as a base58-check encoded string\n  function encode (payload) {\n    var checksum = checksumFn(payload)\n\n    return base58.encode(Buffer.concat([\n      payload,\n      checksum\n    ], payload.length + 4))\n  }\n\n  function decodeRaw (buffer) {\n    var payload = buffer.slice(0, -4)\n    var checksum = buffer.slice(-4)\n    var newChecksum = checksumFn(payload)\n\n    if (checksum[0] ^ newChecksum[0] |\n        checksum[1] ^ newChecksum[1] |\n        checksum[2] ^ newChecksum[2] |\n        checksum[3] ^ newChecksum[3]) return\n\n    return payload\n  }\n\n  // Decode a base58-check encoded string to a buffer, no result if checksum is wrong\n  function decodeUnsafe (string) {\n    var buffer = base58.decodeUnsafe(string)\n    if (!buffer) return\n\n    return decodeRaw(buffer)\n  }\n\n  function decode (string) {\n    var buffer = base58.decode(string)\n    var payload = decodeRaw(buffer, checksumFn)\n    if (!payload) throw new Error('Invalid checksum')\n    return payload\n  }\n\n  return {\n    encode: encode,\n    decode: decode,\n    decodeUnsafe: decodeUnsafe\n  }\n}\n\n\n//# sourceURL=webpack:///./node_modules/bs58check/base.js?");
+
+/***/ }),
+
+/***/ "./node_modules/bs58check/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/bs58check/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar createHash = __webpack_require__(/*! create-hash */ \"./node_modules/create-hash/browser.js\")\nvar bs58checkBase = __webpack_require__(/*! ./base */ \"./node_modules/bs58check/base.js\")\n\n// SHA256(SHA256(buffer))\nfunction sha256x2 (buffer) {\n  var tmp = createHash('sha256').update(buffer).digest()\n  return createHash('sha256').update(tmp).digest()\n}\n\nmodule.exports = bs58checkBase(sha256x2)\n\n\n//# sourceURL=webpack:///./node_modules/bs58check/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/wif/index.js":
 /*!***********************************!*\
-  !*** ./node_modules/keccak/js.js ***!
+  !*** ./node_modules/wif/index.js ***!
   \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! ./lib/api */ \"./node_modules/keccak/lib/api/index.js\")(__webpack_require__(/*! ./lib/keccak */ \"./node_modules/keccak/lib/keccak.js\"))\n\n\n//# sourceURL=webpack:///./node_modules/keccak/js.js?");
+eval("/* WEBPACK VAR INJECTION */(function(Buffer) {var bs58check = __webpack_require__(/*! bs58check */ \"./node_modules/bs58check/index.js\")\n\nfunction decodeRaw (buffer, version) {\n  // check version only if defined\n  if (version !== undefined && buffer[0] !== version) throw new Error('Invalid network version')\n\n  // uncompressed\n  if (buffer.length === 33) {\n    return {\n      version: buffer[0],\n      privateKey: buffer.slice(1, 33),\n      compressed: false\n    }\n  }\n\n  // invalid length\n  if (buffer.length !== 34) throw new Error('Invalid WIF length')\n\n  // invalid compression flag\n  if (buffer[33] !== 0x01) throw new Error('Invalid compression flag')\n\n  return {\n    version: buffer[0],\n    privateKey: buffer.slice(1, 33),\n    compressed: true\n  }\n}\n\nfunction encodeRaw (version, privateKey, compressed) {\n  var result = new Buffer(compressed ? 34 : 33)\n\n  result.writeUInt8(version, 0)\n  privateKey.copy(result, 1)\n\n  if (compressed) {\n    result[33] = 0x01\n  }\n\n  return result\n}\n\nfunction decode (string, version) {\n  return decodeRaw(bs58check.decode(string), version)\n}\n\nfunction encode (version, privateKey, compressed) {\n  if (typeof version === 'number') return bs58check.encode(encodeRaw(version, privateKey, compressed))\n\n  return bs58check.encode(\n    encodeRaw(\n      version.version,\n      version.privateKey,\n      version.compressed\n    )\n  )\n}\n\nmodule.exports = {\n  decode: decode,\n  decodeRaw: decodeRaw,\n  encode: encode,\n  encodeRaw: encodeRaw\n}\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/node_modules/buffer/index.js */ \"./node_modules/node-libs-browser/node_modules/buffer/index.js\").Buffer))\n\n//# sourceURL=webpack:///./node_modules/wif/index.js?");
 
 /***/ }),
 
-/***/ "./node_modules/keccak/lib/api/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/keccak/lib/api/index.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const createKeccak = __webpack_require__(/*! ./keccak */ \"./node_modules/keccak/lib/api/keccak.js\")\nconst createShake = __webpack_require__(/*! ./shake */ \"./node_modules/keccak/lib/api/shake.js\")\n\nmodule.exports = function (KeccakState) {\n  const Keccak = createKeccak(KeccakState)\n  const Shake = createShake(KeccakState)\n\n  return function (algorithm, options) {\n    const hash = typeof algorithm === 'string' ? algorithm.toLowerCase() : algorithm\n    switch (hash) {\n      case 'keccak224': return new Keccak(1152, 448, null, 224, options)\n      case 'keccak256': return new Keccak(1088, 512, null, 256, options)\n      case 'keccak384': return new Keccak(832, 768, null, 384, options)\n      case 'keccak512': return new Keccak(576, 1024, null, 512, options)\n\n      case 'sha3-224': return new Keccak(1152, 448, 0x06, 224, options)\n      case 'sha3-256': return new Keccak(1088, 512, 0x06, 256, options)\n      case 'sha3-384': return new Keccak(832, 768, 0x06, 384, options)\n      case 'sha3-512': return new Keccak(576, 1024, 0x06, 512, options)\n\n      case 'shake128': return new Shake(1344, 256, 0x1f, options)\n      case 'shake256': return new Shake(1088, 512, 0x1f, options)\n\n      default: throw new Error('Invald algorithm: ' + algorithm)\n    }\n  }\n}\n\n\n//# sourceURL=webpack:///./node_modules/keccak/lib/api/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/keccak/lib/api/keccak.js":
-/*!***********************************************!*\
-  !*** ./node_modules/keccak/lib/api/keccak.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(Buffer) {const { Transform } = __webpack_require__(/*! stream */ \"./node_modules/stream-browserify/index.js\")\n\nmodule.exports = (KeccakState) => class Keccak extends Transform {\n  constructor (rate, capacity, delimitedSuffix, hashBitLength, options) {\n    super(options)\n\n    this._rate = rate\n    this._capacity = capacity\n    this._delimitedSuffix = delimitedSuffix\n    this._hashBitLength = hashBitLength\n    this._options = options\n\n    this._state = new KeccakState()\n    this._state.initialize(rate, capacity)\n    this._finalized = false\n  }\n\n  _transform (chunk, encoding, callback) {\n    let error = null\n    try {\n      this.update(chunk, encoding)\n    } catch (err) {\n      error = err\n    }\n\n    callback(error)\n  }\n\n  _flush (callback) {\n    let error = null\n    try {\n      this.push(this.digest())\n    } catch (err) {\n      error = err\n    }\n\n    callback(error)\n  }\n\n  update (data, encoding) {\n    if (!Buffer.isBuffer(data) && typeof data !== 'string') throw new TypeError('Data must be a string or a buffer')\n    if (this._finalized) throw new Error('Digest already called')\n    if (!Buffer.isBuffer(data)) data = Buffer.from(data, encoding)\n\n    this._state.absorb(data)\n\n    return this\n  }\n\n  digest (encoding) {\n    if (this._finalized) throw new Error('Digest already called')\n    this._finalized = true\n\n    if (this._delimitedSuffix) this._state.absorbLastFewBits(this._delimitedSuffix)\n    let digest = this._state.squeeze(this._hashBitLength / 8)\n    if (encoding !== undefined) digest = digest.toString(encoding)\n\n    this._resetState()\n\n    return digest\n  }\n\n  // remove result from memory\n  _resetState () {\n    this._state.initialize(this._rate, this._capacity)\n    return this\n  }\n\n  // because sometimes we need hash right now and little later\n  _clone () {\n    const clone = new Keccak(this._rate, this._capacity, this._delimitedSuffix, this._hashBitLength, this._options)\n    this._state.copy(clone._state)\n    clone._finalized = this._finalized\n\n    return clone\n  }\n}\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node-libs-browser/node_modules/buffer/index.js */ \"./node_modules/node-libs-browser/node_modules/buffer/index.js\").Buffer))\n\n//# sourceURL=webpack:///./node_modules/keccak/lib/api/keccak.js?");
-
-/***/ }),
-
-/***/ "./node_modules/keccak/lib/api/shake.js":
-/*!**********************************************!*\
-  !*** ./node_modules/keccak/lib/api/shake.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(Buffer) {const { Transform } = __webpack_require__(/*! stream */ \"./node_modules/stream-browserify/index.js\")\n\nmodule.exports = (KeccakState) => class Shake extends Transform {\n  constructor (rate, capacity, delimitedSuffix, options) {\n    super(options)\n\n    this._rate = rate\n    this._capacity = capacity\n    this._delimitedSuffix = delimitedSuffix\n    this._options = options\n\n    this._state = new KeccakState()\n    this._state.initialize(rate, capacity)\n    this._finalized = false\n  }\n\n  _transform (chunk, encoding, callback) {\n    let error = null\n    try {\n      this.update(chunk, encoding)\n    } catch (err) {\n      error = err\n    }\n\n    callback(error)\n  }\n\n  _flush () {}\n\n  _read (size) {\n    this.push(this.squeeze(size))\n  }\n\n  update (data, encoding) {\n    if (!Buffer.isBuffer(data) && typeof data !== 'string') throw new TypeError('Data must be a string or a buffer')\n    if (this._finalized) throw new Error('Squeeze already called')\n    if (!Buffer.isBuffer(data)) data = Buffer.from(data, encoding)\n\n    this._state.absorb(data)\n\n    return this\n  }\n\n  squeeze (dataByteLength, encoding) {\n    if (!this._finalized) {\n      this._finalized = true\n      this._state.absorbLastFewBits(this._delimitedSuffix)\n    }\n\n    let data = this._state.squeeze(dataByteLength)\n    if (encoding !== undefined) data = data.toString(encoding)\n\n    return data\n  }\n\n  _resetState () {\n    this._state.initialize(this._rate, this._capacity)\n    return this\n  }\n\n  _clone () {\n    const clone = new Shake(this._rate, this._capacity, this._delimitedSuffix, this._options)\n    this._state.copy(clone._state)\n    clone._finalized = this._finalized\n\n    return clone\n  }\n}\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node-libs-browser/node_modules/buffer/index.js */ \"./node_modules/node-libs-browser/node_modules/buffer/index.js\").Buffer))\n\n//# sourceURL=webpack:///./node_modules/keccak/lib/api/shake.js?");
-
-/***/ }),
-
-/***/ "./node_modules/keccak/lib/keccak-state-unroll.js":
-/*!********************************************************!*\
-  !*** ./node_modules/keccak/lib/keccak-state-unroll.js ***!
-  \********************************************************/
+/***/ 0:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const P1600_ROUND_CONSTANTS = [1, 0, 32898, 0, 32906, 2147483648, 2147516416, 2147483648, 32907, 0, 2147483649, 0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0, 2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771, 2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648, 2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648]\n\nexports.p1600 = function (s) {\n  for (let round = 0; round < 24; ++round) {\n    // theta\n    const lo0 = s[0] ^ s[10] ^ s[20] ^ s[30] ^ s[40]\n    const hi0 = s[1] ^ s[11] ^ s[21] ^ s[31] ^ s[41]\n    const lo1 = s[2] ^ s[12] ^ s[22] ^ s[32] ^ s[42]\n    const hi1 = s[3] ^ s[13] ^ s[23] ^ s[33] ^ s[43]\n    const lo2 = s[4] ^ s[14] ^ s[24] ^ s[34] ^ s[44]\n    const hi2 = s[5] ^ s[15] ^ s[25] ^ s[35] ^ s[45]\n    const lo3 = s[6] ^ s[16] ^ s[26] ^ s[36] ^ s[46]\n    const hi3 = s[7] ^ s[17] ^ s[27] ^ s[37] ^ s[47]\n    const lo4 = s[8] ^ s[18] ^ s[28] ^ s[38] ^ s[48]\n    const hi4 = s[9] ^ s[19] ^ s[29] ^ s[39] ^ s[49]\n\n    let lo = lo4 ^ (lo1 << 1 | hi1 >>> 31)\n    let hi = hi4 ^ (hi1 << 1 | lo1 >>> 31)\n    const t1slo0 = s[0] ^ lo\n    const t1shi0 = s[1] ^ hi\n    const t1slo5 = s[10] ^ lo\n    const t1shi5 = s[11] ^ hi\n    const t1slo10 = s[20] ^ lo\n    const t1shi10 = s[21] ^ hi\n    const t1slo15 = s[30] ^ lo\n    const t1shi15 = s[31] ^ hi\n    const t1slo20 = s[40] ^ lo\n    const t1shi20 = s[41] ^ hi\n    lo = lo0 ^ (lo2 << 1 | hi2 >>> 31)\n    hi = hi0 ^ (hi2 << 1 | lo2 >>> 31)\n    const t1slo1 = s[2] ^ lo\n    const t1shi1 = s[3] ^ hi\n    const t1slo6 = s[12] ^ lo\n    const t1shi6 = s[13] ^ hi\n    const t1slo11 = s[22] ^ lo\n    const t1shi11 = s[23] ^ hi\n    const t1slo16 = s[32] ^ lo\n    const t1shi16 = s[33] ^ hi\n    const t1slo21 = s[42] ^ lo\n    const t1shi21 = s[43] ^ hi\n    lo = lo1 ^ (lo3 << 1 | hi3 >>> 31)\n    hi = hi1 ^ (hi3 << 1 | lo3 >>> 31)\n    const t1slo2 = s[4] ^ lo\n    const t1shi2 = s[5] ^ hi\n    const t1slo7 = s[14] ^ lo\n    const t1shi7 = s[15] ^ hi\n    const t1slo12 = s[24] ^ lo\n    const t1shi12 = s[25] ^ hi\n    const t1slo17 = s[34] ^ lo\n    const t1shi17 = s[35] ^ hi\n    const t1slo22 = s[44] ^ lo\n    const t1shi22 = s[45] ^ hi\n    lo = lo2 ^ (lo4 << 1 | hi4 >>> 31)\n    hi = hi2 ^ (hi4 << 1 | lo4 >>> 31)\n    const t1slo3 = s[6] ^ lo\n    const t1shi3 = s[7] ^ hi\n    const t1slo8 = s[16] ^ lo\n    const t1shi8 = s[17] ^ hi\n    const t1slo13 = s[26] ^ lo\n    const t1shi13 = s[27] ^ hi\n    const t1slo18 = s[36] ^ lo\n    const t1shi18 = s[37] ^ hi\n    const t1slo23 = s[46] ^ lo\n    const t1shi23 = s[47] ^ hi\n    lo = lo3 ^ (lo0 << 1 | hi0 >>> 31)\n    hi = hi3 ^ (hi0 << 1 | lo0 >>> 31)\n    const t1slo4 = s[8] ^ lo\n    const t1shi4 = s[9] ^ hi\n    const t1slo9 = s[18] ^ lo\n    const t1shi9 = s[19] ^ hi\n    const t1slo14 = s[28] ^ lo\n    const t1shi14 = s[29] ^ hi\n    const t1slo19 = s[38] ^ lo\n    const t1shi19 = s[39] ^ hi\n    const t1slo24 = s[48] ^ lo\n    const t1shi24 = s[49] ^ hi\n\n    // rho & pi\n    const t2slo0 = t1slo0\n    const t2shi0 = t1shi0\n    const t2slo16 = (t1shi5 << 4 | t1slo5 >>> 28)\n    const t2shi16 = (t1slo5 << 4 | t1shi5 >>> 28)\n    const t2slo7 = (t1slo10 << 3 | t1shi10 >>> 29)\n    const t2shi7 = (t1shi10 << 3 | t1slo10 >>> 29)\n    const t2slo23 = (t1shi15 << 9 | t1slo15 >>> 23)\n    const t2shi23 = (t1slo15 << 9 | t1shi15 >>> 23)\n    const t2slo14 = (t1slo20 << 18 | t1shi20 >>> 14)\n    const t2shi14 = (t1shi20 << 18 | t1slo20 >>> 14)\n    const t2slo10 = (t1slo1 << 1 | t1shi1 >>> 31)\n    const t2shi10 = (t1shi1 << 1 | t1slo1 >>> 31)\n    const t2slo1 = (t1shi6 << 12 | t1slo6 >>> 20)\n    const t2shi1 = (t1slo6 << 12 | t1shi6 >>> 20)\n    const t2slo17 = (t1slo11 << 10 | t1shi11 >>> 22)\n    const t2shi17 = (t1shi11 << 10 | t1slo11 >>> 22)\n    const t2slo8 = (t1shi16 << 13 | t1slo16 >>> 19)\n    const t2shi8 = (t1slo16 << 13 | t1shi16 >>> 19)\n    const t2slo24 = (t1slo21 << 2 | t1shi21 >>> 30)\n    const t2shi24 = (t1shi21 << 2 | t1slo21 >>> 30)\n    const t2slo20 = (t1shi2 << 30 | t1slo2 >>> 2)\n    const t2shi20 = (t1slo2 << 30 | t1shi2 >>> 2)\n    const t2slo11 = (t1slo7 << 6 | t1shi7 >>> 26)\n    const t2shi11 = (t1shi7 << 6 | t1slo7 >>> 26)\n    const t2slo2 = (t1shi12 << 11 | t1slo12 >>> 21)\n    const t2shi2 = (t1slo12 << 11 | t1shi12 >>> 21)\n    const t2slo18 = (t1slo17 << 15 | t1shi17 >>> 17)\n    const t2shi18 = (t1shi17 << 15 | t1slo17 >>> 17)\n    const t2slo9 = (t1shi22 << 29 | t1slo22 >>> 3)\n    const t2shi9 = (t1slo22 << 29 | t1shi22 >>> 3)\n    const t2slo5 = (t1slo3 << 28 | t1shi3 >>> 4)\n    const t2shi5 = (t1shi3 << 28 | t1slo3 >>> 4)\n    const t2slo21 = (t1shi8 << 23 | t1slo8 >>> 9)\n    const t2shi21 = (t1slo8 << 23 | t1shi8 >>> 9)\n    const t2slo12 = (t1slo13 << 25 | t1shi13 >>> 7)\n    const t2shi12 = (t1shi13 << 25 | t1slo13 >>> 7)\n    const t2slo3 = (t1slo18 << 21 | t1shi18 >>> 11)\n    const t2shi3 = (t1shi18 << 21 | t1slo18 >>> 11)\n    const t2slo19 = (t1shi23 << 24 | t1slo23 >>> 8)\n    const t2shi19 = (t1slo23 << 24 | t1shi23 >>> 8)\n    const t2slo15 = (t1slo4 << 27 | t1shi4 >>> 5)\n    const t2shi15 = (t1shi4 << 27 | t1slo4 >>> 5)\n    const t2slo6 = (t1slo9 << 20 | t1shi9 >>> 12)\n    const t2shi6 = (t1shi9 << 20 | t1slo9 >>> 12)\n    const t2slo22 = (t1shi14 << 7 | t1slo14 >>> 25)\n    const t2shi22 = (t1slo14 << 7 | t1shi14 >>> 25)\n    const t2slo13 = (t1slo19 << 8 | t1shi19 >>> 24)\n    const t2shi13 = (t1shi19 << 8 | t1slo19 >>> 24)\n    const t2slo4 = (t1slo24 << 14 | t1shi24 >>> 18)\n    const t2shi4 = (t1shi24 << 14 | t1slo24 >>> 18)\n\n    // chi\n    s[0] = t2slo0 ^ (~t2slo1 & t2slo2)\n    s[1] = t2shi0 ^ (~t2shi1 & t2shi2)\n    s[10] = t2slo5 ^ (~t2slo6 & t2slo7)\n    s[11] = t2shi5 ^ (~t2shi6 & t2shi7)\n    s[20] = t2slo10 ^ (~t2slo11 & t2slo12)\n    s[21] = t2shi10 ^ (~t2shi11 & t2shi12)\n    s[30] = t2slo15 ^ (~t2slo16 & t2slo17)\n    s[31] = t2shi15 ^ (~t2shi16 & t2shi17)\n    s[40] = t2slo20 ^ (~t2slo21 & t2slo22)\n    s[41] = t2shi20 ^ (~t2shi21 & t2shi22)\n    s[2] = t2slo1 ^ (~t2slo2 & t2slo3)\n    s[3] = t2shi1 ^ (~t2shi2 & t2shi3)\n    s[12] = t2slo6 ^ (~t2slo7 & t2slo8)\n    s[13] = t2shi6 ^ (~t2shi7 & t2shi8)\n    s[22] = t2slo11 ^ (~t2slo12 & t2slo13)\n    s[23] = t2shi11 ^ (~t2shi12 & t2shi13)\n    s[32] = t2slo16 ^ (~t2slo17 & t2slo18)\n    s[33] = t2shi16 ^ (~t2shi17 & t2shi18)\n    s[42] = t2slo21 ^ (~t2slo22 & t2slo23)\n    s[43] = t2shi21 ^ (~t2shi22 & t2shi23)\n    s[4] = t2slo2 ^ (~t2slo3 & t2slo4)\n    s[5] = t2shi2 ^ (~t2shi3 & t2shi4)\n    s[14] = t2slo7 ^ (~t2slo8 & t2slo9)\n    s[15] = t2shi7 ^ (~t2shi8 & t2shi9)\n    s[24] = t2slo12 ^ (~t2slo13 & t2slo14)\n    s[25] = t2shi12 ^ (~t2shi13 & t2shi14)\n    s[34] = t2slo17 ^ (~t2slo18 & t2slo19)\n    s[35] = t2shi17 ^ (~t2shi18 & t2shi19)\n    s[44] = t2slo22 ^ (~t2slo23 & t2slo24)\n    s[45] = t2shi22 ^ (~t2shi23 & t2shi24)\n    s[6] = t2slo3 ^ (~t2slo4 & t2slo0)\n    s[7] = t2shi3 ^ (~t2shi4 & t2shi0)\n    s[16] = t2slo8 ^ (~t2slo9 & t2slo5)\n    s[17] = t2shi8 ^ (~t2shi9 & t2shi5)\n    s[26] = t2slo13 ^ (~t2slo14 & t2slo10)\n    s[27] = t2shi13 ^ (~t2shi14 & t2shi10)\n    s[36] = t2slo18 ^ (~t2slo19 & t2slo15)\n    s[37] = t2shi18 ^ (~t2shi19 & t2shi15)\n    s[46] = t2slo23 ^ (~t2slo24 & t2slo20)\n    s[47] = t2shi23 ^ (~t2shi24 & t2shi20)\n    s[8] = t2slo4 ^ (~t2slo0 & t2slo1)\n    s[9] = t2shi4 ^ (~t2shi0 & t2shi1)\n    s[18] = t2slo9 ^ (~t2slo5 & t2slo6)\n    s[19] = t2shi9 ^ (~t2shi5 & t2shi6)\n    s[28] = t2slo14 ^ (~t2slo10 & t2slo11)\n    s[29] = t2shi14 ^ (~t2shi10 & t2shi11)\n    s[38] = t2slo19 ^ (~t2slo15 & t2slo16)\n    s[39] = t2shi19 ^ (~t2shi15 & t2shi16)\n    s[48] = t2slo24 ^ (~t2slo20 & t2slo21)\n    s[49] = t2shi24 ^ (~t2shi20 & t2shi21)\n\n    // iota\n    s[0] ^= P1600_ROUND_CONSTANTS[round * 2]\n    s[1] ^= P1600_ROUND_CONSTANTS[round * 2 + 1]\n  }\n}\n\n\n//# sourceURL=webpack:///./node_modules/keccak/lib/keccak-state-unroll.js?");
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
 
 /***/ }),
 
-/***/ "./node_modules/keccak/lib/keccak.js":
-/*!*******************************************!*\
-  !*** ./node_modules/keccak/lib/keccak.js ***!
-  \*******************************************/
+/***/ 1:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-eval("/* WEBPACK VAR INJECTION */(function(Buffer) {const keccakState = __webpack_require__(/*! ./keccak-state-unroll */ \"./node_modules/keccak/lib/keccak-state-unroll.js\")\n\nfunction Keccak () {\n  // much faster than `new Array(50)`\n  this.state = [\n    0, 0, 0, 0, 0,\n    0, 0, 0, 0, 0,\n    0, 0, 0, 0, 0,\n    0, 0, 0, 0, 0,\n    0, 0, 0, 0, 0\n  ]\n\n  this.blockSize = null\n  this.count = 0\n  this.squeezing = false\n}\n\nKeccak.prototype.initialize = function (rate, capacity) {\n  for (let i = 0; i < 50; ++i) this.state[i] = 0\n  this.blockSize = rate / 8\n  this.count = 0\n  this.squeezing = false\n}\n\nKeccak.prototype.absorb = function (data) {\n  for (let i = 0; i < data.length; ++i) {\n    this.state[~~(this.count / 4)] ^= data[i] << (8 * (this.count % 4))\n    this.count += 1\n    if (this.count === this.blockSize) {\n      keccakState.p1600(this.state)\n      this.count = 0\n    }\n  }\n}\n\nKeccak.prototype.absorbLastFewBits = function (bits) {\n  this.state[~~(this.count / 4)] ^= bits << (8 * (this.count % 4))\n  if ((bits & 0x80) !== 0 && this.count === (this.blockSize - 1)) keccakState.p1600(this.state)\n  this.state[~~((this.blockSize - 1) / 4)] ^= 0x80 << (8 * ((this.blockSize - 1) % 4))\n  keccakState.p1600(this.state)\n  this.count = 0\n  this.squeezing = true\n}\n\nKeccak.prototype.squeeze = function (length) {\n  if (!this.squeezing) this.absorbLastFewBits(0x01)\n\n  const output = Buffer.alloc(length)\n  for (let i = 0; i < length; ++i) {\n    output[i] = (this.state[~~(this.count / 4)] >>> (8 * (this.count % 4))) & 0xff\n    this.count += 1\n    if (this.count === this.blockSize) {\n      keccakState.p1600(this.state)\n      this.count = 0\n    }\n  }\n\n  return output\n}\n\nKeccak.prototype.copy = function (dest) {\n  for (let i = 0; i < 50; ++i) dest.state[i] = this.state[i]\n  dest.blockSize = this.blockSize\n  dest.count = this.count\n  dest.squeezing = this.squeezing\n}\n\nmodule.exports = Keccak\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node-libs-browser/node_modules/buffer/index.js */ \"./node_modules/node-libs-browser/node_modules/buffer/index.js\").Buffer))\n\n//# sourceURL=webpack:///./node_modules/keccak/lib/keccak.js?");
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
+
+/***/ }),
+
+/***/ 2:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
+
+/***/ }),
+
+/***/ 3:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
 
 /***/ })
 
