@@ -44,7 +44,7 @@ const showQrCode = function (keyValuePair, sizeMultiplier) {
       qrcode.make();
       const newSizeMultiplier = sizeMultiplier_.calculateFinalSizeMultiplier(sizeMultiplier, qrcode.getModuleCount());
       const parent = document.getElementById(key);
-      parent.innerHTML = "";
+      parent.textContent = "";
       for (const { render, available } of renderers) {
         if (available) {
           parent.appendChild(render(qrcode, newSizeMultiplier));

@@ -9,6 +9,7 @@ module.exports = (async function () {
       this.defaultMode = 0;
     }
 
+    // TODO: generate HTML Elements instead code HTML code
     templateArtisticHtml(i, mode) {
       const keyelement = "btcprivwif";
       const coinImgUrl = this.getCoinImageUrl();

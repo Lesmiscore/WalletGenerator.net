@@ -28,7 +28,7 @@ const translate = function (culture) {
       if (document.getElementById(id) && document.getElementById(id).value) {
         document.getElementById(id).value = dict[id];
       } else if (document.getElementById(id)) {
-        document.getElementById(id).innerHTML = dict[id];
+        document.getElementById(id).textContent = dict[id];
       }
     }
     return true;
@@ -79,4 +79,5 @@ module.exports = {
   get,
   staticID,
   translations,
+  __esModule: true,
 };

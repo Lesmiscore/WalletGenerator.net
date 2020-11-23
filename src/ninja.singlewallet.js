@@ -3,7 +3,7 @@ module.exports = (async function () {
   const qrCode = await import("./ninja.qrcode");
 
   const open = function () {
-    if (!document.getElementById("btcaddress").innerHTML) {
+    if (!document.getElementById("btcaddress").textContent) {
       generateNewAddressAndKey();
     }
     document.getElementById("walletCommands").style.display = "block";
@@ -25,8 +25,8 @@ module.exports = (async function () {
       const key = privateKey.makeRandom();
       const bitcoinAddress = privateKey.getAddressWith(key, publicMode);
       const privateKeyWif = privateKey.getWIFForAddress(key, publicMode);
-      document.getElementById("btcaddress").innerHTML = bitcoinAddress;
-      document.getElementById("btcprivwif").innerHTML = privateKeyWif;
+      document.getElementById("btcaddress").textContent = bitcoinAddress;
+      document.getElementById("btcprivwif").textContent = privateKeyWif;
       const keyValuePair = {
         qrcode_public: bitcoinAddress,
         qrcode_private: privateKeyWif,
@@ -37,10 +37,10 @@ module.exports = (async function () {
       // browser does not have sufficient JavaScript support to generate a bitcoin address
       alert(e);
       console.error(e);
-      document.getElementById("btcaddress").innerHTML = "error";
-      document.getElementById("btcprivwif").innerHTML = "error";
-      document.getElementById("qrcode_public").innerHTML = "";
-      document.getElementById("qrcode_private").innerHTML = "";
+      document.getElementById("btcaddress").textContent = "error";
+      document.getElementById("btcprivwif").textContent = "error";
+      document.getElementById("qrcode_public").textContent = "";
+      document.getElementById("qrcode_private").textContent = "";
       return { address: null, wif: null };
     }
   };

@@ -30,14 +30,14 @@ module.exports = (async function () {
     showError: function (error) {
       if (error) {
         if (error === "PERMISSION_DENIED" || error === "PermissionDeniedError") {
-          document.getElementById("paperqrerror").innerHTML = "";
+          document.getElementById("paperqrerror").textContent = "";
           document.getElementById("paperqrpermissiondenied").className = "";
         } else {
-          document.getElementById("paperqrerror").innerHTML = error;
+          document.getElementById("paperqrerror").textContent = error;
           document.getElementById("paperqrpermissiondenied").className = "hide";
         }
       } else {
-        document.getElementById("paperqrerror").innerHTML = "";
+        document.getElementById("paperqrerror").textContent = "";
         document.getElementById("paperqrpermissiondenied").className = "hide";
       }
     },
@@ -145,8 +145,8 @@ module.exports = (async function () {
   const populateKeyDetails = function (btcKey) {
     if (janin.selectedCurrency.havePrivateKey(btcKey)) {
       const privKeyBuffer = janin.selectedCurrency.getPrivateKeyBuffer(btcKey);
-      document.getElementById("detailprivhex").innerHTML = privKeyBuffer.toString("hex").toUpperCase();
-      document.getElementById("detailprivb64").innerHTML = privKeyBuffer.toString("base64");
+      document.getElementById("detailprivhex").textContent = privKeyBuffer.toString("hex").toUpperCase();
+      document.getElementById("detailprivb64").textContent = privKeyBuffer.toString("base64");
 
       const privTitles = janin.selectedCurrency.getWIFTitleNames();
       const privQrParams = {};
@@ -155,7 +155,7 @@ module.exports = (async function () {
           const stripped = privTitles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
           const address = janin.selectedCurrency.getWIFByType(btcKey, +i);
           privQrParams[`detailqrcode${stripped}`] = address;
-          document.getElementById(`detailaddress${stripped}`).innerHTML = address;
+          document.getElementById(`detailaddress${stripped}`).textContent = address;
         }
       }
 
@@ -164,8 +164,8 @@ module.exports = (async function () {
     const pubKeyCompressed = janin.selectedCurrency.getPublicKey(btcKey, true);
     const pubKeyUncompressed = janin.selectedCurrency.getPublicKey(btcKey, false);
 
-    document.getElementById("detailpubkey").innerHTML = pubKeyUncompressed.toString("hex").toUpperCase();
-    document.getElementById("detailpubkeycomp").innerHTML = pubKeyCompressed.toString("hex").toUpperCase();
+    document.getElementById("detailpubkey").textContent = pubKeyUncompressed.toString("hex").toUpperCase();
+    document.getElementById("detailpubkeycomp").textContent = pubKeyCompressed.toString("hex").toUpperCase();
 
     const addrTitles = janin.selectedCurrency.getAddressTitleNames();
     const addrQrParams = {};
@@ -174,7 +174,7 @@ module.exports = (async function () {
         const stripped = addrTitles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
         const address = janin.selectedCurrency.getAddressWith(btcKey, +i);
         addrQrParams[`detailqrcode${stripped}`] = address;
-        document.getElementById(`detailaddress${stripped}`).innerHTML = address;
+        document.getElementById(`detailaddress${stripped}`).textContent = address;
       }
     }
 
@@ -182,13 +182,13 @@ module.exports = (async function () {
   };
 
   const clear = function () {
-    document.getElementById("detailpubkey").innerHTML = "";
-    document.getElementById("detailpubkeycomp").innerHTML = "";
-    document.getElementById("detailprivhex").innerHTML = "";
-    document.getElementById("detailprivb64").innerHTML = "";
-    document.getElementById("detailprivb6").innerHTML = "";
-    document.getElementById("detailprivmini").innerHTML = "";
-    document.getElementById("detailprivbip38").innerHTML = "";
+    document.getElementById("detailpubkey").textContent = "";
+    document.getElementById("detailpubkeycomp").textContent = "";
+    document.getElementById("detailprivhex").textContent = "";
+    document.getElementById("detailprivb64").textContent = "";
+    document.getElementById("detailprivb6").textContent = "";
+    document.getElementById("detailprivmini").textContent = "";
+    document.getElementById("detailprivbip38").textContent = "";
     document.getElementById("detailb6").style.display = "none";
     document.getElementById("detailmini").style.display = "none";
     document.getElementById("detailbip38commands").style.display = "none";
@@ -198,8 +198,8 @@ module.exports = (async function () {
     for (let i in titles) {
       if ({}.hasOwnProperty.call(titles, i)) {
         const stripped = titles[i].toLowerCase().replace(/[^a-z0-9]/g, "");
-        document.getElementById(`detailqrcode${stripped}`).innerHTML = "";
-        document.getElementById(`detailaddress${stripped}`).innerHTML = "";
+        document.getElementById(`detailqrcode${stripped}`).textContent = "";
+        document.getElementById(`detailaddress${stripped}`).textContent = "";
       }
     }
   };

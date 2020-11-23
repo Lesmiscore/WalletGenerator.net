@@ -133,8 +133,8 @@ module.exports = (async function () {
       .replace(/"/g, '\\"');
   }
 
-  envSecurityCheck();
-  browserSecurityCheck();
+  await envSecurityCheck();
+  await browserSecurityCheck();
 
   (await import("./ninja.singlewallet.js")).open();
 })();

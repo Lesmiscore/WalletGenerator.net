@@ -8,7 +8,7 @@ module.exports = (async function () {
   const open = function () {
     document.getElementById("brainarea").style.display = "block";
     document.getElementById("brainpassphrase").focus();
-    document.getElementById("brainwarning").innerHTML = translator.get("brainalertpassphrasewarning");
+    document.getElementById("brainwarning").textContent = translator.get("brainalertpassphrasewarning");
   };
 
   const close = function () {
@@ -19,7 +19,7 @@ module.exports = (async function () {
   const minPassphraseLength = 15;
 
   const view = function () {
-    document.getElementById("brainerror").innerHTML = "";
+    document.getElementById("brainerror").textContent = "";
 
     const key = document
       .getElementById("brainpassphrase")
@@ -39,19 +39,19 @@ module.exports = (async function () {
         const btcKey = privateKey.create(bigi.fromBuffer(bytes), null);
         const bitcoinAddress = privateKey.getAddressWith(btcKey, publicMode);
         const privWif = privateKey.getWIFForAddress(btcKey, publicMode);
-        document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
-        document.getElementById("brainbtcprivwif").innerHTML = privWif;
+        document.getElementById("brainbtcaddress").textContent = bitcoinAddress;
+        document.getElementById("brainbtcprivwif").textContent = privWif;
         qrCode.showQrCode({
           brainqrcodepublic: bitcoinAddress,
           brainqrcodeprivate: privWif,
         });
         document.getElementById("brainkeyarea").style.visibility = "visible";
       } else {
-        document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasetooshort");
+        document.getElementById("brainerror").textContent = translator.get("brainalertpassphrasetooshort");
         clear();
       }
     } else {
-      document.getElementById("brainerror").innerHTML = translator.get("brainalertpassphrasedoesnotmatch");
+      document.getElementById("brainerror").textContent = translator.get("brainalertpassphrasedoesnotmatch");
       clear();
     }
   };

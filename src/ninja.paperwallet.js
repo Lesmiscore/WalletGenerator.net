@@ -20,7 +20,7 @@ module.exports = (async function () {
 
     pageBreakAt = pageBreakAtArtisticDefault;
 
-    if (!document.getElementById("paperkeyarea").innerHTML) {
+    if (!document.getElementById("paperkeyarea").textContent) {
       document.getElementById("paperpassphrase").disabled = true;
       document.getElementById("paperencrypt").checked = false;
       encrypt = false;
@@ -39,7 +39,7 @@ module.exports = (async function () {
     remaining = numWallets;
     batchComplete = _batchComplete;
     count = 0;
-    document.getElementById("paperkeyarea").innerHTML = "";
+    document.getElementById("paperkeyarea").textContent = "";
     if (encrypt) {
       if (!passphrase) {
         alert(translator.get("bip38alertpassphraserequired"));
@@ -64,19 +64,20 @@ module.exports = (async function () {
       const div = document.createElement("div");
       div.setAttribute("id", "keyarea" + i);
 
+      // TODO: remove innerHTML access here
       div.innerHTML = templateArtisticHtml(i);
       div.setAttribute("class", "keyarea art");
 
-      if (paperArea.innerHTML) {
+      if (paperArea.textContent) {
         // page break
         if ((i - 1) % pageBreakAt === 0 && i >= pageBreakAt) {
           const pBreak = document.createElement("div");
           pBreak.setAttribute("class", "pagebreak");
-          document.getElementById("paperkeyarea").appendChild(pBreak);
+          paperArea.appendChild(pBreak);
           div.style.pageBreakBefore = "always";
         }
       }
-      document.getElementById("paperkeyarea").appendChild(div);
+      paperArea.appendChild(div);
       generateNewWallet(i);
       remaining--;
       setTimeout(batch, 0);
@@ -136,8 +137,8 @@ module.exports = (async function () {
     keyValuePair["qrcode_private" + idPostFix] = privKey;
     qrCode.showQrCode(keyValuePair, qrCode.sizeMultiplier.proportional(41, 2.8));
 
-    document.getElementById("btcaddress" + idPostFix).innerHTML = bitcoinAddress;
-    document.getElementById("btcprivwif" + idPostFix).innerHTML = privKey;
+    document.getElementById("btcaddress" + idPostFix).textContent = bitcoinAddress;
+    document.getElementById("btcprivwif" + idPostFix).textContent = privKey;
   };
 
   const toggleEncrypt = function (element) {

@@ -1,5 +1,6 @@
 module.exports = (async function () {
   const translator = await import("./ninja.translator.js");
+  const { createElement } = await import("./ninja.misc.js");
   const Doge = await import("./doge.js");
   const _ = await import("./lodash");
 
@@ -69,75 +70,90 @@ module.exports = (async function () {
     document.getElementById("suppliedPrivateKey").value = "";
 
     // make a table and dropdown from currency instance
-    let publicQrTable = "";
+    const publicAddressTable = document.getElementById("pubaddress");
+    publicAddressTable.textContent = "";
     let chunkId = 0;
-    for (let [first, second] of _.chunk(selectedCurrency.getAddressTitleNames(), 2)) {
-      publicQrTable += `<tr id="pubqr${chunkId}" class="pubqr">`;
+    for (const [first, second] of _.chunk(selectedCurrency.getAddressTitleNames(), 2)) {
       const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
-      publicQrTable += `
-<td class="item">
-  <span class="label" id="label${firstStripped}">${first}</span>
-  <div id="detailqrcode${firstStripped}" class="qrcode_public left"></div>
-  <span class="output" id="detailaddress${firstStripped}"></span>
-</td>
-`;
-      if (second) {
-        const secondStripped = second.toLowerCase().replace(/[^a-z0-9]/g, "");
-        publicQrTable += `
-<td class="item right">
-  <span class="label" id="label${secondStripped}">${second}</span>
-  <div id="detailqrcode${secondStripped}" class="qrcode_public right"></div>
-  <span class="output" id="detailaddress${secondStripped}"></span>
-</td>
-`;
-      }
-      publicQrTable += "</tr>";
+      const secondStripped = second && second.toLowerCase().replace(/[^a-z0-9]/g, "");
+      publicAddressTable.appendChild(
+        createElement(
+          "tr",
+          {
+            id: `pubqr${chunkId}`,
+            class: "pubqr",
+          },
+          [
+            createElement("td", { class: "item" }, [
+              createElement("span", { class: "label", id: `label${firstStripped}` }, first),
+              createElement("div", { class: "qrcode_public left", id: `detailqrcode${firstStripped}` }),
+              createElement("span", { class: "output", id: `detailaddress${firstStripped}` }),
+            ]),
+            second &&
+              createElement("td", { class: "item right" }, [
+                createElement("span", { class: "label", id: `label${secondStripped}` }, second),
+                createElement("div", { class: "qrcode_public right", id: `detailqrcode${secondStripped}` }),
+                createElement("span", { class: "output", id: `detailaddress${secondStripped}` }),
+              ]),
+          ]
+        )
+      );
       chunkId++;
     }
-    document.getElementById("pubaddress").innerHTML = publicQrTable;
 
-    let privateQrTable = "";
+    const privateAddressTable = document.getElementById("privaddress");
+    privateAddressTable.textContent = "";
     chunkId = 0;
-    for (let [first, second] of _.chunk(selectedCurrency.getWIFTitleNames(), 2)) {
-      privateQrTable += `<tr id="privqr${chunkId}" class="privqr">`;
+    for (const [first, second] of _.chunk(selectedCurrency.getWIFTitleNames(), 2)) {
       const firstStripped = first.toLowerCase().replace(/[^a-z0-9]/g, "");
-      privateQrTable += `
-<td class="item">
-  <span class="label" id="label${firstStripped}">${first}</span>
-  <div id="detailqrcode${firstStripped}" class="qrcode_private left"></div>
-  <span class="output" id="detailaddress${firstStripped}"></span>
-</td>
-`;
-      if (second) {
-        const secondStripped = second.toLowerCase().replace(/[^a-z0-9]/g, "");
-        privateQrTable += `
-<td class="item right">
-  <span class="label" id="label${secondStripped}">${second}</span>
-  <div id="detailqrcode${secondStripped}" class="qrcode_private right"></div>
-  <span class="output" id="detailaddress${secondStripped}"></span>
-</td>
-`;
-      }
-      privateQrTable += "</tr>";
+      const secondStripped = second && second.toLowerCase().replace(/[^a-z0-9]/g, "");
+      privateAddressTable.appendChild(
+        createElement(
+          "tr",
+          {
+            id: `privqr${chunkId}`,
+            class: "privqr",
+          },
+          [
+            createElement("td", { class: "item" }, [
+              createElement("span", { class: "label", id: `label${firstStripped}` }, first),
+              createElement("div", { class: "qrcode_private left", id: `detailqrcode${firstStripped}` }),
+              createElement("span", { class: "output", id: `detailaddress${firstStripped}` }),
+            ]),
+            second &&
+              createElement("td", { class: "item right" }, [
+                createElement("span", { class: "label", id: `label${secondStripped}` }, second),
+                createElement("div", { class: "qrcode_private right", id: `detailqrcode${secondStripped}` }),
+                createElement("span", { class: "output", id: `detailaddress${secondStripped}` }),
+              ]),
+          ]
+        )
+      );
       chunkId++;
     }
-    document.getElementById("privaddress").innerHTML = privateQrTable;
 
     const formatNames = selectedCurrency.getAddressFormatNames();
-    let addrTypeDropdown = "";
-    for (let i in formatNames) {
-      if ({}.hasOwnProperty.call(formatNames, i)) {
-        if (+i === coinDefaultMode) {
-          addrTypeDropdown += `<option value="${i}" selected>${formatNames[i]}</option>`;
-        } else {
-          addrTypeDropdown += `<option value="${i}">${formatNames[i]}</option>`;
-        }
+    const addrTypeDropdowns = [
+      document.getElementById("addresstype"),
+      document.getElementById("singleaddresstype"),
+      document.getElementById("bulkaddresstype"),
+      document.getElementById("brainaddresstype"),
+    ];
+    for (const i in formatNames) {
+      // eslint-disable-line guard-for-in
+      for (const elem of addrTypeDropdowns) {
+        elem.appendChild(
+          createElement(
+            "option",
+            {
+              value: `${i}`,
+              selected: +i === coinDefaultMode ? "selected" : undefined,
+            },
+            formatNames[i]
+          )
+        );
       }
     }
-    document.getElementById("addresstype").innerHTML = addrTypeDropdown;
-    document.getElementById("singleaddresstype").innerHTML = addrTypeDropdown;
-    document.getElementById("bulkaddresstype").innerHTML = addrTypeDropdown;
-    document.getElementById("brainaddresstype").innerHTML = addrTypeDropdown;
 
     // show banner to ask for help
     const unsureFlag = selectedCurrency.isUnsure();

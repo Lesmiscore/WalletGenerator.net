@@ -1,5 +1,3 @@
-const translator = require("./ninja.translator.js");
-
 const tabSwitch = async function (walletTab) {
   if (walletTab.className.indexOf("selected") === -1) {
     // unselect all tabs
@@ -22,29 +20,55 @@ const tabSwitch = async function (walletTab) {
   }
 };
 
-const envSecurityCheck = function () {
-  let innerHTML = "";
+const envSecurityCheck = async function () {
+  const translator = await import("./ninja.translator.js");
+  let innerElement = createElement("div", {});
   switch (window.location.protocol) {
     case "http:":
     case "https:":
-      innerHTML = '<span style="color: #990000;">' + translator.get("securitychecklistofflineNOK") + "</span>";
+      innerElement = createElement(
+        "span",
+        {
+          style: "color: #990000;",
+        },
+        translator.get("securitychecklistofflineNOK")
+      );
       break;
     case "file:":
-      innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistofflineOK") + "</span>";
+      innerElement = createElement(
+        "span",
+        {
+          style: "color: #009900;",
+        },
+        translator.get("securitychecklistofflineOK")
+      );
       break;
     default:
   }
-  document.getElementById("envSecurityCheck").innerHTML = innerHTML;
+  document.getElementById("envSecurityCheck").appendChild(innerElement);
 };
 
-const browserSecurityCheck = function () {
-  let innerHTML = "";
-  if (window.crypto && window.crypto.getRandomValues) {
-    innerHTML = '<span style="color: #009900;">' + translator.get("securitychecklistrandomOK") + "</span>";
+const browserSecurityCheck = async function () {
+  const translator = await import("./ninja.translator.js");
+  let innerElement;
+  if (typeof window?.crypto?.getRandomValues === "function") {
+    innerElement = createElement(
+      "span",
+      {
+        style: "color: #009900;",
+      },
+      translator.get("securitychecklistrandomOK")
+    );
   } else {
-    innerHTML = '<span style="color: #990000;">' + translator.get("securitychecklistrandomNOK") + "</span>";
+    innerElement = createElement(
+      "span",
+      {
+        style: "color: #990000;",
+      },
+      translator.get("securitychecklistrandomNOK")
+    );
   }
-  document.getElementById("browserSecurityCheck").innerHTML = innerHTML;
+  document.getElementById("browserSecurityCheck").appendChild(innerElement);
 };
 
 const getQueryString = function () {
@@ -88,12 +112,18 @@ const createElement = function (n, v, content) {
       el.setAttribute(p, v[p]);
     }
   }
-  if (Array.isArray(content)) {
-    for (const c of content) {
+  if (content !== undefined) {
+    if (!Array.isArray(content)) {
+      content = [content];
+    }
+    for (let c of content) {
+      if (!c) {
+        continue;
+      } else if (typeof c === "string") {
+        c = document.createTextNode(c);
+      }
       el.appendChild(c);
     }
-  } else if (content) {
-    el.textContent = content;
   }
   return el;
 };
