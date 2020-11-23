@@ -68,10 +68,11 @@ module.exports = (async function () {
   document.getElementById("supportedcurrenciescounter").textContent = j.toString() + " ";
   // populate donate list
   document.getElementById("donateqrcode").style.display = "none";
-  const donateList = document.getElementById("donateqrcode");
+  const donateList = document.getElementById("donatelist");
   const donateTable = document.createElement("table");
   for (i = 0; i < janin.currencies.length; i++) {
     if (!janin.currencies[i].donate) continue;
+    console.log(janin.currencies[i]);
     const donateLink = createElement("tr", { id: "currencydonatelink" + i }, [
       createElement("td", { class: "currencyNameColumn" }, janin.currencies[i].name),
       createElement("td", { class: "address" }, [createElement("a", { href: janin.currencies[i].name.toLowerCase() + ":" + janin.currencies[i].donate }, janin.currencies[i].donate)]),

@@ -139,6 +139,9 @@ module.exports = (async function () {
       document.getElementById("bulkaddresstype"),
       document.getElementById("brainaddresstype"),
     ];
+    for (const elem of addrTypeDropdowns) {
+      elem.textContent = "";
+    }
     for (const i in formatNames) {
       // eslint-disable-line guard-for-in
       for (const elem of addrTypeDropdowns) {
