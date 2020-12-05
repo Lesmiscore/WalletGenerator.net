@@ -94,7 +94,7 @@
     "css-loader": "5.0.1",
     "eslint": "7.15.0",
     "file-loader": "6.2.0",
-    "husky": "4.3.0",
+    "husky": "4.3.4",
     "lint-staged": "10.5.3",
     "mocha": "8.2.1",
     "modernizr": "3.11.4",
