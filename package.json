@@ -26,7 +26,9 @@
     "standalone": "node ./util/standalone.js",
     "start": "npm run browser",
     "test": "mocha tests/ --no-timeout",
-    "wpack": "webpack"
+    "wpack": "webpack",
+    "madge": "madge",
+    "check-req": "madge --circular ./src/init.js"
   },
   "husky": {
     "hooks": {
@@ -94,8 +96,9 @@
     "css-loader": "5.0.1",
     "eslint": "7.16.0",
     "file-loader": "6.2.0",
-    "husky": "5.0.6",
+    "husky": "^5.0.6",
     "lint-staged": "10.5.3",
+    "madge": "^3.12.0",
     "mocha": "8.2.1",
     "modernizr": "3.11.4",
     "node-dir": "0.1.17",
@@ -111,5 +114,12 @@
     "webpack-cli": "4.2.0"
   },
   "originalAuthor": "MichaelMure",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "madge": {
+    "detectiveOptions": {
+      "es6": {
+        "mixedImports": true
+      }
+    }
+  }
 }
