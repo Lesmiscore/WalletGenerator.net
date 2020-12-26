@@ -61,7 +61,7 @@
     "@nao20010128nao/void-http": "^1.7.0",
     "@nao20010128nao/void-xhr": "^1.0.1",
     "base58": "^2.0.1",
-    "bchaddrjs": "^0.4.0",
+    "bchaddrjs": "^0.5.0",
     "bignumber.js": "^9.0.0",
     "bip38": "^3.0.0",
     "bitgo-utxo-lib": "^1.8.0",
