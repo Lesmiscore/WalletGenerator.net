@@ -28,7 +28,7 @@ jobs:
             libpangocairo-1.0-0 libx11-6 libx11-xcb1 libxcb-dri3-0 libxcb1 libxcomposite1 libxcursor1 \
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 wget xdg-utils
     - name: Fix ssh errors
-      run: find . -type f -print0 | xargs -0 sed -i 's%https://github.com/%https://github.com/%'
+      run: find . -type f -print0 | xargs -0 sed -i 's%ssh://git@github.com/%https://github.com/%'
       continue-on-error: true
     - name: Set up libraries
       run: npm ci
