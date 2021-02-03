@@ -13,13 +13,14 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: "14.4.0"
+        node-version: 14
+    - name: Fix ssh errors
+      run: find . -o -type f -print0 | xargs -0 sed -i 's%https://github.com/%https://github.com/%'
+      continue-on-error: true
     - name: Set up libraries
-      run: |
-        npm ci
+      run: npm ci
     - name: Build website
-      run: |
-        npm run public
+      run: npm run public
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
@@ -33,10 +34,12 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: "14.4.0"
+        node-version: 14
+    - name: Fix ssh errors
+      run: find . -o -type f -print0 | xargs -0 sed -i 's%https://github.com/%https://github.com/%'
+      continue-on-error: true
     - name: Set up libraries
-      run: |
-        npm ci
+      run: npm ci
     - name: Build website
       continue-on-error: true
       run: |
