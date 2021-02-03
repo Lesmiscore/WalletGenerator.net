@@ -18,7 +18,7 @@
   "scripts": {
     "browser": "npm run public ; browser-sync start --config ./bs-config.js",
     "init": "npm i",
-    "postinstall": "node ./util/postinstall.js",
+    "postinstall": "node ./util/postinstall.js && husky install",
     "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
     "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
     "public": "node ./util/build.js",
@@ -28,13 +28,12 @@
     "test": "mocha tests/ --no-timeout",
     "wpack": "webpack",
     "madge": "madge",
-    "check-req": "madge --circular ./src/init.js"
+    "check-req": "madge --circular ./src/init.js",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable",
+    "lint-staged": "lint-staged"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+  "private": false,
   "lint-staged": {
     "*.js": [
       "prettier --print-width 200 --write",
@@ -104,6 +103,7 @@
     "modernizr": "3.11.4",
     "node-dir": "0.1.17",
     "node-libs-browser": "2.2.1",
+    "pinst": "^2.1.4",
     "prettier": "2.2.1",
     "puppeteer": "6.0.0",
     "style-loader": "2.0.0",
