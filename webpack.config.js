@@ -5,7 +5,7 @@ const packageJson = require("./package.json");
 
 module.exports = {
   entry: "./src/init.js",
-  mode: "development",
+  mode: "production",
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "main.js",
