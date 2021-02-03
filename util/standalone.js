@@ -16,12 +16,12 @@ const writeFile = util.promisify(fs.writeFile);
       .on("exit", (code) => (code === 0 ? resolve() : reject(code)));
   });
 
-  // equivalent to "webpack --config webpack.config.browsertest.js"
+  // equivalent to "webpack --config webpack.config.singlefile.js"
   // https://webpack.js.org/api/node/
   /**
    * @type {webpack.Stats}
    */
-  const webpackResult = await util.promisify(webpack)(require("../webpack.config.singlescript.js"));
+  const webpackResult = await util.promisify(webpack)(require("../webpack.config.singlefile.js"));
   console.log(webpackResult.toString({ colors: true }));
   if (webpackResult.hasErrors()) {
     throw webpackResult.toJson().errors.join("\n");
