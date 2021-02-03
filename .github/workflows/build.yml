@@ -27,7 +27,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
         FOLDER: public
-  singlefile:
+  standalone:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -45,4 +45,9 @@ jobs:
       run: |
         node ./util/postinstall.js
         node ./util/gen.js
-        NODE_OPTIONS=--max-old-space-size=7000 npm run wpack -- --config webpack.config.singlefile.js
+        NODE_OPTIONS=--max-old-space-size=7000 npm run standalone
+    - name: Upload built HTML
+      uses: actions/upload-artifact@v2
+      with:
+        name: standalone
+        path: public/standalone.html
