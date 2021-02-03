@@ -112,7 +112,7 @@
     "stylus-supremacy": "2.15.0",
     "url-loader": "4.1.1",
     "webpack": "4.44.2",
-    "webpack-cli": "4.4.0"
+    "webpack-cli": "4.5.0"
   },
   "originalAuthor": "MichaelMure",
   "readmeFilename": "README.md",
