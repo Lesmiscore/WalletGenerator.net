@@ -143,9 +143,9 @@ module.exports = (async function () {
       elem.textContent = "";
     }
     for (const i in formatNames) {
-      // eslint-disable-line guard-for-in
-      for (const elem of addrTypeDropdowns) {
-        try {
+      if ({}.hasOwnProperty.call(formatNames, i)) {
+        // eslint-disable-line guard-for-in
+        for (const elem of addrTypeDropdowns) {
           elem.appendChild(
             createElement(
               "option",
@@ -156,9 +156,6 @@ module.exports = (async function () {
               formatNames[i]
             )
           );
-        } catch (e) {
-          console.log(formatNames);
-          throw e;
         }
       }
     }
