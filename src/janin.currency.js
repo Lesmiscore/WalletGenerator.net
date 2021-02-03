@@ -157,7 +157,7 @@ module.exports = (async function () {
             )
           );
         } catch (e) {
-          console.log(formatNames[i]);
+          console.log(formatNames);
           throw e;
         }
       }
