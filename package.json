@@ -103,7 +103,7 @@
     "modernizr": "3.11.4",
     "node-dir": "0.1.17",
     "node-libs-browser": "2.2.1",
-    "pinst": "^2.1.4",
+    "pinst": "2.1.4",
     "prettier": "2.2.1",
     "puppeteer": "6.0.0",
     "style-loader": "2.0.0",
