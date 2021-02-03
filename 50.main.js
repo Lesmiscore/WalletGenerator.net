@@ -38,5 +38,37 @@ eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
 
 eval("/* (ignored) */\n\n//# sourceURL=webpack:///util_(ignored)?");
 
+/***/ }),
+/* 4 */,
+/* 5 */,
+/* 6 */
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///crypto_(ignored)?");
+
+/***/ }),
+/* 7 */
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
+/***/ }),
+/* 8 */
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/* (ignored) */\n\n//# sourceURL=webpack:///buffer_(ignored)?");
+
 /***/ })
 ]]);
