@@ -145,16 +145,21 @@ module.exports = (async function () {
     for (const i in formatNames) {
       // eslint-disable-line guard-for-in
       for (const elem of addrTypeDropdowns) {
-        elem.appendChild(
-          createElement(
-            "option",
-            {
-              value: `${i}`,
-              selected: +i === coinDefaultMode ? "selected" : undefined,
-            },
-            formatNames[i]
-          )
-        );
+        try {
+          elem.appendChild(
+            createElement(
+              "option",
+              {
+                value: `${i}`,
+                selected: +i === coinDefaultMode ? "selected" : undefined,
+              },
+              formatNames[i]
+            )
+          );
+        } catch (e) {
+          console.log(formatNames[i]);
+          throw e;
+        }
       }
     }
 

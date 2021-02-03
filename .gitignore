@@ -9,6 +9,7 @@ sitemap.xml
 /.idea
 /node_modules
 *.swp
+.husky/
 
 index.html
 exported.js

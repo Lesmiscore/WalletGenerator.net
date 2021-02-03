@@ -122,5 +122,10 @@
         "mixedImports": true
       }
     }
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-optional-chaining"
+    ]
   }
 }

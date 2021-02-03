@@ -1,6 +1,7 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const packageJson = require("./package.json");
 
 module.exports = {
   entry: "./src/init.js",
@@ -16,9 +17,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            plugins: ["@babel/plugin-proposal-optional-chaining"],
-          },
+          options: packageJson.babel,
         },
       },
       { test: /\.styl$/, loaders: ["style-loader", "css-loader", "stylus-loader"], exclude: /node_modules/ },
