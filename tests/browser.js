@@ -5,10 +5,10 @@ const browserSync = require("browser-sync");
 const webpack = require("webpack");
 const fs = require("fs");
 const util = require("util");
-const { fork } = require("child_process");
+const { fork, spawn } = require("child_process");
 
 describe("browser", function () {
-  let browser, page, bs;
+  let browser, page, bs, recorder;
   const events = new EventEmitter();
   // this replaces old "npm run" based scripts
   before(async function () {
@@ -43,9 +43,35 @@ describe("browser", function () {
       })
     );
 
+    console.log("starting encoder");
+    try {
+      await util.promisify(fs.unlink)("record.mp4");
+    } catch (e) {}
+    try {
+      recorder = spawn(
+        "ffmpeg",
+        ["-f", "image2pipe", "-framerate", "1", "-vcodec", "png", "-i", "-", "-vcodec", "libx264", "-vf", "format=yuv420p", "-r", "30", "-movflags", "+faststart", "record.mp4"],
+        {
+          stdio: ["pipe", "inherit", "inherit"],
+        }
+      );
+    } catch (e) {}
+
     console.log("launching browser");
     browser = await puppeteer.launch({ args: ["--no-sandbox"] });
     page = await browser.newPage();
+
+    if (recorder) {
+      const client = page._client;
+      await client.send("Page.startScreencast", {
+        format: "png",
+      });
+      client.on("Page.screencastFrame", ({ data, sessionId }) => {
+        data = Buffer.from(data, "base64");
+        recorder.stdin.write(data);
+        client.send("Page.screencastFrameAck", { sessionId }).catch(() => {});
+      });
+    }
 
     await page.exposeFunction("reportTestStatus", (status, name, additional) => {
       events.emit(status, name, additional);
@@ -79,12 +105,18 @@ describe("browser", function () {
     });
   });
   after(async function () {
-    console.log("closing browser and server");
+    console.log("closing browser and server and recorder");
     if (browser) {
       await browser.close();
     }
     if (bs) {
       bs.exit();
+    }
+    if (recorder) {
+      recorder.stdin.end();
+      recorder.stdin.once("finish", () => {
+        setTimeout(() => recorder.kill("SIGINT"), 100);
+      });
     }
   });
 });
