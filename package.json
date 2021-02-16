@@ -18,7 +18,6 @@
   "scripts": {
     "browser": "npm run public ; browser-sync start --config ./bs-config.js",
     "init": "npm i",
-    "prepare": "if [ \"$CI\" != \"\" ] ; then npm run fix-blake2b ; fi",
     "postinstall": "node ./util/postinstall.js && husky install",
     "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
     "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",

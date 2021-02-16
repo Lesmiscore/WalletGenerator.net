@@ -1,4 +1,4 @@
-name: Deploy repository to CDNs
+name: Deploy repository to Netlify
 
 on:
   push:
@@ -23,6 +23,7 @@ jobs:
         run: npm install netlify-cli -g
       - name: Build and deploy
         run: |
+          npm run fix-blake2b
           npm install
           netlify build
           netlify deploy --prod
