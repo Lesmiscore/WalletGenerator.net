@@ -114,8 +114,13 @@ describe("browser", function () {
     }
     if (recorder) {
       recorder.stdin.end();
-      recorder.stdin.once("finish", () => {
-        setTimeout(() => recorder.kill("SIGINT"), 100);
+      await new Promise((resolve) => {
+        recorder.stdin.once("finish", () => {
+          setTimeout(() => {
+            recorder.kill("SIGINT");
+            resolve();
+          }, 100);
+        });
       });
     }
   });
