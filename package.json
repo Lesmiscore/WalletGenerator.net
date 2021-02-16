@@ -31,7 +31,9 @@
     "check-req": "madge --circular ./src/init.js",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "fix-blake2b": "find . -type f -print0 | xargs -0 sed -i 's%ssh://git@github.com/%https://github.com/%'",
+    "vercel-build": "npm run fix-blake2b && npm run public"
   },
   "private": false,
   "lint-staged": {

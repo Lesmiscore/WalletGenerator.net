@@ -17,3 +17,5 @@ src/exported.js
 public/
 test-public/
 record.mp4
+
+.vercel
