@@ -18,6 +18,7 @@
   "scripts": {
     "browser": "npm run public ; browser-sync start --config ./bs-config.js",
     "init": "npm i",
+    "prepare": "if [ \"$CI\" != \"\" ] ; then npm run fix-blake2b ; fi",
     "postinstall": "node ./util/postinstall.js && husky install",
     "lint": "cd src ; find . ../tests/          -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs eslint",
     "pret": "cd src ; find . ../tests/ ../util/ -type f -name '*.js' ! -name jsqrcode.js ! -path './autogen/*' | xargs prettier --print-width 200 --write",
@@ -33,7 +34,7 @@
     "postpublish": "pinst --enable",
     "lint-staged": "lint-staged",
     "fix-blake2b": "find . -type f -print0 | xargs -0 sed -i 's%ssh://git@github.com/%https://github.com/%'",
-    "vercel-init": "npm run fix-blake2b && npm run init && npm run postinstall",
+    "vercel-init": "npm run init && npm run postinstall",
     "vercel-public": "npm run public && ( yum install -y zip || true ) && zip -9r website.zip public/ && mv website.zip public/"
   },
   "private": false,

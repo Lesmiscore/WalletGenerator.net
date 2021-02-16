@@ -15,7 +15,7 @@ jobs:
       with:
         node-version: 14
     - name: Fix ssh errors
-      run: find . -type f -print0 | xargs -0 sed -i 's%ssh://git@github.com/%https://github.com/%'
+      run: npm run fix-blake2b
       continue-on-error: true
     - name: Set up libraries
       run: npm ci
