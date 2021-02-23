@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.1",
-    "@babel/eslint-parser": "7.13.0",
+    "@babel/eslint-parser": "7.13.4",
     "@babel/plugin-proposal-optional-chaining": "7.13.0",
     "@babel/register": "7.13.0",
     "acorn": "8.0.5",
