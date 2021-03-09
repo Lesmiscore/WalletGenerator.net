@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { Parser } = require("acorn");
 const walk = require("acorn-walk");
-const OPC = require("acorn-optional-chaining");
+const OPC = require("@nao20010128nao/acorn-optional-chaining");
 
 walk.base.OptionalMemberExpression = (node, st, c) => {
   if (node.object) c(node.object, st);
