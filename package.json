@@ -82,10 +82,10 @@
     "wif": "^2.0.6"
   },
   "devDependencies": {
-    "@babel/core": "7.13.13",
-    "@babel/eslint-parser": "7.13.10",
+    "@babel/core": "7.13.14",
+    "@babel/eslint-parser": "7.13.14",
     "@babel/plugin-proposal-optional-chaining": "7.13.12",
-    "@babel/register": "7.13.8",
+    "@babel/register": "7.13.14",
     "@nao20010128nao/acorn-optional-chaining": "0.0.5",
     "acorn": "8.1.0",
     "acorn-walk": "8.0.2",
