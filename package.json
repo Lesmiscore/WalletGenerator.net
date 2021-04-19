@@ -67,7 +67,7 @@
     "bignumber.js": "^9.0.0",
     "bip38": "^3.0.0",
     "bitgo-utxo-lib": "^1.8.0",
-    "bn.js": "^5.0.0",
+    "bn.js": "^5.2.0",
     "browserify-aes": "^1.2.0",
     "convert-hex": "^0.1.0",
     "convert-string": "^0.1.0",
