@@ -108,7 +108,7 @@
     "pinst": "2.1.6",
     "prettier": "2.3.2",
     "puppeteer": "10.0.0",
-    "style-loader": "2.0.0",
+    "style-loader": "3.0.0",
     "stylus": "0.54.8",
     "stylus-loader": "4.3.3",
     "stylus-supremacy": "2.15.0",
