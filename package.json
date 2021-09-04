@@ -109,7 +109,7 @@
     "prettier": "2.3.2",
     "puppeteer": "10.2.0",
     "style-loader": "2.0.0",
-    "stylus": "0.54.8",
+    "stylus": "0.55.0",
     "stylus-loader": "4.3.3",
     "stylus-supremacy": "2.15.0",
     "url-loader": "4.1.1",
