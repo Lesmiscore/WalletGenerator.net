@@ -88,7 +88,7 @@
     "@babel/register": "7.15.3",
     "@nao20010128nao/acorn-optional-chaining": "0.0.5",
     "acorn": "8.5.0",
-    "acorn-walk": "8.1.1",
+    "acorn-walk": "8.2.0",
     "assert": "2.0.0",
     "axios": "0.21.3",
     "babel-loader": "8.2.2",
