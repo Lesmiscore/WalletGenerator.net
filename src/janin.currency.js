@@ -201,7 +201,7 @@ module.exports = (async function () {
     new Bitcoin("Biblepay", 0x19, 0xb6, "BDvP86n4oVsLnFh1tCRXWLgBPK6ZtKrJQa"),
     new Bitcoin("Birdcoin", 0x2f, 0xaf, "L97vGT4wRnyyiugHpLXzZzjqueN8YWRdRJ"),
     new Bitcoin("Bitcoin", 0x00, 0x80, "15DHZzv7eBUwss77qczZiL3DUEZLjDYhbM", 0x05, "bc"),
-    new Bitcoin("BitcoinCandy", 111, 239, ""),
+    new Bitcoin("BitcoinCandy", 0x6f, 0xef, ""),
     new BitcoinCash("BitcoinCash", 0x00, 0x80, "15DHZzv7eBUwss77qczZiL3DUEZLjDYhbM").withDefaultMode("CashAddress (Compressed)"),
     new Bitcoin("BitcoinDark", 0x3c, 0xbc, "RWtY5fg9ZQ9tYaPd7WJLgsdae1m1ZfrVRe"),
     new Bitcoin("BitcoinGold", 0x26, 0x80, "GYjahzU24Am88oZco6oFtpNzgwJTp9S4eB"),
