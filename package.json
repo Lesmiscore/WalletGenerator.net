@@ -107,7 +107,7 @@
     "node-libs-browser": "2.2.1",
     "pinst": "2.1.6",
     "prettier": "2.4.1",
-    "puppeteer": "10.4.0",
+    "puppeteer": "11.0.0",
     "style-loader": "2.0.0",
     "stylus": "0.55.0",
     "stylus-loader": "4.3.3",
