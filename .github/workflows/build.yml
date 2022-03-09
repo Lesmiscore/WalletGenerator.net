@@ -47,7 +47,7 @@ jobs:
         node ./util/gen.js
         NODE_OPTIONS=--max-old-space-size=7000 npm run standalone
     - name: Upload built HTML
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: standalone
         path: public/standalone.html
