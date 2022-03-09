@@ -37,13 +37,13 @@ jobs:
       run: npm test
     - name: Upload recorded video
       continue-on-error: true
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: record-browser
         path: record.mp4
     - name: Upload logs
       if: ${{ failure() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: npm-logs
         path: /home/runner/.npm/_logs/
