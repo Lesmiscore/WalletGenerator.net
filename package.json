@@ -101,7 +101,7 @@
     "husky": "7.0.4",
     "lint-staged": "12.3.5",
     "madge": "5.0.1",
-    "mocha": "9.2.0",
+    "mocha": "9.2.1",
     "modernizr": "3.12.0",
     "node-dir": "0.1.17",
     "node-libs-browser": "2.2.1",
