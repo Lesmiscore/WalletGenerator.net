@@ -87,7 +87,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.18.9",
     "@babel/register": "7.18.9",
     "@nao20010128nao/acorn-optional-chaining": "0.0.5",
-    "acorn": "8.8.0",
+    "acorn": "8.8.1",
     "acorn-walk": "8.2.0",
     "assert": "2.0.0",
     "axios": "0.27.2",
