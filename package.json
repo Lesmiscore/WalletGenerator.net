@@ -100,7 +100,7 @@
     "file-loader": "6.2.0",
     "husky": "8.0.3",
     "lint-staged": "13.1.0",
-    "madge": "5.0.2",
+    "madge": "6.0.0",
     "mocha": "10.2.0",
     "modernizr": "3.12.0",
     "node-dir": "0.1.17",
