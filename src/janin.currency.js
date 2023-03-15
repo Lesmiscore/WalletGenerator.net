@@ -364,6 +364,7 @@ module.exports = (async function () {
     new Bitcoin("Rupaya", 0x3c, 0xbc, "RENYagTnHvczPgFYaAhfVqh9y6B1yaMaij"),
     new Bitcoin("Sambacoin", 0x3e, 0xbe, "SJdiAgazqtum79HzGbNDxi879NzSDjtH5P"),
     new Bitcoin("SanDeGo", 0x3f, 0x80, ""), // WIF UNKNOWN
+    new Bitcoin("Satoxcoin", 0x3f, 0x70, "SQ5iQMsmqZiYY96rTx5Hisd7sx5GiGUbbN"),
     new Bitcoin("SecKCoin", 0x3f, 0xbf, "Se1aaa5T1HRpMEfyBPGswVUgTQoZUst9jA"),
     new Bitcoin("SELN", 0x3f, 0x4b, ""),
     new Bitcoin("SibCoin", 0x3f, 0x80, "SY7GAzvFVS8bUA89e7hosPMxqMS482ecsp"),
