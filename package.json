@@ -82,7 +82,7 @@
     "wif": "^2.0.6"
   },
   "devDependencies": {
-    "@babel/core": "7.21.8",
+    "@babel/core": "7.22.1",
     "@babel/eslint-parser": "7.21.8",
     "@babel/plugin-proposal-optional-chaining": "7.21.0",
     "@babel/register": "7.21.0",
