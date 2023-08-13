@@ -99,7 +99,7 @@
     "eslint": "8.42.0",
     "file-loader": "6.2.0",
     "husky": "8.0.3",
-    "lint-staged": "13.2.2",
+    "lint-staged": "13.3.0",
     "madge": "6.1.0",
     "mocha": "10.2.0",
     "modernizr": "3.12.0",
