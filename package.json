@@ -93,7 +93,7 @@
     "axios": "0.27.2",
     "babel-loader": "8.3.0",
     "browser-sync": "2.29.3",
-    "cheerio": "1.0.0-rc.12",
+    "cheerio": "1.2.0",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "5.2.7",
     "eslint": "8.42.0",
